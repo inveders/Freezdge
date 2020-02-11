@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- 1 | Main Activity RootView -->
-<RelativeLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:theme="@style/ToolBarStyle"
-        />
+        app:theme="@style/ToolBarStyle" />
+
 
     <!-- FrameLayout for our fragments -->
     <FrameLayout
@@ -22,25 +22,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/activity_main_bottom_navigation"
-        android:layout_below="@+id/activity_main_toolbar"/>
+        android:layout_below="@+id/activity_main_toolbar">
 
-    <!-- Viewpager for our fragments -->
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/viewpager_fragment"
-        android:layout_above="@id/activity_main_bottom_navigation"
-        android:layout_below="@+id/activity_main_toolbar"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!-- Viewpager for our fragments -->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/activity_main_bottom_navigation"
+                android:layout_below="@+id/activity_main_toolbar" />
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/activity_main_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+        android:background="@color/colorPrimaryDark"
         app:itemIconTint="@drawable/bottom_navigation_color"
         app:itemTextColor="@drawable/bottom_navigation_color"
-        app:menu="@menu/bottom_navigation_menu"
-        android:layout_alignParentBottom="true" />
+        app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>
