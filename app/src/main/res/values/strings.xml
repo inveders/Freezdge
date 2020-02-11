@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Freezdge</string>
+
+    <string name="menu_bottom_ingredient_at_home">Ingredients</string>
+    <string name="menu_bottom_favourites">Favourites</string>
+    <string name="menu_bottom_my_recipes">Recipes</string>
+
+    <string name="menu_grocery_list">Grocery List</string>
+    <string name="menu_logout">Logout</string>
+
 </resources>

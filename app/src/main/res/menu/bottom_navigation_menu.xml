@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_menu_ingredients_at_home"
+        android:enabled="true"
+        android:icon="@drawable/menu_drawer_ingredients_list_icon"
+        android:title="@string/menu_bottom_ingredient_at_home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/bottom_menu_my_favourites"
+        android:enabled="true"
+        android:icon="@drawable/menu_bottom_favourite_list_icon"
+        android:title="@string/menu_bottom_favourites"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/bottom_menu_recipes"
+        android:enabled="true"
+        android:icon="@drawable/menu_bottom_recipes_list_icon"
+        android:title="@string/menu_bottom_my_recipes"
+        app:showAsAction="ifRoom" />
+</menu>

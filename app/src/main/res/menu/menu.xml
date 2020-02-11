@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".controller.activity.RestaurantActivity">
+
+    <item
+        android:id="@+id/menu_grocery_list"
+        android:icon="@drawable/menu_drawer_grocery_list_icon"
+        android:title="@string/menu_grocery_list"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/menu_logout_icon"
+        android:title="@string/menu_logout"
+        app:showAsAction="ifRoom" />
+
+
+</menu>
