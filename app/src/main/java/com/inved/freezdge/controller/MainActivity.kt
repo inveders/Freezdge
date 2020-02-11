@@ -1,4 +1,4 @@
-package com.inved.freezdge.controller.activities
+package com.inved.freezdge.controller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

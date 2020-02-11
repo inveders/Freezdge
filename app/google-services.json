@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "378189841605",
+    "firebase_url": "https://freezdge.firebaseio.com",
+    "project_id": "freezdge",
+    "storage_bucket": "freezdge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378189841605:android:4247359f44d20252915cac",
+        "android_client_info": {
+          "package_name": "com.inved.freezdge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378189841605-asddb0sriksbaajqcfgl3ci6ctkkeeoh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inved.freezdge",
+            "certificate_hash": "66c25197271f0d6b1a8db63daf78dc6a0307a3b7"
+          }
+        },
+        {
+          "client_id": "378189841605-jsacvud35u0tlhdjkniocim9agq6hakf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoDXpaofB0kFpLi50mrAjFXb7XUBVKTtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378189841605-jsacvud35u0tlhdjkniocim9agq6hakf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
