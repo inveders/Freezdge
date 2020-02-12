@@ -1,4 +1,4 @@
-package com.inved.freezdge.controller.firebase
+package com.inved.freezdge.firebase
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
