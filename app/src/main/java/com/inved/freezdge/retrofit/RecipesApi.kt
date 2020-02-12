@@ -1,16 +1,18 @@
 package com.inved.freezdge.retrofit
 
-import com.inved.freezdge.model.recipes.Recipe
-import com.squareup.okhttp.Call
+import com.inved.freezdge.model.recipes.Results
 import retrofit2.http.GET
+import retrofit2.http.Query
+import retrofit2.Call
+
 
 interface RecipesApi {
 
-    @GET("search") /**A MODIFIER*/
+    @GET("search")
     fun getRecipes(
-      /*  @Query("location") location: String?,
-        @Query("rankby") distance: String?,
-        @Query("type") type: String?,
-        @Query("key") api_key: String?
-   */ ): Call<Recipe>?
+        @Query("q") q: String?,
+        @Query("app_id") distance: String?,
+        @Query("app_key") type: String?
+
+    ):Call<List<Results>>
 }

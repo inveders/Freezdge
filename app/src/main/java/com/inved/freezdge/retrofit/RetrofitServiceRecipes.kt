@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitServiceRecipes {
 
     companion object {
-        private val baseUrl = "https://api.edamam.com/"
+        private const val baseUrl = "https://api.edamam.com/"
 
 
         fun getRecipesApi(): RecipesApi {
