@@ -23,7 +23,7 @@
             android:name="edanam.app_key"
             android:value="@string/APP_KEY" />
 
-        <activity android:name=".controller.MainActivity">
+        <activity android:name=".controller.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

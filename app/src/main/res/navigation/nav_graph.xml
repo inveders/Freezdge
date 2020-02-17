@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/my_recipes_fragment">
+
+    <fragment android:id="@+id/my_ingredients_list_fragment"
+        android:name="com.inved.freezdge.controller.fragment.AllRecipesFragment"
+        android:label="fragment_sample"
+        tools:layout="@layout/my_ingredients_list_fragment">
+
+        <action
+        android:id="@+id/action_go_to_my_recipes"
+        app:destination="@id/my_recipes_fragment" />
+
+        <action
+            android:id="@+id/action_go_to_search"
+            app:destination="@id/search_ingredients_activity" />
+
+    </fragment>
+
+    <fragment android:id="@+id/my_recipes_fragment"
+        android:name="com.inved.freezdge.controller.fragment.AllRecipesFragment"
+        android:label="fragment_sample"
+        tools:layout="@layout/my_recipes_fragment">
+
+        <action
+            android:id="@+id/action_go_to_all_recipes"
+            app:destination="@id/all_recipes_fragment" />
+
+        <action
+            android:id="@+id/action_go_to_my_ingredients"
+            app:destination="@id/my_ingredients_list_fragment" />
+
+    </fragment>
+
+    <fragment android:id="@+id/all_recipes_fragment"
+        android:name="com.inved.freezdge.controller.fragment.AllRecipesFragment"
+        android:label="fragment_sample"
+        tools:layout="@layout/all_recipes_fragment">
+
+        <action
+            android:id="@+id/action_go_to_my_recipes"
+            app:destination="@id/my_recipes_fragment" />
+
+        <action
+            android:id="@+id/action_open_filter_dialog"
+            app:destination="@id/filter_dialog" />
+
+    </fragment>
+
+
+    <activity android:id="@+id/Main_Activity"
+        android:name="com.inved.freezdge.controller.activity.MainActivity"
+        android:label="Main activity"
+        tools:layout="@layout/activity_main">
+
+        <action
+            android:id="@+id/action_go_to_my_grocery"
+            app:destination="@id/my_grocery_list_activity" />
+
+    </activity>
+
+    <activity android:id="@+id/my_grocery_list_activity"
+        android:name="com.inved.freezdge.controller.activity.MyGroceryListActivity"
+        android:label="Grocery list"
+        tools:layout="@layout/my_grocery_list_activity">
+
+    </activity>
+
+    <activity android:id="@+id/search_ingredients_activity"
+        android:name="com.inved.freezdge.controller.activity.SearchIngredientsActivity"
+        android:label="Search Activity"
+        tools:layout="@layout/search_ingredients_activity">
+
+    </activity>
+
+
+    <dialog android:id="@+id/filter_dialog"
+        android:name="com.inved.freezdge.controller.dialog.FilterDialog"
+        android:label="Filter dialog"
+        tools:layout="@layout/filter_dialog">
+
+    </dialog>
+
+
+</navigation>
