@@ -8,4 +8,8 @@
     <string name="menu_grocery_list">Grocery List</string>
     <string name="menu_logout">Logout</string>
 
+    //Toolbar
+    <string name="toolbar_grocery_list">My grocery list</string>
+    <string name="toolbar_search_ingredients">Search Ingredients</string>
+
 </resources>

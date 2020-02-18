@@ -30,6 +30,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".controller.activity.MyGroceryListActivity">
+
+        </activity>
+
+        <activity android:name=".controller.activity.SearchIngredientsActivity">
+
+        </activity>
+
+        <activity android:name=".controller.activity.BaseActivity">
+
+        </activity>
     </application>
 
 </manifest>

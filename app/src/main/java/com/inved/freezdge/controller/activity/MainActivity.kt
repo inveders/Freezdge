@@ -1,28 +1,83 @@
 package com.inved.freezdge.controller.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inved.freezdge.R
 import com.inved.freezdge.model.RecipeModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var recipeModel:RecipeModel
+    val navController by lazy { findNavController(R.id.navHost) }
+    val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
+    private lateinit var toolbar:Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         initViewModel()
+        initToolbar(navController)
+        setUpNavigationBottom(navController)
+
+
     }
 
+    override fun getLayoutContentViewID(): Int {
+        return R.layout.activity_main
+    }
+
+    //INITIALIZATION
     fun initViewModel() {
         recipeModel = ViewModelProviders.of(this).get(RecipeModel::class.java)
         getAllRecipes("chicken")
 
     }
 
+    fun initToolbar(navController: NavController){
+
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.my_ingredients_list_fragment,
+                R.id.my_recipes_fragment,
+                R.id.all_recipes_fragment
+            )
+        )
+
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
+
+    }
+
+    private fun setUpNavigationBottom(navController: NavController) {
+
+        NavigationUI.setupWithNavController(bottomNavigationView,navController)
+        bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+    //DATA
     fun getAllRecipes(ingredients:String){
         recipeModel.getRecipes(ingredients)
     }

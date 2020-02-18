@@ -7,18 +7,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
     <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/activity_main_toolbar"
+    <include layout="@layout/toolbar" />
+
+
+    <fragment
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"
+        android:id="@+id/navHost"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/ToolBarStyle" />
+        android:layout_height="match_parent">
 
 
-    <!-- FrameLayout for our fragments -->
+    <!-- FrameLayout for our fragments
     <FrameLayout
         android:id="@+id/activity_main_frame_layout"
         android:layout_width="match_parent"
@@ -31,7 +33,7 @@
             android:layout_height="match_parent">
 
 
-            <!-- Viewpager for our fragments -->
+            Viewpager for our fragments
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_fragment"
                 android:layout_width="match_parent"
@@ -43,14 +45,9 @@
         </androidx.core.widget.NestedScrollView>
 
     </FrameLayout>
+    -->
 
-    <fragment
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    </fragment>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -63,5 +60,6 @@
         app:itemIconTint="@drawable/bottom_navigation_color"
         app:itemTextColor="@drawable/bottom_navigation_color"
         app:menu="@menu/bottom_navigation_menu" />
+
 
 </RelativeLayout>
