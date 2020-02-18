@@ -17,24 +17,26 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
-abstract class BaseFragment:Fragment() {
+abstract class BaseFragment : Fragment() {
 
     private val recipesItemAdapter = ItemAdapter<GenericItem>()
     private val fastAdapter = FastAdapter.with(recipesItemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var recyclerView :RecyclerView
+    lateinit var recyclerView: RecyclerView
 
     //Network call
     private lateinit var recipeModel: RecipeModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
 
-         val view = inflater.inflate(getLayoutRes(), container, false)
-         setupRecyclerView()
-         initViewModel()
+        val view = inflater.inflate(getLayoutRes(), container, false)
+        recyclerView=view.findViewById(R.id.recyclerViewAllRecipes)
+        initViewModel()
+        setupRecyclerView()
         return view
     }
 
@@ -47,20 +49,22 @@ abstract class BaseFragment:Fragment() {
     }
 
     private fun setupRecyclerView() {
-        recyclerView.findViewById<RecyclerView>(R.id.recyclerViewAllRecipes)
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapter
 
-
     }
 
     //DATA
-    fun getAllRecipes(ingredients:String){
-        recipeModel.getRecipes(ingredients).observe(this, Observer<List<Results>>{ t: List<Results>? ->
-            Log.d("debago","la première recette est : ${t?.get(0)?.hits?.get(0)?.recipe?.label}")
-            //recipesItemAdapter.add(t)
-        })
+    fun getAllRecipes(ingredients: String) {
+        recipeModel.getRecipes(ingredients)
+            .observe(this, Observer<List<Results>> { t: List<Results>? ->
+                Log.d(
+                    "debago",
+                    "la première recette est : ${t?.get(0)?.hits?.get(0)?.recipe?.label}"
+                )
+                //recipesItemAdapter.add(t)
+            })
 
     }
 
