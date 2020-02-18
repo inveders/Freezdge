@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.model.RecipeModel
+import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.model.recipes.Results
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -52,16 +53,17 @@ abstract class BaseFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapter
+        getAllRecipes("chicken")
 
     }
 
     //DATA
     fun getAllRecipes(ingredients: String) {
         recipeModel.getRecipes(ingredients)
-            .observe(this, Observer<List<Results>> { t: List<Results>? ->
+            .observe(this, Observer<List<Hit>> { t: List<Hit>? ->
                 Log.d(
                     "debago",
-                    "la première recette est : ${t?.get(0)?.hits?.get(0)?.recipe?.label}"
+                    "la première recette est : ${t?.size}"
                 )
                 //recipesItemAdapter.add(t)
             })

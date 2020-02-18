@@ -1,5 +1,6 @@
 package com.inved.freezdge.retrofit
 
+import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.model.recipes.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +15,5 @@ interface RecipesApi {
         @Query("app_id") distance: String?,
         @Query("app_key") type: String?
 
-    ):Call<List<Results>>
+    ):Call<List<Hit>>
 }

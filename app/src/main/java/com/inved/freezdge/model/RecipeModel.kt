@@ -11,7 +11,7 @@ class RecipeModel(application: Application):AndroidViewModel(application)  {
 
     private val recipesRepository = RecipesRepository()
 
-    fun getRecipes(ingredients:String):LiveData<List<Results>>{
+    fun getRecipes(ingredients:String):LiveData<List<Hit>>{
         return recipesRepository.getRecipesLiveData(ingredients)
     }
 }
