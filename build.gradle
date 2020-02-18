@@ -18,6 +18,11 @@ buildscript {
 }
 
 allprojects {
+    project.ext {
+        fastadapterVersion = "4.1.2"
+        androidX = "3.3.1"
+        excludeAppGlideModule = true
+    }
     repositories {
         google()
         jcenter()

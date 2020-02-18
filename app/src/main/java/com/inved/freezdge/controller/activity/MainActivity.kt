@@ -16,7 +16,7 @@ import com.inved.freezdge.model.RecipeModel
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var recipeModel:RecipeModel
+
     val navController by lazy { findNavController(R.id.navHost) }
     val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
     private lateinit var toolbar:Toolbar
@@ -25,7 +25,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initViewModel()
         initToolbar(navController)
         setUpNavigationBottom(navController)
 
@@ -37,11 +36,7 @@ class MainActivity : BaseActivity() {
     }
 
     //INITIALIZATION
-    fun initViewModel() {
-        recipeModel = ViewModelProviders.of(this).get(RecipeModel::class.java)
-        getAllRecipes("chicken")
 
-    }
 
     fun initToolbar(navController: NavController){
 
@@ -77,9 +72,6 @@ class MainActivity : BaseActivity() {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
-    //DATA
-    fun getAllRecipes(ingredients:String){
-        recipeModel.getRecipes(ingredients)
-    }
+
 
 }
