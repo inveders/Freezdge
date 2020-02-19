@@ -1,5 +1,6 @@
 package com.inved.freezdge.retrofit
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,21 +11,17 @@ class RetrofitServiceRecipes {
     companion object {
         private const val baseUrl = "https://api.edamam.com/"
 
+        private val client: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
 
-        fun getRecipesApi(): RecipesApi {
-            val client: OkHttpClient = OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build()
-
-            val retrofit = Retrofit.Builder()
+        val webservice by lazy {
+            Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .client(client)
-                .build()
-
-            return retrofit.create(RecipesApi::class.java)
+                .build().create(RecipesApi::class.java)
         }
-
 
     }
 

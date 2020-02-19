@@ -66,6 +66,8 @@ dependencies {
 
     // View Model
     implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
 
     //Navigation graph
     def nav_version = "2.3.0-alpha01"

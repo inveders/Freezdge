@@ -17,6 +17,7 @@ import com.inved.freezdge.model.recipes.Results
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.coroutines.Dispatchers
 
 abstract class BaseFragment : Fragment() {
 
@@ -60,15 +61,17 @@ abstract class BaseFragment : Fragment() {
     //DATA
     fun getAllRecipes(ingredients: String) {
         recipeModel.getRecipes(ingredients)
-            .observe(this, Observer<List<Hit>> { t: List<Hit>? ->
+            .observe(this, Observer{
                 Log.d(
                     "debago",
-                    "la première recette est : ${t?.size}"
+                    "la première recette est : ${it?.hits?.get(0)?.recipe?.label}"
                 )
                 //recipesItemAdapter.add(t)
             })
 
     }
+
+
 
 
 }
