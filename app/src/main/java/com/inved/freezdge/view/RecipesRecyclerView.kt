@@ -4,13 +4,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.inved.freezdge.R
-import com.inved.freezdge.model.recipes.Hit
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
-/**
-open class RecipesRecyclerView : AbstractItem<List<Hit>,RecipesRecyclerView.ViewHolder>() {
+open class RecipesRecyclerView : AbstractItem<RecipesRecyclerView.ViewHolder>() {
     var label: String? = null
     var preparationTime: String? = null
     var kcal: String? = null
@@ -29,16 +27,16 @@ open class RecipesRecyclerView : AbstractItem<List<Hit>,RecipesRecyclerView.View
         return ViewHolder(v)
     }
 
-    class ViewHolder(view: View) : FastAdapter.ViewHolder<List<Hit>>(view) {
+    class ViewHolder(view: View) : FastAdapter.ViewHolder<RecipesRecyclerView>(view) {
         var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
         var preparationTime: TextView = view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
         var kcal: TextView = view.findViewById(R.id.fragment_recipes_list_item_kcal)
         var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
 
-        override fun bindView(item: List<Hit>, payloads: MutableList<Any>, position:Int) {
-            label.text = item[position].recipe?.label
-            preparationTime.text = item[position].recipe?.totalTime.toString()
-            kcal.text = item[position].recipe?.calories.toString()
+        override fun bindView(item: RecipesRecyclerView, payloads: MutableList<Any>) {
+            label.text = item.label
+            preparationTime.text = item.preparationTime
+            kcal.text = item.imageUrl
           /*  item.category?.image?.let {
                 GlideApp.with(this)
                     .load(it)
@@ -47,7 +45,7 @@ open class RecipesRecyclerView : AbstractItem<List<Hit>,RecipesRecyclerView.View
            // imageItem.setImageURI() = item.kcal
         }
 
-        override fun unbindView(item: List<Hit>) {
+        override fun unbindView(item: RecipesRecyclerView) {
             label.text = null
             preparationTime.text = null
             kcal.text = null
@@ -56,4 +54,4 @@ open class RecipesRecyclerView : AbstractItem<List<Hit>,RecipesRecyclerView.View
 
 
     }
-}*/
+}

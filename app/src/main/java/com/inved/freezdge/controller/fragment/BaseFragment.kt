@@ -12,12 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.model.RecipeModel
-import com.inved.freezdge.model.recipes.Hit
-import com.inved.freezdge.model.recipes.Results
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import kotlinx.coroutines.Dispatchers
 
 abstract class BaseFragment : Fragment() {
 
@@ -66,11 +63,11 @@ abstract class BaseFragment : Fragment() {
                     "debago",
                     "la première recette est : ${it?.hits?.get(0)?.recipe?.label}"
                 )
-                //recipesItemAdapter.add(t)
+
+                //recipesItemAdapter.add(it)
             })
 
     }
-
 
 
 

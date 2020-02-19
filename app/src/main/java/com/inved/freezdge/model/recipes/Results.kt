@@ -2,6 +2,8 @@ package com.inved.freezdge.model.recipes
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.mikepenz.fastadapter.GenericItem
+import com.mikepenz.fastadapter.items.AbstractItem
 
 class Results {
     @SerializedName("q")
