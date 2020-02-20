@@ -1,11 +1,16 @@
 package com.inved.freezdge.model.recipes
 
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.mikepenz.fastadapter.GenericItem
+import com.inved.freezdge.R
+import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class Results {
+class Results : AbstractItem<Results.ViewHolder>(){
     @SerializedName("q")
     @Expose
     var q: String? = null
@@ -24,5 +29,61 @@ class Results {
     @SerializedName("hits")
     @Expose
     var hits: List<Hit>? = null
+
+    ///////////////////////////
+
+
+    /** defines the type defining this item. must be unique. preferably an id */
+    override val type: Int
+        get() = R.id.recipe_list_row_id
+
+    /** defines the layout which will be used for this item in the list  */
+    override val layoutRes: Int
+        get() = R.layout.item_recipes_list
+
+    override fun getViewHolder(v: View): ViewHolder {
+        return ViewHolder(v)
+    }
+
+
+
+    class ViewHolder(view: View) : FastAdapter.ViewHolder<Results>(view) {
+        var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
+        var preparationTime: TextView =
+            view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
+        var kcal: TextView = view.findViewById(R.id.fragment_recipes_list_item_kcal)
+        var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
+
+        override fun bindView(item: Results, payloads: MutableList<Any>) {
+
+            Log.d("debago","item bindvIEW")
+            for(i in item.hits!!.indices ){
+                Log.d("debago","item bindvIEW IN LOOP $i")
+                label.text = item.hits?.get(i)?.recipe?.label
+                preparationTime.text = item.hits?.get(i)?.recipe?.totalTime.toString()
+                kcal.text = item.hits?.get(i)?.recipe?.calories.toString()
+
+            }
+
+
+            
+
+            /*  item.category?.image?.let {
+                  GlideApp.with(this)
+                      .load(it)
+                      .into(imageItem)
+              }*/
+            // imageItem.setImageURI() = item.kcal
+        }
+
+        override fun unbindView(item: Results) {
+            label.text = null
+            preparationTime.text = null
+            kcal.text = null
+            imageItem.setImageDrawable(null)
+        }
+
+    }
+
 
 }

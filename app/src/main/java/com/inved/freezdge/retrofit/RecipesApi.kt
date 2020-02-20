@@ -13,5 +13,5 @@ interface RecipesApi {
         @Query("app_id") distance: String?,
         @Query("app_key") type: String?
 
-    ):Results
+    ): Results
 }

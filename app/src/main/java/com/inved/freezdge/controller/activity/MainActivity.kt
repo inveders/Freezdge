@@ -19,13 +19,11 @@ class MainActivity : BaseActivity() {
     val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
     private lateinit var toolbar:Toolbar
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initToolbar(navController)
         setUpNavigationBottom(navController)
-
 
     }
 

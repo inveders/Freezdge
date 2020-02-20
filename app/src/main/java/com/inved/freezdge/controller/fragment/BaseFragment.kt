@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.model.RecipeModel
+import com.inved.freezdge.model.recipes.Results
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -61,10 +62,10 @@ abstract class BaseFragment : Fragment() {
             .observe(this, Observer{
                 Log.d(
                     "debago",
-                    "la première recette est : ${it?.hits?.get(0)?.recipe?.label}"
+                    "la première recette est : ${it.hits?.get(0)?.recipe?.label}"
                 )
 
-                //recipesItemAdapter.add(it)
+                recipesItemAdapter.add(it)
             })
 
     }

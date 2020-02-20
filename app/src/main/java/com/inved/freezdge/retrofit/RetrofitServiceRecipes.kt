@@ -15,12 +15,13 @@ class RetrofitServiceRecipes {
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
 
-        val webservice by lazy {
+        val webservice:RecipesApi by lazy {
             Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .client(client)
-                .build().create(RecipesApi::class.java)
+                .build()
+                .create(RecipesApi::class.java)
         }
 
     }
