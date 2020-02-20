@@ -22,34 +22,6 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_above="@id/activity_main_bottom_navigation">
 
-
-    <!-- FrameLayout for our fragments
-    <FrameLayout
-        android:id="@+id/activity_main_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/activity_main_bottom_navigation"
-        android:layout_below="@+id/activity_main_toolbar">
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            Viewpager for our fragments
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/activity_main_bottom_navigation"
-                android:layout_below="@+id/activity_main_toolbar" />
-
-
-        </androidx.core.widget.NestedScrollView>
-
-    </FrameLayout>
-    -->
-
     </fragment>
 
     <!-- Bottom Navigation View -->
