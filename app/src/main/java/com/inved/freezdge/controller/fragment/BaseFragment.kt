@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.model.RecipeModel
+import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.model.recipes.Results
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -19,7 +20,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 
 abstract class BaseFragment : Fragment() {
 
-    private val recipesItemAdapter = ItemAdapter<GenericItem>()
+    private val recipesItemAdapter = ItemAdapter<Hit>()
     private val fastAdapter = FastAdapter.with(recipesItemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -34,7 +35,7 @@ abstract class BaseFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(getLayoutRes(), container, false)
-        recyclerView=view.findViewById(R.id.recyclerViewAllRecipes)
+        recyclerView = view.findViewById(R.id.recyclerViewAllRecipes)
         initViewModel()
         setupRecyclerView()
         return view
@@ -59,15 +60,12 @@ abstract class BaseFragment : Fragment() {
     //DATA
     fun getAllRecipes(ingredients: String) {
         recipeModel.getRecipes(ingredients)
-            .observe(this, Observer{
+            .observe(this, Observer { result ->
                 Log.d(
-                    "debago",
-                    "la première recette est : ${it.hits?.get(0)?.recipe?.label}"
+                    "tagii",
+                    "la première recette est : ${result.hits.size}"
                 )
-
-                recipesItemAdapter.add(it)
+                recipesItemAdapter.add(result.hits)
             })
-
     }
-
 }
