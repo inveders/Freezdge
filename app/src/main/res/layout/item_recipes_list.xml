@@ -61,6 +61,18 @@
                 app:layout_constraintTop_toTopOf="@id/fragment_recipes_list_item_preparation_time_text"
                 app:srcCompat="@drawable/ic_timer_black_24dp" />
 
+
+            <ImageView
+                android:id="@+id/fragment_recipe_list_favorite_selected_or_not"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/state_favorite"
+                android:scaleType="fitCenter"
+                app:layout_constraintRight_toRightOf="@id/fragment_recipes_list_item_preparation_time_text"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_recipes_list_item_kcal"
+                app:srcCompat="@drawable/ic_favorite_not_selected_24dp"/>
+
             <TextView
                 android:id="@+id/fragment_recipes_list_item_preparation_time_text"
                 android:layout_width="0dp"
