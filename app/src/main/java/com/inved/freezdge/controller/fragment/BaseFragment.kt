@@ -60,9 +60,9 @@ abstract class BaseFragment : Fragment() {
     //DATA
     fun getAllRecipes(ingredients: String) {
         recipeModel.getRecipes(ingredients)
-            .observe(this, Observer { result ->
+            .observe(viewLifecycleOwner, Observer { result ->
                 Log.d(
-                    "tagii",
+                    "debago",
                     "la première recette est : ${result.hits.size}"
                 )
                 recipesItemAdapter.add(result.hits)

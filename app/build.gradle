@@ -28,17 +28,25 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "APP_ID", APP_ID)
-            resValue("string", "APP_ID", APP_ID)
-            buildConfigField("String", "APP_KEY", APP_KEY)
-            resValue("string", "APP_KEY", APP_KEY)
+            buildConfigField("String", "APP_ID_RECIPES", APP_ID_RECIPES)
+            resValue("string", "APP_ID_RECIPES", APP_ID_RECIPES)
+            buildConfigField("String", "APP_KEY_RECIPES", APP_KEY_RECIPES)
+            resValue("string", "APP_KEY_RECIPES", APP_KEY_RECIPES)
+            buildConfigField("String", "APP_ID_FOOD", APP_ID_FOOD)
+            resValue("string", "APP_ID_FOOD", APP_ID_FOOD)
+            buildConfigField("String", "APP_KEY_FOOD", APP_KEY_FOOD)
+            resValue("string", "APP_KEY_FOOD", APP_KEY_FOOD)
         }
         debug {
             testCoverageEnabled true
-            buildConfigField("String", "APP_ID", APP_ID)
-            resValue("string", "APP_ID", APP_ID)
-            buildConfigField("String", "APP_KEY", APP_KEY)
-            resValue("string", "APP_KEY", APP_KEY)
+            buildConfigField("String", "APP_ID_RECIPES", APP_ID_RECIPES)
+            resValue("string", "APP_ID_RECIPES", APP_ID_RECIPES)
+            buildConfigField("String", "APP_KEY_RECIPES", APP_KEY_RECIPES)
+            resValue("string", "APP_KEY_RECIPES", APP_KEY_RECIPES)
+            buildConfigField("String", "APP_ID_FOOD", APP_ID_FOOD)
+            resValue("string", "APP_ID_FOOD", APP_ID_FOOD)
+            buildConfigField("String", "APP_KEY_FOOD", APP_KEY_FOOD)
+            resValue("string", "APP_KEY_FOOD", APP_KEY_FOOD)
             multiDexEnabled true
         }
     }

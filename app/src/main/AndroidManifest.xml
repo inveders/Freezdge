@@ -18,11 +18,19 @@
 
         <meta-data
         android:name="edanam.app_id"
-        android:value="@string/APP_ID" />
+        android:value="s@string/APP_ID_RECIPES" />
 
         <meta-data
             android:name="edanam.app_key"
-            android:value="@string/APP_KEY" />
+            android:value="@string/APP_KEY_RECIPES" />
+
+        <meta-data
+            android:name="edanam.app_id"
+            android:value="s@string/APP_ID_FOOD" />
+
+        <meta-data
+            android:name="edanam.app_key"
+            android:value="@string/APP_KEY_FOOD" />
 
         <activity android:name=".controller.activity.MainActivity">
             <intent-filter>

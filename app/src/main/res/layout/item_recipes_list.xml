@@ -38,7 +38,6 @@
                 android:background="@color/colorPrimary" />
 
 
-
             <TextView
                 android:id="@+id/fragment_recipes_list_item_label"
                 android:layout_width="wrap_content"
