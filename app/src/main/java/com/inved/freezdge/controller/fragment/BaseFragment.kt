@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.model.RecipeModel
 import com.inved.freezdge.model.recipes.Hit
-import com.inved.freezdge.model.recipes.Results
 import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+
+
+
 
 abstract class BaseFragment : Fragment() {
 
@@ -35,7 +36,7 @@ abstract class BaseFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(getLayoutRes(), container, false)
-        recyclerView = view.findViewById(R.id.recyclerViewAllRecipes)
+        recyclerView = view.findViewById(R.id.recyclerview)
         initViewModel()
         setupRecyclerView()
         return view
@@ -53,8 +54,37 @@ abstract class BaseFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapter
-        getAllRecipes("chicken")
+        detectWichFragmentIsOpen()
 
+    }
+
+    private fun detectWichFragmentIsOpen(){
+        when {
+            getForegroundFragment() is AllRecipesFragment -> run {
+                getAllRecipes("chicken")
+                Log.d(
+                    "debago",
+                    "I'm in All recipes fragment"
+                )
+            }
+            getForegroundFragment() is MyRecipesFragment -> run {
+                Log.d(
+                    "debago",
+                    "I'm in My favourites fragment"
+                )
+            }
+            getForegroundFragment() is MyIngredientsListFragment -> run {
+                Log.d(
+                    "debago",
+                    "I'm in My Ingredients fragment"
+                )
+            }
+        }
+    }
+
+    fun getForegroundFragment(): Fragment? {
+        val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHost)
+        return if (navHostFragment == null) null else navHostFragment!!.childFragmentManager.fragments[0]
     }
 
     //DATA
