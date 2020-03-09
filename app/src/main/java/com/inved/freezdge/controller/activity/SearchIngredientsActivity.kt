@@ -11,7 +11,7 @@ class SearchIngredientsActivity:BaseActivity() {
         super.onCreate(savedInstanceState)
 
         initToolbarBaseActivity(R.string.toolbar_search_ingredients)
-        getAllFood("apple")
+        getAllFood("chicken")
     }
 
     override fun getLayoutContentViewID(): Int {
@@ -27,7 +27,7 @@ class SearchIngredientsActivity:BaseActivity() {
             .observe(this, Observer { result ->
                 Log.d(
                     "debago",
-                    "le premier food est : ${result.parsed?.get(0)?.food?.label}"
+                    "le premier ingrédiebt est : ${result.parsed?.get(0)?.food?.label}"
                 )
                // recipesItemAdapter.add(result.hits)
             })
