@@ -16,7 +16,6 @@ class RecipesHelper {
             return FirebaseFirestore.getInstance().collection(COLLECTION_NAME)
         }
 
-
         // --- CREATE ---
 
         fun createIngredientsAtHome(ingredientAtHome:String){
@@ -26,6 +25,7 @@ class RecipesHelper {
                 getRecipesCollection().document(USER_UID).set(createIngredientAtHome)
             }
         }
+
 
         // --- GET ---
 
@@ -67,7 +67,6 @@ class RecipesHelper {
         }
 
     }
-
 
 
 }

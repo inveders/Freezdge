@@ -27,7 +27,7 @@ abstract class BaseFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var recyclerView: RecyclerView
 
-    //Network call
+    //Viewmodel
     private lateinit var recipeModel: RecipeModel
 
     override fun onCreateView(

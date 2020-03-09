@@ -12,7 +12,7 @@ class ResultsFood {
     var parsed: List<Parsed>? = null
     @SerializedName("hints")
     @Expose
-    var hints: List<Hint>? = null
+    var hints: List<Hint> = listOf()
     @SerializedName("_links")
     @Expose
     var links: Links? = null

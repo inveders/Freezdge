@@ -11,7 +11,8 @@ import com.inved.freezdge.model.RecipeModel
 abstract class BaseActivity:AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
-    //Network call
+
+    //Viewmodel
     lateinit var recipeModel: RecipeModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
