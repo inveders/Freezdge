@@ -8,7 +8,7 @@
     <fragment android:id="@+id/my_ingredients_list_fragment"
         android:name="com.inved.freezdge.controller.fragment.MyIngredientsListFragment"
         android:label="Freezdge"
-        tools:layout="@layout/my_ingredients_list_fragment">
+        tools:layout="@layout/fragment_my_ingredients_list">
 
         <action
         android:id="@+id/action_to_my_recipes_fragment"
@@ -31,7 +31,7 @@
     <fragment android:id="@+id/my_recipes_fragment"
         android:name="com.inved.freezdge.controller.fragment.MyRecipesFragment"
         android:label="Freezdge"
-        tools:layout="@layout/my_recipes_fragment">
+        tools:layout="@layout/fragment_my_recipes">
 
         <action
             android:id="@+id/action_to_all_recipes_fragment"
@@ -50,7 +50,7 @@
     <fragment android:id="@+id/all_recipes_fragment"
         android:name="com.inved.freezdge.controller.fragment.AllRecipesFragment"
         android:label="Freezdge"
-        tools:layout="@layout/all_recipes_fragment">
+        tools:layout="@layout/fragment_all_recipes">
 
         <action
             android:id="@+id/action_to_my_recipes_fragment"
@@ -73,14 +73,14 @@
     <activity android:id="@+id/my_grocery_list_activity"
         android:name="com.inved.freezdge.controller.activity.MyGroceryListActivity"
         android:label="Grocery list"
-        tools:layout="@layout/my_grocery_list_activity">
+        tools:layout="@layout/activity_my_grocery_list">
 
     </activity>
 
     <activity android:id="@+id/search_ingredients_activity"
         android:name="com.inved.freezdge.controller.activity.SearchIngredientsActivity"
         android:label="Search Activity"
-        tools:layout="@layout/search_ingredients_activity">
+        tools:layout="@layout/activity_search_ingredients">
 
     </activity>
 
@@ -88,7 +88,7 @@
     <dialog android:id="@+id/filter_dialog"
         android:name="com.inved.freezdge.controller.dialog.FilterDialog"
         android:label="Filter dialog"
-        tools:layout="@layout/filter_dialog">
+        tools:layout="@layout/dialog_filter">
 
     </dialog>
 

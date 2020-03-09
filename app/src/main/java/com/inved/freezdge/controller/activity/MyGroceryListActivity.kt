@@ -11,7 +11,7 @@ class MyGroceryListActivity:BaseActivity() {
     }
 
     override fun getLayoutContentViewID(): Int {
-        return R.layout.my_grocery_list_activity
+        return R.layout.activity_my_grocery_list
     }
 
     override fun onSupportNavigateUp() = true.also { onBackPressed() }

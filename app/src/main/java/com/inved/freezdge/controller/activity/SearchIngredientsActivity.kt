@@ -15,7 +15,7 @@ class SearchIngredientsActivity:BaseActivity() {
     }
 
     override fun getLayoutContentViewID(): Int {
-        return R.layout.search_ingredients_activity
+        return R.layout.activity_search_ingredients
     }
 
 

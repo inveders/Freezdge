@@ -5,7 +5,7 @@ import com.inved.freezdge.R
 class MyRecipesFragment: BaseFragment() {
 
     override fun getLayoutRes(): Int {
-        return R.layout.my_recipes_fragment
+        return R.layout.fragment_my_recipes
     }
 
 
