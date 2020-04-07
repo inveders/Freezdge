@@ -4,7 +4,7 @@ import android.view.View
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.inved.freezdge.R
-import com.inved.freezdge.view.ViewHolder
+import com.inved.freezdge.adapter.ViewHolder
 import com.mikepenz.fastadapter.items.AbstractItem
 
 class Hit : AbstractItem<ViewHolder>() {

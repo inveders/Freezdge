@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.inved.freezdge.R
-import com.inved.freezdge.view.ViewHolder
+import com.inved.freezdge.adapter.ViewHolder
 
 class WebviewActivity : AppCompatActivity(),ViewHolder.ItemClikInterface  {
 

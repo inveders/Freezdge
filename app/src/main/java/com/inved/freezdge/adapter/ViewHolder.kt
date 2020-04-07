@@ -1,4 +1,4 @@
-package com.inved.freezdge.view
+package com.inved.freezdge.adapter
 
 import android.content.Intent
 import android.util.Log
@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.inved.freezdge.R
-import com.inved.freezdge.controller.activity.SearchIngredientsActivity
 import com.inved.freezdge.controller.activity.WebviewActivity
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.utils.App
@@ -27,8 +26,6 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
     var cardView: CardView = view.findViewById(R.id.recipe_list_row_id)
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
-
-        Log.d("debago", "item bindvIEW")
 
         label.text = item.recipe?.label
         preparationTime.text = item.recipe?.totalTime.toString()

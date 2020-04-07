@@ -9,16 +9,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 class RecipesHelper {
 
     companion object {
-        private const val COLLECTION_NAME:String="recipes"
+        private const val COLLECTION_GENERAL:String="Freezdge"
         private val USER_UID:String?=FirebaseAuth.getInstance().currentUser?.uid
+        private const val COLLECTION_RECIPE:String="recipes"
 
         fun getRecipesCollection():CollectionReference{
-            return FirebaseFirestore.getInstance().collection(COLLECTION_NAME)
+            return FirebaseFirestore.getInstance().collection(COLLECTION_GENERAL)
         }
 
         // --- CREATE ---
 
-        fun createIngredientsAtHome(ingredientAtHome:String){
+      /*  fun createIngredientsAtHome(ingredientAtHome:String){
 
             val createIngredientAtHome=Recipes(ingredientAtHome,null,null,null)
             if (USER_UID != null) {
@@ -64,7 +65,7 @@ class RecipesHelper {
                 getRecipesCollection().document(USER_UID).update("groceryList",groceryList)
             }
             return null
-        }
+        }*/
 
     }
 

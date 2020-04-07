@@ -1,4 +1,4 @@
-package com.inved.freezdge.model
+package com.inved.freezdge.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
-import com.inved.freezdge.model.RecipeModel
+import com.inved.freezdge.viewmodel.RecipeModel
 import com.inved.freezdge.model.recipes.Hit
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -84,7 +84,7 @@ abstract class BaseFragment : Fragment() {
 
     fun getForegroundFragment(): Fragment? {
         val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHost)
-        return if (navHostFragment == null) null else navHostFragment!!.childFragmentManager.fragments[0]
+        return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
     }
 
     //DATA

@@ -14,7 +14,6 @@ import com.inved.freezdge.R
 
 class MainActivity : BaseActivity() {
 
-
     private val navController by lazy { findNavController(R.id.navHost) }
     private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
     private lateinit var toolbar:Toolbar

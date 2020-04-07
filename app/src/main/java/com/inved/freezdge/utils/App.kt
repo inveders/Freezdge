@@ -2,6 +2,8 @@ package com.inved.freezdge.utils
 
 import android.app.Application
 import android.content.Context
+import com.inved.freezdge.database.MyObjectBox
+import io.objectbox.BoxStore
 
 open class App:Application() {
 
@@ -21,6 +23,18 @@ open class App:Application() {
         super.onCreate()
         // initialize for any
         val context: Context = applicationContext()
+        ObjectBox.init(this)
+    }
+
+    object ObjectBox {
+        lateinit var boxStore: BoxStore
+            private set
+
+        fun init(context: Context) {
+            boxStore = MyObjectBox.builder()
+                .androidContext(context.applicationContext)
+                .build()
+        }
     }
 
 }

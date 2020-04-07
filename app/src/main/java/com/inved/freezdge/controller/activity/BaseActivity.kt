@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import com.inved.freezdge.R
-import com.inved.freezdge.model.RecipeModel
+import com.inved.freezdge.viewmodel.RecipeModel
 
 
 abstract class BaseActivity:AppCompatActivity() {

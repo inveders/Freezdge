@@ -1,6 +1,6 @@
 package com.inved.freezdge.firebase
 
-class Recipes(var ingredientsAtHome:String, var usedIngredients:String?,var choosenRecipes:String?, var groceryList:String?)
+class Recipes(var recipeLabel:String, var preparationTime:String?,var kcal:String?, var url:String?,var isFavourite:Boolean,var photoUrl:String?)
 
 
 /**

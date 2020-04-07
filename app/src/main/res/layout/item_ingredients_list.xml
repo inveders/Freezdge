@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="20dip">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/item_ingredients_list_image_favorite_selected_or_not_imageview"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -18,7 +18,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="@dimen/default_margin"
-        app:srcCompat="@drawable/ic_add_ingredient_selected_24dp"/>
+        app:srcCompat="@drawable/ic_add_ingredient_selected_24dp"
+        android:contentDescription="@string/description_image" />
 
 
     <TextView
@@ -27,12 +28,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
         android:text="@string/menu_bottom_ingredient_at_home"
+        android:textColor="@color/colorBlack"
         android:textStyle="bold"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_ingredients_list_image_ingredient_image"
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <ImageView
+        android:id="@+id/item_ingredients_list_image_ingredient_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/description_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
