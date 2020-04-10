@@ -2,7 +2,7 @@ package com.inved.freezdge.utils
 
 import android.app.Application
 import android.content.Context
-import com.inved.freezdge.database.MyObjectBox
+import com.inved.freezdge.MyObjectBox
 import io.objectbox.BoxStore
 
 open class App:Application() {

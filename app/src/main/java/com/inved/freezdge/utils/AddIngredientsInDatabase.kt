@@ -1,9 +1,9 @@
 package com.inved.freezdge.utils
 
-import com.inved.freezdge.database.Ingredients
+import com.inved.freezdge.ingredientslist.database.Ingredients
 import io.objectbox.Box
 
-class AddIngredientsInDatabase(var ingredientsBox:Box<Ingredients>) {
+class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
 
     init {
         addIngredients()
@@ -19,297 +19,297 @@ class AddIngredientsInDatabase(var ingredientsBox:Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "Beurre",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Blancs d'oeuf",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Brie",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Camembert",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cheddar",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chèvre en buche",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chèvre frais",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Crème de soja",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Crème fraiche",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Crème liquide",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Curé nantais",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Emmental",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Faisselle",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Feta",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fromage à raclette",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fromage à tartiner",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fromage blanc",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Gouda",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Gruyère",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lait",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lait de soja",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Margarine",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mascarpone",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mimolette",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mozzarella",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Oeufs",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Oeufs de caille",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Parmesan",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Petits suisses",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pont l'Evêque",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ricotta",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Roquefort",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tofu",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Yaourt de brebis",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Yaourt de chèvre",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Yaourt de soja",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Yaourt nature",
-                    type = "Crèmerie",
+                    typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
 
@@ -317,905 +317,905 @@ class AddIngredientsInDatabase(var ingredientsBox:Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "Abricots",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Algue nori",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Amandes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ananas",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Artichauts",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Asperges blanches",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Asperges vertes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Aubergines",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Avocat",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Banane",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Banane plantain",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Basilic frais",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Betterave crue",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Betterave cuite",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Blettes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Brocolis",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Butternut",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Carottes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Céléri branche",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Céléri rave",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cêpes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cerfeuil",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cerises",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Champignons de Paris",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Châtaignes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chou chinois",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chou kale",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chou rouge",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chou vert",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chou(x) romanesco",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chou-fleur",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Choux de Bruxelles",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ciboulette",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Citron",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Citrouille",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Clémentine",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Coco de Paimpol",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Concombre",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Coriandre fraiche",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Courges",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Courgettes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Dattes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Echalotes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Endives",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Epinards en branches",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Epinards hachés",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Epluchures de fruits",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Epluchures de légumes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Estragon",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fanes de légume",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fenouil",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Feuilles de manioc",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Figues fraiches",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Figues séchées",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Flageolets",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fraises",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Framboises",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fruits de la passion",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Haricots beurre",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Haricots blancs",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Haricots rouges",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Haricots verts",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Herbes de Provence",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Herbes sèches",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Kiwi",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Laitue",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Légumes cuits",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lentilles",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lentilles corail",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mache",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mais",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mangue",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Melon",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Menthe",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Navets",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Nectarines",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Noisettes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Noix",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Oignon",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Orange",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Origan",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pamplemousse",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Panais",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Papaye",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pastèque",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Patate douce",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pêches",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Persil",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Petits pois",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poireaux",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poires",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pois chiches",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poivrons",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pommes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pommes de terre",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Potiron",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pruneaux",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Prunes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Radis",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Radis noir",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Raisin",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Raisins secs",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ratatouille",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Roquette",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Rutabaga",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Salade verte",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Salsifi",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tomates",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tomates cerises",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tomates concassées",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tomate grappes",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tomates séchées",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Topinambours",
-                    type = "Fruits & Légumes",
+                    typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
 
@@ -1224,1106 +1224,1106 @@ class AddIngredientsInDatabase(var ingredientsBox:Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "4 épices",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Abricots secs",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Agar agar",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ail en semoule",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Amandes effilées",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Amandes en poudre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Beurre de cacahuètes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Bière",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Biscottes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Biscuits sucrés",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Blé",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Bonbons",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Bouillon de boeuf",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Bouillon de légumes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Boulgour",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Brioche",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cacahuètes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Câpres",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Carambar",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chips",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chocolat blanc",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chocolat en poudre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chocolat en tablette",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cidre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Compote",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Concentré de tomates",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Confiture",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cookies",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Corn flakes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cornichons",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Craquelins",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Crêpes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Croissants",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Crozets",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Cumin",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Curcuma",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Curry",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Daim",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine d'épeautre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine de blé noir",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine de châtaigne",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine de coco",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine de lupin",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine de pois chiche",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Farine de riz",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Flocons d'avoine",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Fruits secs",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Galettes de blé mexicaine",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Galettes de blé noir",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Galettes de riz",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Garam massala",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Gari",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Gingembre en poudre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Gingembre frais",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines de chia",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines de fenouil",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines de pavot",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines de sarrasin",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines de sésame",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines de tournesol",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Graines germées",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Guacamole",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Harissa",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Huile",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Huile d'olive",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Huile de noix",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Huile de sésame",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Jus de fruits",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ketchup",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lait de coco",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lasagnes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Laurier",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Levure",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lillet blanc",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lillet rosé",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Maizena",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Mayonnaise",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Miel",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Miso",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Moutarde",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Muesli",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Noix de cajou",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Noix de coco en poudre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Nouilles chinoises",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Nouilles de riz",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Nuoc mam",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Olives",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pain",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pain au lait",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pain de mie",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pain épices",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pâte à pizza",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pâte à tartiner",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pâte brisée",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
 
             ingredientsBox.put(
                 Ingredients(
                     name = "Pâte feuilletée",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pâtes",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pesto",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pignons de pin",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Piment en poudre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Piment d'espelette",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poivre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Polenta",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pop corn",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Proteines de soja",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Purée",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Quinoa",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Ras el hanout",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Raviolis",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Riz",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Riz rond",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce aigre douce",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce barbecue",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce béarnaise",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce bolognaise",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce huitre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce soja",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sauce tomate",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sel",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Semoule",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Semoule de manioc",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sirop d'agave",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sirop d'érable",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Soupe",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Spéculoos",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sucre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sucre de coco",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sucre glace",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tabasco",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tahiné",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tempeh",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Thym",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Vin blanc",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Vin rosé",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Vinaigre",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Vinaigre balsamique",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Vinaigre de riz",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Vinaigre xérès",
-                    type = "Epicerie",
+                    typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
 
@@ -2332,145 +2332,145 @@ class AddIngredientsInDatabase(var ingredientsBox:Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "Anchois",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Capitaine du Brésil",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Crevette",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Haddock",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Harengs fummés",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Huîtres de Cancale",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Maquereaux",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Moules",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poisson filet",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poisson pané",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Restes de poisson cuit",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Sardines",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Saumon",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Saumon fumé",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Surimi",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Tarama",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Thon",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Truite fumée",
-                    type = "Poisson",
+                    typeIngredient = "Poisson",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
 
@@ -2478,249 +2478,249 @@ class AddIngredientsInDatabase(var ingredientsBox:Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "Agneau",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Bacon",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Boeuf",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Boudin blanc",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Boudin noir",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Carpaccio de boeuf",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chipolatas",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Chorizo",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Confit de canard",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Côtes de porc",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Dinde (filet)",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Foie gras",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Jambon blanc",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Jambon cru",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "jambon de dinde",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Jarret de porc",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lard",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Lardons",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Magrets de canard",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Merguez",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Pâté",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poulet entier",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poulet (cuisse)",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Poulet (filet)",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Rillettes",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Saucisses de Strasbourg",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Saucisson",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Steaks de soja",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Steaks hachés",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Viande cuite",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
             ingredientsBox.put(
                 Ingredients(
                     name = "Viande hachée",
-                    type = "Viande",
+                    typeIngredient = "Viande",
                     photoUrl = photoUrl,
-                    isSelected = false
+                    selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
         }

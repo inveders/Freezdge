@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9131969218458961082",
-      "lastPropertyId": "5:4299774562600055904",
+      "lastPropertyId": "8:1908163860745058514",
       "name": "Ingredients",
       "properties": [
         {
@@ -25,21 +25,51 @@
           "type": 9
         },
         {
-          "id": "4:2177675941115484684",
-          "name": "isSelected",
+          "id": "6:1050927441411739976",
+          "name": "typeIngredient",
+          "type": 9
+        },
+        {
+          "id": "7:8946404668883036698",
+          "name": "selectedIngredient",
           "type": 1,
           "flags": 4
         },
         {
-          "id": "5:4299774562600055904",
-          "name": "type",
+          "id": "8:1908163860745058514",
+          "name": "grocerySelectedIngredient",
+          "type": 1,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:4637892699730040142",
+      "lastPropertyId": "3:5914971238881294485",
+      "name": "FavouritesRecipes",
+      "properties": [
+        {
+          "id": "1:6045995073831667212",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4412679044117050805",
+          "name": "recipeId",
+          "type": 9
+        },
+        {
+          "id": "3:5914971238881294485",
+          "name": "kitchen",
           "type": 9
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:9131969218458961082",
+  "lastEntityId": "2:4637892699730040142",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
@@ -47,7 +77,10 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    2177675941115484684,
+    4299774562600055904
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
