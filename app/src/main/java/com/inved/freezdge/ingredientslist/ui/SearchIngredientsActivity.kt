@@ -1,6 +1,7 @@
 package com.inved.freezdge.ingredientslist.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.Nullable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -32,11 +33,15 @@ class SearchIngredientsActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         recyclerView = findViewById(R.id.activity_search_recycler_view)
         initToolbarBaseActivity(R.string.toolbar_search_ingredients)
-        setupRecyclerView()
-
         ingredientViewmodel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+        insertFood()
+        setupRecyclerView()
+        getAllFood()
+
 
     }
+
+
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_search_ingredients
@@ -49,20 +54,21 @@ class SearchIngredientsActivity: BaseActivity() {
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapterFoodSearch
-        getAllFood()
+
 
     }
 
     //DATA
+
+    private fun insertFood() {
+        ingredientViewmodel.insertIngredients()
+    }
+
+
     fun getAllFood() {
         ingredientViewmodel.getAllIngredients().observe(this, Observer {
             foodSearchItemAdapter.add(it)
         })
-       /* val data: MutableList<Ingredients>?=mutableListOf()
-        ingredientsBox.all.forEach{
-            data?.add(it)
-        }
-        data?.let { foodSearchItemAdapter.add(it) }*/
 
     }
 
