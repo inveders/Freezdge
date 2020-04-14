@@ -25,7 +25,7 @@ class RecipeModel(application: Application) : AndroidViewModel(application) {
 
     fun getRecipesById(arg: String): LiveData<Results> {
         return liveData(Dispatchers.IO) {
-            val retrievedRecipes = recipesRepository.getRecipesLiveData(arg)
+            val retrievedRecipes = recipesRepository.getRecipesByIdLiveData(arg)
             emit (retrievedRecipes)
         }
     }

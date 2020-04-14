@@ -13,6 +13,7 @@ class RecipesRepository {
 
     suspend fun getRecipesLiveData(ingredients: String) = client.getRecipes(ingredients, appID, appKEY)
 
+    suspend fun getRecipesByIdLiveData(recipeId: String) = client.getRecipesById(recipeId, appID, appKEY)
 
 }
 
