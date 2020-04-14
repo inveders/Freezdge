@@ -30,6 +30,10 @@ class IngredientsRepository {
             return IngredientsDAO.updateIngredient(ingredient)
         }
 
+        fun updateIngredientSelectedByName(name: String?) {
+            return IngredientsDAO.updateIngredientSelectedByName(name)
+        }
+
         //Mock data for testing
         fun initDatabase() {
        /*     val mTotalCount:Long = 7

@@ -18,7 +18,21 @@ class IngredientsDAO {
         }
 
         fun updateIngredient(ingredient: Ingredients) {
+
+            ingredient.selectedIngredient = !ingredient.selectedIngredient
             getIngredientsBox().put(ingredient)
+        }
+
+        fun updateIngredientSelectedByName(name: String?) {
+
+            if(name!=null){
+                val ingredient:Ingredients? =
+                    getIngredientsBox().query().equal(Ingredients_.name,name).build().findUnique()
+                ingredient?.selectedIngredient = false
+                if(ingredient!=null)
+                getIngredientsBox().put(ingredient)
+            }
+
         }
 
         fun insertIngredients() {

@@ -1,7 +1,7 @@
 package com.inved.freezdge.ingredientslist.database
 
+import android.util.Log
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -10,6 +10,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+
 
 @Entity
 data class Ingredients(@Id var id: Long = 0,
@@ -41,7 +42,7 @@ data class Ingredients(@Id var id: Long = 0,
 
         var label: TextView = view.findViewById(R.id.item_ingredients_list_textview)
         var imageFood: ImageView = view.findViewById(R.id.item_ingredients_list_image_ingredient_image)
-        var imageSelection: ImageButton = view.findViewById(R.id.item_ingredients_list_image_favorite_selected_or_not_imageview)
+        var imageSelection: ImageView = view.findViewById(R.id.item_ingredients_list_image_favorite_selected_or_not_imageview)
 
        // var listener: SelectIngredientListener? = null
 
@@ -49,25 +50,11 @@ data class Ingredients(@Id var id: Long = 0,
             label.text = item.name
             Glide.with(view.context).load(item.photoUrl).into(imageFood)
 
-            if(item.isSelected== false){
+            if(!item.selectedIngredient){
                 imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
             }else{
+                Log.d("debago","selected item ${item.name} is TRUE")
                 imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
-            }
-
-            imageSelection.setOnClickListener {
-
-               // listener?.invoke(item, false)
-                if (imageSelection.getTag()==1) {
-
-                    imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
-                    imageSelection.tag = 0
-
-                } else{
-                    imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
-                    imageSelection.tag = 1
-
-                }
             }
 
           //  typealias SelectIngredientListener = (item:Ingredients, toSelect: Boolean) -> Unit

@@ -21,6 +21,10 @@ class IngredientsViewModel : ViewModel() {
         return IngredientsRepository.getIngredientsLiveDataBySelected()
     }
 
+    fun updateIngredientSelectedByName(name:String?) {
+        return IngredientsRepository.updateIngredientSelectedByName(name)
+    }
+
     fun getIngredientsForGrocery(): ObjectBoxLiveData<Ingredients> {
         return IngredientsRepository.getIngredientsLiveDataBySelectedForGrocery()
     }

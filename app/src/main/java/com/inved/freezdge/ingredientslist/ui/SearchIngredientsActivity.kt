@@ -2,6 +2,8 @@ package com.inved.freezdge.ingredientslist.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +16,7 @@ import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.utils.AddIngredientsInDatabase
 import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
@@ -55,6 +58,15 @@ class SearchIngredientsActivity: BaseActivity() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapterFoodSearch
 
+        //configure our fastAdapter
+        fastAdapterFoodSearch.onClickListener = { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
+            v?.let {
+                Log.d("debago","item is ${item.selectedIngredient}")
+                ingredientViewmodel.updateIngredient(item)
+                fastAdapterFoodSearch.notifyAdapterDataSetChanged()
+            }
+            false
+        }
 
     }
 
