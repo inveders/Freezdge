@@ -7,6 +7,5 @@ import io.objectbox.annotation.Id
 class FavouritesRecipes(
     @Id
     var id: Long = 0,
-    var recipeId: String? = null,
-    var kitchen: String? = null
+    var recipeId: String? = null
 )

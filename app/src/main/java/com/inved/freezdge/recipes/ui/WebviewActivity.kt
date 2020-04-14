@@ -1,29 +1,36 @@
 package com.inved.freezdge.recipes.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.view.ViewHolder
 
-class WebviewActivity : AppCompatActivity(),
-    ViewHolder.ItemClikInterface  {
+class WebviewActivity : AppCompatActivity() {
 
-    private val webview:WebView=findViewById(R.id.webview)
+    private lateinit var webview:WebView
 
-    override fun favouriteClick() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        webview=findViewById(R.id.webview)
+        val url:String = intent.getStringExtra("WEBVIEW_URL")
+        cardViewClick(url)
+        Log.d("debago","in on create webactivity")
     }
 
-    override fun cardViewClick(url:String) {
+    fun cardViewClick(url:String) {
+        Log.d("debago","in on cardview webactivity")
         webview.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 view?.loadUrl(url)
                 return true
             }
         }
-        webview.loadUrl("https://www.google.co.in/")
+        //webview.loadUrl("https://www.google.co.in/")
+        webview.loadUrl(url)
     }
 
 

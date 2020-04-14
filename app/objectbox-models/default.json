@@ -59,11 +59,6 @@
           "id": "2:4412679044117050805",
           "name": "recipeId",
           "type": 9
-        },
-        {
-          "id": "3:5914971238881294485",
-          "name": "kitchen",
-          "type": 9
         }
       ],
       "relations": []
@@ -79,7 +74,8 @@
   "retiredIndexUids": [],
   "retiredPropertyUids": [
     2177675941115484684,
-    4299774562600055904
+    4299774562600055904,
+    5914971238881294485
   ],
   "retiredRelationUids": [],
   "version": 1

@@ -15,6 +15,10 @@ class FavouritesRecipesViewModel:ViewModel() {
         FavouritesRecipesRepository.removeFavouriteRecipe(favouritesRecipes)
     }
 
+    fun detectFavouriteRecipe(recipeId:String) {
+        FavouritesRecipesRepository.detectFavouriteRecipe(recipeId)
+    }
+
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
         // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return FavouritesRecipesRepository.getAllFavouritesRecipes()

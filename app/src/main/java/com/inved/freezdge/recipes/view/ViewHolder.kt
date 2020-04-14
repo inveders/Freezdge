@@ -7,15 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.inved.freezdge.R
-import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.model.recipes.Hit
+import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
 
-class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
-    private lateinit var listener: ItemClikInterface
+class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
     var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
     var preparationTime: TextView =
@@ -38,14 +37,11 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
 
         //TODO: arrange code with the listener to initialize
-        imageItem.setOnClickListener{
-
-            listener.cardViewClick(item.recipe?.url.toString())
-            openWebViewActivity()
-        }
 
         imageFavourite.setOnClickListener {
 
+            Log.d("debago", "listener is ${item.listener}")
+            item.recipe?.uri?.let { it1 -> item.listener?.favouriteClick(it1) }
             if (imageFavourite.getTag()==1) {
                 Log.d("debago", "On désélectionne l'image")
                 imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -70,16 +66,10 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         imageItem.setImageDrawable(null)
     }
 
-    interface ItemClikInterface {
-        fun favouriteClick()
-        fun cardViewClick(url:String)
-    }
 
-    fun openWebViewActivity(){
-        App.applicationContext().let{
-            val intent = Intent (it, WebviewActivity::class.java)
-            it.startActivity(intent)
-        }
+
+    interface ItemClikInterface {
+        fun favouriteClick(recipeId:String)
     }
 
 }

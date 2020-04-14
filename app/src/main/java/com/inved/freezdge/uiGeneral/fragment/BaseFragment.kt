@@ -1,5 +1,6 @@
 package com.inved.freezdge.uiGeneral.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,25 +14,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
-import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
+import com.inved.freezdge.recipes.ui.WebviewActivity
+import com.inved.freezdge.recipes.view.ViewHolder
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
+import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), ViewHolder.ItemClikInterface {
 
     private val recipesItemAdapter = ItemAdapter<Hit>()
     private val fastAdapter = FastAdapter.with(recipesItemAdapter)
 
-
-
     private lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     //Viewmodel
     private lateinit var recipeModel: RecipeModel
@@ -68,7 +70,27 @@ abstract class BaseFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapter
 
+        //configure our fastAdapter
+        fastAdapter.onClickListener = { v: View?, _: IAdapter<Hit>, item: Hit, _: Int ->
+            v?.let {
+                Log.d("debago", "item is ${item.recipe?.url.toString()}")
+                val url: String = item.recipe?.url.toString()
+                    openWebViewActivity(url)
 
+
+            }
+            true
+        }
+
+
+    }
+
+    fun openWebViewActivity(url: String) {
+        App.applicationContext().let {
+            val intent = Intent(it, WebviewActivity::class.java)
+            intent.putExtra("WEBVIEW_URL", url)
+            it.startActivity(intent)
+        }
     }
 
     private fun detectWichFragmentIsOpen() {
@@ -90,15 +112,21 @@ abstract class BaseFragment : Fragment() {
 
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
-                if(result!=null){
-                    for (myresult in result){
+                if (result != null) {
+                    for (myresult in result) {
+                        Log.d("debago", "recipe id is $myresult")
                         recipeModel.getRecipesById(myresult.recipeId!!)
                             .observe(viewLifecycleOwner, Observer { result2 ->
                                 Log.d(
                                     "debago",
                                     "la première recette est : ${result2.hits.size}"
                                 )
+                                Hit().apply {
+                                    listener = this@BaseFragment
+                                }
                                 recipesItemAdapter.add(result2.hits)
+
+
                             })
                     }
                 }
@@ -119,14 +147,17 @@ abstract class BaseFragment : Fragment() {
 
         ingredientsViewmodel.getIngredientsForFreezdgeList()
             .observe(viewLifecycleOwner, Observer { result ->
-                if(result!=null){
-                    for (myresult in result){
+                if (result != null) {
+                    for (myresult in result) {
                         recipeModel.getRecipes(myresult.name!!)
                             .observe(viewLifecycleOwner, Observer { result2 ->
                                 Log.d(
                                     "debago",
                                     "la première recette est : ${result2.hits.size}"
                                 )
+                                Hit().apply {
+                                    listener = this@BaseFragment
+                                }
                                 recipesItemAdapter.add(result2.hits)
                             })
                     }
@@ -134,5 +165,10 @@ abstract class BaseFragment : Fragment() {
 
             })
 
+    }
+
+    override fun favouriteClick(recipeId: String) {
+        Log.d("debago", "in favourite click")
+        favouriteRecipesViewmodel.detectFavouriteRecipe(recipeId)
     }
 }

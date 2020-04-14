@@ -7,7 +7,12 @@ import com.inved.freezdge.R
 import com.inved.freezdge.recipes.view.ViewHolder
 import com.mikepenz.fastadapter.items.AbstractItem
 
+
+
 class Hit : AbstractItem<ViewHolder>() {
+
+    var listener: ViewHolder.ItemClikInterface? = null
+
     @SerializedName("recipe")
     @Expose
     var recipe: Recipe? = null
@@ -27,6 +32,7 @@ class Hit : AbstractItem<ViewHolder>() {
         get() = R.layout.item_recipes_list
 
     override fun getViewHolder(v: View): ViewHolder {
+
         return ViewHolder(v)
     }
 }

@@ -15,6 +15,10 @@ class FavouritesRecipesRepository {
             FavouritesRecipesDAO.removeFavouriteRecipe(favouritesRecipes)
         }
 
+        fun detectFavouriteRecipe(recipeId:String) {
+            FavouritesRecipesDAO.detectFavouriteRecipe(recipeId)
+        }
+
         fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
             return FavouritesRecipesDAO.getAllFavouritesRecipes()

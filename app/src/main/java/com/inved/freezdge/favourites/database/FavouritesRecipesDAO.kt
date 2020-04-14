@@ -16,7 +16,18 @@ class FavouritesRecipesDAO {
         }
 
 
-        fun insertFavouriteRecipe(recipeId:String) {
+        fun detectFavouriteRecipe(recipeId: String) {
+            val favouritesRecipes: FavouritesRecipes? =
+                getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId)
+                    .build().findUnique()
+            if(favouritesRecipes!=null){
+                removeFavouriteRecipe(favouritesRecipes)
+            }else{
+                insertFavouriteRecipe(recipeId)
+            }
+        }
+
+        fun insertFavouriteRecipe(recipeId: String) {
             getFavouritesRecipesBox().put(
                 FavouritesRecipes(
                     recipeId = recipeId
@@ -25,13 +36,17 @@ class FavouritesRecipesDAO {
         }
 
         fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
+
             getFavouritesRecipesBox().remove(favouritesRecipes.id)
+
         }
 
 
         fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-            return ObjectBoxLiveData(getFavouritesRecipesBox().query().order(FavouritesRecipes_.id).build())
+            return ObjectBoxLiveData(
+                getFavouritesRecipesBox().query().order(FavouritesRecipes_.id).build()
+            )
         }
 
     }
