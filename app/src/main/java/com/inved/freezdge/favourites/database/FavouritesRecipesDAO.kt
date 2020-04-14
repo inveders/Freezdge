@@ -1,5 +1,6 @@
 package com.inved.freezdge.favourites.database
 
+import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.utils.App
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -25,6 +26,13 @@ class FavouritesRecipesDAO {
             }else{
                 insertFavouriteRecipe(recipeId)
             }
+        }
+
+        fun isRecipeIdIsPresent(recipeId:String):Boolean {
+            val favouritesRecipes: FavouritesRecipes? =
+                getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId)
+                    .build().findUnique()
+            return favouritesRecipes!=null
         }
 
         fun insertFavouriteRecipe(recipeId: String) {

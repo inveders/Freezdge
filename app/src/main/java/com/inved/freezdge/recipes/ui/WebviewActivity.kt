@@ -13,14 +13,6 @@ class WebviewActivity : AppCompatActivity() {
 
     private lateinit var webview:WebView
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        webview=findViewById(R.id.webview)
-        val url:String = intent.getStringExtra("WEBVIEW_URL")
-        cardViewClick(url)
-        Log.d("debago","in on create webactivity")
-    }
-
     fun cardViewClick(url:String) {
         Log.d("debago","in on cardview webactivity")
         webview.webViewClient = object : WebViewClient() {
@@ -29,7 +21,6 @@ class WebviewActivity : AppCompatActivity() {
                 return true
             }
         }
-        //webview.loadUrl("https://www.google.co.in/")
         webview.loadUrl(url)
     }
 
@@ -38,5 +29,9 @@ class WebviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
+        webview=findViewById(R.id.webview)
+        val url:String = intent.getStringExtra("WEBVIEW_URL")
+        cardViewClick(url)
+        Log.d("debago","in on create webactivity")
     }
 }

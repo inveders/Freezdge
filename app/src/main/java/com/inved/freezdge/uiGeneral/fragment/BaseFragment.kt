@@ -21,13 +21,13 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolder
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
-import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.listeners.addClickListener
 
 
-abstract class BaseFragment : Fragment(), ViewHolder.ItemClikInterface {
+abstract class BaseFragment : Fragment() {
 
     private val recipesItemAdapter = ItemAdapter<Hit>()
     private val fastAdapter = FastAdapter.with(recipesItemAdapter)
@@ -82,15 +82,30 @@ abstract class BaseFragment : Fragment(), ViewHolder.ItemClikInterface {
             true
         }
 
+        fastAdapter.addClickListener({ vh: ViewHolder -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
+            //react on the click event
+
+            item.recipe?.uri?.let {favouriteRecipesViewmodel.detectFavouriteRecipe(it) }
+
+            val bool:Boolean?=item.recipe?.uri?.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
+
+            //TODO: here see if the recipeId is in the database and put the butt
+            // on to yes
+           /* if(bool){
+                item.getViewHolder(view)..imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
+            }else{
+                imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
+            }*/
+
+
+        }
 
     }
 
     fun openWebViewActivity(url: String) {
-        App.applicationContext().let {
-            val intent = Intent(it, WebviewActivity::class.java)
+        let { val intent= Intent(activity, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)
-            it.startActivity(intent)
-        }
+            startActivity(intent) }
     }
 
     private fun detectWichFragmentIsOpen() {
@@ -121,9 +136,6 @@ abstract class BaseFragment : Fragment(), ViewHolder.ItemClikInterface {
                                     "debago",
                                     "la première recette est : ${result2.hits.size}"
                                 )
-                                Hit().apply {
-                                    listener = this@BaseFragment
-                                }
                                 recipesItemAdapter.add(result2.hits)
 
 
@@ -155,9 +167,6 @@ abstract class BaseFragment : Fragment(), ViewHolder.ItemClikInterface {
                                     "debago",
                                     "la première recette est : ${result2.hits.size}"
                                 )
-                                Hit().apply {
-                                    listener = this@BaseFragment
-                                }
                                 recipesItemAdapter.add(result2.hits)
                             })
                     }
@@ -167,8 +176,4 @@ abstract class BaseFragment : Fragment(), ViewHolder.ItemClikInterface {
 
     }
 
-    override fun favouriteClick(recipeId: String) {
-        Log.d("debago", "in favourite click")
-        favouriteRecipesViewmodel.detectFavouriteRecipe(recipeId)
-    }
 }

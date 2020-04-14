@@ -15,6 +15,10 @@ class FavouritesRecipesRepository {
             FavouritesRecipesDAO.removeFavouriteRecipe(favouritesRecipes)
         }
 
+        fun isRecipeIdIsPresent(recipeId:String):Boolean {
+            return FavouritesRecipesDAO.isRecipeIdIsPresent(recipeId)
+        }
+
         fun detectFavouriteRecipe(recipeId:String) {
             FavouritesRecipesDAO.detectFavouriteRecipe(recipeId)
         }

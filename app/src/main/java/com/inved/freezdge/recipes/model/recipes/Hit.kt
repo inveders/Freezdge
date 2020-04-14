@@ -11,8 +11,6 @@ import com.mikepenz.fastadapter.items.AbstractItem
 
 class Hit : AbstractItem<ViewHolder>() {
 
-    var listener: ViewHolder.ItemClikInterface? = null
-
     @SerializedName("recipe")
     @Expose
     var recipe: Recipe? = null

@@ -27,7 +27,7 @@
             android:value="@string/APP_ID_FOOD" />
         <meta-data
             android:name="edanam.app_key_food"
-            android:value="@string/APP_KEY_FOOD" />-->
+            android:value="@string/APP_KEY_FOOD" /> -->
 
         <activity android:name=".uiGeneral.activity.MainActivity">
             <intent-filter>

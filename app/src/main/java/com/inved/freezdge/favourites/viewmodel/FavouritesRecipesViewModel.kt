@@ -19,6 +19,10 @@ class FavouritesRecipesViewModel:ViewModel() {
         FavouritesRecipesRepository.detectFavouriteRecipe(recipeId)
     }
 
+    fun isRecipeIdIsPresent(recipeId:String):Boolean {
+        return FavouritesRecipesRepository.isRecipeIdIsPresent(recipeId)
+    }
+
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
         // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return FavouritesRecipesRepository.getAllFavouritesRecipes()
