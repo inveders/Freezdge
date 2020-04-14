@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <!--
         <meta-data
             android:name="edanam.app_id_recipes"
             android:value="@string/APP_ID_RECIPES" />
@@ -26,7 +27,7 @@
             android:value="@string/APP_ID_FOOD" />
         <meta-data
             android:name="edanam.app_key_food"
-            android:value="@string/APP_KEY_FOOD" />
+            android:value="@string/APP_KEY_FOOD" />-->
 
         <activity android:name=".uiGeneral.activity.MainActivity">
             <intent-filter>
@@ -35,10 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ingredientslist.ui.MyGroceryListActivity"></activity>
-        <activity android:name=".ingredientslist.ui.SearchIngredientsActivity"></activity>
-        <activity android:name=".uiGeneral.activity.BaseActivity"></activity>
-        <activity android:name=".recipes.ui.WebviewActivity"></activity>
+        <activity android:name=".ingredientslist.ui.MyGroceryListActivity"/>
+        <activity android:name=".ingredientslist.ui.SearchIngredientsActivity"/>
+        <activity android:name=".uiGeneral.activity.BaseActivity"/>
+        <activity android:name=".recipes.ui.WebviewActivity"/>
 
     </application>
 
