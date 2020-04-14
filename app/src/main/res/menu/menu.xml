@@ -12,11 +12,4 @@
         app:showAsAction="ifRoom"
         />
 
-    <item
-        android:id="@+id/menu_logout"
-        android:icon="@drawable/menu_logout_icon"
-        android:title="@string/menu_logout"
-        app:showAsAction="ifRoom" />
-
-
 </menu>
