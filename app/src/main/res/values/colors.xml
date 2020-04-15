@@ -8,4 +8,9 @@
     <color name="colorSecondaryDark">#cabf45</color>
     <color name="colorAccent">#000000</color>
     <color name="colorBlack">#000000</color>
+
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorOrange">#FF9800</color>
+    <color name="colorRed">#F44336</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>
