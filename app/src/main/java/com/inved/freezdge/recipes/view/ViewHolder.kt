@@ -3,10 +3,8 @@ package com.inved.freezdge.recipes.view
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
-import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.utils.App
@@ -32,8 +30,6 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         label.text = item.recipe?.label
         preparationTime.text = item.recipe?.totalTime.toString()
         kcal.text = item.recipe?.calories.toString()
-        var url: String = item.recipe?.url.toString()
-
 
         GlideApp.with(App.applicationContext())
             .load(item.recipe?.image)
@@ -63,7 +59,7 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
     fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox()
-                .query().equal(FavouritesRecipes_.recipeId, recipeId)
+                .query().equal(FavouritesRecipes_.recipeId, recipeId!!)
                 .build().findUnique()
         return favouritesRecipes!=null
     }
