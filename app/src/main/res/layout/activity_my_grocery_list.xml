@@ -7,4 +7,15 @@
     <!-- Toolbar -->
     <include layout="@layout/toolbar" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        >
+
+    </com.google.android.material.chip.ChipGroup>
+
 </LinearLayout>

@@ -22,8 +22,6 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 
 class MyIngredientsListFragment: BaseFragment() {
 
-    private val foodSearchItemAdapter = ItemAdapter<Ingredients>()
-    private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     override fun getLayoutRes(): Int {
         return R.layout.fragment_my_ingredients_list

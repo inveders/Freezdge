@@ -22,7 +22,6 @@ open class App:Application() {
     override fun onCreate() {
         super.onCreate()
         // initialize for any
-        val context: Context = applicationContext()
         ObjectBox.init(this)
     }
 
