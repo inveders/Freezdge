@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
@@ -32,6 +33,9 @@ abstract class BaseFragment : Fragment() {
     private val recipesItemAdapter = ItemAdapter<Hit>()
     private val fastAdapter = FastAdapter.with(recipesItemAdapter)
 
+    private val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
+    private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
+
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
 
@@ -39,6 +43,7 @@ abstract class BaseFragment : Fragment() {
     private lateinit var recipeModel: RecipeModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -48,7 +53,7 @@ abstract class BaseFragment : Fragment() {
         val view = inflater.inflate(getLayoutRes(), container, false)
         recyclerView = view.findViewById(R.id.recyclerview)
         initViewModel()
-        setupRecyclerView()
+
         detectWichFragmentIsOpen()
         return view
     }
@@ -65,7 +70,7 @@ abstract class BaseFragment : Fragment() {
 
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecipeRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapter
@@ -73,11 +78,8 @@ abstract class BaseFragment : Fragment() {
         //configure our fastAdapter
         fastAdapter.onClickListener = { v: View?, _: IAdapter<Hit>, item: Hit, _: Int ->
             v?.let {
-                Log.d("debago", "item is ${item.recipe?.url.toString()}")
                 val url: String = item.recipe?.url.toString()
                     openWebViewActivity(url)
-
-
             }
             true
         }
@@ -85,18 +87,48 @@ abstract class BaseFragment : Fragment() {
         fastAdapter.addClickListener({ vh: ViewHolder -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
             //react on the click event
 
-            item.recipe?.uri?.let {favouriteRecipesViewmodel.detectFavouriteRecipe(it) }
+            favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipe!!.uri,item.recipe!!.label,item.recipe!!.calories.toString(),
+                item.recipe!!.totalTime.toString(),item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
 
-            val bool:Boolean?=item.recipe?.uri?.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
+            val bool: Boolean? =item.recipe?.uri?.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
-            //TODO: here see if the recipeId is in the database and put the butt
-            // on to yes
-           /* if(bool){
-                item.getViewHolder(view)..imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
+            if(bool!!){
+                view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
             }else{
-                imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
-            }*/
+                view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
+            }
 
+        }
+
+    }
+
+    private fun setupFavouriteRecipeRecyclerView() {
+        linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = favouritesFastAdapter
+
+        //configure our fastAdapter
+        favouritesFastAdapter.onClickListener = { v: View?, _: IAdapter<FavouritesRecipes>, item: FavouritesRecipes, _: Int ->
+            v?.let {
+                val url: String = item.recipeUrl!!
+                openWebViewActivity(url)
+            }
+            true
+        }
+
+        favouritesFastAdapter.addClickListener({ vh: FavouritesRecipes.ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+            //react on the click event
+
+            favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipeId,item.recipeTitle,item.recipeCalories,
+                item.recipeTime,item.recipeUrl,item.recipePhotoUrl,item.recipeIngredients)
+
+            val bool: Boolean? =item.recipeId.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
+
+            if(bool!!){
+                view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
+            }else{
+                view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
+            }
 
         }
 
@@ -111,9 +143,11 @@ abstract class BaseFragment : Fragment() {
     private fun detectWichFragmentIsOpen() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
+                setupRecipeRecyclerView()
                 getAllRecipes()
             }
             getForegroundFragment() is MyRecipesFragment -> run {
+                setupFavouriteRecipeRecyclerView()
                 getFavouritesRecipes()
             }
             getForegroundFragment() is MyIngredientsListFragment -> run {
@@ -123,26 +157,15 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun getFavouritesRecipes() {
-        recipesItemAdapter.clear()
+        favouriteRecipesItemAdapter.clear()
 
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
                 if (result != null) {
                     for (myresult in result) {
-                        Log.d("debago", "recipe id is $myresult")
-                        recipeModel.getRecipesById(myresult.recipeId!!)
-                            .observe(viewLifecycleOwner, Observer { result2 ->
-                                Log.d(
-                                    "debago",
-                                    "la première recette est : ${result2.hits.size}"
-                                )
-                                recipesItemAdapter.add(result2.hits)
-
-
-                            })
+                        favouriteRecipesItemAdapter.add(myresult)
                     }
                 }
-
             })
 
     }
@@ -163,10 +186,7 @@ abstract class BaseFragment : Fragment() {
                     for (myresult in result) {
                         recipeModel.getRecipes(myresult.name!!)
                             .observe(viewLifecycleOwner, Observer { result2 ->
-                                Log.d(
-                                    "debago",
-                                    "la première recette est : ${result2.hits.size}"
-                                )
+
                                 recipesItemAdapter.add(result2.hits)
                             })
                     }

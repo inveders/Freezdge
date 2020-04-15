@@ -1,6 +1,5 @@
 package com.inved.freezdge.favourites.database
 
-import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.utils.App
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -17,28 +16,43 @@ class FavouritesRecipesDAO {
         }
 
 
-        fun detectFavouriteRecipe(recipeId: String) {
+        fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
+                                  recipeUrl: String?,
+                                  recipePhotoUrl: String?,
+                                  recipeIngredients: String?) {
+
             val favouritesRecipes: FavouritesRecipes? =
-                getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId)
+                getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId!!)
                     .build().findUnique()
-            if(favouritesRecipes!=null){
+            if (favouritesRecipes != null) {
                 removeFavouriteRecipe(favouritesRecipes)
-            }else{
-                insertFavouriteRecipe(recipeId)
+            } else {
+                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
             }
         }
 
-        fun isRecipeIdIsPresent(recipeId:String):Boolean {
+        fun isRecipeIdIsPresent(recipeId: String): Boolean? {
             val favouritesRecipes: FavouritesRecipes? =
                 getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId)
                     .build().findUnique()
-            return favouritesRecipes!=null
+            return favouritesRecipes != null
         }
 
-        fun insertFavouriteRecipe(recipeId: String) {
+        fun insertFavouriteRecipe(
+            recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
+            recipeUrl: String?,
+            recipePhotoUrl: String?,
+            recipeIngredients: String?
+        ) {
             getFavouritesRecipesBox().put(
                 FavouritesRecipes(
-                    recipeId = recipeId
+                    recipeId = recipeId,
+                    recipeTitle =recipeTitle,
+                    recipeCalories =recipeCalories,
+                    recipeTime =recipeTime,
+                    recipeUrl =recipeUrl,
+                    recipePhotoUrl =recipePhotoUrl,
+                    recipeIngredients =recipeIngredients
                 )
             )
         }

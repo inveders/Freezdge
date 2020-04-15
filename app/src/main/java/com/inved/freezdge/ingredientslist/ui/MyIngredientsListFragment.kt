@@ -64,7 +64,6 @@ class MyIngredientsListFragment: BaseFragment() {
                         chip.setChipDrawable(chipDrawable)
                         chip.text=myresult.name
                         chip.closeIcon=context?.let {
-                            Log.d("debago","in close icon inti")
                             ContextCompat.getDrawable(it,R.drawable.ic_clear_grey_24dp) }
                         // Set chip close icon click listener
                         chip.setOnCloseIconClickListener{

@@ -5,10 +5,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.database.FavouritesRecipes
+import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
+import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
+import io.objectbox.Box
+import io.objectbox.BoxStore
+import io.objectbox.kotlin.boxFor
 
 
 class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
@@ -20,7 +26,7 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
     var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
-    var cardView: CardView = view.findViewById(R.id.recipe_list_row_id)
+
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
 
         label.text = item.recipe?.label
@@ -28,9 +34,16 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         kcal.text = item.recipe?.calories.toString()
         var url: String = item.recipe?.url.toString()
 
+
         GlideApp.with(App.applicationContext())
             .load(item.recipe?.image)
             .into(imageItem)
+
+        if(isRecipeIdIsPresent(item.recipe?.uri)!!){
+            imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
+        }else{
+            imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
+        }
 
     }
 
@@ -39,6 +52,20 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         preparationTime.text = null
         kcal.text = null
         imageItem.setImageDrawable(null)
+    }
+
+    fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
+        val boxStore: BoxStore = App.ObjectBox.boxStore
+        return boxStore.boxFor()
+
+    }
+
+    fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+        val favouritesRecipes: FavouritesRecipes? =
+            getFavouritesRecipesBox()
+                .query().equal(FavouritesRecipes_.recipeId, recipeId)
+                .build().findUnique()
+        return favouritesRecipes!=null
     }
 
 }

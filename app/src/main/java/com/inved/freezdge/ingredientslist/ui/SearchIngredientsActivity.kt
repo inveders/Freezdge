@@ -99,7 +99,6 @@ class SearchIngredientsActivity : BaseActivity() {
         fastAdapterFoodSearch.onClickListener =
             { v: View?, _: IAdapter<Ingredients>, item: Ingredients, position: Int ->
                 v?.let {
-                    Log.d("debago", "item is ${item.selectedIngredient}")
                     ingredientViewmodel.updateIngredient(item)
                     fastAdapterFoodSearch.notifyAdapterItemChanged(position)
                 }

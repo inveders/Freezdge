@@ -23,13 +23,6 @@ class RecipeModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getRecipesById(arg: String): LiveData<Results> {
-        return liveData(Dispatchers.IO) {
-            val retrievedRecipes = recipesRepository.getRecipesByIdLiveData(arg)
-            emit (retrievedRecipes)
-        }
-    }
-
     fun getFood(arg: String): LiveData<ResultsFood> {
         return liveData(Dispatchers.IO) {
             val retrievedFood = foodRepository.getFoodLiveData(arg)

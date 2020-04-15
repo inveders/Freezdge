@@ -15,12 +15,4 @@ interface RecipesApi {
 
     ): Results
 
-
-    @GET("search")
-    suspend fun getRecipesById(
-        @Query("r") r: String?,
-        @Query("app_id") distance: String?,
-        @Query("app_key") type: String?
-
-    ): Results
 }

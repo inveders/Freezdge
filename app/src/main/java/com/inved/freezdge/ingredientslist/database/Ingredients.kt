@@ -44,8 +44,6 @@ data class Ingredients(@Id var id: Long = 0,
         var imageFood: ImageView = view.findViewById(R.id.item_ingredients_list_image_ingredient_image)
         var imageSelection: ImageView = view.findViewById(R.id.item_ingredients_list_image_favorite_selected_or_not_imageview)
 
-       // var listener: SelectIngredientListener? = null
-
         override fun bindView(item: Ingredients, payloads: MutableList<Any>) {
             label.text = item.name
             Glide.with(view.context).load(item.photoUrl).into(imageFood)
@@ -53,11 +51,8 @@ data class Ingredients(@Id var id: Long = 0,
             if(!item.selectedIngredient){
                 imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
             }else{
-                Log.d("debago","selected item ${item.name} is TRUE")
                 imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
             }
-
-          //  typealias SelectIngredientListener = (item:Ingredients, toSelect: Boolean) -> Unit
 
         }
 
@@ -66,10 +61,6 @@ data class Ingredients(@Id var id: Long = 0,
             imageFood.setImageURI(null)
         }
 
-
-
     }
-
-
 
 }

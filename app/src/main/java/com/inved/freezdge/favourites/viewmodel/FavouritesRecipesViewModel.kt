@@ -7,19 +7,14 @@ import io.objectbox.android.ObjectBoxLiveData
 
 class FavouritesRecipesViewModel:ViewModel() {
 
-    fun insertFavouriteRecipe(recipeId:String) {
-        FavouritesRecipesRepository.insertFavouriteRecipe(recipeId)
+    fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
+                              recipeUrl: String?,
+                              recipePhotoUrl: String?,
+                              recipeIngredients: String?) {
+        FavouritesRecipesRepository.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
     }
 
-    fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
-        FavouritesRecipesRepository.removeFavouriteRecipe(favouritesRecipes)
-    }
-
-    fun detectFavouriteRecipe(recipeId:String) {
-        FavouritesRecipesRepository.detectFavouriteRecipe(recipeId)
-    }
-
-    fun isRecipeIdIsPresent(recipeId:String):Boolean {
+    fun isRecipeIdIsPresent(recipeId:String):Boolean? {
         return FavouritesRecipesRepository.isRecipeIdIsPresent(recipeId)
     }
 

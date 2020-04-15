@@ -7,20 +7,16 @@ import io.objectbox.android.ObjectBoxLiveData
 class FavouritesRecipesRepository {
 
     companion object {
-        fun insertFavouriteRecipe(recipeId:String) {
-            FavouritesRecipesDAO.insertFavouriteRecipe(recipeId)
-        }
 
-        fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
-            FavouritesRecipesDAO.removeFavouriteRecipe(favouritesRecipes)
-        }
-
-        fun isRecipeIdIsPresent(recipeId:String):Boolean {
+        fun isRecipeIdIsPresent(recipeId:String):Boolean? {
             return FavouritesRecipesDAO.isRecipeIdIsPresent(recipeId)
         }
 
-        fun detectFavouriteRecipe(recipeId:String) {
-            FavouritesRecipesDAO.detectFavouriteRecipe(recipeId)
+        fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
+                                  recipeUrl: String?,
+                                  recipePhotoUrl: String?,
+                                  recipeIngredients: String?) {
+            FavouritesRecipesDAO.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
         }
 
         fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
