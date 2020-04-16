@@ -28,8 +28,13 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
 
         label.text = item.recipe?.label
-        preparationTime.text = item.recipe?.totalTime.toString()
-        kcal.text = item.recipe?.calories.toString()
+        if(item.recipe?.totalTime!=0.0){
+            preparationTime.text = item.recipe?.totalTime.toString()
+        }else{
+            preparationTime.text=App.resource().getString(R.string.recipe_list_item_no_time_known)
+        }
+
+        kcal.text = Math.round(item.recipe?.calories!!.div(10)).toString()
 
         GlideApp.with(App.applicationContext())
             .load(item.recipe?.image)

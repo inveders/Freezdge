@@ -21,6 +21,7 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolder
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
+import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -86,8 +87,14 @@ abstract class BaseFragment : Fragment() {
         fastAdapter.addClickListener({ vh: ViewHolder -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
             //react on the click event
 
-            favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipe!!.uri,item.recipe!!.label,item.recipe!!.calories.toString(),
-                item.recipe!!.totalTime.toString(),item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
+            val preparationTime:String = if(item.recipe?.totalTime!=0.0){
+                item.recipe?.totalTime.toString()
+            }else{
+                App.resource().getString(R.string.recipe_list_item_no_time_known)
+            }
+
+            favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipe!!.uri,item.recipe!!.label,Math.round(item.recipe?.calories!!.div(10)).toString(),
+                preparationTime,item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
 
             val bool: Boolean? =item.recipe?.uri?.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
@@ -142,6 +149,7 @@ abstract class BaseFragment : Fragment() {
     private fun detectWichFragmentIsOpen() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
+                AllRecipesFragment.showLoadingIndicator()
                 setupRecipeRecyclerView()
                 getAllRecipes()
             }
@@ -160,6 +168,7 @@ abstract class BaseFragment : Fragment() {
 
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
+                favouriteRecipesItemAdapter.clear()
                 if (result != null) {
                     for (myresult in result) {
                         favouriteRecipesItemAdapter.add(myresult)
@@ -189,8 +198,9 @@ abstract class BaseFragment : Fragment() {
                                 recipesItemAdapter.add(result2.hits)
                             })
                     }
+                    AllRecipesFragment.hideLoadingIndicator()
                 }
-
+                AllRecipesFragment.hideLoadingIndicator()
             })
 
     }
