@@ -36,6 +36,7 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
         GlideApp.with(App.applicationContext())
             .load(item.recipe?.image)
+            .centerCrop()
             .into(imageItem)
 
         if(isRecipeIdIsPresent(item.recipe?.uri)!!){

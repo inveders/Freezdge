@@ -61,6 +61,7 @@ class FavouritesRecipes(
 
             GlideApp.with(App.applicationContext())
                 .load(item.recipePhotoUrl)
+                .centerCrop()
                 .into(imageItem)
 
             if(isRecipeIdIsPresent(item.recipeId)!!){

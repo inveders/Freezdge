@@ -2,6 +2,7 @@ package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,6 +88,7 @@ abstract class BaseFragment : Fragment() {
         fastAdapter.addClickListener({ vh: ViewHolder -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
             //react on the click event
 
+            Log.d("debago", "position in base fragment is $position")
             favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipe!!.uri,item.recipe!!.label,Math.round(item.recipe?.calories!!.div(10)).toString(),
                 Domain.preparationTime(item.recipe?.totalTime),item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
 
