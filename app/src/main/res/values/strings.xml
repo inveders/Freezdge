@@ -15,6 +15,7 @@
     <string name="recipe_list_item_image">image_recipe</string>
     <string name="recipe_list_item_label">Recipe label</string>
     <string name="recipe_list_item_matching">100%</string>
+    <string name="recipe_list_item_no_time_known">No time indicated</string>
     <string name="recipe_list_item_preparation_time">Preparation time</string>
     <string name="recipe_list_item_kcal">kcal</string>
     <string name="description_image">Description image</string>

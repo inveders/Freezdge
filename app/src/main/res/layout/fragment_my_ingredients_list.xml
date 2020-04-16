@@ -51,5 +51,4 @@
         app:layout_anchor="@id/chipGroup"
         app:layout_anchorGravity="bottom|right|end" />
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

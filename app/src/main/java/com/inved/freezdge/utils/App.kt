@@ -2,6 +2,7 @@ package com.inved.freezdge.utils
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import com.inved.freezdge.MyObjectBox
 import io.objectbox.BoxStore
 
@@ -16,6 +17,10 @@ open class App:Application() {
 
         fun applicationContext() : Context {
             return instance!!.applicationContext
+        }
+
+        fun resource() : Resources {
+            return instance!!.resources
         }
     }
 

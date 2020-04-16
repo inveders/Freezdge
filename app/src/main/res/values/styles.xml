@@ -9,9 +9,11 @@
     </style>
 
     <!-- Toolbar theme. -->
-    <style name="ToolBarStyle" parent="AppTheme">
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="colorControlNormal">@android:color/white</item>
+    <style name="ToolBarStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/avocado_creamy</item>
+
 
     </style>
 
