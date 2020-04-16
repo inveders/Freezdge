@@ -80,27 +80,27 @@
 
 
             <View
+                android:id="@+id/view"
                 android:layout_width="0dp"
                 android:layout_height="0.5dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/colorAccent"
-                app:layout_constraintTop_toTopOf="@id/fragment_recipe_list_favorite_selected_or_not"
+                app:layout_constraintTop_toBottomOf="@id/fragment_recipes_list_item_kcal"
                 app:layout_constraintLeft_toLeftOf="@id/fragment_recipes_list_item_label"
                 app:layout_constraintRight_toRightOf="@id/fragment_recipes_list_item_label"
                 />
 
             <ImageView
                 android:id="@+id/fragment_recipe_list_favorite_selected_or_not"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/state_favorite"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="@dimen/default_large_margin"
+                android:layout_marginTop="@dimen/default_margin"
                 app:layout_constraintRight_toRightOf="@id/fragment_recipes_list_item_matching"
                 app:layout_constraintLeft_toLeftOf="@id/fragment_recipes_list_item_matching"
-                app:layout_constraintTop_toBottomOf="@id/fragment_recipes_list_item_matching"
+                app:layout_constraintTop_toTopOf="@id/view"
                 app:srcCompat="@drawable/ic_favorite_not_selected_24dp"/>
 
             <TextView
