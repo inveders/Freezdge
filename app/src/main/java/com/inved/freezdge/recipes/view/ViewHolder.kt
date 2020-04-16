@@ -8,11 +8,13 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
+import kotlin.math.roundToInt
 
 
 class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
@@ -28,13 +30,9 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
 
         label.text = item.recipe?.label
-        if(item.recipe?.totalTime!=0.0){
-            preparationTime.text = item.recipe?.totalTime.toString()
-        }else{
-            preparationTime.text=App.resource().getString(R.string.recipe_list_item_no_time_known)
-        }
+        preparationTime.text=Domain.preparationTime(item.recipe?.totalTime)
 
-        kcal.text = Math.round(item.recipe?.calories!!.div(10)).toString()
+        kcal.text = item.recipe?.calories!!.div(10).roundToInt().toString()
 
         GlideApp.with(App.applicationContext())
             .load(item.recipe?.image)

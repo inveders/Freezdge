@@ -21,7 +21,7 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolder
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
-import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -87,14 +87,8 @@ abstract class BaseFragment : Fragment() {
         fastAdapter.addClickListener({ vh: ViewHolder -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
             //react on the click event
 
-            val preparationTime:String = if(item.recipe?.totalTime!=0.0){
-                item.recipe?.totalTime.toString()
-            }else{
-                App.resource().getString(R.string.recipe_list_item_no_time_known)
-            }
-
             favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipe!!.uri,item.recipe!!.label,Math.round(item.recipe?.calories!!.div(10)).toString(),
-                preparationTime,item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
+                Domain.preparationTime(item.recipe?.totalTime),item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
 
             val bool: Boolean? =item.recipe?.uri?.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
@@ -127,6 +121,8 @@ abstract class BaseFragment : Fragment() {
 
             favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipeId,item.recipeTitle,item.recipeCalories,
                 item.recipeTime,item.recipeUrl,item.recipePhotoUrl,item.recipeIngredients)
+
+
 
             val bool: Boolean? =item.recipeId.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
