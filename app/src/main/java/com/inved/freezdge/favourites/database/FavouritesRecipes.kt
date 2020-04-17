@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.inved.freezdge.R
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
@@ -52,12 +53,24 @@ class FavouritesRecipes(
         var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
         var imageFavourite: ImageView =
             view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
-
+        var proportionText: TextView =
+            view.findViewById(R.id.fragment_recipes_list_item_matching)
         override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
             label.text = item.recipeTitle
             preparationTime.text = item.recipeTime
             kcal.text = item.recipeCalories
 
+
+            val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
+            proportionText.text="$proportionInPercent %"
+
+            if(proportionInPercent in 90..99){
+                proportionText.setBackgroundResource(R.drawable.border_green)
+            }else if (proportionInPercent in 50..94){
+                proportionText.setBackgroundResource(R.drawable.border_orange)
+            }else if (proportionInPercent in 0..49){
+                proportionText.setBackgroundResource(R.drawable.border_red)
+            }
 
             GlideApp.with(App.applicationContext())
                 .load(item.recipePhotoUrl)
