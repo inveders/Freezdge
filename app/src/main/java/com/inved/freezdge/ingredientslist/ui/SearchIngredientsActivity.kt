@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.view.ViewHolderIngredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.listeners.addClickListener
 import java.util.*
 
 
@@ -124,14 +125,20 @@ class SearchIngredientsActivity : BaseActivity() {
         recyclerView.adapter = fastAdapterFoodSearch
 
         //configure our fastAdapter
-        fastAdapterFoodSearch.onClickListener =
-            { v: View?, _: IAdapter<Ingredients>, item: Ingredients, position: Int ->
-                v?.let {
-                    ingredientViewmodel.updateIngredient(item)
-                    fastAdapterFoodSearch.notifyAdapterItemChanged(position)
-                }
-                false
+        fastAdapterFoodSearch.addClickListener({ vh: ViewHolderIngredients -> vh.imageSelection }) { view, position, _: FastAdapter<Ingredients>, item: Ingredients ->
+            //react on the click event
+
+            Log.d("debago", "position in base fragment is $view")
+            val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)
+
+            if(bool!!){
+                item.getViewHolder(view).imageSelection.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
+            }else{
+                item.getViewHolder(view).imageSelection.setImageResource(R.drawable.ic_favorite_selected_24dp)
             }
+
+            ingredientViewmodel.updateIngredient(item)
+        }
 
     }
 

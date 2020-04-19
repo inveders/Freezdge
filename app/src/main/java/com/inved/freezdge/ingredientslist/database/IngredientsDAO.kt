@@ -35,6 +35,17 @@ class IngredientsDAO {
 
         }
 
+        fun isIngredientSelected(name: String?):Boolean {
+
+            if(name!=null){
+                val ingredient:Ingredients? =
+                    getIngredientsBox().query().equal(Ingredients_.name,name).build().findUnique()
+
+                return ingredient!!.selectedIngredient
+            }
+            return false
+        }
+
         fun insertIngredients() {
             AddIngredientsInDatabase(getIngredientsBox())
         }
@@ -43,6 +54,8 @@ class IngredientsDAO {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
             return ObjectBoxLiveData(getIngredientsBox().query().equal(Ingredients_.selectedIngredient,true).order(Ingredients_.name).build())
         }
+
+
 
         fun getAllIngredientBySelectedForGrocery(): ObjectBoxLiveData<Ingredients> {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)

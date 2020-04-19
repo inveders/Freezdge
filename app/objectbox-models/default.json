@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9131969218458961082",
-      "lastPropertyId": "8:1908163860745058514",
+      "lastPropertyId": "9:5822049499317905018",
       "name": "Ingredients",
       "properties": [
         {
@@ -40,6 +40,11 @@
           "name": "grocerySelectedIngredient",
           "type": 1,
           "flags": 4
+        },
+        {
+          "id": "9:5822049499317905018",
+          "name": "nameEnglish",
+          "type": 9
         }
       ],
       "relations": []
@@ -92,9 +97,136 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:5942598635681225889",
+      "lastPropertyId": "23:1602087352304229876",
+      "name": "Recipes",
+      "properties": [
+        {
+          "id": "1:2210670097583047773",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6871727270954358187",
+          "name": "recipeTitle",
+          "type": 9
+        },
+        {
+          "id": "3:5011484479137147464",
+          "name": "recipeCalories",
+          "type": 9
+        },
+        {
+          "id": "4:4220818117269702246",
+          "name": "totalrecipeTime",
+          "type": 9
+        },
+        {
+          "id": "5:7895804552718578475",
+          "name": "preparationTime",
+          "type": 9
+        },
+        {
+          "id": "6:5378448172849675147",
+          "name": "cookedTime",
+          "type": 9
+        },
+        {
+          "id": "7:7203381486687791467",
+          "name": "recipePhotoUrl",
+          "type": 9
+        },
+        {
+          "id": "8:3302798706986204635",
+          "name": "numberPersons",
+          "type": 5,
+          "flags": 2
+        },
+        {
+          "id": "9:900258059370660971",
+          "name": "recipeIngredients",
+          "type": 9
+        },
+        {
+          "id": "10:8316927505076238392",
+          "name": "selectedRecipe",
+          "type": 1,
+          "flags": 2
+        },
+        {
+          "id": "11:3692217185749191494",
+          "name": "numberSteps",
+          "type": 5,
+          "flags": 2
+        },
+        {
+          "id": "12:4428331299833590024",
+          "name": "step1",
+          "type": 9
+        },
+        {
+          "id": "13:7074736857781398789",
+          "name": "step2",
+          "type": 9
+        },
+        {
+          "id": "14:2175799126422082701",
+          "name": "step3",
+          "type": 9
+        },
+        {
+          "id": "15:4791352253958533473",
+          "name": "step4",
+          "type": 9
+        },
+        {
+          "id": "16:2884638313517255676",
+          "name": "step5",
+          "type": 9
+        },
+        {
+          "id": "17:3460246931589256793",
+          "name": "step6",
+          "type": 9
+        },
+        {
+          "id": "18:388722512914287072",
+          "name": "step7",
+          "type": 9
+        },
+        {
+          "id": "19:3251703020126674888",
+          "name": "step8",
+          "type": 9
+        },
+        {
+          "id": "20:7648777883714034169",
+          "name": "step9",
+          "type": 9
+        },
+        {
+          "id": "21:2644777575483853398",
+          "name": "step10",
+          "type": 9
+        },
+        {
+          "id": "22:5631561590084553109",
+          "name": "step11",
+          "type": 9
+        },
+        {
+          "id": "23:1602087352304229876",
+          "name": "step12",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:4637892699730040142",
+  "lastEntityId": "3:5942598635681225889",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

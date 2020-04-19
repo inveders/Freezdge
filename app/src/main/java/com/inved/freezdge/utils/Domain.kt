@@ -126,10 +126,16 @@ class Domain {
 
             Log.d("debago","2. input is $input")
             for (i in getAllIngredientBySelected()){
-               if(i.name?.let { input?.contains(it) }!!){
+               if(i.name?.let { input?.contains(it,true) }!!){
                    Log.d("debago","3. input contains ${i.name}")
                    nbIngredientInFridge= nbIngredientInFridge?.plus(1)
                }
+
+                if(i.nameEnglish?.let { input?.contains(it,true) }!!){
+                    Log.d("debago","3. input contains ${i.nameEnglish}")
+                    nbIngredientInFridge= nbIngredientInFridge?.plus(1)
+                }
+
             }
             Log.d("debago","4. ingredients in fridge is $nbIngredientInFridge")
             if(nbIngredientInFridge!=0.0 && nbIngredientInRecipe!=0.0){

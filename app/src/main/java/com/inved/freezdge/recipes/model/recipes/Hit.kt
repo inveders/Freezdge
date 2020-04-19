@@ -4,12 +4,12 @@ import android.view.View
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.inved.freezdge.R
-import com.inved.freezdge.recipes.view.ViewHolder
+import com.inved.freezdge.recipes.view.ViewHolderRecipes
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
 
-class Hit : AbstractItem<ViewHolder>() {
+class Hit : AbstractItem<ViewHolderRecipes>() {
 
     @SerializedName("recipe")
     @Expose
@@ -29,8 +29,8 @@ class Hit : AbstractItem<ViewHolder>() {
     override val layoutRes: Int
         get() = R.layout.item_recipes_list
 
-    override fun getViewHolder(v: View): ViewHolder {
+    override fun getViewHolder(v: View): ViewHolderRecipes {
 
-        return ViewHolder(v)
+        return ViewHolderRecipes(v)
     }
 }

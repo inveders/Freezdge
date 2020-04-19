@@ -1,13 +1,10 @@
 package com.inved.freezdge.recipes.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.inved.freezdge.R
-import com.inved.freezdge.recipes.view.ViewHolder
 
 class WebviewActivity : AppCompatActivity() {
 

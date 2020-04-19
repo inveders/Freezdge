@@ -21,6 +21,9 @@ class IngredientsRepository {
             return IngredientsDAO.getAllIngredientsById()
         }
 
+        fun isIngredientSelected(name: String?): Boolean {
+            return IngredientsDAO.isIngredientSelected(name)
+        }
 
         fun insertIngredients() {
             return IngredientsDAO.insertIngredients()

@@ -33,5 +33,9 @@ class IngredientsViewModel : ViewModel() {
         return IngredientsRepository.getIngredientsLiveDataById()
     }
 
+    fun isIngredientSelected(name: String?): Boolean {
+        return IngredientsRepository.isIngredientSelected(name)
+    }
+
 
 }

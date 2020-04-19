@@ -1,13 +1,11 @@
-package com.inved.freezdge.recipes.view
+package com.inved.freezdge.favourites.view
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
-import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideApp
@@ -15,10 +13,9 @@ import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
-import kotlin.math.roundToInt
 
-
-class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
+class ViewHolderFavouritesRecipes(val view: View) :
+    FastAdapter.ViewHolder<FavouritesRecipes>(view) {
 
     var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
     var preparationTime: TextView =
@@ -29,18 +26,15 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
     var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
-    override fun bindView(item: Hit, payloads: MutableList<Any>) {
-
-        label.text = item.recipe?.label
-        preparationTime.text=Domain.preparationTime(item.recipe?.totalTime)
-
-        kcal.text = item.recipe?.calories!!.div(10).roundToInt().toString()
+    override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
+        label.text = item.recipeTitle
+        preparationTime.text = item.recipeTime
+        kcal.text = item.recipeCalories
 
 
-        val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe!!.ingredientLines)
+        val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text="$proportionInPercent %"
 
-        Log.d("debago","PROPORTION IN PERCENT FOR ${item.recipe?.label} is $proportionInPercent")
         if(proportionInPercent in 90..99){
             proportionText.setBackgroundResource(R.drawable.border_green)
         }else if (proportionInPercent in 50..94){
@@ -49,16 +43,12 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
             proportionText.setBackgroundResource(R.drawable.border_red)
         }
 
-
-
-
-
         GlideApp.with(App.applicationContext())
-            .load(item.recipe?.image)
+            .load(item.recipePhotoUrl)
             .centerCrop()
             .into(imageItem)
 
-        if(isRecipeIdIsPresent(item.recipe?.uri)!!){
+        if(isRecipeIdIsPresent(item.recipeId)!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -66,10 +56,9 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
     }
 
-    override fun unbindView(item: Hit) {
+    override fun unbindView(item: FavouritesRecipes) {
         label.text = null
         preparationTime.text = null
-        proportionText.text = null
         kcal.text = null
         imageItem.setImageDrawable(null)
     }
@@ -88,5 +77,5 @@ class ViewHolder(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         return favouritesRecipes!=null
     }
 
-}
 
+}

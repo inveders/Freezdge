@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
+import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.WebviewActivity
-import com.inved.freezdge.recipes.view.ViewHolder
+import com.inved.freezdge.recipes.view.ViewHolderRecipes
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
@@ -85,7 +86,7 @@ abstract class BaseFragment : Fragment() {
             true
         }
 
-        fastAdapter.addClickListener({ vh: ViewHolder -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
+        fastAdapter.addClickListener({ vh: ViewHolderRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
             //react on the click event
 
             Log.d("debago", "position in base fragment is $position")
@@ -118,7 +119,7 @@ abstract class BaseFragment : Fragment() {
             true
         }
 
-        favouritesFastAdapter.addClickListener({ vh: FavouritesRecipes.ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
             //react on the click event
 
             favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipeId,item.recipeTitle,item.recipeCalories,
