@@ -1,5 +1,6 @@
 package com.inved.freezdge.ingredientslist.database
 
+import android.util.Log
 import android.view.View
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.view.ViewHolderIngredients
@@ -28,6 +29,7 @@ data class Ingredients(@Id var id: Long = 0,
     get() = R.layout.item_ingredients_list
 
     override fun getViewHolder(v: View): ViewHolderIngredients {
+        Log.d("debago", "view in viewhilder ingredient is $v")
         return ViewHolderIngredients(
             v
         )

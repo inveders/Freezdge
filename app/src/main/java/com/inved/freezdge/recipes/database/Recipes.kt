@@ -2,7 +2,7 @@ package com.inved.freezdge.recipes.database
 
 import android.view.View
 import com.inved.freezdge.R
-import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
+import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.mikepenz.fastadapter.items.AbstractItem
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
@@ -35,19 +35,19 @@ data class Recipes (
     var step10: String? = null,
     var step11: String? = null,
     var step12: String? = null
-) : AbstractItem<ViewHolderRecipesRetrofit>() {
+) : AbstractItem<ViewHolderRecipesDatabase>() {
 
     /** defines the type defining this item. must be unique. preferably an id */
     override val type: Int
-        get() = R.id.recipe_list_row_id
+        get() = R.id.recipe_list_database_row_id
 
     /** defines the layout which will be used for this item in the list  */
     override val layoutRes: Int
-        get() = R.layout.item_recipes_list
+        get() = R.layout.item_recipes_list_database
 
-    override fun getViewHolder(v: View): ViewHolderRecipesRetrofit {
+    override fun getViewHolder(v: View): ViewHolderRecipesDatabase {
 
-        return ViewHolderRecipesRetrofit(v)
+        return ViewHolderRecipesDatabase(v)
     }
 
 

@@ -19,13 +19,17 @@ import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
+import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
-import com.inved.freezdge.recipes.view.ViewHolderRecipes
+import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
+import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.GenericFastAdapter
+import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
@@ -33,8 +37,9 @@ import com.mikepenz.fastadapter.listeners.addClickListener
 
 abstract class BaseFragment : Fragment() {
 
-    private val recipesItemAdapter = ItemAdapter<Hit>()
-    private val fastAdapter = FastAdapter.with(recipesItemAdapter)
+    private val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
+    private val recipesDatabaseItemAdapter = ItemAdapter<Recipes>()
+    private var fastAdapter: GenericFastAdapter = FastAdapter.with(listOf(recipesDatabaseItemAdapter, recipesRetrofitItemAdapter))
 
     private val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
     private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
@@ -56,7 +61,7 @@ abstract class BaseFragment : Fragment() {
         val view = inflater.inflate(getLayoutRes(), container, false)
         recyclerView = view.findViewById(R.id.recyclerview)
         initViewModel()
-
+        insertRecipes()
         detectWichFragmentIsOpen()
         return view
     }
@@ -79,32 +84,84 @@ abstract class BaseFragment : Fragment() {
         recyclerView.adapter = fastAdapter
 
         //configure our fastAdapter
-        fastAdapter.onClickListener = { v: View?, _: IAdapter<Hit>, item: Hit, _: Int ->
+        fastAdapter.onClickListener = { v: View?, _: IAdapter<GenericItem>, item: GenericItem, _: Int ->
             v?.let {
-                val url: String = item.recipe?.url.toString()
-                    openWebViewActivity(url)
-                /**openRecipeDetailActivity(item.recipe.)*/
+                // When we click, we retrieve here the clicked element and sen list of benefits in the method
+                if (item is Hit) {
+                    val urlRetrofit: String = item.recipe?.url.toString()
+                    openWebViewActivity(urlRetrofit)
+                } else if (item is Recipes) {
+                    val id:Long = item.id
+                    openRecipeDetailActivity(id)
+                }
             }
             true
         }
 
-        fastAdapter.addClickListener({ vh: ViewHolderRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<Hit>, item: Hit ->
+
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.imageFavourite }) { _, position, _: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
 
-            Log.d("debago", "position in base fragment is $position")
-            favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipe!!.uri,item.recipe!!.label,Math.round(item.recipe?.calories!!.div(10)).toString(),
-                Domain.preparationTime(item.recipe?.totalTime),item.recipe!!.url,item.recipe!!.image,item.recipe!!.ingredientLines.toString())
+            if (item is Hit) {
+                Log.d("debago", "position in base fragment is $position")
+                favouriteRecipesViewmodel.detectFavouriteRecipe(
+                    item.recipe!!.uri,
+                    item.recipe!!.label,
+                    Math.round(item.recipe?.calories!!.div(10)).toString(),
+                    Domain.preparationTime(item.recipe?.totalTime),
+                    item.recipe!!.url,
+                    item.recipe!!.image,
+                    item.recipe!!.ingredientLines.toString()
+                )
 
-            val bool: Boolean? =item.recipe?.uri?.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
+                val bool: Boolean? =
+                    item.recipe?.uri?.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
-            if(bool!!){
-                view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
-            }else{
-                view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
+                if (bool!!) {
+                    view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
+                } else {
+                    view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
+                }
             }
 
         }
 
+
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, position, _: FastAdapter<GenericItem>, item: GenericItem ->
+            //react on the click event
+
+            if (item is Recipes) {
+                Log.d("debago", "position in base fragment is $position")
+                favouriteRecipesViewmodel.detectFavouriteRecipe(
+                    item.recipeTitle,
+                    item.recipeTitle,
+                    item.recipeCalories,
+                    item.totalrecipeTime,
+                    item.recipeUrlOwnerLink,
+                    item.recipePhotoUrl,
+                    item.recipeIngredients
+                )
+
+                val bool: Boolean? =
+                    item.recipeTitle.let { it?.let { it1 ->
+                        favouriteRecipesViewmodel.isRecipeIdIsPresent(
+                            it1
+                        )
+                    } }
+
+                if (bool!!) {
+                    view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
+                } else {
+                    view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
+                }
+            }
+
+        }
+
+    }
+
+    private fun insertRecipes() {
+        recipeModel.insertRecipesInDatabase()
     }
 
     private fun setupFavouriteRecipeRecyclerView() {
@@ -193,22 +250,34 @@ abstract class BaseFragment : Fragment() {
     //DATA
     fun getAllRecipes() {
 
-        recipesItemAdapter.clear()
+        recipesRetrofitItemAdapter.clear()
 
         ingredientsViewmodel.getIngredientsForFreezdgeList()
             .observe(viewLifecycleOwner, Observer { result ->
                 if (result != null) {
                     for (myresult in result) {
-                        recipeModel.getRecipes(myresult.name!!)
-                            .observe(viewLifecycleOwner, Observer { result2 ->
 
-                                recipesItemAdapter.add(result2.hits)
+                        recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                            .observe(viewLifecycleOwner, Observer { recipes ->
+
+                                recipesDatabaseItemAdapter.add(recipes)
                             })
+
+                        //TODO
+                        recipeModel.getRecipes(myresult.name!!)
+                            .observe(viewLifecycleOwner, Observer { hits ->
+
+                                recipesRetrofitItemAdapter.add(hits.hits)
+                            })
+
                     }
                     AllRecipesFragment.hideLoadingIndicator()
                 }
                 AllRecipesFragment.hideLoadingIndicator()
             })
+
+
+
 
     }
 

@@ -32,8 +32,11 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         label.text = item.recipeTitle
         preparationTime.text=item.totalrecipeTime
 
-        kcal.text = item.recipeCalories
-
+        if(item.recipeCalories.isNullOrEmpty()){
+            kcal.text = App.resource().getString(R.string.recipe_list_item_kcal_notknow)
+        }else{
+            kcal.text = item.recipeCalories
+        }
 
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text="$proportionInPercent %"

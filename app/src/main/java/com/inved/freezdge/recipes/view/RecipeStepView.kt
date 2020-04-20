@@ -11,7 +11,7 @@ import com.inved.freezdge.R
 class RecipeStepView(context: Context?) : ConstraintLayout(context) {
 
     @BindView(R.id.itemNameTextView)
-    var itemNameTextView: TextView? = null
+    lateinit var itemNameTextView: TextView
 
     open fun init() {
         View.inflate(context, R.layout.item_recipe_steps, this)

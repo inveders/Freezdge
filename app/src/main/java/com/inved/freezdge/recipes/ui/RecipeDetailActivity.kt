@@ -16,35 +16,52 @@ import com.inved.freezdge.utils.GlideApp
 class RecipeDetailActivity : BaseActivity() {
 
     @BindView(R.id.activity_recipe_detail_name)
-    var recipeTitle: TextView? = null
+    lateinit var recipeTitle: TextView
 
     @BindView(R.id.activity_recipe_detail_time_image_text)
-    var recipePrepCookTime: TextView? = null
+    lateinit var recipePrepCookTime: TextView
 
     @BindView(R.id.activity_recipe_total_time)
-    var recipeTotalTime: TextView? = null
+    lateinit var recipeTotalTime: TextView
 
     @BindView(R.id.activity_recipe_detail_photo)
-    var recipeDetailPhoto: ImageView? = null
+    lateinit var recipeDetailPhoto: ImageView
 
     @BindView(R.id.activity_recipe_detail_kcal_image_text)
-    var recipeKcal: TextView? = null
+    lateinit var recipeKcal: TextView
 
     @BindView(R.id.activity_recipe_detail_number_person_image_text)
-    var recipeNumberPerson: TextView? = null
+    lateinit var recipeNumberPerson: TextView
 
     @BindView(R.id.activity_recipe_detail_photo_owner)
-    var recipeOwnerImage: ImageView? = null
+    lateinit var recipeOwnerImage: ImageView
 
 
     @BindView(R.id.summaryItemLinearLayout)
-    var stepSummaryView : LinearLayout?= null
+    lateinit var stepSummaryView : LinearLayout
 
 
     private var expandableListView: ExpandableListView? = null
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String> ? = null
-    private lateinit var data: HashMap<String, List<String>>
+
+    private val data: HashMap<String, List<String>>
+        get() {
+            val listData = HashMap<String, List<String>>()
+
+            val samsungMobiles = ArrayList<String>()
+            samsungMobiles.add("Samsung Galaxy S9+")
+            samsungMobiles.add("Samsung Galaxy Note 7")
+            samsungMobiles.add("Samsung Galaxy Note 5 Dual")
+            samsungMobiles.add("Samsung Galaxy S8")
+            samsungMobiles.add("Samsung Galaxy A8")
+            samsungMobiles.add("Samsung Galaxy Note 4")
+
+            listData["Samsung"] = samsungMobiles
+
+            return listData
+        }
+
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_recipe_detail
@@ -54,7 +71,7 @@ class RecipeDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
-        setupExpandableView()
+
         val id:Long = intent.getLongExtra("RECIPE_ID",0)
         getRecipeById(id)
     }
@@ -120,14 +137,17 @@ class RecipeDetailActivity : BaseActivity() {
         } }
         
         addDataInExpandable(Domain.retrieveListFromString(recipe.recipeIngredients))
+        setupExpandableView()
         
     }
 
     private fun addDataInExpandable(listFromString: List<String>):HashMap<String, List<String>> {
+
         val listIngredients = ArrayList<String>()
         for (ingredient in listFromString){
             listIngredients.add(ingredient)
         }
+        data.clear()
         data["Ingredients"] = listIngredients
 
         return data

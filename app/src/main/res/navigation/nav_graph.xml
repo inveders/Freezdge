@@ -77,6 +77,13 @@
 
     </activity>
 
+    <activity android:id="@+id/my_detail_recipe_activity"
+        android:name="com.inved.freezdge.recipes.ui.RecipeDetailActivity"
+        android:label="Detail Recipe"
+        tools:layout="@layout/activity_recipe_detail">
+
+    </activity>
+
     <activity android:id="@+id/search_ingredients_activity"
         android:name="com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity"
         android:label="Search Activity"

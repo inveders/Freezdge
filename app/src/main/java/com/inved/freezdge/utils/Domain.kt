@@ -37,6 +37,7 @@ class Domain {
 
         }
 
+
         fun ingredientsFavouriteMatchingMethod(input: String?): Int {
 
             initNumberIngredientsFromString(input)
@@ -138,10 +139,11 @@ class Domain {
                    nbIngredientInFridge= nbIngredientInFridge?.plus(1)
                }
 
-                if(i.nameEnglish?.let { input?.contains(it,true) }!!){
+                //TODO
+              /*  if(i.nameEnglish?.let { input?.contains(it,true) }!!){
                     Log.d("debago","3. input contains ${i.nameEnglish}")
                     nbIngredientInFridge= nbIngredientInFridge?.plus(1)
-                }
+                }*/
 
             }
             Log.d("debago","4. ingredients in fridge is $nbIngredientInFridge")

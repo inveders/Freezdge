@@ -1,11 +1,13 @@
 package com.inved.freezdge.uiGeneral.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
+import kotlinx.android.synthetic.main.activity_recipe_detail.*
 
 
 abstract class BaseActivity:AppCompatActivity() {
@@ -32,6 +34,7 @@ abstract class BaseActivity:AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(id)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
 
     }
 

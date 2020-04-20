@@ -34,7 +34,7 @@ class MyIngredientsListFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         floatingActionButton =view.findViewById(R.id.fragment_ingredient_list_floating_button)
         chipGroup =view.findViewById(R.id.chipGroup)
-        floatingActionButton.setOnClickListener{v -> openSearchIngredientActivity() }
+        floatingActionButton.setOnClickListener{ _ -> openSearchIngredientActivity() }
         ingredientsViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
         setupChips()

@@ -21,14 +21,14 @@
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
     <string name="recipe_list_item_preparation_time">Preparation time</string>
     <string name="recipe_list_item_kcal">kcal</string>
+    <string name="recipe_list_item_kcal_notknow">N.C kcal</string>
     <string name="description_image">Description image</string>
 
     <!--Recipe Detail-->
     <string name="recipe_detail_item_image">image_recipe</string>
     <string name="recipe_detail_item_label">Recipe title</string>
     <string name="recipe_detail_item_no_time_known">No time indicated</string>
-    <string name="recipe_detail_item_detail_time">Prep time : %s min \n
-                                            Cook time : %s min</string>
+    <string name="recipe_detail_item_detail_time">Prep time : %s min \nCook time : %s min</string>
     <string name="recipe_detail_item_total_time">Total time : %s</string>
     <string name="recipe_detail_item_kcal">%s \n kcal</string>
     <string name="recipe_detail_item_number_person">%d \n personnes</string>

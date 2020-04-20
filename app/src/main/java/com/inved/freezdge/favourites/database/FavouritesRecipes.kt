@@ -22,11 +22,11 @@ class FavouritesRecipes(
 
     /** defines the type defining this item. must be unique. preferably an id */
     override val type: Int
-        get() = R.id.recipe_list_row_id
+        get() = R.id.recipe_list_retrofit_row_id
 
     /** defines the layout which will be used for this item in the list  */
     override val layoutRes: Int
-        get() = R.layout.item_recipes_list
+        get() = R.layout.item_recipes_list_retrofit
 
     override fun getViewHolder(v: View): ViewHolderFavouritesRecipes {
         return ViewHolderFavouritesRecipes(

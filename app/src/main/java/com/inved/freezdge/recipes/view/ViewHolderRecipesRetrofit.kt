@@ -36,7 +36,6 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
 
         kcal.text = item.recipe?.calories!!.div(10).roundToInt().toString()
 
-
         val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe!!.ingredientLines)
         proportionText.text="$proportionInPercent %"
 

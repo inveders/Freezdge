@@ -20,9 +20,9 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
                 Recipes(
                     recipeTitle = "Burger et frites de patate douce",
                     recipeCalories = "",
-                    totalrecipeTime = "45",
-                    preparationTime = "10",
-                    cookedTime = "35",
+                    totalrecipeTime = "45 min",
+                    preparationTime = "10 min",
+                    cookedTime = "35 min",
                     recipePhotoUrl = photoUrl,
                     recipePhotoUrlOwner="",
                     recipeUrlOwnerLink="",
