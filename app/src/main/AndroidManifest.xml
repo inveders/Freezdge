@@ -40,7 +40,7 @@
         <activity android:name=".ingredientslist.ui.SearchIngredientsActivity"/>
         <activity android:name=".uiGeneral.activity.BaseActivity"/>
         <activity android:name=".recipes.ui.WebviewActivity"/>
-
+        <activity android:name=".recipes.ui.RecipeDetailActivity"/>
     </application>
 
 </manifest>

@@ -17,6 +17,8 @@ data class Recipes (
     var preparationTime: String? = null,
     var cookedTime: String? = null,
     var recipePhotoUrl: String? = null,
+    var recipePhotoUrlOwner: String? = null,
+    var recipeUrlOwnerLink: String? = null,
     var numberPersons: Int? = 0,
     var recipeIngredients: String? = null,
     var selectedRecipe: Boolean = false,

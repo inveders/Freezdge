@@ -1,5 +1,6 @@
 package com.inved.freezdge.recipes.database
 
+import com.inved.freezdge.utils.AddRecipesInDatabase
 import com.inved.freezdge.utils.App
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -46,13 +47,17 @@ class RecipesDAO {
         }
 
 
-        fun getRecipeLiveDataById(id:Long): ObjectBoxLiveData<Recipes> {
+        fun getRecipeLiveDataById(id:Long): Recipes? {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-            return ObjectBoxLiveData(getRecipesBox().query().equal(Recipes_.id,id).build())
+            return getRecipesBox().query().equal(Recipes_.id,id).build().findUnique()
         }
 
         fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
             return ObjectBoxLiveData(getRecipesBox().query().contains(Recipes_.recipeIngredients,ingredientName).build())
+        }
+
+        fun insertRecipesInDatabase() {
+            AddRecipesInDatabase(getRecipesBox())
         }
 
     }

@@ -89,6 +89,13 @@ class Domain {
 
         }
 
+        fun retrieveListFromString(input: String?):List<String>{
+            return ArrayList(
+                listOf(
+                    *input!!.split(",").toTypedArray()
+                )
+            )
+        }
 
 
         fun initNumberIngredientsFromString(input: String?){

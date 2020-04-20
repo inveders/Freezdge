@@ -24,6 +24,8 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
                     preparationTime = "10",
                     cookedTime = "35",
                     recipePhotoUrl = photoUrl,
+                    recipePhotoUrlOwner="",
+                    recipeUrlOwnerLink="",
                     recipeIngredients = "1 pain de burger, 1 steak haché,2 cornichons, 1 patate douce, Ail, Poivre, Sel, Herbes de Provence, 2 cuillères à soupe d’Huile d’olive, Ketchup, Mayonnaise, 1 oignon",
                     numberPersons = 1,
                     selectedRecipe = false,

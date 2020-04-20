@@ -37,7 +37,7 @@ class RecipeModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun getRecipeLiveDataById(id:Long): ObjectBoxLiveData<Recipes> {
+    fun getRecipeLiveDataById(id:Long): Recipes? {
         return RecipesRepository.getRecipeLiveDataById(id)
     }
 
@@ -52,5 +52,9 @@ class RecipeModel(application: Application) : AndroidViewModel(application) {
 
     fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
         return RecipesRepository.getRecipeIfContainIngredient(ingredientName)
+    }
+
+    fun insertRecipesInDatabase() {
+        return RecipesRepository.insertRecipesInDatabase()
     }
 }

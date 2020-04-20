@@ -23,7 +23,7 @@ class RecipesRepository {
         }
 
 
-        fun getRecipeLiveDataById(id:Long): ObjectBoxLiveData<Recipes> {
+        fun getRecipeLiveDataById(id:Long): Recipes? {
             return RecipesDAO.getRecipeLiveDataById(id)
         }
 
@@ -38,6 +38,10 @@ class RecipesRepository {
 
         fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
             return RecipesDAO.getRecipeIfContainIngredient(ingredientName)
+        }
+
+        fun insertRecipesInDatabase() {
+           return RecipesDAO.insertRecipesInDatabase()
         }
     }
 

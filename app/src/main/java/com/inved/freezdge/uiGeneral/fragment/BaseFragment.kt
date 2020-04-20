@@ -20,6 +20,7 @@ import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
+import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipes
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
@@ -82,6 +83,7 @@ abstract class BaseFragment : Fragment() {
             v?.let {
                 val url: String = item.recipe?.url.toString()
                     openWebViewActivity(url)
+                /**openRecipeDetailActivity(item.recipe.)*/
             }
             true
         }
@@ -142,6 +144,12 @@ abstract class BaseFragment : Fragment() {
     fun openWebViewActivity(url: String) {
         let { val intent= Intent(activity, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)
+            startActivity(intent) }
+    }
+
+    fun openRecipeDetailActivity(id: Long) {
+        let { val intent= Intent(activity, RecipeDetailActivity::class.java)
+            intent.putExtra("RECIPE_ID", id)
             startActivity(intent) }
     }
 
