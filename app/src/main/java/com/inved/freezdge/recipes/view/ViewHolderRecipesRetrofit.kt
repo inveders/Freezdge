@@ -18,7 +18,7 @@ import io.objectbox.kotlin.boxFor
 import kotlin.math.roundToInt
 
 
-class ViewHolderRecipes(view: View) : FastAdapter.ViewHolder<Hit>(view) {
+class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
     var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
     var preparationTime: TextView =
@@ -48,10 +48,6 @@ class ViewHolderRecipes(view: View) : FastAdapter.ViewHolder<Hit>(view) {
         }else if (proportionInPercent in 0..49){
             proportionText.setBackgroundResource(R.drawable.border_red)
         }
-
-
-
-
 
         GlideApp.with(App.applicationContext())
             .load(item.recipe?.image)
