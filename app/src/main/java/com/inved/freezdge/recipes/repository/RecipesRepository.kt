@@ -1,8 +1,6 @@
 package com.inved.freezdge.recipes.repository
 
 import com.inved.freezdge.BuildConfig
-import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.database.IngredientsDAO
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.database.RecipesDAO
 import com.inved.freezdge.recipes.retrofit.RecipesApi
@@ -36,6 +34,10 @@ class RecipesRepository {
 
         fun updateRecipeSelectedByName(name: String?) {
             return RecipesDAO.updateRecipeSelectedByName(name)
+        }
+
+        fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
+            return RecipesDAO.getRecipeIfContainIngredient(ingredientName)
         }
     }
 

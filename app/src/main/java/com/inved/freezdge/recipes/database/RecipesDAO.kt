@@ -51,5 +51,9 @@ class RecipesDAO {
             return ObjectBoxLiveData(getRecipesBox().query().equal(Recipes_.id,id).build())
         }
 
+        fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
+            return ObjectBoxLiveData(getRecipesBox().query().contains(Recipes_.recipeIngredients,ingredientName).build())
+        }
+
     }
 }
