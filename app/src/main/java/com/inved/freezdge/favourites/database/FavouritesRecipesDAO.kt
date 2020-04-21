@@ -1,6 +1,5 @@
 package com.inved.freezdge.favourites.database
 
-import android.util.Log
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import io.objectbox.Box
@@ -45,12 +44,12 @@ class FavouritesRecipesDAO {
            for(i in getFavouritesRecipesBox().query().order(FavouritesRecipes_.id).build().find()){
                if (i.recipeIngredients?.let { it.contains(ingredientNameFrench, true) }!!) {
 
-                   Domain.updateItemForGroceryList(ingredientNameFrench, true)
+                   Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
                }
 
                if (i.recipeIngredients?.let { it.contains(ingredientNameEnglish, true) }!!) {
 
-                   Domain.updateItemForGroceryList(ingredientNameFrench, true)
+                   Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
                }
            }
 
