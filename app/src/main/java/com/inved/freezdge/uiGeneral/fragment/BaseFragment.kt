@@ -6,11 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
@@ -37,9 +40,12 @@ import com.mikepenz.fastadapter.listeners.addClickListener
 
 abstract class BaseFragment : Fragment() {
 
+    lateinit var notFoundTeextView: TextView
+
     private val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
     private val recipesDatabaseItemAdapter = ItemAdapter<Recipes>()
-    private var fastAdapter: GenericFastAdapter = FastAdapter.with(listOf(recipesDatabaseItemAdapter, recipesRetrofitItemAdapter))
+    private var fastAdapter: GenericFastAdapter =
+        FastAdapter.with(listOf(recipesDatabaseItemAdapter, recipesRetrofitItemAdapter))
 
     private val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
     private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
@@ -57,9 +63,10 @@ abstract class BaseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         val view = inflater.inflate(getLayoutRes(), container, false)
+        ButterKnife.bind(view)
         recyclerView = view.findViewById(R.id.recyclerview)
+        notFoundTeextView = view.findViewById(R.id.not_found)
         initViewModel()
         insertRecipes()
         detectWichFragmentIsOpen()
@@ -84,19 +91,20 @@ abstract class BaseFragment : Fragment() {
         recyclerView.adapter = fastAdapter
 
         //configure our fastAdapter
-        fastAdapter.onClickListener = { v: View?, _: IAdapter<GenericItem>, item: GenericItem, _: Int ->
-            v?.let {
-                // When we click, we retrieve here the clicked element and sen list of benefits in the method
-                if (item is Hit) {
-                    val urlRetrofit: String = item.recipe?.url.toString()
-                    openWebViewActivity(urlRetrofit)
-                } else if (item is Recipes) {
-                    val id:Long = item.id
-                    openRecipeDetailActivity(id)
+        fastAdapter.onClickListener =
+            { v: View?, _: IAdapter<GenericItem>, item: GenericItem, _: Int ->
+                v?.let {
+                    // When we click, we retrieve here the clicked element and sen list of benefits in the method
+                    if (item is Hit) {
+                        val urlRetrofit: String = item.recipe?.url.toString()
+                        openWebViewActivity(urlRetrofit)
+                    } else if (item is Recipes) {
+                        val id: Long = item.id
+                        openRecipeDetailActivity(id)
+                    }
                 }
+                true
             }
-            true
-        }
 
 
         fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.imageFavourite }) { _, position, _: FastAdapter<GenericItem>, item: GenericItem ->
@@ -143,11 +151,13 @@ abstract class BaseFragment : Fragment() {
                 )
 
                 val bool: Boolean? =
-                    item.recipeTitle.let { it?.let { it1 ->
-                        favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                            it1
-                        )
-                    } }
+                    item.recipeTitle.let {
+                        it?.let { it1 ->
+                            favouriteRecipesViewmodel.isRecipeIdIsPresent(
+                                it1
+                            )
+                        }
+                    }
 
                 if (bool!!) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
@@ -169,28 +179,32 @@ abstract class BaseFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = favouritesFastAdapter
 
+
         //configure our fastAdapter
-        favouritesFastAdapter.onClickListener = { v: View?, _: IAdapter<FavouritesRecipes>, item: FavouritesRecipes, _: Int ->
-            v?.let {
-                val url: String = item.recipeUrl!!
-                openWebViewActivity(url)
+        favouritesFastAdapter.onClickListener =
+            { v: View?, _: IAdapter<FavouritesRecipes>, item: FavouritesRecipes, _: Int ->
+                v?.let {
+                    val url: String = item.recipeUrl!!
+                    openWebViewActivity(url)
+                }
+                true
             }
-            true
-        }
 
         favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
             //react on the click event
 
-            favouriteRecipesViewmodel.detectFavouriteRecipe(item.recipeId,item.recipeTitle,item.recipeCalories,
-                item.recipeTime,item.recipeUrl,item.recipePhotoUrl,item.recipeIngredients)
+            favouriteRecipesViewmodel.detectFavouriteRecipe(
+                item.recipeId, item.recipeTitle, item.recipeCalories,
+                item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
+            )
 
 
+            val bool: Boolean? =
+                item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
-            val bool: Boolean? =item.recipeId.let {favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
-
-            if(bool!!){
+            if (bool!!) {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
-            }else{
+            } else {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
             }
 
@@ -199,15 +213,19 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun openWebViewActivity(url: String) {
-        let { val intent= Intent(activity, WebviewActivity::class.java)
+        let {
+            val intent = Intent(activity, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)
-            startActivity(intent) }
+            startActivity(intent)
+        }
     }
 
     fun openRecipeDetailActivity(id: Long) {
-        let { val intent= Intent(activity, RecipeDetailActivity::class.java)
+        let {
+            val intent = Intent(activity, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_ID", id)
-            startActivity(intent) }
+            startActivity(intent)
+        }
     }
 
     private fun detectWichFragmentIsOpen() {
@@ -234,9 +252,16 @@ abstract class BaseFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer { result ->
                 favouriteRecipesItemAdapter.clear()
                 if (result != null) {
-                    for (myresult in result) {
-                        favouriteRecipesItemAdapter.add(myresult)
+                    if (result.size != 0) {
+                        notFoundTeextView.visibility = View.GONE
+                        for (myresult in result) {
+                            favouriteRecipesItemAdapter.add(myresult)
+                        }
+                    } else {
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text = getString(R.string.no_item_found_favourite)
                     }
+
                 }
             })
 
@@ -255,28 +280,31 @@ abstract class BaseFragment : Fragment() {
         ingredientsViewmodel.getIngredientsForFreezdgeList()
             .observe(viewLifecycleOwner, Observer { result ->
                 if (result != null) {
-                    for (myresult in result) {
+                    if (result.size != 0) {
+                        notFoundTeextView.visibility = View.GONE
+                        for (myresult in result) {
 
-                        recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                            .observe(viewLifecycleOwner, Observer { recipes ->
+                            recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                .observe(viewLifecycleOwner, Observer { recipes ->
+                                    recipesDatabaseItemAdapter.add(recipes)
+                                })
 
-                                recipesDatabaseItemAdapter.add(recipes)
-                            })
+                            //TODO
+                            recipeModel.getRecipes(myresult.name!!)
+                                .observe(viewLifecycleOwner, Observer { hits ->
+                                    recipesRetrofitItemAdapter.add(hits.hits)
+                                })
 
-                        //TODO
-                        recipeModel.getRecipes(myresult.name!!)
-                            .observe(viewLifecycleOwner, Observer { hits ->
-
-                                recipesRetrofitItemAdapter.add(hits.hits)
-                            })
-
+                        }
+                        AllRecipesFragment.hideLoadingIndicator()
+                    } else {
+                        Log.d("debago", "in no result found")
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text = getString(R.string.no_item_found_recipes)
                     }
-                    AllRecipesFragment.hideLoadingIndicator()
                 }
                 AllRecipesFragment.hideLoadingIndicator()
             })
-
-
 
 
     }

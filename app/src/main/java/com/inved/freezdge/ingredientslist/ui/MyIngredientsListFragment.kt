@@ -50,29 +50,36 @@ class MyIngredientsListFragment: BaseFragment() {
         ingredientsViewmodel.getIngredientsForFreezdgeList()
             .observe(viewLifecycleOwner, Observer { result ->
                 if(result!=null){
-                    chipGroup.removeAllViews()
-                    for (myresult in result){
-                        val chip= Chip(chipGroup.context)
-                        val chipDrawable = ChipDrawable.createFromAttributes(
-                            chipGroup.context,
-                            null,
-                            0,
-                            R.style.Widget_MaterialComponents_Chip_Entry
-                        )
-                        chip.setChipDrawable(chipDrawable)
-                        chip.text=myresult.name
-                        chip.closeIcon=context?.let {
-                            ContextCompat.getDrawable(it,R.drawable.ic_clear_grey_24dp) }
-                        // Set chip close icon click listener
-                        chip.setOnCloseIconClickListener{
-                            // Smoothly remove chip from chip group
-                            ingredientsViewmodel.updateIngredientSelectedByName(myresult.name)
-                            TransitionManager.beginDelayedTransition(chipGroup)
-                            chipGroup.removeView(chip)
+                    if(result.size!=0){
+                        notFoundTeextView.visibility = View.GONE
+                        chipGroup.removeAllViews()
+                        for (myresult in result){
+                            val chip= Chip(chipGroup.context)
+                            val chipDrawable = ChipDrawable.createFromAttributes(
+                                chipGroup.context,
+                                null,
+                                0,
+                                R.style.Widget_MaterialComponents_Chip_Entry
+                            )
+                            chip.setChipDrawable(chipDrawable)
+                            chip.text=myresult.name
+                            chip.closeIcon=context?.let {
+                                ContextCompat.getDrawable(it,R.drawable.ic_clear_grey_24dp) }
+                            // Set chip close icon click listener
+                            chip.setOnCloseIconClickListener{
+                                // Smoothly remove chip from chip group
+                                ingredientsViewmodel.updateIngredientSelectedByName(myresult.name)
+                                TransitionManager.beginDelayedTransition(chipGroup)
+                                chipGroup.removeView(chip)
+                            }
+                            chip.isClickable=true
+                            chipGroup.addView(chip)
                         }
-                        chip.isClickable=true
-                        chipGroup.addView(chip)
+                    }else{
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text = getString(R.string.no_item_found_ingredients)
                     }
+
                 }
 
             })

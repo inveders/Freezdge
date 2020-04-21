@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:id="@+id/not_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TBL: ALL RECIPES"
