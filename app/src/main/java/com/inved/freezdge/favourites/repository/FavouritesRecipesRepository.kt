@@ -19,6 +19,10 @@ class FavouritesRecipesRepository {
             FavouritesRecipesDAO.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
         }
 
+        fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
+            FavouritesRecipesDAO.isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench,ingredientNameEnglish)
+        }
+
         fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
             return FavouritesRecipesDAO.getAllFavouritesRecipes()

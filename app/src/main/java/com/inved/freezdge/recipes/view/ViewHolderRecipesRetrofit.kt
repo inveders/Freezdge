@@ -39,7 +39,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe!!.ingredientLines)
         proportionText.text="$proportionInPercent %"
 
-        Log.d("debago","PROPORTION IN PERCENT FOR ${item.recipe?.label} is $proportionInPercent")
+        Log.d("debago","5. PROPORTION IN PERCENT FOR ${item.recipe?.label} is $proportionInPercent")
         if(proportionInPercent in 90..99){
             proportionText.setBackgroundResource(R.drawable.border_green)
         }else if (proportionInPercent in 50..94){

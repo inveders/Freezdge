@@ -1,6 +1,8 @@
 package com.inved.freezdge.favourites.database
 
+import android.util.Log
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.android.ObjectBoxLiveData
@@ -36,6 +38,22 @@ class FavouritesRecipesDAO {
                 getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId)
                     .build().findUnique()
             return favouritesRecipes != null
+        }
+
+        fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
+
+           for(i in getFavouritesRecipesBox().query().order(FavouritesRecipes_.id).build().find()){
+               if (i.recipeIngredients?.let { it.contains(ingredientNameFrench, true) }!!) {
+
+                   Domain.updateItemForGroceryList(ingredientNameFrench, true)
+               }
+
+               if (i.recipeIngredients?.let { it.contains(ingredientNameEnglish, true) }!!) {
+
+                   Domain.updateItemForGroceryList(ingredientNameFrench, true)
+               }
+           }
+
         }
 
         fun insertFavouriteRecipe(

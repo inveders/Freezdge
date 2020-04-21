@@ -1,10 +1,13 @@
 package com.inved.freezdge.ingredientslist.ui
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -58,14 +61,13 @@ class MyGroceryListActivity: BaseActivity() {
                             )
                             chip.setChipDrawable(chipDrawable)
                             chip.text=myresult.name
+                            Log.d("debago","chip name is ${myresult.name}")
                             chip.closeIcon=context?.let {
                                 ContextCompat.getDrawable(context as Context,R.drawable.ic_clear_grey_24dp) }
                             // Set chip close icon click listener
                             chip.setOnCloseIconClickListener{
                                 // Smoothly remove chip from chip group
-                                ingredientsViewmodel.updateIngredientSelectedByName(myresult.name)
-                                TransitionManager.beginDelayedTransition(chipGroup)
-                                chipGroup.removeView(chip)
+                                launchAlertDialog(chip)
                             }
                             chip.isClickable=true
                             chipGroup.addView(chip)
@@ -78,5 +80,29 @@ class MyGroceryListActivity: BaseActivity() {
                 }
 
             })
+    }
+
+    private fun launchAlertDialog(chip:Chip) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.menu_grocery_list))
+        builder.setMessage(getString(R.string.dialog_question_grocery))
+
+        builder.setPositiveButton(getString(R.string.Yes)) { dialog, which ->
+            Toast.makeText(applicationContext,
+                "${chip.text} has been removed from grocery list", Toast.LENGTH_SHORT).show()
+
+            ingredientsViewmodel.updateIngredientSelectedByName(chip.text.toString(),true)
+            ingredientsViewmodel.updateIngredientSelectedForGroceryByName(chip.text.toString(),false)
+            TransitionManager.beginDelayedTransition(chipGroup)
+            chipGroup.removeView(chip)
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(applicationContext,
+                getString(R.string.dialog_cancel_action), Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        builder.show()
     }
 }

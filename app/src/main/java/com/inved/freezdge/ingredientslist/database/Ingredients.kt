@@ -29,7 +29,6 @@ data class Ingredients(@Id var id: Long = 0,
     get() = R.layout.item_ingredients_list
 
     override fun getViewHolder(v: View): ViewHolderIngredients {
-        Log.d("debago", "view in viewhilder ingredient is $v")
         return ViewHolderIngredients(
             v
         )

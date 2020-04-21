@@ -41,5 +41,10 @@
     <string name="recipe_detail_item_one_person">1 personne</string>
     <string name="recipe_detail_item_step">Step %d : %s</string>
     <string name="recipe_detail_item_recipe_view">Recipe</string>
+    <string name="toastNoIngredientResultSearch">No ingredient found</string>
+    <string name="search_ingredient_searchview_label">Search ingredient here...</string>
+    <string name="dialog_cancel_action">Cancelled action</string>
+    <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
+    <string name="Yes">Yes</string>
 
 </resources>

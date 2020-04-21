@@ -125,7 +125,9 @@ abstract class BaseFragment : Fragment() {
                 val bool: Boolean? =
                     item.recipe?.uri?.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
-                if (bool!!) {
+                Domain.correspondanceCalculForGrocery(item.recipe?.ingredientLines.toString(),bool!!)
+
+                if (bool) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
@@ -159,6 +161,7 @@ abstract class BaseFragment : Fragment() {
                         }
                     }
 
+                item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
                 if (bool!!) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
                 } else {
@@ -202,6 +205,7 @@ abstract class BaseFragment : Fragment() {
             val bool: Boolean? =
                 item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
+            item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
             if (bool!!) {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
             } else {

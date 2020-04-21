@@ -23,14 +23,26 @@ class IngredientsDAO {
             getIngredientsBox().put(ingredient)
         }
 
-        fun updateIngredientSelectedByName(name: String?) {
+        fun updateIngredientSelectedByName(name: String?,bool:Boolean) {
 
             if(name!=null){
                 val ingredient:Ingredients? =
                     getIngredientsBox().query().equal(Ingredients_.name,name).build().findUnique()
-                ingredient?.selectedIngredient = false
+                ingredient?.selectedIngredient = bool
                 if(ingredient!=null)
                 getIngredientsBox().put(ingredient)
+            }
+
+        }
+
+        fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
+
+            if(name!=null){
+                val ingredient:Ingredients? =
+                    getIngredientsBox().query().equal(Ingredients_.name,name).build().findUnique()
+                ingredient?.grocerySelectedIngredient = bool
+                if(ingredient!=null)
+                    getIngredientsBox().put(ingredient)
             }
 
         }
@@ -42,6 +54,17 @@ class IngredientsDAO {
                     getIngredientsBox().query().equal(Ingredients_.name,name).build().findUnique()
 
                 return ingredient!!.selectedIngredient
+            }
+            return false
+        }
+
+        fun isIngredientSelectedInGrocery(name: String?):Boolean {
+
+            if(name!=null){
+                val ingredient:Ingredients? =
+                    getIngredientsBox().query().equal(Ingredients_.name,name).build().findUnique()
+
+                return ingredient!!.grocerySelectedIngredient
             }
             return false
         }

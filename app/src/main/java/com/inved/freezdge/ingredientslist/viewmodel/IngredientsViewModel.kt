@@ -21,8 +21,12 @@ class IngredientsViewModel : ViewModel() {
         return IngredientsRepository.getIngredientsLiveDataBySelected()
     }
 
-    fun updateIngredientSelectedByName(name:String?) {
-        return IngredientsRepository.updateIngredientSelectedByName(name)
+    fun updateIngredientSelectedByName(name:String?,bool:Boolean) {
+        return IngredientsRepository.updateIngredientSelectedByName(name,bool)
+    }
+
+    fun updateIngredientSelectedForGroceryByName(name:String?,bool:Boolean) {
+        return IngredientsRepository.updateIngredientSelectedForGroceryByName(name,bool)
     }
 
     fun getIngredientsForGrocery(): ObjectBoxLiveData<Ingredients> {
@@ -37,5 +41,8 @@ class IngredientsViewModel : ViewModel() {
         return IngredientsRepository.isIngredientSelected(name)
     }
 
+    fun isIngredientSelectedInGrocery(name: String?): Boolean {
+        return IngredientsRepository.isIngredientSelectedInGrocery(name)
+    }
 
 }

@@ -25,6 +25,10 @@ class IngredientsRepository {
             return IngredientsDAO.isIngredientSelected(name)
         }
 
+        fun isIngredientSelectedInGrocery(name: String?): Boolean {
+            return IngredientsDAO.isIngredientSelectedInGrocery(name)
+        }
+
         fun insertIngredients() {
             return IngredientsDAO.insertIngredients()
         }
@@ -33,9 +37,15 @@ class IngredientsRepository {
             return IngredientsDAO.updateIngredient(ingredient)
         }
 
-        fun updateIngredientSelectedByName(name: String?) {
-            return IngredientsDAO.updateIngredientSelectedByName(name)
+        fun updateIngredientSelectedByName(name: String?,bool:Boolean) {
+            return IngredientsDAO.updateIngredientSelectedByName(name,bool)
         }
+
+        fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
+            return IngredientsDAO.updateIngredientSelectedForGroceryByName(name,bool)
+        }
+
+
 
         //Mock data for testing
         fun initDatabase() {

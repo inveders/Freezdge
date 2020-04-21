@@ -13,16 +13,21 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 
 class MyIngredientsListFragment: BaseFragment() {
 
     private lateinit var ingredientsViewmodel: IngredientsViewModel
+    private lateinit var favouritesRecipesViewmodel: FavouritesRecipesViewModel
     override fun getLayoutRes(): Int {
         return R.layout.fragment_my_ingredients_list
     }
@@ -37,6 +42,8 @@ class MyIngredientsListFragment: BaseFragment() {
         floatingActionButton.setOnClickListener{ _ -> openSearchIngredientActivity() }
         ingredientsViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+        favouritesRecipesViewmodel =
+            ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
         setupChips()
     }
 
@@ -68,11 +75,24 @@ class MyIngredientsListFragment: BaseFragment() {
                             // Set chip close icon click listener
                             chip.setOnCloseIconClickListener{
                                 // Smoothly remove chip from chip group
-                                ingredientsViewmodel.updateIngredientSelectedByName(myresult.name)
+                                GlobalScope.async (Dispatchers.IO) {
+                                    Log.d("debago", "In coroutine mylist fragment")
+                                    ingredientsViewmodel.updateIngredientSelectedByName(myresult.name,false)
+                                    myresult.name?.let { it1 ->
+                                        myresult.nameEnglish?.let { it2 ->
+                                            favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
+                                                it1, it2
+                                            )
+                                        }
+                                    }
+                                }
+
+
+
                                 TransitionManager.beginDelayedTransition(chipGroup)
                                 chipGroup.removeView(chip)
                             }
-                            chip.isClickable=true
+                           // chip.isClickable=true
                             chipGroup.addView(chip)
                         }
                     }else{

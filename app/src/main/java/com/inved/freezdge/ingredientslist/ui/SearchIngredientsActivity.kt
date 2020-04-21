@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,6 +24,9 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.util.*
 
 
@@ -55,6 +59,7 @@ class SearchIngredientsActivity : BaseActivity() {
 
     fun showLoadingIndicator() {
         Log.d("debago","in show, loader is $loader")
+
         loader?.post {
             loader!!.playAnimation()
             loaderContainer?.visibility = View.VISIBLE
@@ -79,7 +84,7 @@ class SearchIngredientsActivity : BaseActivity() {
             val searchView = searchItem.actionView as SearchView
             val edittext =
                 searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-            edittext.hint = "TBL: Search ingredient here..."
+            edittext.hint = getString(R.string.search_ingredient_searchview_label)
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -95,11 +100,19 @@ class SearchIngredientsActivity : BaseActivity() {
                         ingredientViewmodel.getAllIngredients()
                             .observe({ lifecycle }, { list ->
 
-                                list.forEach {
-                                    if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
-                                        foodSearchItemAdapter.add(it)
-                                        hideLoadingIndicator()
+                                var count:Int=0
+                                if(list.size!=0){
+                                    list.forEach {
+                                        if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
+                                            foodSearchItemAdapter.add(it)
+                                            count=count.plus(1)
+                                        }
                                     }
+
+                                    if(count==0){
+                                        Toast.makeText(applicationContext,getString(R.string.toastNoIngredientResultSearch),Toast.LENGTH_SHORT).show()
+                                    }
+                                    hideLoadingIndicator()
                                 }
 
                             })
@@ -127,35 +140,27 @@ class SearchIngredientsActivity : BaseActivity() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapterFoodSearch
 
-        //configure our fastAdapter
-      /*  fastAdapterFoodSearch.addClickListener({ vh: ViewHolderIngredients -> vh.imageSelection }) { view, position, _: FastAdapter<Ingredients>, item: Ingredients ->
-            //react on the click event
 
-            Log.d("debago", "position in base fragment is $view")
-            val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)
-
-            if(bool!!){
-                item.getViewHolder(view).imageSelection.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
-            }else{
-                item.getViewHolder(view).imageSelection.setImageResource(R.drawable.ic_favorite_selected_24dp)
-            }
-
-            ingredientViewmodel.updateIngredient(item)
-        }*/
-
-        fastAdapterFoodSearch.onClickListener= { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
+        fastAdapterFoodSearch.onClickListener= { v: View?, _: IAdapter<Ingredients>, item: Ingredients, pos: Int ->
             v?.let {
 
-                Log.d("debago", "position in base fragment is $v")
                 val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)
-
+                Log.d("debago", "boolean in ingredient search is $bool")
                 if(bool!!){
-                    item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
-                }else{
                     item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
+                }else{
+                    item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
                 }
 
-                ingredientViewmodel.updateIngredient(item)
+                GlobalScope.async (Dispatchers.IO) {
+                    Log.d("debago", "In coroutine")
+                    ingredientViewmodel.updateIngredient(item)
+                    if(ingredientViewmodel.isIngredientSelectedInGrocery(item.name)){
+                        ingredientViewmodel.updateIngredientSelectedForGroceryByName(item.name,false)
+                    }
+                }
+
+
             }
             true
         }

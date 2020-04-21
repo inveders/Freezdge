@@ -560,7 +560,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Champignons de Paris",
+                    name = "Champignons",
                     nameEnglish = "Mushroom",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -678,7 +678,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "Coco de Paimpol",
-                    nameEnglish = "Paimpol beans",
+                    nameEnglish = "Coco beans",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -1536,7 +1536,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             ingredientsBox.put(
                 Ingredients(
                     name = "Carambar",
-                    nameEnglish = "Sweet",
+                    nameEnglish = "Candy",
                     typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
