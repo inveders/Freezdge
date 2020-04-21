@@ -4,18 +4,15 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.inved.freezdge.R
 
 class RecipeStepView(context: Context?) : ConstraintLayout(context) {
 
-    @BindView(R.id.itemNameTextView)
     lateinit var itemNameTextView: TextView
 
     open fun init() {
         View.inflate(context, R.layout.item_recipe_steps, this)
-        ButterKnife.bind(this)
+        itemNameTextView=findViewById(R.id.itemNameTextView)
     }
 
     open fun setText(itemName: String?) {

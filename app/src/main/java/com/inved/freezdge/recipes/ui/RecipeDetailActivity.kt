@@ -3,8 +3,6 @@ package com.inved.freezdge.recipes.ui
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.CustomExpandableListAdapter
@@ -15,31 +13,14 @@ import com.inved.freezdge.utils.GlideApp
 
 class RecipeDetailActivity : BaseActivity() {
 
-    @BindView(R.id.activity_recipe_detail_name)
     lateinit var recipeTitle: TextView
-
-    @BindView(R.id.activity_recipe_detail_time_image_text)
     lateinit var recipePrepCookTime: TextView
-
-    @BindView(R.id.activity_recipe_total_time)
     lateinit var recipeTotalTime: TextView
-
-    @BindView(R.id.activity_recipe_detail_photo)
     lateinit var recipeDetailPhoto: ImageView
-
-    @BindView(R.id.activity_recipe_detail_kcal_image_text)
     lateinit var recipeKcal: TextView
-
-    @BindView(R.id.activity_recipe_detail_number_person_image_text)
     lateinit var recipeNumberPerson: TextView
-
-    @BindView(R.id.activity_recipe_detail_photo_owner)
     lateinit var recipeOwnerImage: ImageView
-
-
-    @BindView(R.id.summaryItemLinearLayout)
     lateinit var stepSummaryView : LinearLayout
-
 
     private var expandableListView: ExpandableListView? = null
     private var adapter: ExpandableListAdapter? = null
@@ -69,7 +50,14 @@ class RecipeDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ButterKnife.bind(this)
+        recipeOwnerImage=findViewById(R.id.activity_recipe_detail_photo_owner)
+        recipeNumberPerson=findViewById(R.id.activity_recipe_detail_number_person_image_text)
+        recipeKcal=findViewById(R.id.activity_recipe_detail_kcal_image_text)
+        recipeDetailPhoto=findViewById(R.id.activity_recipe_detail_photo)
+        recipeTotalTime=findViewById(R.id.activity_recipe_total_time)
+        recipePrepCookTime=findViewById(R.id.activity_recipe_detail_time_image_text)
+        recipeTitle=findViewById(R.id.activity_recipe_detail_name)
+        stepSummaryView=findViewById(R.id.summaryItemLinearLayout)
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
 
         val id:Long = intent.getLongExtra("RECIPE_ID",0)

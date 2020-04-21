@@ -12,8 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
@@ -36,6 +34,9 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 
 abstract class BaseFragment : Fragment() {
@@ -64,7 +65,6 @@ abstract class BaseFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(getLayoutRes(), container, false)
-        ButterKnife.bind(view)
         recyclerView = view.findViewById(R.id.recyclerview)
         notFoundTeextView = view.findViewById(R.id.not_found)
         initViewModel()
@@ -125,9 +125,12 @@ abstract class BaseFragment : Fragment() {
                 val bool: Boolean? =
                     item.recipe?.uri?.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
-                Domain.correspondanceCalculForGrocery(item.recipe?.ingredientLines.toString(),bool!!)
+                GlobalScope.async (Dispatchers.IO) {
+                    Log.d("debago", "In coroutine grocery")
+                    Domain.correspondanceCalculForGrocery(item.recipe?.ingredientLines.toString(),bool!!)
+                }
 
-                if (bool) {
+                if (bool!!) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
@@ -161,7 +164,11 @@ abstract class BaseFragment : Fragment() {
                         }
                     }
 
-                item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
+                GlobalScope.async (Dispatchers.IO) {
+                    Log.d("debago", "In coroutine grocery")
+                    item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
+                }
+
                 if (bool!!) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
                 } else {
@@ -205,7 +212,11 @@ abstract class BaseFragment : Fragment() {
             val bool: Boolean? =
                 item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
-            item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
+            GlobalScope.async (Dispatchers.IO) {
+                Log.d("debago", "In coroutine grocery")
+                item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
+            }
+
             if (bool!!) {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
             } else {

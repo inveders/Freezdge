@@ -2,6 +2,7 @@ package com.inved.freezdge.utils
 
 import android.util.Log
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.database.IngredientsDAO
 import com.inved.freezdge.ingredientslist.database.Ingredients_
@@ -168,7 +169,7 @@ class Domain {
                 var count: Int = 0
                 if (i.name?.let { input.contains(it, true) }!!) {
                     Log.d("debago", "3. input contains ${i.name}")
-                    updateItemForGroceryList(i.name!!,isFavouriteAdd)
+                    updateItemForGroceryList(i.name!!,isFavouriteAdd,i.nameEnglish!!)
                     count = count.plus(1)
                 }
 
@@ -176,7 +177,7 @@ class Domain {
                 if (count == 0) {
                     if (i.nameEnglish?.let { input.contains(it, true) }!!) {
                         Log.d("debago", "3. input contains ${i.nameEnglish}")
-                        updateItemForGroceryList(i.name!!,isFavouriteAdd)
+                        updateItemForGroceryList(i.name!!,isFavouriteAdd,i.nameEnglish!!)
                     }
                 }
 
@@ -203,16 +204,10 @@ class Domain {
                 .build().find()
         }
 
-        fun updateItemForGroceryList(name: String, bool:Boolean) {
+        fun updateItemForGroceryList(name: String, bool:Boolean,nameEnglish: String) {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-            val ingredient: Ingredients? =
-                IngredientsDAO.getIngredientsBox().query().equal(Ingredients_.name, name).build()
-                    .findUnique()
-            ingredient?.grocerySelectedIngredient = bool
-
-            Log.d("debago","grocery item to add or remove is $ingredient")
-            if (ingredient != null)
-                IngredientsDAO.getIngredientsBox().put(ingredient)
+            IngredientsDAO.updateIngredientSelectedByName(name,bool)
+            FavouritesRecipesDAO.isIngredientPresentInFavoriteRecipeUpdateGrocery(name,nameEnglish)
 
         }
 
