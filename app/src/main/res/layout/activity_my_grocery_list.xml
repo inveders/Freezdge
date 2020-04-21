@@ -7,6 +7,16 @@
     <!-- Toolbar -->
     <include layout="@layout/toolbar" />
 
+    <TextView
+        android:id="@+id/not_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:text="TBL: GROCERY"
+        android:gravity="center"
+        android:visibility="visible"
+        />
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="0dp"
