@@ -47,4 +47,11 @@
     <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
     <string name="Yes">Yes</string>
 
+    <!--Ingredients type -->
+    <string name="ingredient_type_cream">Crèmerie</string>
+    <string name="ingredient_type_fruits_vegetables">Fruits &amp; Légumes</string>
+    <string name="ingredient_type_epicerie">Epicerie</string>
+    <string name="ingredient_type_fish">Poisson</string>
+    <string name="ingredient_type_meat">Viande</string>
+
 </resources>

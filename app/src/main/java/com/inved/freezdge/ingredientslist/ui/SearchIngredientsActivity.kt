@@ -1,78 +1,70 @@
 package com.inved.freezdge.ingredientslist.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inved.freezdge.R
-import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.view.ViewHolderIngredients
-import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
-import com.inved.freezdge.model.recipes.Hit
-import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.IAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.listeners.addClickListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import java.util.*
+import kotlinx.android.synthetic.main.activity_search_ingredients.*
 
 
 class SearchIngredientsActivity : BaseActivity() {
 
-    private val foodSearchItemAdapter = ItemAdapter<Ingredients>()
-    private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
-
-    private lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var recyclerView: RecyclerView
-    lateinit var ingredientViewmodel: IngredientsViewModel
     private var loader: LottieAnimationView? = null
     private var loaderContainer: FrameLayout? = null
 
+    private val navController by lazy { findNavController(R.id.navHostIngredient) }
+    private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_search_bottom_navigation) }
+    private lateinit var toolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recyclerView = findViewById(R.id.activity_search_recycler_view)
+        initToolbar(navController)
+        setUpNavigationBottom(navController)
         loader=findViewById(R.id.animation_view)
         loaderContainer=findViewById(R.id.animation_view_container)
         initToolbarBaseActivity(R.string.toolbar_search_ingredients)
-        ingredientViewmodel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
-        showLoadingIndicator()
-        insertFood()
-        setupRecyclerView()
-        getAllFood()
+         showLoadingIndicator()
 
 
     }
 
+    //INITIALIZATION
 
-    fun showLoadingIndicator() {
-        Log.d("debago","in show, loader is $loader")
 
-        loader?.post {
-            loader!!.playAnimation()
-            loaderContainer?.visibility = View.VISIBLE
-        }
+    fun initToolbar(navController: NavController){
+
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.fragment_cream,
+                R.id.fragment_fruits_vegetables,
+                R.id.fragment_epicerie,
+                R.id.fragment_fish,
+                R.id.fragment_meat
+            )
+        )
+
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
+
     }
 
-    fun hideLoadingIndicator() {
-        Log.d("debago","in hide, loader is $loader")
-        loader?.post {
-            loader!!.pauseAnimation()
-            Log.d("debago","in hide loading indicator")
-            loaderContainer?.visibility = View.GONE
-        }
+    private fun setUpNavigationBottom(navController: NavController) {
+
+        NavigationUI.setupWithNavController(bottomNavigationView,navController)
+        bottomNavigationView.menu.findItem(R.id.action_to_fragment_cream).isChecked = true
     }
 
 
@@ -80,7 +72,7 @@ class SearchIngredientsActivity : BaseActivity() {
 
         menuInflater.inflate(R.menu.search_menu, menu)
         val searchItem = menu?.findItem(R.id.search_menu)
-        if (searchItem != null) {
+      /*  if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
             val edittext =
                 searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
@@ -118,13 +110,13 @@ class SearchIngredientsActivity : BaseActivity() {
                             })
 
                     } else {
-                        getAllFood()
+
                     }
 
                     return true
                 }
             })
-        }
+        }*/
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -135,55 +127,27 @@ class SearchIngredientsActivity : BaseActivity() {
 
     override fun onSupportNavigateUp() = true.also { onBackPressed() }
 
-    private fun setupRecyclerView() {
-        linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = fastAdapterFoodSearch
-
-
-        fastAdapterFoodSearch.onClickListener= { v: View?, _: IAdapter<Ingredients>, item: Ingredients, pos: Int ->
-            v?.let {
-
-                val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)
-                Log.d("debago", "boolean in ingredient search is $bool")
-                if(bool!!){
-                    item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
-                }else{
-                    item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
-                }
-
-                GlobalScope.async (Dispatchers.IO) {
-                    Log.d("debago", "In coroutine")
-                    ingredientViewmodel.updateIngredient(item)
-                    if(ingredientViewmodel.isIngredientSelectedInGrocery(item.name)){
-                        ingredientViewmodel.updateIngredientSelectedForGroceryByName(item.name,false)
-                    }
-                }
-
-
-            }
-            true
+    fun showLoadingIndicator() {
+        AllRecipesFragment.loader?.post {
+            AllRecipesFragment.loader!!.playAnimation()
+            AllRecipesFragment.loaderContainer?.visibility = View.VISIBLE
         }
-
-
     }
 
-    //DATA
-
-    private fun insertFood() {
-        ingredientViewmodel.insertIngredients()
+    fun hideLoadingIndicator() {
+        AllRecipesFragment.loader?.post {
+            AllRecipesFragment.loader!!.pauseAnimation()
+            AllRecipesFragment.loaderContainer?.visibility = View.GONE
+        }
     }
 
+    fun setUpNavigation() {
 
-    fun getAllFood() {
-        foodSearchItemAdapter.clear()
-        ingredientViewmodel.getAllIngredients().observe(this, Observer {
-            foodSearchItemAdapter.add(it)
-            Log.d("debago","get all food")
-            hideLoadingIndicator()
-        })
-
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment?
+        NavigationUI.setupWithNavController(
+            activity_search_bottom_navigation,
+            navHostFragment!!.navController
+        )
     }
-
-
 }

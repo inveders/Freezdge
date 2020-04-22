@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_to_fragment_cream"
+        android:enabled="true"
+        android:icon="@drawable/menu_drawer_ingredients_list_icon"
+        android:title="@string/ingredient_type_cream"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_to_fragment_fruits_vegetables"
+        android:enabled="true"
+        android:icon="@drawable/menu_bottom_favourite_list_icon"
+        android:title="@string/ingredient_type_fruits_vegetables"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_to_fragment_epicerie"
+        android:enabled="true"
+        android:icon="@drawable/menu_bottom_recipes_list_icon"
+        android:title="@string/ingredient_type_epicerie"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_to_fragment_fish"
+        android:enabled="true"
+        android:icon="@drawable/menu_bottom_favourite_list_icon"
+        android:title="@string/ingredient_type_fish"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_to_fragment_meat"
+        android:enabled="true"
+        android:icon="@drawable/menu_bottom_recipes_list_icon"
+        android:title="@string/ingredient_type_meat"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -21,6 +21,11 @@ class IngredientsRepository {
             return IngredientsDAO.getAllIngredientsById()
         }
 
+        fun getIngredientsLiveDataByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
+            return IngredientsDAO.getAllIngredientsByTypeId(typeIngredient)
+        }
+
+
         fun isIngredientSelected(name: String?): Boolean {
             return IngredientsDAO.isIngredientSelected(name)
         }

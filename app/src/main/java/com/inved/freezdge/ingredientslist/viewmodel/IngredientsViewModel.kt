@@ -37,6 +37,10 @@ class IngredientsViewModel : ViewModel() {
         return IngredientsRepository.getIngredientsLiveDataById()
     }
 
+    fun getAllIngredientsByType(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
+        return IngredientsRepository.getIngredientsLiveDataByTypeId(typeIngredient)
+    }
+
     fun isIngredientSelected(name: String?): Boolean {
         return IngredientsRepository.isIngredientSelected(name)
     }

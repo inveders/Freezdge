@@ -90,6 +90,13 @@ class IngredientsDAO {
             return ObjectBoxLiveData(getIngredientsBox().query().order(Ingredients_.id).build())
         }
 
+        fun getAllIngredientsByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
+            // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+            return ObjectBoxLiveData(getIngredientsBox().query().equal(Ingredients_.typeIngredient,typeIngredient).order(Ingredients_.name).build())
+        }
+
+
+
     }
 
 
