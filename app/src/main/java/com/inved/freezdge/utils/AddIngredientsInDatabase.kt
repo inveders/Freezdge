@@ -3037,8 +3037,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
 
             ingredientsBox.put(
                 Ingredients(
-                    name = "Steaks de soja",
-                    nameEnglish = "Steaks of soya",
+                    name = "Steak de soja",
+                    nameEnglish = "Steak of soya",
                     typeIngredient = "Viande",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -3046,7 +3046,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Steaks hachés",
+                    name = "Steak haché",
                     nameEnglish = "Hamburger",
                     typeIngredient = "Viande",
                     photoUrl = photoUrl,

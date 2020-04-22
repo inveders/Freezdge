@@ -81,11 +81,11 @@ class Domain {
 
             if (input != null) {
                 if (input.contains("water") || input.contains("eau")) {
-                    nbIngredientInRecipe = nbIngredientInRecipe?.minus(1)
+                    nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
                 }
 
                 if (input.contains("salt") || input.contains("sel")) {
-                    nbIngredientInRecipe = nbIngredientInRecipe?.minus(1)
+                    nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
                 }
             }
 
