@@ -31,7 +31,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
     private lateinit var recyclerView: RecyclerView
     lateinit var ingredientViewmodel: IngredientsViewModel
     val foodSearchItemAdapter = ItemAdapter<Ingredients>()
-    val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
+    private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
@@ -40,7 +40,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(getLayoutRes(), container, false)
         recyclerView = view.findViewById(R.id.recyclerview)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
         initViewModel()
         insertFood()
         setupRecyclerView()
@@ -102,7 +102,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
                         ingredientViewmodel.getAllIngredients()
                             .observe({ lifecycle }, { list ->
 
-                                var count:Int=0
+                                var count =0
                                 if(list.size!=0){
                                     list.forEach {
                                         if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
@@ -142,7 +142,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         ingredientViewmodel.insertIngredients()
     }
 
-    fun getAllFoodByType(typeIngredient:String) {
+    private fun getAllFoodByType(typeIngredient:String) {
         foodSearchItemAdapter.clear()
         ingredientViewmodel.getAllIngredientsByType(typeIngredient).observe(viewLifecycleOwner, Observer {
             foodSearchItemAdapter.add(it)
@@ -157,7 +157,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         recyclerView.adapter = fastAdapterFoodSearch
 
 
-        fastAdapterFoodSearch.onClickListener= { v: View?, _: IAdapter<Ingredients>, item: Ingredients, pos: Int ->
+        fastAdapterFoodSearch.onClickListener= { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
             v?.let {
 
                 val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)

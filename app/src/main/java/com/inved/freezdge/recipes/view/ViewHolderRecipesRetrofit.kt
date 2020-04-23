@@ -1,6 +1,5 @@
 package com.inved.freezdge.recipes.view
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -39,13 +38,16 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe!!.ingredientLines)
         proportionText.text="$proportionInPercent %"
 
-        Log.d("debago","5. PROPORTION IN PERCENT FOR ${item.recipe?.label} is $proportionInPercent")
-        if(proportionInPercent in 90..99){
-            proportionText.setBackgroundResource(R.drawable.border_green)
-        }else if (proportionInPercent in 50..94){
-            proportionText.setBackgroundResource(R.drawable.border_orange)
-        }else if (proportionInPercent in 0..49){
-            proportionText.setBackgroundResource(R.drawable.border_red)
+        when (proportionInPercent) {
+            in 90..99 -> {
+                proportionText.setBackgroundResource(R.drawable.border_green)
+            }
+            in 50..94 -> {
+                proportionText.setBackgroundResource(R.drawable.border_orange)
+            }
+            in 0..49 -> {
+                proportionText.setBackgroundResource(R.drawable.border_red)
+            }
         }
 
         GlideApp.with(App.applicationContext())
@@ -69,13 +71,13 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         imageItem.setImageDrawable(null)
     }
 
-    fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
+    private fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
         val boxStore: BoxStore = App.ObjectBox.boxStore
         return boxStore.boxFor()
 
     }
 
-    fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox()
                 .query().equal(FavouritesRecipes_.recipeId, recipeId!!)

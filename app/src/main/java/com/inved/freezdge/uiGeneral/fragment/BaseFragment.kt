@@ -37,6 +37,7 @@ import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlin.math.roundToInt
 
 
 abstract class BaseFragment : Fragment() {
@@ -115,7 +116,7 @@ abstract class BaseFragment : Fragment() {
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
                     item.recipe!!.uri,
                     item.recipe!!.label,
-                    Math.round(item.recipe?.calories!!.div(10)).toString(),
+                    item.recipe?.calories!!.div(10).roundToInt().toString(),
                     Domain.preparationTime(item.recipe?.totalTime),
                     item.recipe!!.url,
                     item.recipe!!.image,
@@ -165,7 +166,6 @@ abstract class BaseFragment : Fragment() {
                     }
 
                 GlobalScope.async (Dispatchers.IO) {
-                    Log.d("debago", "In coroutine grocery")
                     item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it,bool!!) }
                 }
 
@@ -200,7 +200,7 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, _, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
             //react on the click event
 
             favouriteRecipesViewmodel.detectFavouriteRecipe(
@@ -227,7 +227,7 @@ abstract class BaseFragment : Fragment() {
 
     }
 
-    fun openWebViewActivity(url: String) {
+    private fun openWebViewActivity(url: String) {
         let {
             val intent = Intent(activity, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)
@@ -235,7 +235,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun openRecipeDetailActivity(id: Long) {
+    private fun openRecipeDetailActivity(id: Long) {
         let {
             val intent = Intent(activity, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_ID", id)
@@ -282,13 +282,13 @@ abstract class BaseFragment : Fragment() {
 
     }
 
-    fun getForegroundFragment(): Fragment? {
+    private fun getForegroundFragment(): Fragment? {
         val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHost)
         return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
     }
 
     //DATA
-    fun getAllRecipes() {
+    private fun getAllRecipes() {
 
         recipesRetrofitItemAdapter.clear()
 

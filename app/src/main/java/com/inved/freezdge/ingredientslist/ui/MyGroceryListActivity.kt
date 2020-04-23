@@ -4,12 +4,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
@@ -61,7 +59,6 @@ class MyGroceryListActivity: BaseActivity() {
                             )
                             chip.setChipDrawable(chipDrawable)
                             chip.text=myresult.name
-                            Log.d("debago","chip name is ${myresult.name}")
                             chip.closeIcon=context?.let {
                                 ContextCompat.getDrawable(context as Context,R.drawable.ic_clear_grey_24dp) }
                             // Set chip close icon click listener

@@ -98,27 +98,27 @@ class RecipeDetailActivity : BaseActivity() {
     }
 
     private fun fillRecipePage(recipe: Recipes) {
-        recipeTitle?.text=recipe.recipeTitle
-        recipePrepCookTime?.text=getString(R.string.recipe_detail_item_detail_time,recipe.preparationTime,recipe.cookedTime)
-        recipeTotalTime?.text=getString(R.string.recipe_detail_item_total_time,recipe.totalrecipeTime)
-        recipeKcal?.text=getString(R.string.recipe_detail_item_kcal,recipe.recipeCalories)
-        recipeNumberPerson?.text=getString(R.string.recipe_detail_item_number_person,recipe.numberPersons)
+        recipeTitle.text=recipe.recipeTitle
+        recipePrepCookTime.text=getString(R.string.recipe_detail_item_detail_time,recipe.preparationTime,recipe.cookedTime)
+        recipeTotalTime.text=getString(R.string.recipe_detail_item_total_time,recipe.totalrecipeTime)
+        recipeKcal.text=getString(R.string.recipe_detail_item_kcal,recipe.recipeCalories)
+        recipeNumberPerson.text=getString(R.string.recipe_detail_item_number_person,recipe.numberPersons)
 
-        recipeDetailPhoto?.let {
+        recipeDetailPhoto.let {
             GlideApp.with(App.applicationContext())
                 .load(recipe.recipePhotoUrl)
                 .centerCrop()
             .into(it)
         }
 
-        recipeOwnerImage?.let {
+        recipeOwnerImage.let {
             GlideApp.with(App.applicationContext())
                 .load(recipe.recipePhotoUrlOwner)
                 .circleCrop()
                 .into(it)
         }
 
-        recipeOwnerImage?.setOnClickListener { v -> recipe.recipeUrlOwnerLink?.let {
+        recipeOwnerImage.setOnClickListener { v -> recipe.recipeUrlOwnerLink?.let {
             openWebViewActivity(
                 it
             )
