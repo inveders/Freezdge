@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/menu_grocery_list"
-        android:icon="@drawable/menu_drawer_grocery_list_icon"
+        android:icon="@drawable/ic_grocery"
         android:title="@string/menu_grocery_list"
         app:showAsAction="ifRoom"
         />

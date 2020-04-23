@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_to_my_ingredients_list_fragment"
         android:enabled="true"
-        android:icon="@drawable/menu_drawer_ingredients_list_icon"
+        android:icon="@drawable/ic_ingredients"
         android:title="@string/menu_bottom_ingredient_at_home"
         app:showAsAction="ifRoom" />
     <item
@@ -16,7 +16,7 @@
     <item
         android:id="@+id/action_to_all_recipes_fragment"
         android:enabled="true"
-        android:icon="@drawable/menu_bottom_recipes_list_icon"
+        android:icon="@drawable/ic_recipe"
         android:title="@string/menu_bottom_my_recipes"
         app:showAsAction="ifRoom" />
 </menu>

@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_to_fragment_cream"
-        android:icon="@drawable/menu_drawer_ingredients_list_icon"
+        android:icon="@drawable/ic_cream"
         android:title="@string/ingredient_type_cream"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_to_fragment_fruits_vegetables"
-        android:icon="@drawable/menu_bottom_favourite_list_icon"
+        android:icon="@drawable/ic_vegetable"
         android:title="@string/ingredient_type_fruits_vegetables_short"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_to_fragment_epicerie"
-        android:icon="@drawable/menu_bottom_recipes_list_icon"
+        android:icon="@drawable/ic_epicerie"
         android:title="@string/ingredient_type_epicerie"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_to_fragment_fish"
-        android:icon="@drawable/menu_bottom_favourite_list_icon"
+        android:icon="@drawable/ic_fish"
         android:title="@string/ingredient_type_fish"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_to_fragment_meat"
-        android:icon="@drawable/menu_bottom_recipes_list_icon"
+        android:icon="@drawable/ic_bottom_meat"
         android:title="@string/ingredient_type_meat"
         app:showAsAction="ifRoom|withText" />
 
