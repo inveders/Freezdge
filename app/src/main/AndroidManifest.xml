@@ -29,14 +29,15 @@
             android:name="edanam.app_key_food"
             android:value="@string/APP_KEY_FOOD" /> -->
 
-        <activity android:name=".uiGeneral.activity.MainActivity">
+        <activity android:name=".uiGeneral.activity.MainActivity"/>
+        <activity android:name=".ingredientslist.ui.MyGroceryListActivity"/>
+        <activity android:name=".uiGeneral.activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ingredientslist.ui.MyGroceryListActivity"/>
         <activity android:name=".ingredientslist.ui.SearchIngredientsActivity"/>
         <activity android:name=".uiGeneral.activity.BaseActivity"/>
         <activity android:name=".recipes.ui.WebviewActivity"/>
