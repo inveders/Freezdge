@@ -21,8 +21,9 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val id:Int = intent.getIntExtra("BACKPRESS",0)
         initToolbar(navController)
-        setUpNavigationBottom(navController)
+        setUpNavigationBottom(navController,id)
 
     }
 
@@ -50,10 +51,15 @@ class MainActivity : BaseActivity() {
 
     }
 
-    private fun setUpNavigationBottom(navController: NavController) {
-
+    private fun setUpNavigationBottom(navController: NavController,id:Int) {
         NavigationUI.setupWithNavController(bottomNavigationView,navController)
-        bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
+        if(id==1){
+            bottomNavigationView.menu.findItem(R.id.action_to_my_ingredients_list_fragment).isChecked = true
+            navController.navigate(R.id.action_to_my_ingredients_list_fragment)
+        }else if(id==0){
+            bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -25,6 +25,7 @@
     <string name="recipe_list_item_no_time_known">No time indicated</string>
     <string name="recipe_list_item_time_min">%d min</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
+    <string name="recipe_list_item_time_hours">%dh</string>
     <string name="recipe_list_item_preparation_time">Preparation time</string>
     <string name="recipe_list_item_kcal">kcal</string>
     <string name="recipe_list_item_kcal_notknow">N.C</string>
@@ -50,6 +51,7 @@
     <!--Ingredients type -->
     <string name="ingredient_type_cream">Crèmerie</string>
     <string name="ingredient_type_fruits_vegetables">Fruits &amp; Légumes</string>
+    <string name="ingredient_type_fruits_vegetables_short">Fr &amp; Lég</string>
     <string name="ingredient_type_epicerie">Epicerie</string>
     <string name="ingredient_type_fish">Poisson</string>
     <string name="ingredient_type_meat">Viande</string>

@@ -3,8 +3,12 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,17 +21,17 @@ import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import kotlinx.android.synthetic.main.fragment_fish.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import java.util.*
 
 abstract class BaseIngredientsSearchFragment: Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     lateinit var ingredientViewmodel: IngredientsViewModel
-    private val foodSearchItemAdapter = ItemAdapter<Ingredients>()
-    private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
+    val foodSearchItemAdapter = ItemAdapter<Ingredients>()
+    val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
@@ -36,6 +40,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(getLayoutRes(), container, false)
         recyclerView = view.findViewById(R.id.recyclerview)
+        setHasOptionsMenu(true);
         initViewModel()
         insertFood()
         setupRecyclerView()
@@ -71,6 +76,62 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
             }
         }
     }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+
+        val searchItem = menu.findItem(R.id.search_menu)
+
+        if (searchItem != null) {
+            val searchView = searchItem.actionView as SearchView
+
+            val edittext =
+                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            edittext.hint = getString(R.string.search_ingredient_searchview_label)
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText!!.isNotEmpty()) {
+
+                        foodSearchItemAdapter.clear()
+                        val search = newText.toLowerCase(Locale.ROOT)
+                        ingredientViewmodel.getAllIngredients()
+                            .observe({ lifecycle }, { list ->
+
+                                var count:Int=0
+                                if(list.size!=0){
+                                    list.forEach {
+                                        if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
+                                            foodSearchItemAdapter.add(it)
+                                            count=count.plus(1)
+                                        }
+                                    }
+
+                                    if(count==0){
+                                        Toast.makeText(activity,getString(R.string.toastNoIngredientResultSearch),
+                                            Toast.LENGTH_SHORT).show()
+                                    }
+
+                                }
+
+                            })
+                    }else{
+                        detectWichFragmentIsOpen()
+                    }
+
+                    return true
+                }
+            })
+
+
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
 
     fun getForegroundFragment(): Fragment? {
         val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostIngredient)

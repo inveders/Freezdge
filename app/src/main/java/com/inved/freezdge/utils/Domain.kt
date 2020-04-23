@@ -34,8 +34,14 @@ class Domain {
                     val hours: Int = timeInt / 60 //since both are ints, you get an int
 
                     val minutes: Int = timeInt % 60
-                    return App.resource()
-                        .getString(R.string.recipe_list_item_time_min_hours, hours, minutes)
+                    return if(minutes==0){
+                        App.resource()
+                            .getString(R.string.recipe_list_item_time_hours, hours)
+                    }else{
+                        App.resource()
+                            .getString(R.string.recipe_list_item_time_min_hours, hours, minutes)
+                    }
+
                 }
             }
 

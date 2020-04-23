@@ -14,6 +14,18 @@
             android:id="@+id/action_to_fragment_fruits_vegetables"
             app:destination="@id/fragment_fruits_vegetables" />
 
+        <action
+            android:id="@+id/action_to_fragment_epicerie"
+            app:destination="@id/fragment_epicerie" />
+
+        <action
+            android:id="@+id/action_to_fragment_fish"
+            app:destination="@id/fragment_fish" />
+
+        <action
+            android:id="@+id/action_to_fragment_meat"
+            app:destination="@id/fragment_meat" />
+
     </fragment>
 
     <fragment android:id="@+id/fragment_fruits_vegetables"
@@ -22,8 +34,20 @@
         tools:layout="@layout/fragment_fruits_vegetables">
 
         <action
+            android:id="@+id/action_to_fragment_cream"
+            app:destination="@id/fragment_cream" />
+
+        <action
             android:id="@+id/action_to_fragment_epicerie"
             app:destination="@id/fragment_epicerie" />
+
+        <action
+            android:id="@+id/action_to_fragment_fish"
+            app:destination="@id/fragment_fish" />
+
+        <action
+            android:id="@+id/action_to_fragment_meat"
+            app:destination="@id/fragment_meat" />
 
 
     </fragment>
@@ -34,8 +58,20 @@
         tools:layout="@layout/fragment_epicerie">
 
         <action
+            android:id="@+id/action_to_fragment_cream"
+            app:destination="@id/fragment_cream" />
+
+        <action
+            android:id="@+id/action_to_fragment_fruits_vegetables"
+            app:destination="@id/fragment_fruits_vegetables" />
+
+        <action
             android:id="@+id/action_to_fragment_fish"
             app:destination="@id/fragment_fish" />
+
+        <action
+            android:id="@+id/action_to_fragment_meat"
+            app:destination="@id/fragment_meat" />
 
 
     </fragment>
@@ -44,6 +80,19 @@
         android:name="com.inved.freezdge.ingredientslist.ui.FishFragment"
         android:label="@string/toolbar_search_ingredients"
         tools:layout="@layout/fragment_fish">
+
+
+        <action
+            android:id="@+id/action_to_fragment_cream"
+            app:destination="@id/fragment_cream" />
+
+        <action
+            android:id="@+id/action_to_fragment_fruits_vegetables"
+            app:destination="@id/fragment_fruits_vegetables" />
+
+        <action
+            android:id="@+id/action_to_fragment_epicerie"
+            app:destination="@id/fragment_epicerie" />
 
         <action
             android:id="@+id/action_to_fragment_meat"
@@ -56,6 +105,22 @@
         android:name="com.inved.freezdge.ingredientslist.ui.MeatFragment"
         android:label="@string/toolbar_search_ingredients"
         tools:layout="@layout/fragment_meat">
+
+        <action
+            android:id="@+id/action_to_fragment_cream"
+            app:destination="@id/fragment_cream" />
+
+        <action
+            android:id="@+id/action_to_fragment_fruits_vegetables"
+            app:destination="@id/fragment_fruits_vegetables" />
+
+        <action
+            android:id="@+id/action_to_fragment_epicerie"
+            app:destination="@id/fragment_epicerie" />
+
+        <action
+            android:id="@+id/action_to_fragment_fish"
+            app:destination="@id/fragment_fish" />
 
     </fragment>
 
