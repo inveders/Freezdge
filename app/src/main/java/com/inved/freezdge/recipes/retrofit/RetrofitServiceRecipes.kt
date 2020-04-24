@@ -11,7 +11,7 @@ class RetrofitServiceRecipes {
     companion object {
         private const val baseUrl = "https://api.edamam.com/"
 
-        private val client: OkHttpClient = OkHttpClient.Builder()
+        val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
 

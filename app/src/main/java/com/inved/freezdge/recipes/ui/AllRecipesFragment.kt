@@ -1,13 +1,14 @@
 package com.inved.freezdge.recipes.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import com.airbnb.lottie.LottieAnimationView
 import com.inved.freezdge.R
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import kotlinx.android.synthetic.main.fragment_all_recipes.*
 
 class AllRecipesFragment: BaseFragment(){
 
@@ -21,32 +22,14 @@ class AllRecipesFragment: BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loader?.rootView?.findViewById<LottieAnimationView>(R.id.animation_view)
-        loaderContainer?.rootView?.findViewById<FrameLayout>(R.id.animation_view_container)
-
+        Log.d("debago","on create 1")
+        animation_view_container?.visibility=View.VISIBLE
+        Handler().postDelayed({
+            //start main activity
+            animation_view_container?.visibility=View.GONE
+        },4000)
         return super.onCreateView(inflater, container, savedInstanceState)
 
-
-    }
-
-    companion object{
-
-        var loader: LottieAnimationView? = null
-        var loaderContainer: FrameLayout? = null
-
-        fun showLoadingIndicator() {
-            loader?.post {
-                loader!!.playAnimation()
-                loaderContainer?.visibility = View.VISIBLE
-            }
-        }
-
-        fun hideLoadingIndicator() {
-            loader?.post {
-                loader!!.pauseAnimation()
-                loaderContainer?.visibility = View.GONE
-            }
-        }
     }
 
 }

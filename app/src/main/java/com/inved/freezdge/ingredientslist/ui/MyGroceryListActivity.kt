@@ -2,8 +2,10 @@ package com.inved.freezdge.ingredientslist.ui
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ import com.google.android.material.chip.ChipGroup
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
+import com.inved.freezdge.uiGeneral.activity.MainActivity
 import io.objectbox.BoxStore.context
 
 class MyGroceryListActivity: BaseActivity() {
@@ -39,7 +42,13 @@ class MyGroceryListActivity: BaseActivity() {
         return R.layout.activity_my_grocery_list
     }
 
-    override fun onSupportNavigateUp() = true.also { onBackPressed() }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d("debago", "in navigation up")
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("BACKPRESS", 0)
+        startActivity(intent)
+    }
 
     private fun setupChips() {
 

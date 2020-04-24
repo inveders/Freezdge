@@ -24,7 +24,11 @@ allprojects {
         fastadapterVersion = "4.1.2"
         androidX = "3.3.1"
         excludeAppGlideModule = true
+        rxAndroidVersion = "2.0.1"
+        rxJavaVersion = "2.1.1"
+
     }
+
     repositories {
         google()
         jcenter()

@@ -22,13 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:layout_above="@id/activity_main_bottom_navigation">
+        android:layout_above="@id/activity_search_ingredient_bottom_navigation"
+       >
 
     </fragment>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/activity_search_bottom_navigation"
+        android:id="@+id/activity_search_ingredient_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

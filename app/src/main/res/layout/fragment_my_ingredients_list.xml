@@ -13,41 +13,55 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="TBL: INGREDIENTS"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <ImageView
+        android:id="@+id/image_arrow"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:rotation="200"
+        android:scaleY="-1"
+        app:srcCompat="@drawable/ic_turn"
+        android:contentDescription="@string/description_image" />
+
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </com.google.android.material.chip.ChipGroup>
 
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-
-        </com.google.android.material.chip.ChipGroup>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
 
     <!-- DECLARING FLOATING ACTION BUTTON -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -57,10 +71,10 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:srcCompat="@drawable/ic_add_ingredient_selected_24dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:layout_anchor="@id/chipGroup"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchor="@id/recyclerview"
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@drawable/ic_add_ingredient_selected_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

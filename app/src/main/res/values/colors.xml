@@ -9,4 +9,11 @@
     <color name="colorOrange">#FF9800</color>
     <color name="colorRed">#F44336</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGrey">#B5B1B1</color>
+
+    <color name="colorCream">#6EE3E3</color>
+    <color name="colorVegetables">#89DA8D</color>
+    <color name="colorEpicerie">#DAAD6B</color>
+    <color name="colorMeat">#EA938C</color>
+    <color name="colorFish">#7683CE</color>
 </resources>

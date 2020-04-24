@@ -16,6 +16,17 @@
         android:visibility="gone"
         />
 
+    <ImageView
+        android:id="@+id/image_arrow"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:rotation="200"
+        android:scaleY="-1"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

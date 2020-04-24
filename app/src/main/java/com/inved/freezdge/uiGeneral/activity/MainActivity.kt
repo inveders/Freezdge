@@ -54,8 +54,8 @@ class MainActivity : BaseActivity() {
     private fun setUpNavigationBottom(navController: NavController,id:Int) {
         NavigationUI.setupWithNavController(bottomNavigationView,navController)
         if(id==1){
-            bottomNavigationView.menu.findItem(R.id.action_to_my_ingredients_list_fragment).isChecked = true
-            navController.navigate(R.id.action_to_my_ingredients_list_fragment)
+            bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
+            navController.navigate(R.id.action_to_all_recipes_fragment)
         }else if(id==0){
             bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
         }
@@ -72,7 +72,5 @@ class MainActivity : BaseActivity() {
 
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
-
-
 
 }

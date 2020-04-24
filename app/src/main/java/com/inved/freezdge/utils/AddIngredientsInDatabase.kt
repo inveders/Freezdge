@@ -243,8 +243,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Oeufs",
-                    nameEnglish = "Eggs",
+                    name = "Oeuf",
+                    nameEnglish = "Egg",
                     typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -252,8 +252,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Oeufs de caille",
-                    nameEnglish = "Quail eggs",
+                    name = "Oeuf de caille",
+                    nameEnglish = "Quail egg",
                     typeIngredient = "Crèmerie",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -353,8 +353,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
 
             ingredientsBox.put(
                 Ingredients(
-                    name = "Abricots",
-                    nameEnglish = "Aoricots",
+                    name = "Abricot",
+                    nameEnglish = "Aoricot",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -389,7 +389,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Artichauts",
+                    name = "Artichaut",
                     nameEnglish = "Artichoke",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -416,7 +416,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Aubergines",
+                    name = "Aubergine",
                     nameEnglish = "Eggplant",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -488,7 +488,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Brocolis",
+                    name = "Brocoli",
                     nameEnglish = "Broccoli",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -506,7 +506,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Carottes",
+                    name = "Carotte",
                     nameEnglish = "Carrot",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -704,7 +704,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Courges",
+                    name = "Courge",
                     nameEnglish = "Squash",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -713,7 +713,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Courgettes",
+                    name = "Courgette",
                     nameEnglish = "Zucchini",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -722,7 +722,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Dattes",
+                    name = "Datte",
                     nameEnglish = "Date",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -731,7 +731,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Echalotes",
+                    name = "Echalote",
                     nameEnglish = "Shallot",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -740,7 +740,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Endives",
+                    name = "Endive",
                     nameEnglish = "Endive",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1028,7 +1028,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Nectarines",
+                    name = "Nectarine",
                     nameEnglish = "Nectarine",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1037,7 +1037,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Noisettes",
+                    name = "Noisette",
                     nameEnglish = "Nuts",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1127,7 +1127,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Pêches",
+                    name = "Pêche",
                     nameEnglish = "Peach",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1154,7 +1154,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Poireaux",
+                    name = "Poireau",
                     nameEnglish = "Leeks",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1163,7 +1163,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Poires",
+                    name = "Poire",
                     nameEnglish = "Pear",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1181,7 +1181,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Poivrons",
+                    name = "Poivron",
                     nameEnglish = "Peppers",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1190,7 +1190,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Pommes",
+                    name = "Pomme",
                     nameEnglish = "Apple",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1217,7 +1217,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Pruneaux",
+                    name = "Pruneau",
                     nameEnglish = "Plums",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1226,7 +1226,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Prunes",
+                    name = "Prune",
                     nameEnglish = "Plums",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1316,7 +1316,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Tomates",
+                    name = "Tomate",
                     nameEnglish = "Tomato",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = photoUrl,
@@ -1454,8 +1454,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Biscuits sucrés",
-                    nameEnglish = "Biscuits",
+                    name = "Biscuit",
+                    nameEnglish = "Biscuit",
                     typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -1661,8 +1661,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Croissants",
-                    nameEnglish = "Croissants",
+                    name = "Croissant",
+                    nameEnglish = "Croissant",
                     typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -1670,7 +1670,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Crozets",
+                    name = "Crozet",
                     nameEnglish = "Crozets",
                     typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
@@ -2156,8 +2156,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Olives",
-                    nameEnglish = "Olives",
+                    name = "Olive",
+                    nameEnglish = "Olive",
                     typeIngredient = "Epicerie",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -2855,8 +2855,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Confit de canard",
-                    nameEnglish = "Duck confit",
+                    name = "Canard",
+                    nameEnglish = "Duck",
                     typeIngredient = "Viande",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -2873,8 +2873,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Dinde (filet)",
-                    nameEnglish = "Turkey filet",
+                    name = "Dinde",
+                    nameEnglish = "Turkey",
                     typeIngredient = "Viande",
                     photoUrl = photoUrl,
                     selectedIngredient = false, grocerySelectedIngredient = false
@@ -2945,7 +2945,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Magrets de canard",
+                    name = "Magret de canard",
                     nameEnglish = "Breast of duck",
                     typeIngredient = "Viande",
                     photoUrl = photoUrl,

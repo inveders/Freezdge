@@ -55,5 +55,6 @@
     <string name="ingredient_type_epicerie">Epicerie</string>
     <string name="ingredient_type_fish">Poisson</string>
     <string name="ingredient_type_meat">Viande</string>
+    <string name="we_research_recipes_for_you">We research recipes for you</string>
 
 </resources>

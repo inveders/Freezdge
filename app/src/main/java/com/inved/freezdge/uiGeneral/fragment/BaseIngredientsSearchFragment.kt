@@ -42,7 +42,6 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         recyclerView = view.findViewById(R.id.recyclerview)
         setHasOptionsMenu(true)
         initViewModel()
-        insertFood()
         setupRecyclerView()
         detectWichFragmentIsOpen()
         return view
@@ -138,11 +137,10 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
     }
 
-    private fun insertFood() {
-        ingredientViewmodel.insertIngredients()
-    }
+
 
     private fun getAllFoodByType(typeIngredient:String) {
+        Log.d("debago","in getallfoodbytype")
         foodSearchItemAdapter.clear()
         ingredientViewmodel.getAllIngredientsByType(typeIngredient).observe(viewLifecycleOwner, Observer {
             foodSearchItemAdapter.add(it)

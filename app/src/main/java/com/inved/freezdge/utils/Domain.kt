@@ -212,7 +212,7 @@ class Domain {
 
         fun updateItemForGroceryList(name: String, bool:Boolean,nameEnglish: String) {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-            IngredientsDAO.updateIngredientSelectedByName(name,bool)
+            IngredientsDAO.updateIngredientSelectedForGroceryByName(name,bool)
             FavouritesRecipesDAO.isIngredientPresentInFavoriteRecipeUpdateGrocery(name,nameEnglish)
 
         }
