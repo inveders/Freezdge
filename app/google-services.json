@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "378189841605-lss8sgbhnhl9cvkgfdhbuevnctdppbk8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inved.freezdge",
+            "certificate_hash": "b20eebe92a459a9ececa1b98667c7d98fb073fb0"
+          }
+        },
+        {
           "client_id": "378189841605-asddb0sriksbaajqcfgl3ci6ctkkeeoh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
