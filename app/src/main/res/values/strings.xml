@@ -70,4 +70,18 @@
     <string name="button_login_text_logged">View profile</string>
     <string name="button_login_text_not_logged">Login</string>
 
+
+    <!--Change profil -->
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="change_photo_profil">Change your profil photo</string>
+    <string name="update_profil">Update profil</string>
+    <string name="set_error_firstname">Enter a firstname</string>
+    <string name="set_error_lastname">Enter a lastname</string>
+    <string name="dialog_select_image_take_photo">Take Photo</string>
+    <string name="dialog_select_image_choose_from_library">Choose from Library</string>
+    <string name="dialog_select_image_cancel">Cancel</string>
+    <string name="type_storage_users">users</string>
+    <string name="type_storage_posts">posts</string>
+
 </resources>

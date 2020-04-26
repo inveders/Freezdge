@@ -10,6 +10,8 @@
     <color name="colorRed">#F44336</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#B5B1B1</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="black_three">#232120</color>
 
     <color name="colorCream">#6EE3E3</color>
     <color name="colorVegetables">#89DA8D</color>

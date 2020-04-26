@@ -33,4 +33,30 @@
         <item name="android:textColorHint">@android:color/white</item>
     </style>
 
+
+    <style name="TapEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/black_three</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/background_custom_edittext</item>
+        <item name="backgroundTint">@color/tap_edittext_color</item>
+        <item name="android:textCursorDrawable">@drawable/orange_cursor</item>
+        <item name="android:textColorHint">@color/colorGrey</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:imeOptions">actionGo</item>
+    </style>
+
+    <style name="TapTIL" parent="Widget.Design.TextInputLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="errorTextAppearance">@style/ErrorAppearance</item>
+        <item name="errorEnabled">true</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
