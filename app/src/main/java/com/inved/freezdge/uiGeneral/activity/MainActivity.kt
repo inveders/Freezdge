@@ -1,5 +1,7 @@
 package com.inved.freezdge.uiGeneral.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,7 +12,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
+import com.inved.freezdge.uiGeneral.activity.MainActivity.Companion.getLaunchIntent
 
 class MainActivity : BaseActivity() {
 
@@ -71,6 +75,25 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+  /*  private fun setupUI() {
+        sign_out_button.setOnClickListener {
+            signOut()
+        }
+    }*/
+
+    private fun signOut() {
+        startActivity(LoginActivity.getLaunchIntent(this))
+        FirebaseAuth.getInstance().signOut();
+    }
+
+
+
+    companion object {
+        fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
     }
 
 }
