@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -38,11 +38,23 @@
         <item name="android:textColor">@color/black_three</item>
         <item name="android:textSize">22sp</item>
         <item name="android:background">@drawable/background_custom_edittext</item>
-        <item name="backgroundTint">@color/tap_edittext_color</item>
+        <item name="backgroundTint">@color/tap_edittext_color_multiline</item>
         <item name="android:textCursorDrawable">@drawable/orange_cursor</item>
         <item name="android:textColorHint">@color/colorGrey</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:imeOptions">actionGo</item>
+
+    </style>
+
+    <style name="TapEditTextMultiline" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/black_three</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:padding">10sp</item>
+        <item name="android:background">@drawable/background_custom_edittext_multiline</item>
+        <item name="backgroundTint">@color/tap_edittext_color_multiline</item>
+        <item name="android:textCursorDrawable">@drawable/orange_cursor</item>
+        <item name="android:textColorHint">@color/colorGrey</item>
+        <item name="android:layout_height">50dp</item>
+
     </style>
 
     <style name="TapTIL" parent="Widget.Design.TextInputLayout">
@@ -57,6 +69,13 @@
     <style name="ErrorAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- FullScreen Dialog -->
+    <style name="FullscreenDialogTheme" parent="Theme.AppCompat.DayNight.DialogWhenLarge">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
     </style>
 
 </resources>

@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,26 +27,26 @@ import com.bumptech.glide.request.target.Target
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
-import com.inved.freezdge.socialmedia.firebase.UserHelper
+import com.inved.freezdge.socialmedia.firebase.PostHelper
+import com.inved.freezdge.uiGeneral.activity.LoginActivity
 import com.inved.freezdge.utils.*
 import java.io.File
 import java.io.IOException
+import java.sql.Timestamp
 
-/**@RuntimePermissions*/
-class ProfilDialog : DialogFragment() {
+class PhotoDialog : DialogFragment() {
 
     companion object {
         //final values
         private const val REQUEST_CAMERA_PHOTO = 456
         private const val REQUEST_GALLERY_PHOTO = 455
+        const val TAG = "PHOTO"
 
-        //final values
-        const val TAG = "PROFIL"
         private const val KEY = "param1"
 
         @JvmStatic
         fun newInstance(param1: String) =
-            ProfilDialog().apply {
+            PhotoDialog().apply {
                 arguments = Bundle().apply {
                     putString(KEY, param1)
                 }
@@ -58,77 +59,89 @@ class ProfilDialog : DialogFragment() {
     private var imageCameraOrGallery: ImageCameraOrGallery? = null
 
     //UI
-    private var profilPhoto: ImageView? = null
-    private var lastnameEditText: EditText? = null
-    private var firstnameEditText: EditText? = null
-    private var changePhotoText: TextView? = null
-    private var addActionButton: ImageButton? = null
-    private var cancelSearchButton: ImageButton? = null
+    private var postPhoto: ImageView? = null
+    private var photoTitle: EditText? = null
+    private var validateButton: TextView? = null
+    private var cancelButton: ImageButton? = null
     private var mPhotoFile: File?=null
     private lateinit var mContext: Context
     // --------------
     // LIFE CYCLE AND VIEW MODEL
     // --------------
+    override fun onCreate(savedInstanceState: Bundle?): Unit {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.FullscreenDialogTheme)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view: View =
-            inflater.inflate(R.layout.dialog_update_profile, container, false)
-        mContext=App.instance!!.applicationContext
+            inflater.inflate(R.layout.dialog_fullscreen_add_photo, container, false)
+        mContext= App.instance!!.applicationContext
         imageCameraOrGallery = ImageCameraOrGallery()
-        profilPhoto = view.findViewById(R.id.profil_photo)
-        changePhotoText =
-            view.findViewById(R.id.change_profil_photo_text)
-        lastnameEditText = view.findViewById(R.id.lastnameEdittext)
-      //  firstnameEditText = view.findViewById(R.id.firstnameEdittext)
-        addActionButton = view.findViewById(R.id.agent_add_dialog_validate)
-        cancelSearchButton = view.findViewById(R.id.agent_add_dialog_close)
+        postPhoto = view.findViewById(R.id.photo_to_add)
+
+        photoTitle = view.findViewById(R.id.titleEdittext)
+         validateButton = view.findViewById(R.id.validate_button)
+        cancelButton = view.findViewById(R.id.close_button)
 
         initializeMethods()
         return view
     }
 
     private fun initializeMethods() {
-        changePhotoText?.setOnClickListener { v: View? -> selectImage() }
-        cancelSearchButton?.setOnClickListener { v: View? -> dialog!!.dismiss() }
-        addActionButton?.setOnClickListener { v: View? -> updateProfile() }
+
+        //4second splash time
+        Handler().postDelayed({
+            //start main activity
+            selectImage()
+            //finish this activity
+        },1000)
+
+        cancelButton?.setOnClickListener { v: View? -> dialog!!.dismiss() }
+        validateButton?.setOnClickListener { v: View? -> createPhotoPost() }
     }
 
     // --------------
     // AGENT
     // --------------
-    private fun updateProfile() {
-     /*   if (firstnameEditText?.text.toString().isEmpty()) {
-            firstnameEditText?.error = getString(R.string.set_error_firstname)
-        } else */if (lastnameEditText!!.text.toString().isEmpty()) {
-            lastnameEditText!!.error = getString(R.string.set_error_lastname)
+    private fun createPhotoPost() {
+        if (urlPicture==null) {
+            Toast.makeText(activity,
+                "There is no picture", Toast.LENGTH_SHORT).show()
         } else {
-            val firstname = firstnameEditText?.text.toString()
-            val lastname = lastnameEditText?.text.toString()
+            var title:String? =null
+            if(photoTitle!=null){
+                title = photoTitle?.text.toString()
+            }
+
             var uid: String?=null
             if (FirebaseAuth.getInstance().currentUser != null) {
                 uid = FirebaseAuth.getInstance().currentUser?.uid
             }
 
             if (uid != null) {
-                //update agent in firebase
-                UserHelper.updateFirstname(firstname, uid)
-                UserHelper.updateLastname(lastname, uid)
-                UserHelper.updatePhotoUrl(urlPicture, uid)
+                val postId:String =Domain.createRandomString()
+                //create post in firebase
+                PostHelper.createPost(postId, Timestamp(System.currentTimeMillis()),
+                    title,null,urlPicture,uid,getString(R.string.social_media_post_type_photo),0)
+
+                //to upload a photo on Firebase storage
+                if (urlPicture != null) {
+                    val storageHelper = StorageHelper()
+                    storageHelper.uploadFromUri(
+                        Uri.parse(urlPicture),
+                        postId,
+                        getString(R.string.type_storage_users)
+                    )
+                }
             }
 
 
-            //to upload a photo on Firebase storage
-            if (urlPicture != null) {
-                val storageHelper = StorageHelper()
-                storageHelper.uploadFromUri(
-                    Uri.parse(urlPicture),
-                    FirebaseAuth.getInstance().currentUser?.uid,
-                    getString(R.string.type_storage_users)
-                )
-            }
+
 
             //to close the dialog
             if (dialog != null) {
@@ -139,7 +152,7 @@ class ProfilDialog : DialogFragment() {
 
     private fun fillUserData() {
 
-     /**   firstnameEditText.setText(realEstateAgents.getFirstname())
+        /**   firstnameEditText.setText(realEstateAgents.getFirstname())
         lastnameEditText.setText(realEstateAgents.getLastname())
         urlPicture = realEstateAgents.getUrlPicture()
         // showImageInCircle(realEstateAgents.getUrlPicture());
@@ -160,14 +173,14 @@ class ProfilDialog : DialogFragment() {
             App.resource().getString(R.string.dialog_select_image_cancel)
         )
         val builder =
-            AlertDialog.Builder(mContext)
+            AlertDialog.Builder(activity)
         builder.setItems(
             items
         ) { dialog: DialogInterface, item: Int ->
             if (items[item] == App.instance?.resources
                     ?.getString(R.string.dialog_select_image_take_photo)
             ) {
-               // AddAgentDialogPermissionsDispatcher.dispatchTakePictureIntentWithPermissionCheck( this)
+                // AddAgentDialogPermissionsDispatcher.dispatchTakePictureIntentWithPermissionCheck( this)
                 dispatchTakePictureIntent()
             } else if (items[item] == getString(R.string.dialog_select_image_choose_from_library)) {
                 dispatchGalleryIntent()
@@ -181,7 +194,7 @@ class ProfilDialog : DialogFragment() {
     /**
      * Capture image from camera
      */
-  //  @NeedsPermission([Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
+    //  @NeedsPermission([Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
     fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (mContext != null) {
@@ -266,7 +279,7 @@ class ProfilDialog : DialogFragment() {
     private fun showImageInCircle(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
-            profilPhoto?.let {
+            postPhoto?.let {
                 Glide.with(mContext)
                     .load(File(fileUri.path))
                     .apply(RequestOptions.circleCropTransform())
@@ -291,7 +304,7 @@ class ProfilDialog : DialogFragment() {
                     imageInGlide(localFile)
                 }
             } else {
-                profilPhoto?.let {
+                postPhoto?.let {
                     Glide.with(mContext)
                         .load(R.drawable.ic_anon_user_48dp)
                         .apply(RequestOptions.circleCropTransform())
@@ -324,7 +337,7 @@ class ProfilDialog : DialogFragment() {
     }
 
     private fun imageInGlide(file: File) {
-        profilPhoto?.let {
+        postPhoto?.let {
             GlideApp.with(mContext)
                 .load(file)
                 .apply(RequestOptions.circleCropTransform())
@@ -335,7 +348,7 @@ class ProfilDialog : DialogFragment() {
                         target: Target<Drawable?>,
                         isFirstResource: Boolean
                     ): Boolean {
-                        profilPhoto!!.setImageResource(R.drawable.ic_anon_user_48dp)
+                        postPhoto!!.setImageResource(R.drawable.ic_anon_user_48dp)
                         return false
                     }
 
@@ -357,18 +370,18 @@ class ProfilDialog : DialogFragment() {
     // --------------
     // PERMISSION
     // --------------
-  /**  override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+    /**  override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<String>,
+    grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // NOTE: delegate the permission handling to generated method
-        AddAgentDialogPermissionsDispatcher.onRequestPermissionsResult(
-            this,
-            requestCode,
-            grantResults
-        )
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    // NOTE: delegate the permission handling to generated method
+    AddAgentDialogPermissionsDispatcher.onRequestPermissionsResult(
+    this,
+    requestCode,
+    grantResults
+    )
     }*/
 
 

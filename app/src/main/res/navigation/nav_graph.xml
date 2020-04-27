@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/my_recipes_fragment">
+    app:startDestination="@+id/my_ingredients_list_fragment">
 
     <fragment android:id="@+id/my_ingredients_list_fragment"
         android:name="com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment"
@@ -26,6 +26,10 @@
             android:id="@+id/menu_grocery_list"
             app:destination="@id/my_grocery_list_activity" />
 
+        <action
+            android:id="@+id/action_to_social_media_fragment"
+            app:destination="@id/social_media_fragment" />
+
     </fragment>
 
     <fragment android:id="@+id/my_recipes_fragment"
@@ -45,6 +49,10 @@
             android:id="@+id/menu_grocery_list"
             app:destination="@id/my_grocery_list_activity" />
 
+        <action
+            android:id="@+id/action_to_social_media_fragment"
+            app:destination="@id/social_media_fragment" />
+
     </fragment>
 
     <fragment android:id="@+id/all_recipes_fragment"
@@ -63,6 +71,33 @@
         <action
             android:id="@+id/action_to_filter_dialog"
             app:destination="@id/filter_dialog" />
+
+        <action
+            android:id="@+id/menu_grocery_list"
+            app:destination="@id/my_grocery_list_activity" />
+
+        <action
+            android:id="@+id/action_to_social_media_fragment"
+            app:destination="@id/social_media_fragment" />
+
+    </fragment>
+
+    <fragment android:id="@+id/social_media_fragment"
+        android:name="com.inved.freezdge.socialmedia.ui.SocialMediaFragment"
+        android:label="Freezdge"
+        tools:layout="@layout/fragment_social_media">
+
+        <action
+            android:id="@+id/action_to_all_recipes_fragment"
+            app:destination="@id/all_recipes_fragment" />
+
+        <action
+            android:id="@+id/action_to_my_ingredients_list_fragment"
+            app:destination="@id/my_ingredients_list_fragment" />
+
+        <action
+            android:id="@+id/action_to_my_recipes_fragment"
+            app:destination="@id/my_recipes_fragment" />
 
         <action
             android:id="@+id/menu_grocery_list"

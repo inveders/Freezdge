@@ -57,7 +57,7 @@ class ImageCameraOrGallery {
         }
     }
 
-    private val AUTHORITY = "com.inved.realestatemanager.provider"
+    private val AUTHORITY = "com.inved.freezdge.fileprovider"
 
 
     /**

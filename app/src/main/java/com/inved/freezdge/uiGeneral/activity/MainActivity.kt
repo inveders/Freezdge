@@ -20,7 +20,7 @@ class MainActivity : BaseActivity() {
 
     private val navController by lazy { findNavController(R.id.navHost) }
     private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
-    private lateinit var toolbar:Toolbar
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,8 @@ class MainActivity : BaseActivity() {
             setOf(
                 R.id.my_ingredients_list_fragment,
                 R.id.my_recipes_fragment,
-                R.id.all_recipes_fragment
+                R.id.all_recipes_fragment,
+                R.id.social_media_fragment
             )
         )
 
@@ -60,9 +61,9 @@ class MainActivity : BaseActivity() {
         if(id==1){
             bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
             navController.navigate(R.id.action_to_all_recipes_fragment)
-        }else if(id==0){
+        }/*else if(id==0){
             bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
-        }
+        }*/
 
     }
 

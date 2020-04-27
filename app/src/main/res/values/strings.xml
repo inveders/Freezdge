@@ -4,7 +4,7 @@
     <string name="menu_bottom_ingredient_at_home">Ingredients</string>
     <string name="menu_bottom_favourites">Favourites</string>
     <string name="menu_bottom_my_recipes">Recipes</string>
-
+    <string name="menu_bottom_social_media">Community</string>
     <string name="menu_grocery_list">Grocery List</string>
 
     <!--Toolbar-->
@@ -98,4 +98,14 @@
     <string name="social_media_no_post">No posts found</string>
     <string name="social_media_post_type_photo">Photo</string>
     <string name="social_media_post_type_tips">Tips</string>
+
+    <!--Add post -->
+    <string name="title_tips">Tip\'s title</string>
+    <string name="title_photo">Photo\'s title (optional)</string>
+    <string name="tips_description">Your tip</string>
+    <string name="tips_dialog">New tip</string>
+    <string name="photo_dialog">New Photo</string>
+    <string name="publish">Publish</string>
+    <string name="set_error_title_tips">Enter a title</string>
+    <string name="set_error_description_tips">Enter a tip</string>
 </resources>
