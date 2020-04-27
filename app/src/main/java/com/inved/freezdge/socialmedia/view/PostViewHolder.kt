@@ -1,0 +1,158 @@
+package com.inved.freezdge.socialmedia.view
+
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
+import com.inved.freezdge.R
+import com.inved.freezdge.socialmedia.firebase.Post
+import com.inved.freezdge.socialmedia.firebase.PostHelper
+import com.inved.freezdge.socialmedia.firebase.User
+import com.inved.freezdge.socialmedia.firebase.UserHelper
+import com.inved.freezdge.utils.App
+
+class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    private var postTitle: TextView = view.findViewById(R.id.title)
+    private var username: TextView = view.findViewById(R.id.username)
+    private var postContent: TextView = view.findViewById(R.id.description)
+    private var likeText: TextView = view.findViewById(R.id.like_number)
+    private var profileImage: ImageView = view.findViewById(R.id.profile_image)
+    private var postImage: ImageView = view.findViewById(R.id.image_photo_post)
+    private var deleteButton: ImageView = view.findViewById(R.id.delete_button)
+    private var updateButton: ImageView = view.findViewById(R.id.update_button)
+    private var likeButton: ImageView = view.findViewById(R.id.like_number_image)
+
+    fun updateWithPosts(post: Post, glide: RequestManager?) {
+        if (post.titleAstuce != null) {
+            postTitle.text = post.titleAstuce
+            postTitle.visibility = View.VISIBLE
+        } else {
+            postTitle.visibility = View.GONE
+        }
+
+        if (post.descriptionAstuce != null) {
+            postContent.text = post.descriptionAstuce
+            postContent.visibility = View.VISIBLE
+        } else {
+            postContent.visibility = View.GONE
+        }
+
+        if (post.urlPhoto != null) {
+            postImage.visibility=View.VISIBLE
+            glide?.load(post.urlPhoto)?.apply(RequestOptions.circleCropTransform())
+                ?.into(postImage)
+        } else {
+           postImage.visibility=View.GONE
+        }
+
+        UserHelper.getUser(post.userUid)?.get()?.addOnCompleteListener { task ->
+            if (task.result != null) {
+                if (task.result!!.documents.isNotEmpty()) {
+                    val user: User =
+                        task.result!!.documents[0].toObject(User::class.java)!!
+
+                    username.text = user.firstname
+
+                    if (user.photoUrl != null) {
+                        glide?.load(user.photoUrl)?.apply(RequestOptions.circleCropTransform())
+                            ?.into(profileImage)
+                    } else {
+                        glide?.load(R.drawable.ic_anon_user_48dp)?.apply(RequestOptions.circleCropTransform())
+                            ?.into(profileImage)
+                    }
+
+
+                }
+            }
+        }?.addOnFailureListener { e ->
+            Log.e(
+                "debago",
+                "Problem during the user post check"
+            )
+        }
+
+
+
+        PostHelper.getPost(post.postId)?.get()?.addOnCompleteListener { task ->
+            if (task.result != null) {
+                if (task.result!!.documents.isNotEmpty()) {
+                    val currentPost: Post =
+                        task.result!!.documents[0].toObject(Post::class.java)!!
+
+                    //Change like button color according to value of like
+                    if(currentPost.likeNumber!=0){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            likeButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#c56000"))
+                        }else{
+                            val drawable: Drawable? =
+                                ContextCompat.getDrawable(App.applicationContext(), R.drawable.ic_like_enable)?.let {
+                                    DrawableCompat.wrap(it)
+                                }
+
+                            // We can now set a tint
+                            drawable?.let { DrawableCompat.setTint(it, Color.BLUE) }
+                            // ...or a tint list
+                            drawable?.let { DrawableCompat.setTintList(it, ColorStateList.valueOf(Color.parseColor("#c56000"))) }
+                            // ...and a different tint mode
+                            drawable?.let { DrawableCompat.setTintMode(it, PorterDuff.Mode.SRC_OVER) }
+                        }
+
+                    }
+
+                    if(currentPost.postType.equals(App.resource().getString(R.string.social_media_post_type_photo))){
+                        when (currentPost.likeNumber) {
+                            0 -> {
+                                likeText.visibility=View.GONE
+                            }
+                            1 -> {
+                                likeText.text=App.resource().getString(R.string.social_media_like_number_photo_one_person,currentPost.likeNumber)
+                            }
+                            else -> {
+                                likeText.text=App.resource().getString(R.string.social_media_like_number_photo,currentPost.likeNumber)
+                            }
+                        }
+                    }else if(currentPost.postType.equals(App.resource().getString(R.string.social_media_post_type_tips))){
+                        when (currentPost.likeNumber) {
+                            0 -> {
+                                likeText.visibility=View.GONE
+                            }
+                            1 -> {
+                                likeText.text=App.resource().getString(R.string.social_media_like_number_tips_one_person,currentPost.likeNumber)
+                            }
+                            else -> {
+                                likeText.text=App.resource().getString(R.string.social_media_like_number_tips,currentPost.likeNumber)
+                            }
+                        }
+                    }
+                }
+            }
+        }?.addOnFailureListener {
+            Log.e(
+                "debago",
+                "Problem during the user post check"
+            )
+        }
+
+        updateButton.setOnClickListener{
+
+        }
+
+        deleteButton.setOnClickListener{
+
+        }
+
+
+    }
+
+}

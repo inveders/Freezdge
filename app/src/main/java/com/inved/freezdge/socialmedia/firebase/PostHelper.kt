@@ -12,7 +12,7 @@ class PostHelper {
         private val COLLECTION_NAME = "posts"
 
         // --- COLLECTION REFERENCE ---
-        fun getPostCollection(): CollectionReference? {
+        fun getPostCollection(): CollectionReference {
             return FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME)
         }
@@ -49,9 +49,9 @@ class PostHelper {
                 ?.whereEqualTo("postId", postId)
         }
 
-        fun getAllPosts(): Query? {
+        fun getAllPosts(): Query {
             return getPostCollection()
-                ?.orderBy("timestamp", Query.Direction.DESCENDING)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
         }
 
         fun getAllPostsByType(postType: String?): Query? {

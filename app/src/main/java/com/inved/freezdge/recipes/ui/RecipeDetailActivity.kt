@@ -118,7 +118,8 @@ class RecipeDetailActivity : BaseActivity() {
                 .into(it)
         }
 
-        recipeOwnerImage.setOnClickListener { v -> recipe.recipeUrlOwnerLink?.let {
+        recipeOwnerImage.setOnClickListener {
+            recipe.recipeUrlOwnerLink?.let {
             openWebViewActivity(
                 it
             )

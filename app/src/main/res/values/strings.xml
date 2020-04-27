@@ -90,8 +90,12 @@
     <string name="social_media_tips_post">Astuce</string>
     <string name="social_media_like_number_tips">%d people found it useful</string>
     <string name="social_media_like_number_photo">%d people found it great</string>
+    <string name="social_media_like_number_tips_one_person">%d people found it useful</string>
+    <string name="social_media_like_number_photo_one_person">%d people found it great</string>
     <string name="social_media_title_post">Titre de l\'astuce</string>
     <string name="social_media_username_post">Alexandra Gnimadi</string>
     <string name="social_media_description_tips_post">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
-
+    <string name="social_media_no_post">No posts found</string>
+    <string name="social_media_post_type_photo">Photo</string>
+    <string name="social_media_post_type_tips">Tips</string>
 </resources>
