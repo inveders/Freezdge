@@ -27,7 +27,7 @@
 
 
         <ImageView
-            android:id="@+id/fragment_recipes_list_item_image"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
@@ -45,7 +45,7 @@
             app:layout_constraintGuide_percent="0.75"/>
 
         <TextView
-            android:id="@+id/fragment_recipes_list_item_label"
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -55,7 +55,7 @@
             android:text="@string/recipe_list_item_label"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_recipes_list_item_image"
+            app:layout_constraintTop_toBottomOf="@id/image"
             app:layout_constraintRight_toLeftOf="@id/fragment_recipes_list_item_matching"/>
 
 
@@ -73,17 +73,17 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="@id/fragment_recipes_list_item_label" />
+            app:layout_constraintTop_toTopOf="@id/title" />
 
 
         <ImageView
-            android:id="@+id/fragment_recipes_list_preparation_time_image"
+            android:id="@+id/like_number_image"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:contentDescription="@string/recipe_list_item_image"
-            app:layout_constraintTop_toTopOf="@id/fragment_recipe_list_favorite_selected_or_not"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_recipe_list_favorite_selected_or_not"
-            app:layout_constraintLeft_toLeftOf="@id/fragment_recipes_list_item_label"
+            app:layout_constraintTop_toTopOf="@id/favorite_image"
+            app:layout_constraintBottom_toBottomOf="@id/favorite_image"
+            app:layout_constraintLeft_toLeftOf="@id/title"
             app:srcCompat="@drawable/ic_timer_black_24dp" />
 
 
@@ -93,13 +93,13 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="15dp"
             android:background="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_recipes_list_item_kcal"
-            app:layout_constraintLeft_toLeftOf="@id/fragment_recipes_list_item_label"
-            app:layout_constraintRight_toRightOf="@id/fragment_recipes_list_item_label"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintRight_toRightOf="@id/title"
             />
 
         <ImageView
-            android:id="@+id/fragment_recipe_list_favorite_selected_or_not"
+            android:id="@+id/favorite_image"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:adjustViewBounds="true"
@@ -118,19 +118,19 @@
             android:layout_marginStart="15dp"
 
             android:text="@string/recipe_list_item_preparation_time"
-            app:layout_constraintLeft_toRightOf="@id/fragment_recipes_list_preparation_time_image"
-            app:layout_constraintTop_toTopOf="@id/fragment_recipes_list_preparation_time_image"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_recipes_list_preparation_time_image"/>
+            app:layout_constraintLeft_toRightOf="@id/like_number_image"
+            app:layout_constraintTop_toTopOf="@id/like_number_image"
+            app:layout_constraintBottom_toBottomOf="@id/like_number_image"/>
 
 
         <TextView
-            android:id="@+id/fragment_recipes_list_item_kcal"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:text="@string/recipe_list_item_kcal"
-            app:layout_constraintLeft_toLeftOf="@id/fragment_recipes_list_item_label"
-            app:layout_constraintTop_toBottomOf="@id/fragment_recipes_list_item_label" />
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
 
         <TextView
@@ -139,8 +139,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/little_margin"
             android:text="@string/recipe_list_item_kcal"
-            app:layout_constraintLeft_toRightOf="@id/fragment_recipes_list_item_kcal"
-            app:layout_constraintTop_toTopOf="@id/fragment_recipes_list_item_kcal" />
+            app:layout_constraintLeft_toRightOf="@id/description"
+            app:layout_constraintTop_toTopOf="@id/description" />
 
 
 

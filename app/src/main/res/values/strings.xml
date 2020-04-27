@@ -84,4 +84,14 @@
     <string name="type_storage_users">users</string>
     <string name="type_storage_posts">posts</string>
 
+    <!--Social page -->
+    <string name="social_media_description">%s, share a cooking tip or a photo of your culinary creation with the Freezdge community!</string>
+    <string name="social_media_photo_post">Photo</string>
+    <string name="social_media_tips_post">Astuce</string>
+    <string name="social_media_like_number_tips">%d people found it useful</string>
+    <string name="social_media_like_number_photo">%d people found it great</string>
+    <string name="social_media_title_post">Titre de l\'astuce</string>
+    <string name="social_media_username_post">Alexandra Gnimadi</string>
+    <string name="social_media_description_tips_post">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
+
 </resources>

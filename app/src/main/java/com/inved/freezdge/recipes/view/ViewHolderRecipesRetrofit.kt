@@ -19,13 +19,13 @@ import kotlin.math.roundToInt
 
 class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
-    var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
+    var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
-    var kcal: TextView = view.findViewById(R.id.fragment_recipes_list_item_kcal)
-    var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
+    var kcal: TextView = view.findViewById(R.id.description)
+    var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
-        view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
+        view.findViewById(R.id.favorite_image)
     var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
