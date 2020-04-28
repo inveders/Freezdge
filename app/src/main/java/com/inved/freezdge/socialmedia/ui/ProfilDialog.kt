@@ -14,10 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -90,7 +87,7 @@ class ProfilDialog : DialogFragment() {
         changePhotoText =
             view.findViewById(R.id.change_profil_photo_text)
         lastnameEditText = view.findViewById(R.id.lastnameEdittext)
-        //  firstnameEditText = view.findViewById(R.id.firstnameEdittext)
+        firstnameEditText = view.findViewById(R.id.firstnameEdittext)
         addActionButton = view.findViewById(R.id.agent_add_dialog_validate)
         cancelSearchButton = view.findViewById(R.id.agent_add_dialog_close)
 
@@ -114,11 +111,13 @@ class ProfilDialog : DialogFragment() {
                     val user: User =
                         task.result!!.documents[0].toObject(User::class.java)!!
 
+                    Log.d("debago","user firstname is ${user.firstname}")
                     firstnameEditText?.setText(user.firstname)
                     lastnameEditText?.setText(user.lastname)
 
                     //to upload a photo on Firebase storage
                     if(user.photoUrl!=null){
+                        urlPicture=user.photoUrl
                         profilPhoto?.let {
                             Glide.with(mContext)
                                 .load(user.photoUrl)
@@ -150,9 +149,9 @@ class ProfilDialog : DialogFragment() {
     // AGENT
     // --------------
     private fun updateProfile() {
-        /*   if (firstnameEditText?.text.toString().isEmpty()) {
+           if (firstnameEditText?.text.toString().isEmpty()) {
                firstnameEditText?.error = getString(R.string.set_error_firstname)
-           } else */if (lastnameEditText!!.text.toString().isEmpty()) {
+           } else if (lastnameEditText!!.text.toString().isEmpty()) {
             lastnameEditText!!.error = getString(R.string.set_error_lastname)
         } else {
             val firstname = firstnameEditText?.text.toString()
@@ -175,6 +174,12 @@ class ProfilDialog : DialogFragment() {
                     getString(R.string.type_storage_users)
                 )
             }
+
+               Toast.makeText(
+                   activity,
+                   getString(R.string.toast_updated_profil),
+                   Toast.LENGTH_LONG
+               ).show()
 
             //to close the dialog
             if (dialog != null) {

@@ -85,10 +85,16 @@
     <string name="dialog_select_image_cancel">Cancel</string>
     <string name="type_storage_users">users</string>
     <string name="type_storage_posts">posts</string>
+    <string name="toast_updated_profil">Profil updated</string>
+    <string name="toast_updated_tip">Tip updated</string>
+    <string name="toast_created_tip">Tip created</string>
+    <string name="toast_created_photo">Photo created</string>
+
 
     <!--Social page -->
     <string name="social_media_description">%s, share a cooking tip or a photo of your culinary creation with the Freezdge community!</string>
-    <string name="social_media_photo_post">Photo</string>
+    <string name="social_media_photo_post">Gallery</string>
+    <string name="social_media_camera_post">Camera</string>
     <string name="social_media_tips_post">Astuce</string>
     <string name="social_media_like_number_tips">%d people found it useful</string>
     <string name="social_media_like_number_photo">%d people found it great</string>

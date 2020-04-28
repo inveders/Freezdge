@@ -42,13 +42,13 @@ class PhotoDialog : DialogFragment() {
         private const val REQUEST_GALLERY_PHOTO = 455
         const val TAG = "PHOTO"
 
-        private const val KEY = "param1"
+        private const val KEY = "photoParam"
 
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(param1: Int) =
             PhotoDialog().apply {
                 arguments = Bundle().apply {
-                    putString(KEY, param1)
+                    putInt(KEY, param1)
                 }
             }
     }
@@ -59,7 +59,7 @@ class PhotoDialog : DialogFragment() {
     private var imageCameraOrGallery: ImageCameraOrGallery? = null
 
     //UI
-    private var postPhoto: ImageView? = null
+    private var photoPreview: ImageView? = null
     private var photoTitle: EditText? = null
     private var validateButton: TextView? = null
     private var cancelButton: ImageButton? = null
@@ -82,24 +82,35 @@ class PhotoDialog : DialogFragment() {
             inflater.inflate(R.layout.dialog_fullscreen_add_photo, container, false)
         mContext= App.instance!!.applicationContext
         imageCameraOrGallery = ImageCameraOrGallery()
-        postPhoto = view.findViewById(R.id.photo_to_add)
+        photoPreview = view.findViewById(R.id.photo_preview)
 
         photoTitle = view.findViewById(R.id.titleEdittext)
          validateButton = view.findViewById(R.id.validate_button)
         cancelButton = view.findViewById(R.id.close_button)
 
         initializeMethods()
+        when (arguments?.getInt(KEY,0)) {
+            1 -> {
+                dispatchTakePictureIntent()
+            }
+            2 -> {
+                dispatchGalleryIntent()
+            }
+            else -> {
+                dialog?.dismiss()
+            }
+        }
         return view
     }
 
     private fun initializeMethods() {
 
         //4second splash time
-        Handler().postDelayed({
+       /* Handler().postDelayed({
             //start main activity
             selectImage()
             //finish this activity
-        },1000)
+        },1000)*/
 
         cancelButton?.setOnClickListener { v: View? -> dialog!!.dismiss() }
         validateButton?.setOnClickListener { v: View? -> createPhotoPost() }
@@ -140,7 +151,11 @@ class PhotoDialog : DialogFragment() {
                 }
             }
 
-
+            Toast.makeText(
+                activity,
+                getString(R.string.toast_created_photo),
+                Toast.LENGTH_LONG
+            ).show()
 
 
             //to close the dialog
@@ -194,8 +209,8 @@ class PhotoDialog : DialogFragment() {
     /**
      * Capture image from camera
      */
-    //  @NeedsPermission([Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
-    fun dispatchTakePictureIntent() {
+
+    private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (mContext != null) {
             if (takePictureIntent.resolveActivity(mContext.packageManager) != null) {
@@ -278,11 +293,12 @@ class PhotoDialog : DialogFragment() {
 
     private fun showImageInCircle(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
+        Log.d("debago","file uri in photo dialog is $fileUri")
         if (fileUri.path != null) {
-            postPhoto?.let {
+            photoPreview?.let {
                 Glide.with(mContext)
                     .load(File(fileUri.path))
-                    .apply(RequestOptions.circleCropTransform())
+                    .apply(RequestOptions.centerCropTransform())
                     .placeholder(R.drawable.ic_anon_user_48dp)
                     .into(it)
             }
@@ -304,10 +320,10 @@ class PhotoDialog : DialogFragment() {
                     imageInGlide(localFile)
                 }
             } else {
-                postPhoto?.let {
+                photoPreview?.let {
                     Glide.with(mContext)
                         .load(R.drawable.ic_anon_user_48dp)
-                        .apply(RequestOptions.circleCropTransform())
+                        .apply(RequestOptions.centerCropTransform())
                         .listener(object : RequestListener<Drawable?> {
                             override fun onLoadFailed(
                                 e: GlideException?,
@@ -337,10 +353,10 @@ class PhotoDialog : DialogFragment() {
     }
 
     private fun imageInGlide(file: File) {
-        postPhoto?.let {
+        photoPreview?.let {
             GlideApp.with(mContext)
                 .load(file)
-                .apply(RequestOptions.circleCropTransform())
+                .apply(RequestOptions.centerCropTransform())
                 .listener(object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -348,7 +364,7 @@ class PhotoDialog : DialogFragment() {
                         target: Target<Drawable?>,
                         isFirstResource: Boolean
                     ): Boolean {
-                        postPhoto!!.setImageResource(R.drawable.ic_anon_user_48dp)
+                        photoPreview!!.setImageResource(R.drawable.ic_anon_user_48dp)
                         return false
                     }
 

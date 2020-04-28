@@ -96,7 +96,7 @@
 
         <!--IMAGE-->
         <ImageView
-            android:id="@+id/photo_to_add"
+            android:id="@+id/photo_preview"
             android:layout_height="300dp"
             android:layout_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

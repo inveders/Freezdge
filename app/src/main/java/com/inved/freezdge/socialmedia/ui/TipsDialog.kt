@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
@@ -90,14 +91,28 @@ class TipsDialog : DialogFragment() {
                     PostHelper.createPost(postId, Calendar.getInstance().time as Date,
                         title,description,null,uid,getString(R.string.social_media_post_type_tips),0)
 
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.toast_created_tip),
+                        Toast.LENGTH_LONG
+                    ).show()
+
                 }
             }else{
                 if (uid != null) {
                     //update agent in firebase
                         PostHelper.updateTitleAstuce(title, uid)
                     PostHelper.updateDescriptionAstuce(description, uid)
+
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.toast_updated_tip),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
+
+
 
             //to close the dialog
             if (dialog != null) {

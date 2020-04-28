@@ -26,6 +26,7 @@ allprojects {
         excludeAppGlideModule = true
         rxAndroidVersion = "2.0.1"
         rxJavaVersion = "2.1.1"
+        dispatcher="4.7.0"
 
     }
 
