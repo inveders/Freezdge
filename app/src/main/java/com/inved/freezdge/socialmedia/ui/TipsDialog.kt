@@ -1,18 +1,19 @@
 package com.inved.freezdge.socialmedia.ui
 
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.StorageHelper
 import kotlinx.android.synthetic.main.dialog_fullscreen_add_tips.*
-import java.sql.Timestamp
+import java.util.*
 
 class TipsDialog : DialogFragment() {
 
@@ -29,6 +30,9 @@ class TipsDialog : DialogFragment() {
                 }
             }
     }
+
+    private var validateButton: TextView? = null
+    private var cancelButton: ImageButton? = null
     // --------------
     // LIFE CYCLE AND VIEW MODEL
     // --------------
@@ -45,6 +49,8 @@ class TipsDialog : DialogFragment() {
         // Inflate the layout for this fragment
         val view: View =
             inflater.inflate(R.layout.dialog_fullscreen_add_tips, container, false)
+        validateButton = view.findViewById(R.id.validate_button)
+        cancelButton = view.findViewById(R.id.close_button)
         val id:Int? = activity?.intent?.getIntExtra("UPDATE",0)
         initializeMethods(id)
         return view
@@ -52,8 +58,10 @@ class TipsDialog : DialogFragment() {
 
     private fun initializeMethods(id:Int?) {
 
-        close_button?.setOnClickListener { dialog!!.dismiss() }
-        validate_button?.setOnClickListener { updatePost(id) }
+        cancelButton?.setOnClickListener {
+            Log.d("debago","close tips dialog")
+            dialog!!.dismiss() }
+        validateButton?.setOnClickListener { updatePost(id) }
     }
 
     // --------------
@@ -79,7 +87,7 @@ class TipsDialog : DialogFragment() {
                 if (uid != null) {
                     val postId:String = Domain.createRandomString()
                     //create post in firebase
-                    PostHelper.createPost(postId, Timestamp(System.currentTimeMillis()),
+                    PostHelper.createPost(postId, Calendar.getInstance().time as Date,
                         title,description,null,uid,getString(R.string.social_media_post_type_tips),0)
 
                 }

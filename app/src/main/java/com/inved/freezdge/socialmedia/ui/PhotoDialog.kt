@@ -28,11 +28,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.PostHelper
-import com.inved.freezdge.uiGeneral.activity.LoginActivity
 import com.inved.freezdge.utils.*
 import java.io.File
 import java.io.IOException
-import java.sql.Timestamp
+import java.util.Date
+import java.util.*
 
 class PhotoDialog : DialogFragment() {
 
@@ -126,7 +126,7 @@ class PhotoDialog : DialogFragment() {
             if (uid != null) {
                 val postId:String =Domain.createRandomString()
                 //create post in firebase
-                PostHelper.createPost(postId, Timestamp(System.currentTimeMillis()),
+                PostHelper.createPost(postId, Calendar.getInstance().time as Date,
                     title,null,urlPicture,uid,getString(R.string.social_media_post_type_photo),0)
 
                 //to upload a photo on Firebase storage

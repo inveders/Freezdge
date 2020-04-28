@@ -6,11 +6,13 @@
     <string name="menu_bottom_my_recipes">Recipes</string>
     <string name="menu_bottom_social_media">Community</string>
     <string name="menu_grocery_list">Grocery List</string>
+    <string name="menu_logout">Logout</string>
 
     <!--Toolbar-->
     <string name="toolbar_grocery_list">My grocery list</string>
     <string name="toolbar_search_ingredients">Search Ingredients</string>
     <string name="toolbar_recipe_detail">Recipe detail</string>
+
 
     <!--No item found-->
     <string name="no_item_found_favourite">No favourite recipes for the moment</string>

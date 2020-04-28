@@ -10,6 +10,8 @@ import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
 import java.security.SecureRandom
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -19,6 +21,16 @@ class Domain {
 
         private var nbIngredientInRecipe: Double = 0.0
         private var nbIngredientInFridge: Double = 0.0
+
+
+        val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        fun getDateFromString(datetoSaved: String?): Date? {
+            return try {
+                format.parse(datetoSaved)
+            } catch (e: ParseException) {
+                null
+            }
+        }
 
         fun createRandomString(): String {
             val CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz"

@@ -1,9 +1,9 @@
 package com.inved.freezdge.socialmedia.firebase
 
-import java.sql.Timestamp
+import java.util.*
 
-class Post (var postId: String,
-            var timestamp: Timestamp,
+class Post (var postId: String?=null,
+            var timestamp: Date?=null,
             var titleAstuce: String? = null,
             var descriptionAstuce: String?=null,
             var urlPhoto: String? = null,
