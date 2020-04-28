@@ -75,14 +75,14 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
                 }
             }
-        }?.addOnFailureListener { e ->
+        }?.addOnFailureListener {
             Log.e(
                 "debago",
                 "Problem during the user post check"
             )
         }
 
-        post.postId?.let {
+        post.postId?.let { it ->
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
                 if (task.result != null) {
                     if (task.result!!.documents.isNotEmpty()) {

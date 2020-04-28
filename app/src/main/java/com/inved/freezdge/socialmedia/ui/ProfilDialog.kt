@@ -14,7 +14,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -26,6 +29,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
+import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.utils.*
 import java.io.File
@@ -42,6 +46,7 @@ class ProfilDialog : DialogFragment() {
         //final values
         const val TAG = "PROFIL"
         private const val KEY = "param1"
+        private lateinit var uid: String
 
         @JvmStatic
         fun newInstance(param1: String) =
@@ -64,8 +69,9 @@ class ProfilDialog : DialogFragment() {
     private var changePhotoText: TextView? = null
     private var addActionButton: ImageButton? = null
     private var cancelSearchButton: ImageButton? = null
-    private var mPhotoFile: File?=null
+    private var mPhotoFile: File? = null
     private lateinit var mContext: Context
+
     // --------------
     // LIFE CYCLE AND VIEW MODEL
     // --------------
@@ -76,17 +82,20 @@ class ProfilDialog : DialogFragment() {
         // Inflate the layout for this fragment
         val view: View =
             inflater.inflate(R.layout.dialog_update_profile, container, false)
-        mContext=App.instance!!.applicationContext
+        mContext = App.instance!!.applicationContext
+
+        uid = FirebaseAuth.getInstance().currentUser!!.uid
         imageCameraOrGallery = ImageCameraOrGallery()
         profilPhoto = view.findViewById(R.id.profil_photo)
         changePhotoText =
             view.findViewById(R.id.change_profil_photo_text)
         lastnameEditText = view.findViewById(R.id.lastnameEdittext)
-      //  firstnameEditText = view.findViewById(R.id.firstnameEdittext)
+        //  firstnameEditText = view.findViewById(R.id.firstnameEdittext)
         addActionButton = view.findViewById(R.id.agent_add_dialog_validate)
         cancelSearchButton = view.findViewById(R.id.agent_add_dialog_close)
 
         initializeMethods()
+        fillDialog()
         return view
     }
 
@@ -96,21 +105,58 @@ class ProfilDialog : DialogFragment() {
         addActionButton?.setOnClickListener { v: View? -> updateProfile() }
     }
 
+
+    private fun fillDialog() {
+        UserHelper.getUser(uid)?.get()?.addOnCompleteListener { task ->
+            if (task.result != null) {
+                if (task.result!!.documents.isNotEmpty()) {
+
+                    val user: User =
+                        task.result!!.documents[0].toObject(User::class.java)!!
+
+                    firstnameEditText?.setText(user.firstname)
+                    lastnameEditText?.setText(user.lastname)
+
+                    //to upload a photo on Firebase storage
+                    if(user.photoUrl!=null){
+                        profilPhoto?.let {
+                            Glide.with(mContext)
+                                .load(user.photoUrl)
+                                .apply(RequestOptions.circleCropTransform())
+                                .placeholder(R.drawable.ic_anon_user_48dp)
+                                .into(it)
+                        }
+                    }else{
+                        profilPhoto?.let {
+                            Glide.with(mContext)
+                                .load(R.drawable.ic_anon_user_48dp)
+                                .apply(RequestOptions.circleCropTransform())
+                                .placeholder(R.drawable.ic_anon_user_48dp)
+                                .into(it)
+                        }
+                    }
+
+                }
+            }
+        }?.addOnFailureListener { e ->
+            Log.e(
+                "debago",
+                "Problem during the user creation"
+            )
+        }
+    }
+
     // --------------
     // AGENT
     // --------------
     private fun updateProfile() {
-     /*   if (firstnameEditText?.text.toString().isEmpty()) {
-            firstnameEditText?.error = getString(R.string.set_error_firstname)
-        } else */if (lastnameEditText!!.text.toString().isEmpty()) {
+        /*   if (firstnameEditText?.text.toString().isEmpty()) {
+               firstnameEditText?.error = getString(R.string.set_error_firstname)
+           } else */if (lastnameEditText!!.text.toString().isEmpty()) {
             lastnameEditText!!.error = getString(R.string.set_error_lastname)
         } else {
             val firstname = firstnameEditText?.text.toString()
             val lastname = lastnameEditText?.text.toString()
-            var uid: String?=null
-            if (FirebaseAuth.getInstance().currentUser != null) {
-                uid = FirebaseAuth.getInstance().currentUser?.uid
-            }
 
             if (uid != null) {
                 //update agent in firebase
@@ -139,7 +185,7 @@ class ProfilDialog : DialogFragment() {
 
     private fun fillUserData() {
 
-     /**   firstnameEditText.setText(realEstateAgents.getFirstname())
+        /**   firstnameEditText.setText(realEstateAgents.getFirstname())
         lastnameEditText.setText(realEstateAgents.getLastname())
         urlPicture = realEstateAgents.getUrlPicture()
         // showImageInCircle(realEstateAgents.getUrlPicture());
@@ -167,7 +213,7 @@ class ProfilDialog : DialogFragment() {
             if (items[item] == App.instance?.resources
                     ?.getString(R.string.dialog_select_image_take_photo)
             ) {
-               // AddAgentDialogPermissionsDispatcher.dispatchTakePictureIntentWithPermissionCheck( this)
+                // AddAgentDialogPermissionsDispatcher.dispatchTakePictureIntentWithPermissionCheck( this)
                 dispatchTakePictureIntent()
             } else if (items[item] == getString(R.string.dialog_select_image_choose_from_library)) {
                 dispatchGalleryIntent()
@@ -181,7 +227,7 @@ class ProfilDialog : DialogFragment() {
     /**
      * Capture image from camera
      */
-  //  @NeedsPermission([Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
+    //  @NeedsPermission([Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
     fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (mContext != null) {
@@ -357,18 +403,18 @@ class ProfilDialog : DialogFragment() {
     // --------------
     // PERMISSION
     // --------------
-  /**  override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+    /**  override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<String>,
+    grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // NOTE: delegate the permission handling to generated method
-        AddAgentDialogPermissionsDispatcher.onRequestPermissionsResult(
-            this,
-            requestCode,
-            grantResults
-        )
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    // NOTE: delegate the permission handling to generated method
+    AddAgentDialogPermissionsDispatcher.onRequestPermissionsResult(
+    this,
+    requestCode,
+    grantResults
+    )
     }*/
 
 
