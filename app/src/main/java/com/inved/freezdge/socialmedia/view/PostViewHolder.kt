@@ -14,11 +14,9 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
-import com.inved.freezdge.socialmedia.firebase.Post
-import com.inved.freezdge.socialmedia.firebase.PostHelper
-import com.inved.freezdge.socialmedia.firebase.User
-import com.inved.freezdge.socialmedia.firebase.UserHelper
+import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
 
 class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -49,11 +47,11 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
         if (post.urlPhoto != null) {
-            postImage.visibility=View.VISIBLE
-            glide?.load(post.urlPhoto)?.apply(RequestOptions.circleCropTransform())
+            postImage.visibility = View.VISIBLE
+            glide?.load(post.urlPhoto)?.apply(RequestOptions.centerCropTransform())
                 ?.into(postImage)
         } else {
-           postImage.visibility=View.GONE
+            postImage.visibility = View.GONE
         }
 
         UserHelper.getUser(post.userUid)?.get()?.addOnCompleteListener { task ->
@@ -68,7 +66,8 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                         glide?.load(user.photoUrl)?.apply(RequestOptions.circleCropTransform())
                             ?.into(profileImage)
                     } else {
-                        glide?.load(R.drawable.ic_anon_user_48dp)?.apply(RequestOptions.circleCropTransform())
+                        glide?.load(R.drawable.ic_anon_user_48dp)
+                            ?.apply(RequestOptions.circleCropTransform())
                             ?.into(profileImage)
                     }
 
@@ -90,47 +89,79 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                             task.result!!.documents[0].toObject(Post::class.java)!!
 
                         //Change like button color according to value of like
-                        if(currentPost.likeNumber!=0){
+                        if (currentPost.likeNumber != 0) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                likeButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#c56000"))
-                            }else{
+                                likeButton.backgroundTintList =
+                                    ColorStateList.valueOf(Color.parseColor("#c56000"))
+                            } else {
                                 val drawable: Drawable? =
-                                    ContextCompat.getDrawable(App.applicationContext(), R.drawable.ic_like_enable)?.let {
+                                    ContextCompat.getDrawable(
+                                        App.applicationContext(),
+                                        R.drawable.ic_like_enable
+                                    )?.let {
                                         DrawableCompat.wrap(it)
                                     }
 
                                 // We can now set a tint
                                 drawable?.let { DrawableCompat.setTint(it, Color.BLUE) }
                                 // ...or a tint list
-                                drawable?.let { DrawableCompat.setTintList(it, ColorStateList.valueOf(Color.parseColor("#c56000"))) }
+                                drawable?.let {
+                                    DrawableCompat.setTintList(
+                                        it,
+                                        ColorStateList.valueOf(Color.parseColor("#c56000"))
+                                    )
+                                }
                                 // ...and a different tint mode
-                                drawable?.let { DrawableCompat.setTintMode(it, PorterDuff.Mode.SRC_OVER) }
+                                drawable?.let {
+                                    DrawableCompat.setTintMode(
+                                        it,
+                                        PorterDuff.Mode.SRC_OVER
+                                    )
+                                }
                             }
 
                         }
 
-                        if(currentPost.postType.equals(App.resource().getString(R.string.social_media_post_type_photo))){
+                        if (currentPost.postType.equals(
+                                App.resource().getString(R.string.social_media_post_type_photo)
+                            )
+                        ) {
                             when (currentPost.likeNumber) {
                                 0 -> {
-                                    likeText.visibility=View.GONE
+                                    likeText.visibility = View.GONE
                                 }
                                 1 -> {
-                                    likeText.text=App.resource().getString(R.string.social_media_like_number_photo_one_person,currentPost.likeNumber)
+                                    likeText.text = App.resource().getString(
+                                        R.string.social_media_like_number_photo_one_person,
+                                        currentPost.likeNumber
+                                    )
                                 }
                                 else -> {
-                                    likeText.text=App.resource().getString(R.string.social_media_like_number_photo,currentPost.likeNumber)
+                                    likeText.text = App.resource().getString(
+                                        R.string.social_media_like_number_photo,
+                                        currentPost.likeNumber
+                                    )
                                 }
                             }
-                        }else if(currentPost.postType.equals(App.resource().getString(R.string.social_media_post_type_tips))){
+                        } else if (currentPost.postType.equals(
+                                App.resource().getString(R.string.social_media_post_type_tips)
+                            )
+                        ) {
                             when (currentPost.likeNumber) {
                                 0 -> {
-                                    likeText.visibility=View.GONE
+                                    likeText.visibility = View.GONE
                                 }
                                 1 -> {
-                                    likeText.text=App.resource().getString(R.string.social_media_like_number_tips_one_person,currentPost.likeNumber)
+                                    likeText.text = App.resource().getString(
+                                        R.string.social_media_like_number_tips_one_person,
+                                        currentPost.likeNumber
+                                    )
                                 }
                                 else -> {
-                                    likeText.text=App.resource().getString(R.string.social_media_like_number_tips,currentPost.likeNumber)
+                                    likeText.text = App.resource().getString(
+                                        R.string.social_media_like_number_tips,
+                                        currentPost.likeNumber
+                                    )
                                 }
                             }
                         }
@@ -144,14 +175,84 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
         }
 
-        updateButton.setOnClickListener{
+        likeButton.setOnClickListener {
 
+            FavoritePostHelper.isThisPostIsFavorite(
+                FirebaseAuth.getInstance().currentUser?.uid,
+                post.postId
+            )?.get()
+                ?.addOnCompleteListener { task ->
+                    if (task.result != null) {
+                        if (task.result!!.documents.isNotEmpty()) {
+                            //The post is in my favorites, I decrease the value in PostHelper, I remove the post from my favorite
+
+                            post.postId?.let { it1 ->
+                                FirebaseAuth.getInstance().currentUser?.uid?.let { it2 ->
+                                    FavoritePostHelper.deleteFavoritePost(
+                                        it2,
+                                        it1
+                                    )
+                                }
+                            }
+
+                            post.postId?.let { it ->
+                                PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
+                                    if (task.result != null) {
+                                        if (task.result!!.documents.isNotEmpty()) {
+                                            val currentPost: Post =
+                                                task.result!!.documents[0].toObject(Post::class.java)!!
+                                            val newValue: Int?
+                                            newValue = if (currentPost.likeNumber != 0) {
+                                                currentPost.likeNumber?.minus(1)
+                                            } else {
+                                                0
+                                            }
+                                            PostHelper.updateLikeNumber(newValue, post.postId!!)
+                                        }
+                                    }
+                                }
+                            }?.addOnFailureListener { }
+                        } else {
+
+                            //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            post.postId?.let { it1 ->
+                                FirebaseAuth.getInstance().currentUser?.uid?.let { it2 ->
+                                    FavoritePostHelper.createUserFavoritePost(
+                                        it2,
+                                        it1
+                                    )
+                                }
+                            }
+                            post.postId?.let { it ->
+                                PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
+                                    if (task.result != null) {
+                                        if (task.result!!.documents.isNotEmpty()) {
+                                            val currentPost: Post =
+                                                task.result!!.documents[0].toObject(Post::class.java)!!
+                                            val newValue: Int?
+                                            newValue = currentPost.likeNumber?.plus(1)
+                                            PostHelper.updateLikeNumber(newValue, post.postId!!)
+                                        }
+                                    }
+                                }
+                            }?.addOnFailureListener {
+                                Log.e(
+                                    "debago",
+                                    "Problem during the like number decrease"
+                                )
+                            }
+
+                        }
+                    }
+
+
+                }
+
+                ?.addOnFailureListener { }
         }
 
-        deleteButton.setOnClickListener{
-
-        }
-
+        updateButton.setOnClickListener { }
+        deleteButton.setOnClickListener {}
 
     }
 

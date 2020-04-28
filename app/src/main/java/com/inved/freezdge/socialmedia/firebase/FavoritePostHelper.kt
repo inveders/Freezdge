@@ -38,6 +38,13 @@ class FavoritePostHelper {
             )
         }
 
+        fun isThisPostIsFavorite(uid: String?,postId: String?): Query? {
+            return uid?.let {
+                getUsersFavoritePostCollection(it)
+                    ?.whereEqualTo("postId", postId)
+            }
+        }
+
         // --- DELETE ---
         fun deleteFavoritePost(
             uid: String,
