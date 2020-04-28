@@ -14,7 +14,6 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
-import com.inved.freezdge.uiGeneral.activity.MainActivity.Companion.getLaunchIntent
 
 class MainActivity : BaseActivity() {
 
@@ -70,26 +69,24 @@ class MainActivity : BaseActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
+        val item: MenuItem = menu.findItem(R.id.menu_logout)
+        item.setOnMenuItemClickListener {
+            signOut()
+            true
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
-
-  /*  private fun setupUI() {
-        sign_out_button.setOnClickListener {
-            signOut()
-        }
-    }*/
 
     private fun signOut() {
         startActivity(LoginActivity.getLaunchIntent(this))
         FirebaseAuth.getInstance().signOut();
     }
-
-
 
     companion object {
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {

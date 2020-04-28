@@ -10,6 +10,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.GoogleAuthProvider
 import com.inved.freezdge.R
+import com.inved.freezdge.socialmedia.firebase.User
+import com.inved.freezdge.socialmedia.firebase.UserHelper
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -57,6 +60,7 @@ class LoginActivity: BaseActivity() {
         getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("debago","in firebase auth with google")
+                isUserExistInFirebase()
                 startActivity(MainActivity.getLaunchIntent(this))
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
@@ -70,6 +74,21 @@ class LoginActivity: BaseActivity() {
         if (user != null) {
             startActivity(MainActivity.getLaunchIntent(this))
             finish()
+        }
+    }
+
+    private fun isUserExistInFirebase(){
+        UserHelper.getUser(getCurrentUser()?.uid)?.get()?.addOnCompleteListener { task ->
+            if (task.result != null) {
+                if (task.result!!.documents.isEmpty()) {
+                    getCurrentUser()?.uid?.let { UserHelper.createUser(it,getCurrentUser()?.displayName,"",getCurrentUser()?.photoUrl.toString()) }
+                }
+            }
+        }?.addOnFailureListener { e ->
+            Log.e(
+                "debago",
+                "Problem during the user creation"
+            )
         }
     }
 
