@@ -105,6 +105,7 @@ class MyUploadService : Service() {
                         throw task.exception!!
                     }
                 }
+
                 photoRef.downloadUrl
             }
             .addOnSuccessListener { downloadUri ->

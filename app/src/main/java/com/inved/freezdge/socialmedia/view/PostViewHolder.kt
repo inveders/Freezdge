@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.GlideApp
 
 class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -48,8 +49,10 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         if (post.urlPhoto != null) {
             postImage.visibility = View.VISIBLE
-            glide?.load(post.urlPhoto)?.apply(RequestOptions.centerCropTransform())
-                ?.into(postImage)
+            GlideApp.with(App.applicationContext())
+                .load(post.urlPhoto)
+                .apply(RequestOptions.centerCropTransform())
+                .into(postImage)
         } else {
             postImage.visibility = View.GONE
         }
@@ -63,8 +66,10 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                     username.text = user.firstname
 
                     if (user.photoUrl != null) {
-                        glide?.load(user.photoUrl)?.apply(RequestOptions.circleCropTransform())
-                            ?.into(profileImage)
+                        GlideApp.with(App.applicationContext())
+                            .load(user.photoUrl)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(profileImage)
                     } else {
                         glide?.load(R.drawable.ic_anon_user_48dp)
                             ?.apply(RequestOptions.circleCropTransform())
