@@ -7,4 +7,5 @@ class CreamFragment:BaseIngredientsSearchFragment() {
     override fun getLayoutRes(): Int {
         return R.layout.fragment_cream
     }
+
 }

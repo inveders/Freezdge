@@ -7,4 +7,5 @@ class EpicerieFragment: BaseIngredientsSearchFragment() {
     override fun getLayoutRes(): Int {
         return R.layout.fragment_epicerie
     }
+
 }

@@ -43,8 +43,13 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         setHasOptionsMenu(true)
         initViewModel()
         setupRecyclerView()
-        detectWichFragmentIsOpen()
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("debago","in on resume base fragment ingredient")
+        SearchIngredientsActivity.currentPage?.let { getForegroundFragment(it) }
     }
 
     abstract fun getLayoutRes(): Int
@@ -54,26 +59,6 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         ingredientViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
 
-    }
-
-    private fun detectWichFragmentIsOpen() {
-        when {
-            getForegroundFragment() is CreamFragment -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_cream))
-            }
-            getForegroundFragment() is FruitsVegetablesFragment -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_fruits_vegetables))
-            }
-            getForegroundFragment() is EpicerieFragment -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_epicerie))
-            }
-            getForegroundFragment() is FishFragment -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_fish))
-            }
-            getForegroundFragment() is MeatFragment -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_meat))
-            }
-        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -119,7 +104,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
 
                             })
                     }else{
-                        detectWichFragmentIsOpen()
+                        SearchIngredientsActivity.currentPage?.let { getForegroundFragment(it) }
                     }
 
                     return true
@@ -132,15 +117,27 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
     }
 
 
-    fun getForegroundFragment(): Fragment? {
-        val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHostIngredient)
-        return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
+    fun getForegroundFragment(value:Int) {
+         when (value) {
+            0 -> run {
+                getAllFoodByType(getString(R.string.ingredient_type_cream))
+            }
+            1 -> run {
+                getAllFoodByType(getString(R.string.ingredient_type_fruits_vegetables))
+            }
+            2 -> run {
+                getAllFoodByType(getString(R.string.ingredient_type_epicerie))
+            }
+            3 -> run {
+                getAllFoodByType(getString(R.string.ingredient_type_fish))
+            }
+            4 -> run {
+                getAllFoodByType(getString(R.string.ingredient_type_meat))
+            }
+        }
     }
 
-
-
     private fun getAllFoodByType(typeIngredient:String) {
-        Log.d("debago","in getallfoodbytype")
         foodSearchItemAdapter.clear()
         ingredientViewmodel.getAllIngredientsByType(typeIngredient).observe(viewLifecycleOwner, Observer {
             foodSearchItemAdapter.add(it)

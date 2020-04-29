@@ -8,4 +8,5 @@ class MeatFragment: BaseIngredientsSearchFragment() {
     override fun getLayoutRes(): Int {
         return R.layout.fragment_meat
     }
+
 }
