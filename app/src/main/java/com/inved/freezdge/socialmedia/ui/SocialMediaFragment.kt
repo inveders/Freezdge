@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,6 +24,7 @@ import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
+import com.inved.freezdge.uiGeneral.activity.MainActivity
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
@@ -31,6 +33,7 @@ class SocialMediaFragment: Fragment() {
 
     private lateinit var mRecyclerPostsAdapter:PostsAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var nestedScrollView: NestedScrollView
     private lateinit var addPhotoGallery: ImageView
     private lateinit var addPhotoCamera: ImageView
     private lateinit var addTipImage: ImageView
@@ -39,6 +42,18 @@ class SocialMediaFragment: Fragment() {
     private lateinit var addPhotoCameraText: TextView
     private lateinit var addTipText: TextView
     private lateinit var topDescription: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // in here you can do logic when backPress is clicked
+                nestedScrollView.smoothScrollTo(0,0)
+
+            }
+        })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +64,7 @@ class SocialMediaFragment: Fragment() {
         addPhotoGallery=mView.findViewById(R.id.image_photo_post)
         addPhotoCamera=mView.findViewById(R.id.image_camera_post)
         addTipImage=mView.findViewById(R.id.image_tips_post)
+        nestedScrollView=mView.findViewById(R.id.nested_scroll_view)
         addPhotoGalleryText=mView.findViewById(R.id.title_photo_post)
         addPhotoCameraText=mView.findViewById(R.id.title_camera_post)
         addTipText=mView.findViewById(R.id.title_tips_post)
@@ -61,10 +77,6 @@ class SocialMediaFragment: Fragment() {
         return mView
     }
 
-    override fun onResume() {
-        super.onResume()
-        displayAllPosts()
-    }
 
     private fun initProfil() {
 
@@ -135,6 +147,8 @@ class SocialMediaFragment: Fragment() {
 
         recyclerView.adapter = mRecyclerPostsAdapter
     }
+
+
 
     // Create options for RecyclerView from a Query
     private fun generateOptionsForAdapter(query: Query): FirestoreRecyclerOptions<Post?> {
