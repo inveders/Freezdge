@@ -1,6 +1,7 @@
 package com.inved.freezdge.utils
 
 import android.util.Log
+import android.view.animation.AlphaAnimation
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
 import com.inved.freezdge.ingredientslist.database.Ingredients
@@ -30,6 +31,18 @@ class Domain {
             } catch (e: ParseException) {
                 null
             }
+        }
+
+        fun animation():AlphaAnimation{
+           return AlphaAnimation(1f, 0.8f)
+        }
+
+        fun animationFromTransparency():AlphaAnimation{
+            val animation1 = AlphaAnimation(0.0f, 1.0f)
+            animation1.duration = 500
+            animation1.startOffset = 2000
+            animation1.fillAfter = true
+            return animation1
         }
 
         fun createRandomString(): String {

@@ -109,4 +109,7 @@ dependencies {
     implementation "org.permissionsdispatcher:permissionsdispatcher:$dispatcher"
     kapt "org.permissionsdispatcher:permissionsdispatcher-processor:$dispatcher"
 
+    //Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 }

@@ -1,6 +1,5 @@
 package com.inved.freezdge.socialmedia.view
 
-import android.app.AlertDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -12,12 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +32,7 @@ class PostsAdapter(
 
     interface ClickListener {
         fun onClickListener(value: Int, postId: String)
+        fun onDataChanged()
     }
 
     //FOR DATA
@@ -64,9 +64,10 @@ class PostsAdapter(
         private var deleteButton: ImageView = view.findViewById(R.id.delete_button)
         private var updateButton: ImageView = view.findViewById(R.id.update_button)
         private var likeButton: ImageView = view.findViewById(R.id.like_number_image)
-
+        private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
         fun updateWithPosts(post: Post, glide: RequestManager?, listener: ClickListener) {
 
+            Log.d("debago","in update post")
             if (post.userUid.equals(FirebaseAuth.getInstance().currentUser?.uid)) {
                 deleteButton.visibility = View.VISIBLE
                 updateButton.visibility = View.VISIBLE
@@ -134,7 +135,8 @@ class PostsAdapter(
                         if (task.result!!.documents.isNotEmpty()) {
                             val currentPost: Post =
                                 task.result!!.documents[0].toObject(Post::class.java)!!
-
+                            shimmer.stopShimmer()
+                            shimmer.hideShimmer()
                             //Change like button color according to value of like
                             if (currentPost.likeNumber != 0) {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -333,6 +335,11 @@ class PostsAdapter(
             }
         }
 
+    }
+
+    override fun onDataChanged() {
+        super.onDataChanged()
+        this.listener.onDataChanged()
     }
 
 }

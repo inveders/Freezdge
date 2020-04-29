@@ -27,6 +27,8 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
+import kotlinx.android.synthetic.main.fragment_social_media.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
@@ -44,7 +46,6 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
     private lateinit var addPhotoCameraText: TextView
     private lateinit var addTipText: TextView
     private lateinit var topDescription: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -73,9 +74,11 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
         photoProfile=mView.findViewById(R.id.profile_image)
         topDescription=mView.findViewById(R.id.profile_activity_top_description)
         //RecyclerView initialization
-        displayAllPosts()
+        topDescription.startAnimation(Domain.animationFromTransparency())
+        photoProfile.startAnimation(Domain.animationFromTransparency())
         initButtons()
         initProfil()
+        displayAllPosts()
         return mView
     }
 
@@ -102,6 +105,9 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
                                     .into(it)
                             }
                         }
+
+
+
                     }else{
                         photoProfile.let {
                             activity?.let { it1 ->
@@ -139,6 +145,7 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
         mRecyclerPostsAdapter = PostsAdapter(
             generateOptionsForAdapter(PostHelper.getAllPosts()),this
         )
+
         //Choose how to display the list in the RecyclerView (vertical or horizontal)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(
@@ -147,9 +154,23 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
             false
         )
 
+
         recyclerView.adapter = mRecyclerPostsAdapter
+
+
     }
 
+    override fun onStart() {
+        super.onStart()
+        mRecyclerPostsAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mRecyclerPostsAdapter != null) {
+            mRecyclerPostsAdapter.stopListening()
+        }
+    }
 
 
     // Create options for RecyclerView from a Query
@@ -275,7 +296,7 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
     // --------------------
     // CALLBACK
     // --------------------
-    /*override fun onDataChanged() {
+    override fun onDataChanged() {
         // 7 - Show TextView in case RecyclerView is empty
         Log.d("debago","in on data changed ${mRecyclerPostsAdapter.itemCount}")
         if(mRecyclerPostsAdapter.itemCount==0){
@@ -283,7 +304,7 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
         }else{
             no_post_found.visibility=View.GONE
         }
-    }*/
+    }
 
 
 

@@ -13,12 +13,13 @@
     app:cardUseCompatPadding="true">
 
 
-    <!-- <com.facebook.shimmer.ShimmerFrameLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
          android:id="@+id/shimmer_view_container"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
 
-         >-->
+         >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -145,7 +146,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <!--  </com.facebook.shimmer.ShimmerFrameLayout>-->
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 </androidx.cardview.widget.CardView>

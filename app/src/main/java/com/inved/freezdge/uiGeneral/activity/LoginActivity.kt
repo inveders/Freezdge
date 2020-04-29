@@ -6,11 +6,8 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,16 +17,13 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.GoogleAuthProvider
 import com.inved.freezdge.R
-import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
+import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.*
 
 
 class LoginActivity: BaseActivity() {
 
-    //Progress bar
-    var animation: Animation? = null
     //FOR DATA
     val RC_SIGN_IN: Int = 1
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -51,8 +45,6 @@ class LoginActivity: BaseActivity() {
         configureGoogleSignIn()
         login_facebook_button.setOnClickListener{ onClickFacebookLoginButton() }
         login_google_button.setOnClickListener{ onClickGoogleLoginButton() }
-
-        animation = AlphaAnimation(1f, 0.8f)
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
@@ -144,12 +136,12 @@ class LoginActivity: BaseActivity() {
     // --------------------
 
     private fun onClickFacebookLoginButton() {
-        login_facebook_button.startAnimation(animation)
+        login_facebook_button.startAnimation(Domain.animation())
           //  startFacebookSignInActivity()
     }
 
     private fun onClickGoogleLoginButton() {
-        login_google_button.startAnimation(animation)
+        login_google_button.startAnimation(Domain.animation())
         startGoogleSignInActivity()
     }
 
