@@ -1,6 +1,7 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.Manifest
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -24,12 +26,12 @@ import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
-import com.inved.freezdge.uiGeneral.activity.MainActivity
+import com.inved.freezdge.utils.App
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
-class SocialMediaFragment: Fragment() {
+class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
 
     private lateinit var mRecyclerPostsAdapter:PostsAdapter
     private lateinit var recyclerView: RecyclerView
@@ -114,7 +116,7 @@ class SocialMediaFragment: Fragment() {
 
                 }
             }
-        }?.addOnFailureListener { e ->
+        }?.addOnFailureListener {
             Log.e(
                 "debago",
                 "Problem during the user creation"
@@ -123,19 +125,19 @@ class SocialMediaFragment: Fragment() {
     }
 
     private fun initButtons() {
-        addPhotoCamera.setOnClickListener { onClickAddPhotoWithPermissionCheck() }
-        addPhotoCameraText.setOnClickListener { onClickAddPhotoWithPermissionCheck() }
+        addPhotoCamera.setOnClickListener { onClickAddPhotoWithPermissionCheck(1,"") }
+        addPhotoCameraText.setOnClickListener { onClickAddPhotoWithPermissionCheck(1,"") }
         addPhotoGallery.setOnClickListener { onClickAddPhotoGalleryWithPermissionCheck() }
         addPhotoGalleryText.setOnClickListener { onClickAddPhotoGalleryWithPermissionCheck() }
-        addTipImage.setOnClickListener { onClickAddTips() }
-        addTipText.setOnClickListener { onClickAddTips() }
+        addTipImage.setOnClickListener { onClickAddTips(0,"") }
+        addTipText.setOnClickListener { onClickAddTips(0,"") }
         photoProfile.setOnClickListener { onClickUpdateProfil() }
     }
 
     private fun displayAllPosts() {
         Log.d("debago","in display all posts")
         mRecyclerPostsAdapter = PostsAdapter(
-            generateOptionsForAdapter(PostHelper.getAllPosts())
+            generateOptionsForAdapter(PostHelper.getAllPosts()),this
         )
         //Choose how to display the list in the RecyclerView (vertical or horizontal)
         recyclerView.setHasFixedSize(true)
@@ -160,7 +162,7 @@ class SocialMediaFragment: Fragment() {
     }
 
     @NeedsPermission(Manifest.permission.CAMERA)
-    fun onClickAddPhoto(){
+    fun onClickAddPhoto(value: Int,postId: String){
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(PhotoDialog.TAG)
         if (previous != null) {
@@ -168,7 +170,7 @@ class SocialMediaFragment: Fragment() {
         }
         transaction?.addToBackStack(null)
 
-        val dialogFragment = PhotoDialog.newInstance(1)
+        val dialogFragment = PhotoDialog.newInstance(value,postId)
         if (transaction != null) {
             dialogFragment.show(transaction, PhotoDialog.TAG)
         }
@@ -183,14 +185,14 @@ class SocialMediaFragment: Fragment() {
         }
         transaction?.addToBackStack(null)
 
-        val dialogFragment = PhotoDialog.newInstance(2)
+        val dialogFragment = PhotoDialog.newInstance(2,"")
         if (transaction != null) {
             dialogFragment.show(transaction, PhotoDialog.TAG)
         }
     }
 
 
-    private fun onClickAddTips(){
+    private fun onClickAddTips(value: Int,postId:String){
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(TipsDialog.TAG)
         if (previous != null) {
@@ -198,7 +200,7 @@ class SocialMediaFragment: Fragment() {
         }
         transaction?.addToBackStack(null)
 
-        val dialogFragment = TipsDialog.newInstance("parameter")
+        val dialogFragment = TipsDialog.newInstance(value,postId)
         if (transaction != null) {
             dialogFragment.show(transaction, TipsDialog.TAG)
         }
@@ -228,8 +230,46 @@ class SocialMediaFragment: Fragment() {
         this.onRequestPermissionsResult(rc, results)
     }
 
+    private fun launchAlertDialog(postId: String) {
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle(
+            App.resource().getString(R.string.social_media_post_delete_title_dialog)
+        )
+        builder.setMessage(
+            App.resource().getString(R.string.social_media_post_delete_message_dialog)
+        )
+
+        builder.setPositiveButton(App.resource().getString(R.string.Yes)) { _, _ ->
+            PostHelper.deletePost(postId)
+            Toast.makeText(
+                App.applicationContext(),
+                App.resource().getString(R.string.social_media_post_delete_confirmation_dialog),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+
+    override fun onClickListener(value: Int,postId:String) {
+        when (value) {
+            1 -> {
+                launchAlertDialog(postId)
+            }
+            2 -> {
+                onClickAddTips(value,postId)
+            }
+            3 -> {
+                onClickAddPhotoWithPermissionCheck(value,postId)
+            }
+        }
 
 
+    }
 
 
     // --------------------

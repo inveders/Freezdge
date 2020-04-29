@@ -89,6 +89,7 @@
     <string name="toast_updated_tip">Tip updated</string>
     <string name="toast_created_tip">Tip created</string>
     <string name="toast_created_photo">Photo created</string>
+    <string name="toast_updated_photo_post">Updated post</string>
 
 
     <!--Social page -->
@@ -106,6 +107,9 @@
     <string name="social_media_no_post">No posts found</string>
     <string name="social_media_post_type_photo">Photo</string>
     <string name="social_media_post_type_tips">Tips</string>
+    <string name="social_media_post_delete_title_dialog">Delete post</string>
+    <string name="social_media_post_delete_message_dialog">Are you sure to delete this post</string>
+    <string name="social_media_post_delete_confirmation_dialog">Post deleted</string>
 
     <!--Add post -->
     <string name="title_tips">Tip\'s title</string>
@@ -116,4 +120,6 @@
     <string name="publish">Publish</string>
     <string name="set_error_title_tips">Enter a title</string>
     <string name="set_error_description_tips">Enter a tip</string>
+    <string name="post_cant_change_photo">You cannot change the photo</string>
+    <string name="no_picture_add_photo_dialog">There is no picture</string>
 </resources>

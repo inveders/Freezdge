@@ -1,15 +1,10 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,19 +14,15 @@ import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
+import com.inved.freezdge.socialmedia.firebase.Post
 import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.utils.*
 import java.io.File
 import java.io.IOException
-import java.util.Date
 import java.util.*
 
 class PhotoDialog : DialogFragment() {
@@ -42,13 +33,14 @@ class PhotoDialog : DialogFragment() {
         private const val REQUEST_GALLERY_PHOTO = 455
         const val TAG = "PHOTO"
 
-        private const val KEY = "photoParam"
-
+        private const val KEY_PHOTO = "photoParam"
+        private const val KEY_PHOTO_ID = "tip_id"
         @JvmStatic
-        fun newInstance(param1: Int) =
+        fun newInstance(param1: Int,param2:String) =
             PhotoDialog().apply {
                 arguments = Bundle().apply {
-                    putInt(KEY, param1)
+                    putInt(KEY_PHOTO, param1)
+                    putString(KEY_PHOTO_ID, param2)
                 }
             }
     }
@@ -65,10 +57,11 @@ class PhotoDialog : DialogFragment() {
     private var cancelButton: ImageButton? = null
     private var mPhotoFile: File?=null
     private lateinit var mContext: Context
+    private lateinit var postIdUpdate: String
     // --------------
     // LIFE CYCLE AND VIEW MODEL
     // --------------
-    override fun onCreate(savedInstanceState: Bundle?): Unit {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullscreenDialogTheme)
     }
@@ -88,13 +81,18 @@ class PhotoDialog : DialogFragment() {
          validateButton = view.findViewById(R.id.validate_button)
         cancelButton = view.findViewById(R.id.close_button)
 
-        initializeMethods()
-        when (arguments?.getInt(KEY,0)) {
+        val id:Int?=arguments?.getInt(KEY_PHOTO,0)
+        postIdUpdate= arguments?.getString(KEY_PHOTO_ID, null)!!
+        initializeMethods(id)
+        when (id) {
             1 -> {
                 dispatchTakePictureIntent()
             }
             2 -> {
                 dispatchGalleryIntent()
+            }
+            3 -> {
+            fillDialog(postIdUpdate)
             }
             else -> {
                 dialog?.dismiss()
@@ -103,26 +101,19 @@ class PhotoDialog : DialogFragment() {
         return view
     }
 
-    private fun initializeMethods() {
-
-        //4second splash time
-       /* Handler().postDelayed({
-            //start main activity
-            selectImage()
-            //finish this activity
-        },1000)*/
+    private fun initializeMethods(id:Int?) {
 
         cancelButton?.setOnClickListener { v: View? -> dialog!!.dismiss() }
-        validateButton?.setOnClickListener { v: View? -> createPhotoPost() }
+        validateButton?.setOnClickListener { v: View? -> createPhotoPost(id) }
     }
 
     // --------------
     // AGENT
     // --------------
-    private fun createPhotoPost() {
+    private fun createPhotoPost(id:Int?) {
         if (urlPicture==null) {
             Toast.makeText(activity,
-                "There is no picture", Toast.LENGTH_SHORT).show()
+                getString(R.string.no_picture_add_photo_dialog), Toast.LENGTH_SHORT).show()
         } else {
             var title:String? =null
             if(photoTitle!=null){
@@ -133,29 +124,38 @@ class PhotoDialog : DialogFragment() {
             if (FirebaseAuth.getInstance().currentUser != null) {
                 uid = FirebaseAuth.getInstance().currentUser?.uid
             }
+            Log.d("debago","id is $id")
+            if (id == 1 || id== 2) {
+                if (uid != null) {
+                    val postId:String =Domain.createRandomString()
+                    //create post in firebase
+                    PostHelper.createPost(postId, Calendar.getInstance().time as Date,
+                        title,null,urlPicture,uid,getString(R.string.social_media_post_type_photo),0)
 
-            if (uid != null) {
-                val postId:String =Domain.createRandomString()
-                //create post in firebase
-                PostHelper.createPost(postId, Calendar.getInstance().time as Date,
-                    title,null,urlPicture,uid,getString(R.string.social_media_post_type_photo),0)
+                    //to upload a photo on Firebase storage
+                    if (urlPicture != null) {
+                        val storageHelper = StorageHelper()
+                        storageHelper.uploadFromUri(
+                            Uri.parse(urlPicture),
+                            postId,
+                            getString(R.string.type_storage_users)
+                        )
+                    }
 
-                //to upload a photo on Firebase storage
-                if (urlPicture != null) {
-                    val storageHelper = StorageHelper()
-                    storageHelper.uploadFromUri(
-                        Uri.parse(urlPicture),
-                        postId,
-                        getString(R.string.type_storage_users)
-                    )
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.toast_created_photo),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
+            }else{
+                PostHelper.updateTitleAstuce(title,postIdUpdate)
+                Toast.makeText(
+                    activity,
+                    getString(R.string.toast_updated_photo_post),
+                    Toast.LENGTH_LONG
+                ).show()
             }
-
-            Toast.makeText(
-                activity,
-                getString(R.string.toast_created_photo),
-                Toast.LENGTH_LONG
-            ).show()
 
 
             //to close the dialog
@@ -165,46 +165,42 @@ class PhotoDialog : DialogFragment() {
         }
     }
 
-    private fun fillUserData() {
+    private fun fillDialog(postId: String?) {
+        postId?.let {
+            PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
+                if (task.result != null) {
+                    if (task.result!!.documents.isNotEmpty()) {
 
-        /**   firstnameEditText.setText(realEstateAgents.getFirstname())
-        lastnameEditText.setText(realEstateAgents.getLastname())
-        urlPicture = realEstateAgents.getUrlPicture()
-        // showImageInCircle(realEstateAgents.getUrlPicture());
-        showImage(realEstateAgents.getUrlPicture())*/
+                        val post: Post =
+                            task.result!!.documents[0].toObject(Post::class.java)!!
+
+                        photoTitle?.setText(post.titleAstuce)
+                        photoPreview?.let {
+                            GlideApp.with(mContext)
+                                .load(post.urlPhoto)
+                                .apply(RequestOptions.centerCropTransform())
+                                .placeholder(R.drawable.ic_anon_user_48dp)
+                                .into(it)
+                        }
+
+                        urlPicture=post.urlPhoto
+                        photoPreview?.setOnClickListener {  Toast.makeText(activity,
+                            App.resource().getString(R.string.post_cant_change_photo), Toast.LENGTH_SHORT).show() }
+                    }
+                }
+            }?.addOnFailureListener { e ->
+                Log.e(
+                    "debago",
+                    "Problem during the user creation"
+                )
+            }
+        }
+
 
     }
     // --------------
     // TAKE A PICTURE
     // --------------
-    /**
-     * Alert dialog for capture or select from galley
-     */
-    private fun selectImage() {
-        val items = arrayOf<CharSequence>(
-            getString(R.string.dialog_select_image_take_photo),
-            App.resource()
-                .getString(R.string.dialog_select_image_choose_from_library),
-            App.resource().getString(R.string.dialog_select_image_cancel)
-        )
-        val builder =
-            AlertDialog.Builder(activity)
-        builder.setItems(
-            items
-        ) { dialog: DialogInterface, item: Int ->
-            if (items[item] == App.instance?.resources
-                    ?.getString(R.string.dialog_select_image_take_photo)
-            ) {
-                // AddAgentDialogPermissionsDispatcher.dispatchTakePictureIntentWithPermissionCheck( this)
-                dispatchTakePictureIntent()
-            } else if (items[item] == getString(R.string.dialog_select_image_choose_from_library)) {
-                dispatchGalleryIntent()
-            } else if (items[item] == getString(R.string.dialog_select_image_cancel)) {
-                dialog.dismiss()
-            }
-        }
-        builder.show()
-    }
 
     /**
      * Capture image from camera
@@ -212,29 +208,27 @@ class PhotoDialog : DialogFragment() {
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (mContext != null) {
-            if (takePictureIntent.resolveActivity(mContext.packageManager) != null) {
-                // Create the File where the photo should go
-                var photoFile: File? = null
-                try {
-                    photoFile = imageCameraOrGallery?.createImageFile()
-                    cameraFilePath = photoFile?.let { imageCameraOrGallery?.getCameraFilePath(it) }
-                } catch (ex: IOException) {
-                    ex.printStackTrace()
-                    // Error occurred while creating the File
-                }
-                if (photoFile != null) {
-                    val photoURI = FileProvider.getUriForFile(
-                        mContext, BuildConfig.APPLICATION_ID.toString() + ".fileprovider",
-                        photoFile
-                    )
-                    mPhotoFile = photoFile
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(
-                        takePictureIntent,
-                        REQUEST_CAMERA_PHOTO
-                    )
-                }
+        if (takePictureIntent.resolveActivity(mContext.packageManager) != null) {
+            // Create the File where the photo should go
+            var photoFile: File? = null
+            try {
+                photoFile = imageCameraOrGallery?.createImageFile()
+                cameraFilePath = photoFile?.let { imageCameraOrGallery?.getCameraFilePath(it) }
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                val photoURI = FileProvider.getUriForFile(
+                    mContext, BuildConfig.APPLICATION_ID + ".fileprovider",
+                    photoFile
+                )
+                mPhotoFile = photoFile
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                startActivityForResult(
+                    takePictureIntent,
+                    REQUEST_CAMERA_PHOTO
+                )
             }
         }
     }
@@ -304,101 +298,5 @@ class PhotoDialog : DialogFragment() {
             }
         }
     }
-
-    private fun showImage(photoUrl: String?) {
-        if (photoUrl != null) {
-            val localFile = File(photoUrl)
-            val storageDir: File? = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val mFileName = "/" + localFile.name
-            val goodFile = File(storageDir, mFileName)
-            if (goodFile.exists()) {
-                if (goodFile.path != null) {
-                    imageInGlide(goodFile)
-                }
-            } else if (localFile.exists()) {
-                if (localFile.path != null) {
-                    imageInGlide(localFile)
-                }
-            } else {
-                photoPreview?.let {
-                    Glide.with(mContext)
-                        .load(R.drawable.ic_anon_user_48dp)
-                        .apply(RequestOptions.centerCropTransform())
-                        .listener(object : RequestListener<Drawable?> {
-                            override fun onLoadFailed(
-                                e: GlideException?,
-                                model: Any,
-                                target: Target<Drawable?>,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                Log.e("debago", "Exception is : $e")
-                                return false
-                            }
-
-                            override fun onResourceReady(
-                                resource: Drawable?,
-                                model: Any,
-                                target: Target<Drawable?>,
-                                dataSource: DataSource,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                Log.d("debago", "onResourceReady 3")
-                                return false
-                            }
-                        })
-                        .into(it)
-                }
-            }
-        }
-    }
-
-    private fun imageInGlide(file: File) {
-        photoPreview?.let {
-            GlideApp.with(mContext)
-                .load(file)
-                .apply(RequestOptions.centerCropTransform())
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        photoPreview!!.setImageResource(R.drawable.ic_anon_user_48dp)
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.d("debago", "onResourceYEAH 5")
-                        return false
-                    }
-                })
-                .into(it)
-        }
-    }
-
-    // --------------
-    // PERMISSION
-    // --------------
-    /**  override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<String>,
-    grantResults: IntArray
-    ) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    // NOTE: delegate the permission handling to generated method
-    AddAgentDialogPermissionsDispatcher.onRequestPermissionsResult(
-    this,
-    requestCode,
-    grantResults
-    )
-    }*/
-
 
 }

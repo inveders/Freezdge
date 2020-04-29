@@ -42,14 +42,14 @@ class ProfilDialog : DialogFragment() {
 
         //final values
         const val TAG = "PROFIL"
-        private const val KEY = "param1"
+        private const val KEY_PROFIL = "profil"
         private lateinit var uid: String
 
         @JvmStatic
         fun newInstance(param1: String) =
             ProfilDialog().apply {
                 arguments = Bundle().apply {
-                    putString(KEY, param1)
+                    putString(KEY_PROFIL, param1)
                 }
             }
     }
