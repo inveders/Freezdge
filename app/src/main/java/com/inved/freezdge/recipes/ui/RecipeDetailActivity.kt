@@ -6,10 +6,12 @@ import android.widget.*
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.CustomExpandableListAdapter
+import com.inved.freezdge.recipes.view.RecipeStepView
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideApp
+import kotlinx.android.synthetic.main.activity_recipe_detail.*
 
 class RecipeDetailActivity : BaseActivity() {
 
@@ -25,23 +27,9 @@ class RecipeDetailActivity : BaseActivity() {
     private var expandableListView: ExpandableListView? = null
     private var adapter: ExpandableListAdapter? = null
     private var titleList: List<String> ? = null
+    var listData = HashMap<String, List<String>>()
+    private var data: HashMap<String, List<String>>?=null
 
-    private val data: HashMap<String, List<String>>
-        get() {
-            val listData = HashMap<String, List<String>>()
-
-            val samsungMobiles = ArrayList<String>()
-            samsungMobiles.add("Samsung Galaxy S9+")
-            samsungMobiles.add("Samsung Galaxy Note 7")
-            samsungMobiles.add("Samsung Galaxy Note 5 Dual")
-            samsungMobiles.add("Samsung Galaxy S8")
-            samsungMobiles.add("Samsung Galaxy A8")
-            samsungMobiles.add("Samsung Galaxy Note 4")
-
-            listData["Samsung"] = samsungMobiles
-
-            return listData
-        }
 
 
     override fun getLayoutContentViewID(): Int {
@@ -67,9 +55,14 @@ class RecipeDetailActivity : BaseActivity() {
     private fun setupExpandableView() {
         expandableListView = findViewById(R.id.expandableListView)
         if (expandableListView != null) {
-            val listData = data
+
             titleList = ArrayList(listData.keys)
-            adapter = CustomExpandableListAdapter(this, titleList as ArrayList<String>, listData)
+            adapter =
+                listData?.let {
+                    CustomExpandableListAdapter(this, titleList as ArrayList<String>,
+                        it
+                    )
+                }
             expandableListView!!.setAdapter(adapter)
 
             expandableListView!!.setOnGroupExpandListener { groupPosition -> Toast.makeText(applicationContext, (titleList as ArrayList<String>)[groupPosition] + " List Expanded.", Toast.LENGTH_SHORT).show() }
@@ -111,6 +104,43 @@ class RecipeDetailActivity : BaseActivity() {
             .into(it)
         }
 
+        if(!recipe.step1.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,1,recipe.step1))
+        }
+        if(!recipe.step2.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,2,recipe.step2))
+        }
+        if(!recipe.step3.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,3,recipe.step3))
+        }
+        if(!recipe.step4.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,4,recipe.step4))
+        }
+        if(!recipe.step5.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,5,recipe.step5))
+        }
+        if(!recipe.step6.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,6,recipe.step6))
+        }
+        if(!recipe.step7.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,7,recipe.step7))
+        }
+        if(!recipe.step8.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,8,recipe.step8))
+        }
+        if(!recipe.step9.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,9,recipe.step9))
+        }
+        if(!recipe.step10.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,10,recipe.step10))
+        }
+        if(!recipe.step11.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,11,recipe.step11))
+        }
+        if(!recipe.step12.isNullOrEmpty()){
+            addSummaryRecipeItems(getString(R.string.step_recipe,12,recipe.step12))
+        }
+
         recipeOwnerImage.let {
             GlideApp.with(App.applicationContext())
                 .load(recipe.recipePhotoUrlOwner)
@@ -131,21 +161,36 @@ class RecipeDetailActivity : BaseActivity() {
     }
 
     private fun addDataInExpandable(listFromString: List<String>):HashMap<String, List<String>> {
+        data?.clear()
+
 
         val listIngredients = ArrayList<String>()
         for (ingredient in listFromString){
             listIngredients.add(ingredient)
         }
-        data.clear()
-        data["Ingredients"] = listIngredients
 
-        return data
+        listData["Ingredients"] = listIngredients
+        data?.set("Ingredients", listIngredients)
+
+//        listData= this!!.data!!
+        return listData
     }
 
     fun openWebViewActivity(url: String) {
         let { val intent= Intent(this, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)
             startActivity(intent) }
+    }
+
+    private fun addSummaryRecipeItems(
+        stepRecipe: String
+    ) {
+        //TBL
+        val stepRecipeSummaryView =
+            RecipeStepView(this)
+        stepRecipeSummaryView.init()
+        stepRecipeSummaryView.setText(stepRecipe)
+        stepSummaryView.addView(stepRecipeSummaryView)
     }
 
 }

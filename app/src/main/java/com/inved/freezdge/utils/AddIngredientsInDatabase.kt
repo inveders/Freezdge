@@ -1499,6 +1499,15 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
+                    name = "Bouillon de volaille",
+                    nameEnglish = "poultry broth",
+                    typeIngredient = "Epicerie",
+                    photoUrl = photoUrl,
+                    selectedIngredient = false, grocerySelectedIngredient = false
+                )
+            )
+            ingredientsBox.put(
+                Ingredients(
                     name = "Boulgour",
                     nameEnglish = "Bulgur",
                     typeIngredient = "Epicerie",
