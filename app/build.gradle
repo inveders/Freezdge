@@ -101,9 +101,7 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:3.3.1'
 
-    // Rx libs
-    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
 
     // Permission dispatcher
     implementation "org.permissionsdispatcher:permissionsdispatcher:$dispatcher"

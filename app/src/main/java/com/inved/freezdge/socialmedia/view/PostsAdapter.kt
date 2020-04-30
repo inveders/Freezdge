@@ -67,7 +67,7 @@ class PostsAdapter(
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
         fun updateWithPosts(post: Post, glide: RequestManager?, listener: ClickListener) {
 
-            Log.d("debago","in update post")
+            Log.d("debago", "in update post")
             if (post.userUid.equals(FirebaseAuth.getInstance().currentUser?.uid)) {
                 deleteButton.visibility = View.VISIBLE
                 updateButton.visibility = View.VISIBLE
@@ -180,16 +180,53 @@ class PostsAdapter(
                                         likeText.visibility = View.GONE
                                     }
                                     1 -> {
-                                        likeText.text = App.resource().getString(
-                                            R.string.social_media_like_number_photo_one_person,
-                                            currentPost.likeNumber
-                                        )
+                                        FavoritePostHelper.isThisPostIsFavorite(
+                                            FirebaseAuth.getInstance().currentUser?.uid,
+                                            post.postId
+                                        )?.get()
+                                            ?.addOnCompleteListener { task ->
+                                                if (task.result != null) {
+                                                    if (task.result!!.documents.isNotEmpty()) {
+                                                        //The post is in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_photo_one_person_you
+                                                        )
+                                                    } else {
+                                                        //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_photo_one_person,
+                                                            currentPost.likeNumber
+                                                        )
+
+                                                    }
+                                                }
+                                            }
+                                            ?.addOnFailureListener { }
                                     }
                                     else -> {
-                                        likeText.text = App.resource().getString(
-                                            R.string.social_media_like_number_photo,
-                                            currentPost.likeNumber
-                                        )
+                                        FavoritePostHelper.isThisPostIsFavorite(
+                                            FirebaseAuth.getInstance().currentUser?.uid,
+                                            post.postId
+                                        )?.get()
+                                            ?.addOnCompleteListener { task ->
+                                                if (task.result != null) {
+                                                    if (task.result!!.documents.isNotEmpty()) {
+                                                        //The post is in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_photo_you_and_other,
+                                                            currentPost.likeNumber?.minus(1)
+                                                        )
+                                                    } else {
+                                                        //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_photo,
+                                                            currentPost.likeNumber
+                                                        )
+
+                                                    }
+                                                }
+                                            }
+                                            ?.addOnFailureListener { }
                                     }
                                 }
                             } else if (currentPost.postType.equals(
@@ -201,16 +238,56 @@ class PostsAdapter(
                                         likeText.visibility = View.GONE
                                     }
                                     1 -> {
-                                        likeText.text = App.resource().getString(
-                                            R.string.social_media_like_number_tips_one_person,
-                                            currentPost.likeNumber
-                                        )
+
+                                        FavoritePostHelper.isThisPostIsFavorite(
+                                            FirebaseAuth.getInstance().currentUser?.uid,
+                                            post.postId
+                                        )?.get()
+                                            ?.addOnCompleteListener { task ->
+                                                if (task.result != null) {
+                                                    if (task.result!!.documents.isNotEmpty()) {
+                                                        //The post is in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_tips_one_person_you
+                                                        )
+                                                    } else {
+                                                        //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_tips_one_person,
+                                                            currentPost.likeNumber
+                                                        )
+
+                                                    }
+                                                }
+                                            }
+                                            ?.addOnFailureListener { }
+
                                     }
                                     else -> {
-                                        likeText.text = App.resource().getString(
-                                            R.string.social_media_like_number_tips,
-                                            currentPost.likeNumber
-                                        )
+
+                                        FavoritePostHelper.isThisPostIsFavorite(
+                                            FirebaseAuth.getInstance().currentUser?.uid,
+                                            post.postId
+                                        )?.get()
+                                            ?.addOnCompleteListener { task ->
+                                                if (task.result != null) {
+                                                    if (task.result!!.documents.isNotEmpty()) {
+                                                        //The post is in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_tips_you_and_other,
+                                                            currentPost.likeNumber?.minus(1)
+                                                        )
+                                                    } else {
+                                                        //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                                                        likeText.text = App.resource().getString(
+                                                            R.string.social_media_like_number_tips,
+                                                            currentPost.likeNumber
+                                                        )
+
+                                                    }
+                                                }
+                                            }
+                                            ?.addOnFailureListener { }
                                     }
                                 }
                             }

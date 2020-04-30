@@ -82,6 +82,11 @@ class SocialMediaFragment: Fragment(),PostsAdapter.ClickListener {
         return mView
     }
 
+    override fun onResume() {
+        super.onResume()
+        initProfil()
+        displayAllPosts()
+    }
 
     private fun initProfil() {
 

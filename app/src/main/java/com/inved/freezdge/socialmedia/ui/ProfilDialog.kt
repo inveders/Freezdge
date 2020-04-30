@@ -1,5 +1,6 @@
 package com.inved.freezdge.socialmedia.ui
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -29,10 +30,12 @@ import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.utils.*
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.RuntimePermissions
 import java.io.File
 import java.io.IOException
 
-/**@RuntimePermissions*/
+@RuntimePermissions
 class ProfilDialog : DialogFragment() {
 
     companion object {
@@ -211,17 +214,16 @@ class ProfilDialog : DialogFragment() {
             App.resource().getString(R.string.dialog_select_image_cancel)
         )
         val builder =
-            AlertDialog.Builder(mContext)
+            AlertDialog.Builder(activity)
         builder.setItems(
             items
         ) { dialog: DialogInterface, item: Int ->
             if (items[item] == App.instance?.resources
                     ?.getString(R.string.dialog_select_image_take_photo)
             ) {
-                // AddAgentDialogPermissionsDispatcher.dispatchTakePictureIntentWithPermissionCheck( this)
-                dispatchTakePictureIntent()
+               dispatchTakePictureIntentWithPermissionCheck()
             } else if (items[item] == getString(R.string.dialog_select_image_choose_from_library)) {
-                dispatchGalleryIntent()
+                dispatchGalleryIntentWithPermissionCheck()
             } else if (items[item] == getString(R.string.dialog_select_image_cancel)) {
                 dialog.dismiss()
             }
@@ -232,7 +234,7 @@ class ProfilDialog : DialogFragment() {
     /**
      * Capture image from camera
      */
-    //  @NeedsPermission([Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
+    @NeedsPermission(Manifest.permission.CAMERA)
     fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (mContext != null) {
@@ -265,7 +267,8 @@ class ProfilDialog : DialogFragment() {
     /**
      * Select image fro gallery
      */
-    private fun dispatchGalleryIntent() {
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun dispatchGalleryIntent() {
         val pickPhoto = Intent(
             Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -327,100 +330,16 @@ class ProfilDialog : DialogFragment() {
         }
     }
 
-    private fun showImage(photoUrl: String?) {
-        if (photoUrl != null) {
-            val localFile = File(photoUrl)
-            val storageDir: File? = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val mFileName = "/" + localFile.name
-            val goodFile = File(storageDir, mFileName)
-            if (goodFile.exists()) {
-                if (goodFile.path != null) {
-                    imageInGlide(goodFile)
-                }
-            } else if (localFile.exists()) {
-                if (localFile.path != null) {
-                    imageInGlide(localFile)
-                }
-            } else {
-                profilPhoto?.let {
-                    Glide.with(mContext)
-                        .load(R.drawable.ic_anon_user_48dp)
-                        .apply(RequestOptions.circleCropTransform())
-                        .listener(object : RequestListener<Drawable?> {
-                            override fun onLoadFailed(
-                                e: GlideException?,
-                                model: Any,
-                                target: Target<Drawable?>,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                Log.e("debago", "Exception is : $e")
-                                return false
-                            }
-
-                            override fun onResourceReady(
-                                resource: Drawable?,
-                                model: Any,
-                                target: Target<Drawable?>,
-                                dataSource: DataSource,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                Log.d("debago", "onResourceReady 3")
-                                return false
-                            }
-                        })
-                        .into(it)
-                }
-            }
-        }
-    }
-
-    private fun imageInGlide(file: File) {
-        profilPhoto?.let {
-            GlideApp.with(mContext)
-                .load(file)
-                .apply(RequestOptions.circleCropTransform())
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        profilPhoto!!.setImageResource(R.drawable.ic_anon_user_48dp)
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.d("debago", "onResourceYEAH 5")
-                        return false
-                    }
-                })
-                .into(it)
-        }
-    }
 
     // --------------
     // PERMISSION
     // --------------
-    /**  override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<String>,
-    grantResults: IntArray
-    ) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    // NOTE: delegate the permission handling to generated method
-    AddAgentDialogPermissionsDispatcher.onRequestPermissionsResult(
-    this,
-    requestCode,
-    grantResults
-    )
-    }*/
+    override fun onRequestPermissionsResult(rc: Int, permissions: Array<out String>, results: IntArray) {
+        // Java: "MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, rc, results);"
+        // I'm not satisfied with the method signature here, since it's too similar to the Android one.
+        // However, the signature is already pretty long, so I'm open for ideas.
+        this.onRequestPermissionsResult(rc, results)
+    }
 
 
 }
