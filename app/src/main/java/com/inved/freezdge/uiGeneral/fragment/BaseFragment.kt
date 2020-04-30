@@ -2,7 +2,6 @@ package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
@@ -19,7 +19,6 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
 import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
-import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
@@ -37,10 +36,7 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
-import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import kotlin.math.roundToInt
 
 
@@ -48,6 +44,18 @@ abstract class BaseFragment : Fragment() {
 
     lateinit var notFoundTeextView: TextView
     lateinit var notFoundImageView: ImageView
+
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+
+    companion object{
+        internal var listener: LoaderListener? = null
+
+        fun setLoaderListener(callback: LoaderListener) {
+            this.listener = callback
+        }
+    }
 
 
     private val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
@@ -60,7 +68,6 @@ abstract class BaseFragment : Fragment() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
-    private var disposable: Disposable? = null
 
     //Viewmodel
     private lateinit var recipeModel: RecipeModel
@@ -126,7 +133,7 @@ abstract class BaseFragment : Fragment() {
             //react on the click event
 
             if (item is Hit) {
-                Log.d("debago", "position in base fragment is $position")
+                Log.d("debago", "position in base fragment retrofit is $position")
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
                     item.recipe!!.uri,
                     item.recipe!!.label,
@@ -142,6 +149,7 @@ abstract class BaseFragment : Fragment() {
 
                 GlobalScope.async(Dispatchers.IO) {
                     Log.d("debago", "In coroutine grocery")
+                    delay(500)
                     Domain.correspondanceCalculForGrocery(
                         item.recipe?.ingredientLines.toString(),
                         bool!!
@@ -153,6 +161,7 @@ abstract class BaseFragment : Fragment() {
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
                 }
+                fastAdapter.notifyItemChanged(position)
             }
 
         }
@@ -162,7 +171,7 @@ abstract class BaseFragment : Fragment() {
             //react on the click event
 
             if (item is Recipes) {
-                Log.d("debago", "position in base fragment is $position")
+                Log.d("debago", "position in base fragment database is $position")
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
                     item.recipeTitle,
                     item.recipeTitle,
@@ -183,7 +192,9 @@ abstract class BaseFragment : Fragment() {
                     }
 
                 GlobalScope.async(Dispatchers.IO) {
+                    delay(500)
                     item.recipeIngredients?.let {
+                        Log.d("debago","in coroutine grocery")
                         Domain.correspondanceCalculForGrocery(
                             it,
                             bool!!
@@ -196,6 +207,7 @@ abstract class BaseFragment : Fragment() {
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
                 }
+                fastAdapter.notifyItemChanged(position)
             }
 
         }
@@ -221,9 +233,10 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, _, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position:Int, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
             //react on the click event
 
+            Log.d("debago","position in favourite click")
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
@@ -235,6 +248,7 @@ abstract class BaseFragment : Fragment() {
 
             GlobalScope.async(Dispatchers.IO) {
                 Log.d("debago", "In coroutine grocery")
+                delay(500)
                 item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it, bool!!) }
             }
 
@@ -244,6 +258,7 @@ abstract class BaseFragment : Fragment() {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
             }
 
+            favouritesFastAdapter.notifyItemChanged(position)
         }
 
     }
@@ -268,12 +283,16 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
+                listener?.showLoader()
+
                 getAllRecipes()
+
+
                 //4second splash time
-                Handler().postDelayed({
-                    //start main activity
-                    fillAdapter()
-                },4000)
+                /*  Handler().postDelayed({
+                      //start main activity
+                      fillAdapter()
+                  },4000)*/
 
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -285,6 +304,7 @@ abstract class BaseFragment : Fragment() {
             }
         }
     }
+
 
     private fun getFavouritesRecipes() {
         favouriteRecipesItemAdapter.clear()
@@ -315,15 +335,44 @@ abstract class BaseFragment : Fragment() {
         return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
     }
 
+    interface LoaderListener {
+        fun showLoader()
+        fun hideLoader()
+    }
+
     //DATA
-    private fun getAllRecipes() {
+    fun getAllRecipes() {
 
         ingredientsViewmodel.getIngredientsForFreezdgeList()
             .observe(viewLifecycleOwner, Observer { result ->
+                uiScope.launch {
                     if (result != null) {
                         if (result.size != 0) {
                             notFoundTeextView.visibility = View.GONE
-                           fillSetList(result)
+                            lifecycleScope.launch {
+                                    for (myresult in result) {
+
+                                        recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                            .observe(viewLifecycleOwner, Observer { recipes ->
+                                                setlistDatabase.add(recipes)
+                                            //    Log.d("debago", "in DATABASE data in list")
+                                            })
+
+                                        recipeModel.getRecipes(myresult.name!!)
+                                            .observe(viewLifecycleOwner, Observer { hits ->
+                                              //  Log.d("debago", "in retrofit data in list")
+                                                setlistRetrofit.add(hits.hits)
+
+                                            })
+                                    }
+
+                                }
+
+                            }
+
+                            delay(4000)
+                            fillAdapter()
+
                         } else {
                             Log.d("debago", "in no result found")
                             notFoundTeextView.visibility = View.VISIBLE
@@ -332,30 +381,15 @@ abstract class BaseFragment : Fragment() {
                         }
                     }
 
+
+
             })
 
 
     }
 
-    fun fillSetList(result:List<Ingredients>){
-
-        for (myresult in result) {
-
-            recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                .observe(viewLifecycleOwner, Observer { recipes ->
-                    setlistDatabase.add(recipes)
-                })
-
-            recipeModel.getRecipes(myresult.name!!)
-                .observe(viewLifecycleOwner, Observer { hits ->
-
-                    setlistRetrofit.add(hits.hits)
-                })
-
-        }
-    }
-
-    fun fillAdapter(){
+    private fun fillAdapter() {
+        Log.d("debago", "in fill adapter")
         recipesRetrofitItemAdapter.clear()
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
@@ -364,12 +398,8 @@ abstract class BaseFragment : Fragment() {
         for (hits in setlistRetrofit) {
             recipesRetrofitItemAdapter.add(hits)
         }
+        listener?.hideLoader()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (disposable != null) {
-            disposable!!.dispose()
-        }
-    }
 }
+
