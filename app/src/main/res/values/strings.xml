@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Freezdge</string>
+    <string name="app_name" translatable="false">Freezdge</string>
 
     <string name="menu_bottom_ingredient_at_home">Ingredients</string>
     <string name="menu_bottom_favourites">Favourites</string>
@@ -43,24 +43,24 @@
     <string name="recipe_detail_item_number_person">%d\npers.</string>
     <string name="recipe_detail_item_recipe_view">Recipe</string>
     <string name="toastNoIngredientResultSearch">No ingredient found</string>
-    <string name="search_ingredient_searchview_label">Search ingredient here...</string>
+    <string name="search_ingredient_searchview_label">Search ingredient here…</string>
     <string name="dialog_cancel_action">Cancelled action</string>
     <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
     <string name="Yes">Yes</string>
 
     <!--Ingredients type -->
-    <string name="ingredient_type_cream">Crèmerie</string>
-    <string name="ingredient_type_fruits_vegetables">Fruits &amp; Légumes</string>
+    <string name="ingredient_type_cream" translatable="false">Crèmerie</string>
+    <string name="ingredient_type_fruits_vegetables" translatable="false">Fruits &amp; Légumes</string>
     <string name="ingredient_type_fruits_vegetables_short">Fr &amp; Lég</string>
-    <string name="ingredient_type_epicerie">Epicerie</string>
-    <string name="ingredient_type_fish">Poisson</string>
-    <string name="ingredient_type_meat">Viande</string>
+    <string name="ingredient_type_epicerie" translatable="false">Epicerie</string>
+    <string name="ingredient_type_fish" translatable="false">Poisson</string>
+    <string name="ingredient_type_meat" translatable="false">Viande</string>
     <string name="we_research_recipes_for_you">We research recipes for you</string>
 
     <!--Login -->
     <string name="loginFacebook">Sign in with Facebook</string>
     <string name="loginGoogle">Sign in with Google</string>
-    <string name="appNameDescription">My fridge, my freeze, My freezdge</string>
+    <string name="appNameDescription">My fridge, my freeze, my Freezdge</string>
 
     <!-- LOGIN ACTIVITY -->
     <string name="error_authentication_canceled">Authentication cancelled&#8230;</string>
@@ -83,8 +83,8 @@
     <string name="dialog_select_image_take_photo">Take Photo</string>
     <string name="dialog_select_image_choose_from_library">Choose from Library</string>
     <string name="dialog_select_image_cancel">Cancel</string>
-    <string name="type_storage_users">users</string>
-    <string name="type_storage_posts">posts</string>
+    <string name="type_storage_users" translatable="false">users</string>
+    <string name="type_storage_posts" translatable="false">posts</string>
     <string name="toast_updated_profil">Profil updated</string>
     <string name="toast_updated_tip">Tip updated</string>
     <string name="toast_created_tip">Tip created</string>
@@ -96,7 +96,7 @@
     <string name="social_media_description">%s, share a cooking tip or a photo of your culinary creation with the Freezdge community!</string>
     <string name="social_media_photo_post">Gallery</string>
     <string name="social_media_camera_post">Camera</string>
-    <string name="social_media_tips_post">Astuce</string>
+    <string name="social_media_tips_post">Tip</string>
     <string name="social_media_like_number_tips">%d people found it useful</string>
     <string name="social_media_like_number_photo">%d people found it great</string>
     <string name="social_media_like_number_tips_you_and_other">You and %d people found it useful</string>
@@ -105,12 +105,12 @@
     <string name="social_media_like_number_photo_one_person">%d people found it great</string>
     <string name="social_media_like_number_tips_one_person_you">You found it useful</string>
     <string name="social_media_like_number_photo_one_person_you">You found it great</string>
-    <string name="social_media_title_post">Titre de l\'astuce</string>
-    <string name="social_media_username_post">Alexandra Gnimadi</string>
-    <string name="social_media_description_tips_post">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
+    <string name="social_media_title_post">Tip title</string>
+    <string name="social_media_username_post" translatable="false">Alexandra Gnimadi</string>
+    <string name="social_media_description_tips_post" translatable="false">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
     <string name="social_media_no_post">No posts found</string>
-    <string name="social_media_post_type_photo">Photo</string>
-    <string name="social_media_post_type_tips">Tips</string>
+    <string name="social_media_post_type_photo" translatable="false">Photo</string>
+    <string name="social_media_post_type_tips" translatable="false">Tips</string>
     <string name="social_media_post_delete_title_dialog">Delete post</string>
     <string name="social_media_post_delete_message_dialog">Are you sure to delete this post</string>
     <string name="social_media_post_delete_confirmation_dialog">Post deleted</string>
