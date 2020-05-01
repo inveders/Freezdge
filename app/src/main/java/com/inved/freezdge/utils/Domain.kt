@@ -145,7 +145,7 @@ class Domain {
             }
 
             nbIngredientInFridge = 0.0
-            Log.d("debago", "1. number ingredient in recipe is $nbIngredientInRecipe")
+          //  Log.d("debago", "1. number ingredient in recipe is $nbIngredientInRecipe")
 
         }
 
@@ -180,7 +180,7 @@ class Domain {
 
 
             nbIngredientInFridge = 0.0
-            Log.d("debago", "1. number ingredient in recipe is $nbIngredientInRecipe")
+          //  Log.d("debago", "1. number ingredient in recipe is $nbIngredientInRecipe")
 
         }
 
@@ -191,11 +191,11 @@ class Domain {
 
         fun correspondanceCalcul(input: String?): Int {
 
-            Log.d("debago", "2. input is $input")
+          //  Log.d("debago", "2. input is $input")
             for (i in getAllIngredientBySelected()) {
                 var count: Int = 0
                 if (i.name?.let { input?.contains(it, true) }!!) {
-                    Log.d("debago", "3. input contains ${i.name}")
+                  //  Log.d("debago", "3. input contains ${i.name}")
                     nbIngredientInFridge = nbIngredientInFridge.plus(1)
                     count = count.plus(1)
                 }
@@ -203,13 +203,13 @@ class Domain {
                 //TODO
                 if (count == 0) {
                     if (i.nameEnglish?.let { input?.contains(it, true) }!!) {
-                        Log.d("debago", "3. input contains ${i.nameEnglish}")
+                     //   Log.d("debago", "3. input contains ${i.nameEnglish}")
                         nbIngredientInFridge = nbIngredientInFridge.plus(1)
                     }
                 }
 
             }
-            Log.d("debago", "4. ingredients in fridge is $nbIngredientInFridge")
+          //  Log.d("debago", "4. ingredients in fridge is $nbIngredientInFridge")
             return if (nbIngredientInFridge != 0.0 && nbIngredientInRecipe != 0.0) {
                 proportionCalcul(nbIngredientInFridge, nbIngredientInRecipe)
             } else {
@@ -219,11 +219,11 @@ class Domain {
 
         fun correspondanceCalculForGrocery(input: String, isFavouriteAdd: Boolean) {
 
-            Log.d("debago", "2. grocery input is $input")
+          //  Log.d("debago", "2. GROCERY input is $input")
             for (i in getAllIngredientNotSelected()) {
                 var count: Int = 0
                 if (i.name?.let { input.contains(it, true) }!!) {
-                    Log.d("debago", "3. input contains ${i.name}")
+                //    Log.d("debago", "3. GROCERY french input contains ${i.name}")
                     updateItemForGroceryList(i.name!!, isFavouriteAdd, i.nameEnglish!!)
                     count = count.plus(1)
                 }
@@ -231,7 +231,7 @@ class Domain {
                 //TODO
                 if (count == 0) {
                     if (i.nameEnglish?.let { input.contains(it, true) }!!) {
-                        Log.d("debago", "3. input contains ${i.nameEnglish}")
+                     //   Log.d("debago", "3. GROCERY english input contains ${i.nameEnglish}")
                         updateItemForGroceryList(i.name!!, isFavouriteAdd, i.nameEnglish!!)
                     }
                 }
@@ -261,8 +261,12 @@ class Domain {
 
         fun updateItemForGroceryList(name: String, bool: Boolean, nameEnglish: String) {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+          //  Log.d("debago","GROCERY update item for grocery list $name")
             IngredientsDAO.updateIngredientSelectedForGroceryByName(name, bool)
-            FavouritesRecipesDAO.isIngredientPresentInFavoriteRecipeUpdateGrocery(name, nameEnglish)
+            if(!bool){
+                FavouritesRecipesDAO.isIngredientPresentInFavoriteRecipeUpdateGrocery(name, nameEnglish)
+            }
+
 
         }
 

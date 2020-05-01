@@ -37,12 +37,11 @@
     <string name="recipe_detail_item_image">image_recipe</string>
     <string name="recipe_detail_item_label">Recipe title</string>
     <string name="recipe_detail_item_no_time_known">No time indicated</string>
-    <string name="recipe_detail_item_detail_time">Prep time : %s min \nCook time : %s min</string>
+    <string name="recipe_detail_item_detail_time">Prep : %s\nCook : %s</string>
     <string name="recipe_detail_item_total_time">Total time : %s</string>
     <string name="recipe_detail_item_kcal">%s \n kcal</string>
     <string name="recipe_detail_item_number_person">%d \n personnes</string>
     <string name="recipe_detail_item_one_person">1 personne</string>
-    <string name="recipe_detail_item_step">Step %d : %s</string>
     <string name="recipe_detail_item_recipe_view">Recipe</string>
     <string name="toastNoIngredientResultSearch">No ingredient found</string>
     <string name="search_ingredient_searchview_label">Search ingredient here...</string>
@@ -99,12 +98,12 @@
     <string name="social_media_tips_post">Astuce</string>
     <string name="social_media_like_number_tips">%d people found it useful</string>
     <string name="social_media_like_number_photo">%d people found it great</string>
-    <string name="social_media_like_number_tips_you_and_other">you and %d people found it useful</string>
-    <string name="social_media_like_number_photo_you_and_other">you and %d people found it great</string>
+    <string name="social_media_like_number_tips_you_and_other">You and %d people found it useful</string>
+    <string name="social_media_like_number_photo_you_and_other">You and %d people found it great</string>
     <string name="social_media_like_number_tips_one_person">%d people found it useful</string>
     <string name="social_media_like_number_photo_one_person">%d people found it great</string>
-    <string name="social_media_like_number_tips_one_person_you">you found it useful</string>
-    <string name="social_media_like_number_photo_one_person_you">you found it great</string>
+    <string name="social_media_like_number_tips_one_person_you">You found it useful</string>
+    <string name="social_media_like_number_photo_one_person_you">You found it great</string>
     <string name="social_media_title_post">Titre de l\'astuce</string>
     <string name="social_media_username_post">Alexandra Gnimadi</string>
     <string name="social_media_description_tips_post">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
@@ -126,4 +125,9 @@
     <string name="set_error_description_tips">Enter a tip</string>
     <string name="post_cant_change_photo">You cannot change the photo</string>
     <string name="no_picture_add_photo_dialog">There is no picture</string>
+
+
+    <!--Step -->
+    <string name="step_recipe">Step %d : %s</string>
+
 </resources>

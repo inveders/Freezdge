@@ -36,7 +36,7 @@ class RecipesRepository {
             return RecipesDAO.updateRecipeSelectedByName(name)
         }
 
-        fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
+        suspend fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
             return RecipesDAO.getRecipeIfContainIngredient(ingredientName)
         }
 

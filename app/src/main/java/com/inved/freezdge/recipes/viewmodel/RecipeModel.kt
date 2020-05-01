@@ -18,7 +18,7 @@ class RecipeModel(application: Application) : AndroidViewModel(application) {
     private val foodRepository: FoodRepository =
         FoodRepository()
 
-    fun getRecipes(arg: String): LiveData<Results> {
+    suspend fun getRecipes(arg: String): LiveData<Results> {
         return liveData(Dispatchers.IO) {
             val retrievedRecipes = recipesRepository.getRecipesLiveData(arg)
             emit (retrievedRecipes)
@@ -50,7 +50,7 @@ class RecipeModel(application: Application) : AndroidViewModel(application) {
         return RecipesRepository.updateRecipeSelectedByName(name)
     }
 
-    fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
+    suspend fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
         return RecipesRepository.getRecipeIfContainIngredient(ingredientName)
     }
 

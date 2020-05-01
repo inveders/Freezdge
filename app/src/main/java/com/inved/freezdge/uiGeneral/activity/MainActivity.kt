@@ -3,9 +3,13 @@ package com.inved.freezdge.uiGeneral.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,19 +18,28 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), BaseFragment.LoaderListener {
 
     private val navController by lazy { findNavController(R.id.navHost) }
     private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
     private lateinit var toolbar: Toolbar
+    private var loader: FrameLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val id:Int = intent.getIntExtra("BACKPRESS",0)
+        val id: Int = intent.getIntExtra("BACKPRESS", 0)
         initToolbar(navController)
-        setUpNavigationBottom(navController,id)
+        loader=findViewById(R.id.animation_view_container)
+        setUpNavigationBottom(navController, id)
+
+    }
+
+    override fun onAttachFragment(fragment: Fragment) {
+        Log.d("debago", "in on attach fragment")
+        BaseFragment.setLoaderListener(this)
 
     }
 
@@ -37,7 +50,7 @@ class MainActivity : BaseActivity() {
     //INITIALIZATION
 
 
-    fun initToolbar(navController: NavController){
+    fun initToolbar(navController: NavController) {
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -55,9 +68,9 @@ class MainActivity : BaseActivity() {
 
     }
 
-    private fun setUpNavigationBottom(navController: NavController,id:Int) {
-        NavigationUI.setupWithNavController(bottomNavigationView,navController)
-        if(id==1){
+    private fun setUpNavigationBottom(navController: NavController, id: Int) {
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+        if (id == 1) {
             bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
             navController.navigate(R.id.action_to_all_recipes_fragment)
         }/*else if(id==0){
@@ -92,6 +105,16 @@ class MainActivity : BaseActivity() {
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
+    }
+
+    override fun showLoader() {
+        Log.d("debago", "in show loader")
+        loader?.visibility = View.VISIBLE
+    }
+
+    override fun hideLoader() {
+        Log.d("debago", "in hide loader")
+        loader?.visibility = View.GONE
     }
 
 }
