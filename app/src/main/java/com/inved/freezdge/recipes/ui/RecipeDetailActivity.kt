@@ -94,7 +94,12 @@ class RecipeDetailActivity : BaseActivity() {
         recipeTitle.text=recipe.recipeTitle
         recipePrepCookTime.text=getString(R.string.recipe_detail_item_detail_time,recipe.preparationTime,recipe.cookedTime)
         recipeTotalTime.text=getString(R.string.recipe_detail_item_total_time,recipe.totalrecipeTime)
-        recipeKcal.text=getString(R.string.recipe_detail_item_kcal,recipe.recipeCalories)
+        val kcal:String = if(recipe.recipeCalories.isNullOrEmpty()){
+            getString(R.string.recipe_list_item_kcal_notknow)
+        }else{
+            recipe.recipeCalories!!
+        }
+        recipeKcal.text=getString(R.string.recipe_detail_item_kcal,kcal)
         recipeNumberPerson.text=getString(R.string.recipe_detail_item_number_person,recipe.numberPersons)
 
         recipeDetailPhoto.let {

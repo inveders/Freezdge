@@ -76,8 +76,8 @@
             <!-- INFORMATIONS TO CALL -->
             <ImageView
                 android:id="@+id/activity_recipe_detail_time_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="70dp"
                 android:contentDescription="@string/description_image"
@@ -92,17 +92,17 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="@string/recipe_detail_item_detail_time"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGrey"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_time_image"
                 app:layout_constraintRight_toRightOf="@id/activity_recipe_detail_time_image"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_time_image" />
 
             <ImageView
                 android:id="@+id/activity_recipe_detail_number_person_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="25dp"
                 android:contentDescription="@string/description_image"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -117,17 +117,17 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="@string/recipe_detail_item_number_person"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGrey"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_number_person_image"
                 app:layout_constraintRight_toRightOf="@id/activity_recipe_detail_number_person_image"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_number_person_image" />
 
             <ImageView
                 android:id="@+id/activity_recipe_detail_kcal_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="25dp"
                 android:contentDescription="@string/description_image"
@@ -142,9 +142,9 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="@string/recipe_detail_item_kcal"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGrey"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_kcal_image"
                 app:layout_constraintRight_toRightOf="@id/activity_recipe_detail_kcal_image"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_kcal_image" />
