@@ -42,12 +42,16 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         proportionText.text="$proportionInPercent %"
 
         Log.d("debago","PROPORTION IN PERCENT FOR ${item.recipeTitle} is $proportionInPercent")
-        if(proportionInPercent in 90..99){
-            proportionText.setBackgroundResource(R.drawable.border_green)
-        }else if (proportionInPercent in 50..94){
-            proportionText.setBackgroundResource(R.drawable.border_orange)
-        }else if (proportionInPercent in 0..49){
-            proportionText.setBackgroundResource(R.drawable.border_red)
+        when (proportionInPercent) {
+            in 80..99 -> {
+                proportionText.setBackgroundResource(R.drawable.border_green)
+            }
+            in 50..70 -> {
+                proportionText.setBackgroundResource(R.drawable.border_orange)
+            }
+            in 0..49 -> {
+                proportionText.setBackgroundResource(R.drawable.border_red)
+            }
         }
 
         GlideApp.with(App.applicationContext())

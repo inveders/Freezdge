@@ -39,10 +39,10 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         proportionText.text="$proportionInPercent %"
 
         when (proportionInPercent) {
-            in 90..99 -> {
+            in 80..99 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
             }
-            in 50..94 -> {
+            in 50..79 -> {
                 proportionText.setBackgroundResource(R.drawable.border_orange)
             }
             in 0..49 -> {
