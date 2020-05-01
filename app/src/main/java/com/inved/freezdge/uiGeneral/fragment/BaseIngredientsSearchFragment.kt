@@ -48,7 +48,6 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("debago","in on resume base fragment ingredient")
         SearchIngredientsActivity.currentPage?.let { getForegroundFragment(it) }
     }
 

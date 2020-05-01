@@ -3,17 +3,21 @@ package com.inved.freezdge.ingredientslist.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.view.MyViewPageStateAdapter
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
+import okhttp3.internal.notifyAll
 
 
-class SearchIngredientsActivity : BaseActivity(),ViewPager.OnPageChangeListener {
+class SearchIngredientsActivity : BaseActivity() {
 
 companion object{
     var currentPage:Int?=0
@@ -21,6 +25,10 @@ companion object{
 
     lateinit var viewPager: ViewPager
     lateinit var tabLayout: TabLayout
+
+    override fun getLayoutContentViewID(): Int {
+        return R.layout.activity_search_ingredients
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +40,14 @@ companion object{
 
     }
 
+
+
     private fun initTablayout() {
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
+                Log.d("debago","in on tab selected ${tab.position}")
                 viewPager.currentItem = tab.position
+                currentPage=tab.position
                 val fm = supportFragmentManager
                 val ft = fm.beginTransaction()
                 val count = fm.backStackEntryCount
@@ -46,9 +58,11 @@ companion object{
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
+
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
+
             }
         })
     }
@@ -69,9 +83,7 @@ companion object{
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun getLayoutContentViewID(): Int {
-        return R.layout.activity_search_ingredients
-    }
+
 
     //TABLAYOUT
 
@@ -88,6 +100,8 @@ companion object{
         myViewPageStateAdapter.addFragment(FishFragment(),getString(R.string.ingredient_type_fish))
         myViewPageStateAdapter.addFragment(MeatFragment(),getString(R.string.ingredient_type_meat))
         viewPager.adapter=myViewPageStateAdapter
+
+        //viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.setupWithViewPager(viewPager,true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -103,22 +117,5 @@ companion object{
             tabLayout.getTabAt(3)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_fish)
             tabLayout.getTabAt(4)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_bottom_meat)
         }
-
-        viewPager.addOnPageChangeListener(this)
-
-
-
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-    }
-
-    override fun onPageSelected(position: Int) {
-        currentPage = position//update current page
     }
 }
