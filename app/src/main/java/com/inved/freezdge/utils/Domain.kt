@@ -23,16 +23,6 @@ class Domain {
         private var nbIngredientInRecipe: Double = 0.0
         private var nbIngredientInFridge: Double = 0.0
 
-
-        val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        fun getDateFromString(datetoSaved: String?): Date? {
-            return try {
-                format.parse(datetoSaved)
-            } catch (e: ParseException) {
-                null
-            }
-        }
-
         fun animation():AlphaAnimation{
            return AlphaAnimation(1f, 0.8f)
         }
@@ -138,10 +128,6 @@ class Domain {
                 if (input.contains("water") || input.contains("eau")) {
                     nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
                 }
-
-                if (input.contains("salt") || input.contains("sel")) {
-                    nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
-                }
             }
 
             nbIngredientInFridge = 0.0
@@ -184,12 +170,18 @@ class Domain {
 
         }
 
-        fun proportionCalcul(nbIngredientInFridge: Double, nbIngredientInRecipe: Double): Int {
+        private fun proportionCalcul(nbIngredientInFridge: Double, nbIngredientInRecipe: Double): Int {
             val n: Int = ((nbIngredientInFridge / nbIngredientInRecipe) * 100).roundToInt()
-            return ((n + 4) / 5 * 5);
+            val pourcent:Int
+            pourcent = if(((n + 4) / 5 * 5)<100){
+                ((n + 4) / 5 * 5)
+            }else{
+                100
+            }
+            return pourcent
         }
 
-        fun correspondanceCalcul(input: String?): Int {
+        private fun correspondanceCalcul(input: String?): Int {
 
           //  Log.d("debago", "2. input is $input")
             for (i in getAllIngredientBySelected()) {
