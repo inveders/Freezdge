@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     android:layout_width="match_parent"
     android:layout_height="30dp"
     tools:context=".recipes.ui.RecipeDetailActivity">
@@ -14,7 +16,7 @@
         android:layout_marginBottom="8dp"
         android:textColor="@color/colorAccent"
         android:textSize="13sp"
-        android:text="@string/recipe_detail_item_step"
+        android:text="@string/step_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:text="http://schemas.android.com/tools"
     android:id="@+id/recipe_list_database_row_id"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   android:background="@color/colorWhite"
+    android:background="@color/colorWhite"
 
     android:orientation="vertical"
     app:cardCornerRadius="0dp"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_margin"
-            android:text="@string/social_media_username_post"
+            text:tools="@string/social_media_username_post"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/default_large_margin"
             app:layout_constraintStart_toEndOf="@id/profile_image"
@@ -70,7 +70,7 @@
             android:layout_marginEnd="15dp"
             android:maxLines="2"
             android:layout_marginTop="@dimen/default_margin"
-            android:text="@string/recipe_list_item_label"
+            text:tools="@string/recipe_list_item_label"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_image"
@@ -124,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
 
-            android:text="@string/social_media_like_number_tips"
+            text:tools="@string/social_media_like_number_tips"
             app:layout_constraintLeft_toRightOf="@id/like_number_image"
             app:layout_constraintTop_toTopOf="@id/like_number_image"
             app:layout_constraintBottom_toBottomOf="@id/like_number_image"/>
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:maxLines="5"
             android:layout_marginTop="@dimen/default_margin"
-            android:text="@string/social_media_description_tips_post"
+            text:tools="@string/social_media_description_tips_post"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:layout_constraintRight_toRightOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
