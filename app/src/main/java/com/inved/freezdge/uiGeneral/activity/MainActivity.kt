@@ -19,8 +19,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import com.inved.freezdge.utils.LoaderListener
 
-class MainActivity : BaseActivity(), BaseFragment.LoaderListener {
+class MainActivity : BaseActivity(), LoaderListener {
 
     private val navController by lazy { findNavController(R.id.navHost) }
     private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }

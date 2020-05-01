@@ -30,6 +30,7 @@ import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.LoaderListener
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -335,10 +336,6 @@ abstract class BaseFragment : Fragment() {
         return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
     }
 
-    interface LoaderListener {
-        fun showLoader()
-        fun hideLoader()
-    }
 
     //DATA
     fun getAllRecipes() {
