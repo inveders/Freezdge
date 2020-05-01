@@ -1,5 +1,6 @@
 package com.inved.freezdge.uiGeneral.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -18,7 +20,9 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
+import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.LoaderListener
 
 class MainActivity : BaseActivity(), LoaderListener {
@@ -98,8 +102,29 @@ class MainActivity : BaseActivity(), LoaderListener {
     }
 
     private fun signOut() {
-        startActivity(LoginActivity.getLaunchIntent(this))
-        FirebaseAuth.getInstance().signOut();
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle(
+                App.resource().getString(R.string.button_logout)
+            )
+            builder.setMessage(
+                App.resource().getString(R.string.button_logout_message_dialog)
+            )
+
+            builder.setPositiveButton(App.resource().getString(R.string.Yes)) { _, _ ->
+                startActivity(LoginActivity.getLaunchIntent(this))
+                FirebaseAuth.getInstance().signOut()
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            builder.show()
+
+
+
+
     }
 
     companion object {

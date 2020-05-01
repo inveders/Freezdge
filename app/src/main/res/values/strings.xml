@@ -69,6 +69,8 @@
     <string name="connection_succeed">Authentication successful!</string>
     <string name="button_login_text_logged">View profile</string>
     <string name="button_login_text_not_logged">Login</string>
+    <string name="button_logout">Logout</string>
+    <string name="button_logout_message_dialog">Do you want to logout?</string>
 
 
     <!--Change profil -->
