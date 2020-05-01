@@ -24,6 +24,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
@@ -214,7 +215,7 @@ class ProfilDialog : DialogFragment() {
             App.resource().getString(R.string.dialog_select_image_cancel)
         )
         val builder =
-            AlertDialog.Builder(activity)
+            MaterialAlertDialogBuilder(activity)
         builder.setItems(
             items
         ) { dialog: DialogInterface, item: Int ->

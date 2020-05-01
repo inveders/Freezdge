@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
@@ -89,7 +90,7 @@ class MyGroceryListActivity: BaseActivity() {
     }
 
     private fun launchAlertDialog(chip:Chip) {
-        val builder = AlertDialog.Builder(this)
+        val builder = MaterialAlertDialogBuilder(this)
         builder.setTitle(getString(R.string.menu_grocery_list))
         builder.setMessage(getString(R.string.dialog_question_grocery))
 

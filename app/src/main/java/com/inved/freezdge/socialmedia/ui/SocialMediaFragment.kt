@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.inved.freezdge.R
@@ -267,7 +268,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
     private fun launchAlertDialog(postId: String) {
-        val builder = AlertDialog.Builder(activity)
+        val builder = MaterialAlertDialogBuilder(activity)
         builder.setTitle(
             App.resource().getString(R.string.social_media_post_delete_title_dialog)
         )

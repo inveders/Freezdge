@@ -18,12 +18,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.LoaderListener
+import io.objectbox.BoxStore.context
 
 class MainActivity : BaseActivity(), LoaderListener {
 
@@ -103,7 +105,7 @@ class MainActivity : BaseActivity(), LoaderListener {
 
     private fun signOut() {
 
-            val builder = AlertDialog.Builder(this)
+            val builder = MaterialAlertDialogBuilder(this)
             builder.setTitle(
                 App.resource().getString(R.string.button_logout)
             )
