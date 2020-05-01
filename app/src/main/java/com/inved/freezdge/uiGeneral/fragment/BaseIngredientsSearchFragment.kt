@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,8 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.ui.*
+import com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -25,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.util.*
+
 
 abstract class BaseIngredientsSearchFragment: Fragment() {
 
@@ -70,6 +73,8 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
             val edittext =
                 searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
             edittext.hint = getString(R.string.search_ingredient_searchview_label)
+            val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
+            edittext.typeface=tf
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
