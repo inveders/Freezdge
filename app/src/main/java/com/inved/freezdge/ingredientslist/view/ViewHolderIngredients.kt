@@ -3,6 +3,7 @@ package com.inved.freezdge.ingredientslist.view
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.utils.App
@@ -20,10 +21,13 @@ class ViewHolderIngredients(view: View) : FastAdapter.ViewHolder<Ingredients>(vi
     override fun bindView(item: Ingredients, payloads: MutableList<Any>) {
         label.text = item.name
 
-        GlideApp.with(App.applicationContext())
-            .load(item.photoUrl)
-            .centerCrop()
-            .into(imageFood)
+         val storage = FirebaseStorage.getInstance()
+        // Create a reference to a file from a Google Cloud Storage URI
+           val gsReference = item.photoUrl?.let { storage.getReferenceFromUrl(it) }
+           GlideApp.with(App.applicationContext())
+               .load(gsReference)
+               .into(imageFood)
+
 
         if(!item.selectedIngredient){
             imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)

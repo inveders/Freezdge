@@ -12,9 +12,6 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
 
     private fun addRecipes() {
 
-        val photoUrl =
-            "https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/news/market-trends/sugar-replaces-price-as-consumers-top-food-worry/8520146-2-eng-GB/Sugar-replaces-price-as-consumers-top-food-worry_wrbm_large.jpg"
-
         if (recipeBox.isEmpty) {
             recipeBox.put(
                 Recipes(
@@ -23,7 +20,7 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
                     totalrecipeTime = "45 min",
                     preparationTime = "10 min",
                     cookedTime = "35 min",
-                    recipePhotoUrl = photoUrl,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/frite_patate_douce_burger.jpg",
                     recipePhotoUrlOwner="",
                     recipeUrlOwnerLink="",
                     recipeIngredients = "1 pain de burger, 1 steak haché,2 cornichons, 1 patate douce, Ail, Poivre, Sel, Herbes de Provence, 2 cuillères à soupe d’Huile d’olive, Ketchup, Mayonnaise, 1 oignon",

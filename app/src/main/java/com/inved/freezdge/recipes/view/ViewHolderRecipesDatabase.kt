@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
@@ -54,9 +55,11 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
             }
         }
 
+        val storage = FirebaseStorage.getInstance()
+        // Create a reference to a file from a Google Cloud Storage URI
+        val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
         GlideApp.with(App.applicationContext())
-            .load(item.recipePhotoUrl)
-            .centerCrop()
+            .load(gsReference)
             .into(imageItem)
 
         if(isRecipeIdIsPresent(item.recipeTitle)!!){
