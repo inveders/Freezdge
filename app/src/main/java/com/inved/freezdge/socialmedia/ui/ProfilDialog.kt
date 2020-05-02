@@ -219,14 +219,18 @@ class ProfilDialog : DialogFragment() {
         builder.setItems(
             items
         ) { dialog: DialogInterface, item: Int ->
-            if (items[item] == App.instance?.resources
+            when {
+                items[item] == App.instance?.resources
                     ?.getString(R.string.dialog_select_image_take_photo)
-            ) {
-               dispatchTakePictureIntentWithPermissionCheck()
-            } else if (items[item] == getString(R.string.dialog_select_image_choose_from_library)) {
-                dispatchGalleryIntentWithPermissionCheck()
-            } else if (items[item] == getString(R.string.dialog_select_image_cancel)) {
-                dialog.dismiss()
+                -> {
+                    dispatchTakePictureIntentWithPermissionCheck()
+                }
+                items[item] == getString(R.string.dialog_select_image_choose_from_library) -> {
+                    dispatchGalleryIntentWithPermissionCheck()
+                }
+                items[item] == getString(R.string.dialog_select_image_cancel) -> {
+                    dialog.dismiss()
+                }
             }
         }
         builder.show()

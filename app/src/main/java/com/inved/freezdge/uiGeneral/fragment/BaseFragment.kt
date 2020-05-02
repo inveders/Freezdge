@@ -2,6 +2,7 @@ package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +51,7 @@ abstract class BaseFragment : Fragment() {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-    companion object{
+    companion object {
         internal var listener: LoaderListener? = null
 
         fun setLoaderListener(callback: LoaderListener) {
@@ -195,7 +196,7 @@ abstract class BaseFragment : Fragment() {
                 GlobalScope.async(Dispatchers.IO) {
                     delay(500)
                     item.recipeIngredients?.let {
-                        Log.d("debago","in coroutine grocery")
+                        Log.d("debago", "in coroutine grocery")
                         Domain.correspondanceCalculForGrocery(
                             it,
                             bool!!
@@ -234,10 +235,10 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position:Int, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position: Int, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
             //react on the click event
 
-            Log.d("debago","position in favourite click")
+            Log.d("debago", "position in favourite click")
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
@@ -290,10 +291,10 @@ abstract class BaseFragment : Fragment() {
 
 
                 //4second splash time
-                /*  Handler().postDelayed({
-                      //start main activity
-                      fillAdapter()
-                  },4000)*/
+              /*  Handler().postDelayed({
+                    //start main activity
+                    fillAdapter()
+                }, 4000)*/
 
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -347,43 +348,43 @@ abstract class BaseFragment : Fragment() {
                         if (result.size != 0) {
                             notFoundTeextView.visibility = View.GONE
                             lifecycleScope.launch {
-                                    for (myresult in result) {
+                                for (myresult in result) {
 
-                                        recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                                            .observe(viewLifecycleOwner, Observer { recipes ->
-                                                setlistDatabase.add(recipes)
+                                    recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                        .observe(viewLifecycleOwner, Observer { recipes ->
+                                            setlistDatabase.add(recipes)
                                             //    Log.d("debago", "in DATABASE data in list")
-                                            })
+                                        })
 
-                                        recipeModel.getRecipes(myresult.name!!)
-                                            .observe(viewLifecycleOwner, Observer { hits ->
-                                              //  Log.d("debago", "in retrofit data in list")
-                                                setlistRetrofit.add(hits.hits)
+                                    recipeModel.getRecipes(myresult.name!!)
+                                        .observe(viewLifecycleOwner, Observer { hits ->
+                                            //  Log.d("debago", "in retrofit data in list")
+                                            setlistRetrofit.add(hits.hits)
 
-                                            })
-                                    }
-
+                                        })
                                 }
 
                             }
 
-                            delay(4000)
-                            fillAdapter()
-
-                        } else {
-                            Log.d("debago", "in no result found")
-                            notFoundTeextView.visibility = View.VISIBLE
-                            notFoundTeextView.text =
-                                getString(R.string.no_item_found_recipes)
                         }
-                    }
 
+                        delay(4000)
+                        fillAdapter()
+
+                    } else {
+                        Log.d("debago", "in no result found")
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text =
+                            getString(R.string.no_item_found_recipes)
+                    }
+                }
 
 
             })
 
 
     }
+
 
     private fun fillAdapter() {
         Log.d("debago", "in fill adapter")
