@@ -20,9 +20,11 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
 import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
+import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
+import com.inved.freezdge.model.recipes.Results
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
@@ -39,6 +41,9 @@ import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.flowOn
+import okhttp3.internal.wait
 import kotlin.math.roundToInt
 
 
@@ -279,14 +284,32 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                getAllRecipes()
+                //getAllRecipes()
 
+                viewLifecycleOwner.lifecycleScope.launch {
+                    // Launch a concurrent coroutine to check if the main thread is blocked
+                 /*   launch {
+                        for (k in 1..3) {
+                            Log.d("debago","I'm not blocked $k")
+                            delay(100)
+                        }
+                    }*/
+                    // Collect the flow
+                    fooRetrofitRecipes()
+                        .onCompletion { fillAdapter() }
+                        .collect { value -> setlistRetrofit.add(value) }
+
+                    fooDatabaseRecipes()
+                        .collect { value -> setlistDatabase.add(value) }
+
+
+                }
 
                 //4second splash time
-              /*  Handler().postDelayed({
-                    //start main activity
-                    fillAdapter()
-                }, 4000)*/
+                  Handler().postDelayed({
+                      //start main activity
+                      fillAdapter()
+                  }, 4000)
 
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -329,6 +352,93 @@ abstract class BaseFragment : Fragment() {
         return if (navHostFragment == null) null else navHostFragment.childFragmentManager.fragments[0]
     }
 
+    fun fooRetrofitRecipes(): Flow<List<Hit>> = flow { // flow builder
+        viewLifecycleOwner.lifecycleScope.async {
+        ingredientsViewmodel.getIngredientsForFreezdgeList()
+
+            .observe(viewLifecycleOwner, Observer<MutableList<Ingredients>> { result ->
+                if (result != null) {
+                    if (result.size != 0) {
+                        listener?.showLoader()
+                        notFoundTeextView.visibility = View.GONE
+                        lifecycleScope.launch {
+                            for (myresult in result) {
+
+                                /*   recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                       .observe(viewLifecycleOwner, Observer<MutableList<Recipes>> { recipes ->
+
+                                           setlistDatabase.add(recipes)
+
+                                           //    Log.d("debago", "in DATABASE data in list")
+                                       })*/
+
+
+                                recipeModel.getRecipes(myresult.name!!)
+                                    .observe(viewLifecycleOwner, Observer<Results> { hits ->
+                                        //  Log.d("debago", "in retrofit data in list")
+                                        lifecycleScope.async(Dispatchers.Default) {
+                                            setlistRetrofit.add(hits.hits)
+                                            Log.d("debago","in emit recipes retrofit")
+                                            emit(hits.hits)
+                                        }
+                                    })
+
+
+                            }
+
+                        }
+
+                    } else {
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text =
+                            getString(R.string.no_item_found_recipes)
+                    }
+                }
+
+
+            })
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun fooDatabaseRecipes(): Flow<MutableList<Recipes>> = flow { // flow builder
+        viewLifecycleOwner.lifecycleScope.async {
+            ingredientsViewmodel.getIngredientsForFreezdgeList()
+                .observe(viewLifecycleOwner, Observer<MutableList<Ingredients>> { result ->
+                    if (result != null) {
+                        if (result.size != 0) {
+                            listener?.showLoader()
+                            notFoundTeextView.visibility = View.GONE
+                            lifecycleScope.launch {
+                                for (myresult in result) {
+
+                                    recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                        .observe(
+                                            viewLifecycleOwner,
+                                            Observer<MutableList<Recipes>> { recipes ->
+                                                lifecycleScope.async(Dispatchers.Default) {
+                                                     setlistDatabase.add(recipes)
+                                                    Log.d("debago", "in emit recipes database")
+                                                    emit(recipes)
+                                                }
+                                                //    Log.d("debago", "in DATABASE data in list")
+                                            })
+                                }
+
+                            }
+
+                        } else {
+                            notFoundTeextView.visibility = View.VISIBLE
+                            notFoundTeextView.text =
+                                getString(R.string.no_item_found_recipes)
+                        }
+                    }
+
+
+                })
+        }
+
+    }.flowOn(Dispatchers.IO)
+
 
     //DATA
     fun getAllRecipes() {
@@ -345,7 +455,9 @@ abstract class BaseFragment : Fragment() {
 
                                     recipeModel.getRecipeIfContainIngredient(myresult.name!!)
                                         .observe(viewLifecycleOwner, Observer { recipes ->
+
                                             setlistDatabase.add(recipes)
+
                                             //    Log.d("debago", "in DATABASE data in list")
                                         })
 
@@ -354,16 +466,14 @@ abstract class BaseFragment : Fragment() {
                                             //  Log.d("debago", "in retrofit data in list")
                                             setlistRetrofit.add(hits.hits)
 
+
                                         })
                                 }
 
                             }
                             delay(4000)
                             fillAdapter()
-                        }
-
-
-                        else {
+                        } else {
                             notFoundTeextView.visibility = View.VISIBLE
                             notFoundTeextView.text =
                                 getString(R.string.no_item_found_recipes)
@@ -379,7 +489,7 @@ abstract class BaseFragment : Fragment() {
 
 
     private fun fillAdapter() {
-        Log.d("debago", "in fill adapter")
+        Log.d("debago", "in fill adapter ${setlistRetrofit.size}")
         recipesRetrofitItemAdapter.clear()
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
