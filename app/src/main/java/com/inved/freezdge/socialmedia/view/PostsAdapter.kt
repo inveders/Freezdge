@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideApp
 
 class PostsAdapter(
@@ -67,7 +68,6 @@ class PostsAdapter(
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
         fun updateWithPosts(post: Post, glide: RequestManager?, listener: ClickListener) {
 
-            Log.d("debago", "in update post")
             if (post.userUid.equals(FirebaseAuth.getInstance().currentUser?.uid)) {
                 deleteButton.visibility = View.VISIBLE
                 updateButton.visibility = View.VISIBLE
@@ -303,6 +303,8 @@ class PostsAdapter(
 
             likeButton.setOnClickListener {
 
+                likeButton.startAnimation(Domain.animation())
+
                 FavoritePostHelper.isThisPostIsFavorite(
                     FirebaseAuth.getInstance().currentUser?.uid,
                     post.postId
@@ -379,6 +381,7 @@ class PostsAdapter(
 
             updateButton.setOnClickListener {
 
+                updateButton.startAnimation(Domain.animation())
                 if (post.postType.equals(
                         App.resource().getString(R.string.social_media_post_type_photo)
                     )
@@ -403,6 +406,7 @@ class PostsAdapter(
 
             }
             deleteButton.setOnClickListener {
+                deleteButton.startAnimation(Domain.animation())
                 post.postId?.let { it1 ->
                     listener.onClickListener(
                         1,

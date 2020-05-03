@@ -103,8 +103,12 @@ class PhotoDialog : DialogFragment() {
 
     private fun initializeMethods(id:Int?) {
 
-        cancelButton?.setOnClickListener { v: View? -> dialog!!.dismiss() }
-        validateButton?.setOnClickListener { v: View? -> createPhotoPost(id) }
+        cancelButton?.setOnClickListener { v: View? ->
+            cancelButton?.startAnimation(Domain.animation())
+            dialog!!.dismiss() }
+        validateButton?.setOnClickListener { v: View? ->
+            validateButton?.startAnimation(Domain.animation())
+            createPhotoPost(id) }
     }
 
     // --------------

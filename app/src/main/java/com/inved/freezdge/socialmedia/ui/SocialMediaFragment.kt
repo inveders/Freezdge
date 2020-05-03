@@ -1,8 +1,8 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.Manifest
-import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +16,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -50,6 +51,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     private lateinit var addTipText: TextView
     private lateinit var topDescription: TextView
     private var loader: FrameLayout? = null
+    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -78,6 +80,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         photoProfile = mView.findViewById(R.id.profile_image)
         topDescription = mView.findViewById(R.id.profile_activity_top_description)
         loader = mView.findViewById(R.id.animation_view_container)
+        mSwipeRefreshLayout = mView.findViewById(R.id.swipeRefreshLayout)
         //RecyclerView initialization
         // topDescription.startAnimation(Domain.animationFromTransparency())
         // photoProfile.startAnimation(Domain.animationFromTransparency())
@@ -144,13 +147,40 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
     private fun initButtons() {
-        addPhotoCamera.setOnClickListener { onClickAddPhotoWithPermissionCheck(1, "") }
-        addPhotoCameraText.setOnClickListener { onClickAddPhotoWithPermissionCheck(1, "") }
-        addPhotoGallery.setOnClickListener { onClickAddPhotoGalleryWithPermissionCheck() }
-        addPhotoGalleryText.setOnClickListener { onClickAddPhotoGalleryWithPermissionCheck() }
-        addTipImage.setOnClickListener { onClickAddTips(0, "") }
-        addTipText.setOnClickListener { onClickAddTips(0, "") }
+        addPhotoCamera.setOnClickListener {
+            addPhotoCamera.startAnimation(Domain.animation())
+            addPhotoCameraText.startAnimation(Domain.animation())
+            onClickAddPhotoWithPermissionCheck(1, "") }
+        addPhotoCameraText.setOnClickListener {
+            addPhotoCamera.startAnimation(Domain.animation())
+            addPhotoCameraText.startAnimation(Domain.animation())
+            onClickAddPhotoWithPermissionCheck(1, "") }
+        addPhotoGallery.setOnClickListener {
+            addPhotoGallery.startAnimation(Domain.animation())
+            addPhotoGalleryText.startAnimation(Domain.animation())
+            onClickAddPhotoGalleryWithPermissionCheck() }
+        addPhotoGalleryText.setOnClickListener {
+            addPhotoGallery.startAnimation(Domain.animation())
+            addPhotoGalleryText.startAnimation(Domain.animation())
+            onClickAddPhotoGalleryWithPermissionCheck() }
+        addTipImage.setOnClickListener {
+            addTipImage.startAnimation(Domain.animation())
+            addTipText.startAnimation(Domain.animation())
+            onClickAddTips(0, "") }
+        addTipText.setOnClickListener {
+            addTipImage.startAnimation(Domain.animation())
+            addTipText.startAnimation(Domain.animation())
+            onClickAddTips(0, "") }
         photoProfile.setOnClickListener { onClickUpdateProfil() }
+        mSwipeRefreshLayout!!.setOnRefreshListener {
+            mSwipeRefreshLayout?.isRefreshing = true
+            //4second splash time
+            Handler().postDelayed({
+                //start main activity
+                displayAllPosts()
+                mSwipeRefreshLayout?.isRefreshing = false
+            },1000)
+        }
     }
 
     private fun displayAllPosts() {

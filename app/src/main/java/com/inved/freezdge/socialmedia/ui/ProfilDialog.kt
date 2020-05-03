@@ -23,10 +23,7 @@ import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
-import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.FileCompressor
-import com.inved.freezdge.utils.ImageCameraOrGallery
-import com.inved.freezdge.utils.StorageHelper
+import com.inved.freezdge.utils.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 import java.io.File
@@ -98,8 +95,12 @@ class ProfilDialog : DialogFragment() {
 
     private fun initializeMethods() {
         changePhotoText?.setOnClickListener { v: View? -> selectImage() }
-        cancelSearchButton?.setOnClickListener { v: View? -> dialog!!.dismiss() }
-        addActionButton?.setOnClickListener { v: View? -> updateProfile() }
+        cancelSearchButton?.setOnClickListener { v: View? ->
+            cancelSearchButton?.startAnimation(Domain.animation())
+            dialog!!.dismiss() }
+        addActionButton?.setOnClickListener { v: View? ->
+            addActionButton?.startAnimation(Domain.animation())
+            updateProfile() }
     }
 
 
