@@ -46,7 +46,7 @@ class MyUploadService : Service() {
         // [START get_child_ref]
         // Get a reference to store file at photos/<FILENAME>.jpg
         if (fileUri.lastPathSegment != null) {
-            val photoRef: StorageReference? = mStorageRef?.child(type)?.child(documentId)
+            val photoRef: StorageReference? = mStorageRef?.child(type)?.child("$documentId.jpg")
 
             //File from external
             val imageCameraOrGallery = ImageCameraOrGallery()
