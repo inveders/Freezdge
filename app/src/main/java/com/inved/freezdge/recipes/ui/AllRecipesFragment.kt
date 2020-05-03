@@ -20,12 +20,7 @@ class AllRecipesFragment: BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("debago","on create 1")
-       /*
-        Handler().postDelayed({
-            //start main activity
-            animation_view_container?.visibility=View.GONE
-        },4000)*/
+
         return super.onCreateView(inflater, container, savedInstanceState)
 
     }

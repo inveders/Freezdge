@@ -45,7 +45,6 @@ class MyGroceryListActivity: BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d("debago", "in navigation up")
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("BACKPRESS", 0)
         startActivity(intent)

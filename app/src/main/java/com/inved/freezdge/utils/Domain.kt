@@ -1,6 +1,5 @@
 package com.inved.freezdge.utils
 
-import android.util.Log
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
@@ -11,8 +10,6 @@ import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
 import java.security.SecureRandom
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 

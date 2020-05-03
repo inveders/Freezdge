@@ -1,5 +1,6 @@
 package com.inved.freezdge.socialmedia.firebase
 
+import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore

@@ -285,8 +285,6 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                listener?.showLoader()
-
                 getAllRecipes()
 
 
@@ -346,6 +344,7 @@ abstract class BaseFragment : Fragment() {
                 uiScope.launch {
                     if (result != null) {
                         if (result.size != 0) {
+                            listener?.showLoader()
                             notFoundTeextView.visibility = View.GONE
                             lifecycleScope.launch {
                                 for (myresult in result) {
@@ -365,17 +364,17 @@ abstract class BaseFragment : Fragment() {
                                 }
 
                             }
-
+                            delay(4000)
+                            fillAdapter()
                         }
 
-                        delay(4000)
-                        fillAdapter()
 
-                    } else {
-                        Log.d("debago", "in no result found")
-                        notFoundTeextView.visibility = View.VISIBLE
-                        notFoundTeextView.text =
-                            getString(R.string.no_item_found_recipes)
+                        else {
+                            Log.d("debago", "in no result found")
+                            notFoundTeextView.visibility = View.VISIBLE
+                            notFoundTeextView.text =
+                                getString(R.string.no_item_found_recipes)
+                        }
                     }
                 }
 

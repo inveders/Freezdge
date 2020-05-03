@@ -27,7 +27,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     name = "Blancs d'oeuf",
                     nameEnglish = "Egg whites",
                     typeIngredient = "Crèmerie",
-                    photoUrl = "gs://freezdge.appspot.com/ingredients/biscuit.jpg",
+                    photoUrl = "gs://freezdge.appspot.com/ingredients/blanc_oeufs.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
