@@ -41,7 +41,6 @@ class MainActivity : BaseActivity(), LoaderListener {
     }
 
     override fun onAttachFragment(fragment: Fragment) {
-        Log.d("debago", "in on attach fragment")
         BaseFragment.setLoaderListener(this)
 
     }

@@ -51,7 +51,6 @@ class LoginActivity: BaseActivity() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.d("debago","in firebase auth with google")
                 isUserExistInFirebase()
                 startActivity(MainActivity.getLaunchIntent(this))
             } else {

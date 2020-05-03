@@ -89,7 +89,6 @@ class MyUploadService : Service() {
             }
             .addOnSuccessListener { downloadUri ->
                 downloadUri.toString()
-                Log.d("debago", "download url is ${downloadUri.toString()}")
                 if(type == App.resource().getString(R.string.type_storage_posts)){
                     PostHelper.updatePhotoUrl(downloadUri.toString(), documentId)
                 }else if(type == App.resource().getString(R.string.type_storage_users)){
@@ -118,7 +117,6 @@ class MyUploadService : Service() {
             }
             .addOnSuccessListener { downloadUri ->
                 downloadUri.toString()
-                Log.d("debago", "download url is $downloadUri")
                 if(type == App.resource().getString(R.string.type_storage_posts)){
                     PostHelper.updatePhotoUrl(downloadUri.toString(), documentId)
                 }else if(type == App.resource().getString(R.string.type_storage_users)){

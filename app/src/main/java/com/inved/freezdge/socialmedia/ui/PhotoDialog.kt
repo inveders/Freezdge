@@ -128,7 +128,6 @@ class PhotoDialog : DialogFragment() {
             if (FirebaseAuth.getInstance().currentUser != null) {
                 uid = FirebaseAuth.getInstance().currentUser?.uid
             }
-            Log.d("debago","id is $id")
             if (id == 1 || id== 2) {
                 if (uid != null) {
                     val postId:String =Domain.createRandomString()
@@ -193,10 +192,7 @@ class PhotoDialog : DialogFragment() {
                     }
                 }
             }?.addOnFailureListener { e ->
-                Log.e(
-                    "debago",
-                    "Problem during the user creation"
-                )
+
             }
         }
 
@@ -291,7 +287,6 @@ class PhotoDialog : DialogFragment() {
 
     private fun showImageInCircle(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
-        Log.d("debago","file uri in photo dialog is $fileUri")
         if (fileUri.path != null) {
             photoPreview?.let {
                 Glide.with(mContext)

@@ -112,7 +112,6 @@ class ProfilDialog : DialogFragment() {
                     val user: User =
                         task.result!!.documents[0].toObject(User::class.java)!!
 
-                    Log.d("debago","user firstname is ${user.firstname}")
                     firstnameEditText?.setText(user.firstname)
                     lastnameEditText?.setText(user.lastname)
 
@@ -139,10 +138,6 @@ class ProfilDialog : DialogFragment() {
                 }
             }
         }?.addOnFailureListener { e ->
-            Log.e(
-                "debago",
-                "Problem during the user creation"
-            )
         }
     }
 

@@ -160,7 +160,6 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
             v?.let {
 
                 val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)
-                Log.d("debago", "boolean in ingredient search is $bool")
                 if(bool!!){
                     item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
                 }else{
@@ -168,7 +167,6 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
                 }
 
                 GlobalScope.async (Dispatchers.IO) {
-                    Log.d("debago", "In coroutine")
                     ingredientViewmodel.updateIngredient(item)
                     if(ingredientViewmodel.isIngredientSelectedInGrocery(item.name)){
                         ingredientViewmodel.updateIngredientSelectedForGroceryByName(item.name,false)

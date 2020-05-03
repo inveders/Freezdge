@@ -353,12 +353,10 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
     override fun showLoader() {
-        Log.d("debago", "in show loader")
         loader?.visibility = View.VISIBLE
     }
 
     override fun hideLoader() {
-        Log.d("debago", "in hide loader")
         loader?.visibility = View.GONE
         nestedScrollView?.visibility = View.VISIBLE
     }

@@ -135,7 +135,6 @@ abstract class BaseFragment : Fragment() {
             //react on the click event
 
             if (item is Hit) {
-                Log.d("debago", "position in base fragment retrofit is $position")
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
                     item.recipe!!.uri,
                     item.recipe!!.label,
@@ -150,7 +149,6 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.uri?.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
 
                 GlobalScope.async(Dispatchers.IO) {
-                    Log.d("debago", "In coroutine grocery")
                     delay(500)
                     Domain.correspondanceCalculForGrocery(
                         item.recipe?.ingredientLines.toString(),
@@ -173,7 +171,6 @@ abstract class BaseFragment : Fragment() {
             //react on the click event
 
             if (item is Recipes) {
-                Log.d("debago", "position in base fragment database is $position")
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
                     item.recipeTitle,
                     item.recipeTitle,
@@ -196,7 +193,6 @@ abstract class BaseFragment : Fragment() {
                 GlobalScope.async(Dispatchers.IO) {
                     delay(500)
                     item.recipeIngredients?.let {
-                        Log.d("debago", "in coroutine grocery")
                         Domain.correspondanceCalculForGrocery(
                             it,
                             bool!!
@@ -238,7 +234,6 @@ abstract class BaseFragment : Fragment() {
         favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, position: Int, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
             //react on the click event
 
-            Log.d("debago", "position in favourite click")
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
@@ -249,7 +244,6 @@ abstract class BaseFragment : Fragment() {
                 item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
             GlobalScope.async(Dispatchers.IO) {
-                Log.d("debago", "In coroutine grocery")
                 delay(500)
                 item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it, bool!!) }
             }
@@ -370,7 +364,6 @@ abstract class BaseFragment : Fragment() {
 
 
                         else {
-                            Log.d("debago", "in no result found")
                             notFoundTeextView.visibility = View.VISIBLE
                             notFoundTeextView.text =
                                 getString(R.string.no_item_found_recipes)

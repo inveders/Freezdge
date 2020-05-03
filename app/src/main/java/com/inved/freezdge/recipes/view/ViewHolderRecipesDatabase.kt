@@ -42,7 +42,6 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text="$proportionInPercent %"
 
-        Log.d("debago","PROPORTION IN PERCENT FOR ${item.recipeTitle} is $proportionInPercent")
         when (proportionInPercent) {
             in 80..99 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)

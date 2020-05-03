@@ -52,7 +52,6 @@ class ViewHolderIngredients(view: View) : FastAdapter.ViewHolder<Ingredients>(vi
                     dataSource: DataSource,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.d("debago", "onResourceReady 3")
                     shimmer.stopShimmer()
                     shimmer.hideShimmer()
                     return false
