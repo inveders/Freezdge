@@ -10,7 +10,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.PostHelper
+import com.inved.freezdge.socialmedia.firebase.UserHelper
 import java.io.File
 
 class MyUploadService : Service() {
@@ -44,7 +46,7 @@ class MyUploadService : Service() {
         // [START get_child_ref]
         // Get a reference to store file at photos/<FILENAME>.jpg
         if (fileUri.lastPathSegment != null) {
-            val photoRef: StorageReference? = mStorageRef?.child(type)
+            val photoRef: StorageReference? = mStorageRef?.child(type)?.child(documentId)
 
             //File from external
             val imageCameraOrGallery = ImageCameraOrGallery()
@@ -60,9 +62,9 @@ class MyUploadService : Service() {
             val mFileName = "/" + fileExternal!!.name
             val fileInternal = File(storageDir, mFileName) //file internal
             if (fileInternal.exists()) {
-                photoRef?.let { uploadInternalFile(it, fileUri, documentId) }
+                photoRef?.let { uploadInternalFile(it, fileUri, documentId,type) }
             } else if (fileExternal.exists()) {
-                photoRef?.let { uploadExternalFile(it, fileExternal, documentId) }
+                photoRef?.let { uploadExternalFile(it, fileExternal, documentId,type) }
             }
         }
     }
@@ -70,7 +72,8 @@ class MyUploadService : Service() {
     private fun uploadInternalFile(
         photoRef: StorageReference,
         internalFile: Uri,
-        documentId: String
+        documentId: String,
+        type: String
     ) {
         // Upload file to Firebase Storage
         //Log.d(TAG, "uploadFromUri:dst:" + photoRef.getPath());
@@ -87,7 +90,11 @@ class MyUploadService : Service() {
             .addOnSuccessListener { downloadUri ->
                 downloadUri.toString()
                 Log.d("debago", "download url is ${downloadUri.toString()}")
-                PostHelper.updatePhotoUrl(downloadUri.toString(), documentId)
+                if(type == App.resource().getString(R.string.type_storage_posts)){
+                    PostHelper.updatePhotoUrl(downloadUri.toString(), documentId)
+                }else if(type == App.resource().getString(R.string.type_storage_users)){
+                    UserHelper.updatePhotoUrl(downloadUri.toString(), documentId)
+                }
             }
             .addOnFailureListener({ exception -> })
     }
@@ -95,7 +102,8 @@ class MyUploadService : Service() {
     private fun uploadExternalFile(
         photoRef: StorageReference,
         externalFile: File,
-        documentId: String
+        documentId: String,
+        type: String
     ) {
         photoRef.putFile(Uri.fromFile(externalFile))
             .continueWithTask { task: Task<UploadTask.TaskSnapshot?> ->
@@ -110,8 +118,13 @@ class MyUploadService : Service() {
             }
             .addOnSuccessListener { downloadUri ->
                 downloadUri.toString()
-                Log.d("debago", "download url is ${downloadUri.toString()}")
-                PostHelper.updatePhotoUrl(downloadUri.toString(), documentId)
+                Log.d("debago", "download url is $downloadUri")
+                if(type == App.resource().getString(R.string.type_storage_posts)){
+                    PostHelper.updatePhotoUrl(downloadUri.toString(), documentId)
+                }else if(type == App.resource().getString(R.string.type_storage_users)){
+                    UserHelper.updatePhotoUrl(downloadUri.toString(), documentId)
+                }
+
             }
             .addOnFailureListener { exception2: Exception? -> }
     }
