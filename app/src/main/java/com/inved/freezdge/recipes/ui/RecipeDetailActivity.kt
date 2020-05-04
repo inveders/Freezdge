@@ -166,15 +166,18 @@ open class RecipeDetailActivity : BaseActivity() {
             addSummaryRecipeItems(getString(R.string.step_recipe, 12, recipe.step12))
         }
 
+        val gsReferenceOwner = recipe.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+
         recipeOwnerImage.let {
             GlideApp.with(App.applicationContext())
-                .load(recipe.recipePhotoUrlOwner)
+                .load(gsReferenceOwner)
                 .circleCrop()
                 .into(it)
         }
 
         recipeOwnerImage.setOnClickListener {
             recipe.recipeUrlOwnerLink?.let {
+                recipeOwnerImage.startAnimation(Domain.animation())
                 openWebViewActivity(
                     it
                 )

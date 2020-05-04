@@ -111,6 +111,16 @@
             app:layout_constraintTop_toTopOf="@id/view"
             app:srcCompat="@drawable/ic_favorite_not_selected_24dp"/>
 
+        <ImageView
+            android:id="@+id/owner_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintRight_toRightOf="@id/view"
+            app:layout_constraintTop_toTopOf="@id/view"/>
+
         <TextView
             android:id="@+id/fragment_recipes_list_item_preparation_time_text"
             android:layout_width="wrap_content"

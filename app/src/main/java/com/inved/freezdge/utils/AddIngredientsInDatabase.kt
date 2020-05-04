@@ -2564,6 +2564,15 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
+                    name = "Bar",
+                    nameEnglish = "bar",
+                    typeIngredient = "Poisson",
+                    photoUrl = "gs://freezdge.appspot.com/ingrédients2/bar.jpg",
+                    selectedIngredient = false, grocerySelectedIngredient = false
+                )
+            )
+            ingredientsBox.put(
+                Ingredients(
                     name = "Capitaine",
                     nameEnglish = "Captain fish",
                     typeIngredient = "Poisson",
@@ -2917,8 +2926,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
             ingredientsBox.put(
                 Ingredients(
-                    name = "Cuisse de poulet",
-                    nameEnglish = "Chicken leg",
+                    name = "Cuisses de poulet",
+                    nameEnglish = "Chicken thighs",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/cuisse-de-poulet.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false

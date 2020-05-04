@@ -26,6 +26,8 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
     var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
+    var imageOwner: ImageView =
+        view.findViewById(R.id.owner_image)
     var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: Recipes, payloads: MutableList<Any>) {
@@ -60,6 +62,14 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         GlideApp.with(App.applicationContext())
             .load(gsReference)
             .into(imageItem)
+
+
+        // Create a reference to a file from a Google Cloud Storage URI
+        val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+        GlideApp.with(App.applicationContext())
+            .load(gsReferenceOwner)
+            .circleCrop()
+            .into(imageOwner)
 
         if(isRecipeIdIsPresent(item.recipeTitle)!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
