@@ -1,5 +1,6 @@
 package com.inved.freezdge.utils
 
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.R
@@ -31,6 +32,10 @@ class Domain {
             animation1.startOffset = 2000
             animation1.fillAfter = true
             return animation1
+        }
+
+        fun convertDpToPixel(dp: Int): Int {
+            return (dp * (App.resource().displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
         }
 
         fun createRandomString(): String {

@@ -33,6 +33,7 @@ import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.Domain.Companion.preparationTime
 import com.inved.freezdge.utils.LoaderListener
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
@@ -140,7 +141,7 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.uri,
                     item.recipe?.label,
                     item.recipe?.calories?.div(10)?.roundToInt().toString(),
-                    Domain.preparationTime(item.recipe?.totalTime),
+                    preparationTime(item.recipe?.totalTime),
                     item.recipe?.url,
                     item.recipe?.image,
                     item.recipe?.ingredientLines.toString()

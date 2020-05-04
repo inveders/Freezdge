@@ -15,10 +15,11 @@ class CustomExpandableListAdapter(
     private val _listDataHeader: List<String>,
     // child data in format of header title, child title
     private val _listDataChild: HashMap<String, List<String>>
+
 ) : BaseExpandableListAdapter() {
 
-    override fun getChild(groupPosition: Int, childPosititon: Int): Any {
-        Log.d("debago","group position is $groupPosition and chil position is $childPosititon")
+    override fun getChild(groupPosition: Int, childPosititon: Int): String {
+        Log.d("debago", "group position is $groupPosition and chil position is $childPosititon")
         return _listDataChild[_listDataHeader[groupPosition]]!![childPosititon]
     }
 
@@ -28,7 +29,8 @@ class CustomExpandableListAdapter(
 
 
     override fun getChildrenCount(parent: Int): Int {
-        return _listDataHeader.size
+        Log.d("debago","get children coun is ${_listDataChild[_listDataHeader[parent]]!!.size}")
+        return _listDataChild[_listDataHeader[parent]]!!.size
     }
 
     override fun getGroup(groupPosition: Int): Any {
@@ -43,12 +45,22 @@ class CustomExpandableListAdapter(
         return groupPosition.toLong()
     }
 
-    override fun getGroupView(parent: Int, isExpanded: Boolean, convertView: View?, parentview: ViewGroup): View {
-        var convertView = convertView
+    override fun getGroupView(
+        parent: Int,
+        isExpanded: Boolean,
+        convertView: View?,
+        parentview: ViewGroup
+    ): View {
+        var convertView: View? = convertView
 
         if (convertView == null) {
-            val inflater = _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = inflater.inflate(R.layout.item_recipe_detail_list_expandable_group, parentview, false)
+            val inflater =
+                _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            convertView = inflater.inflate(
+                R.layout.item_recipe_detail_list_expandable_group,
+                parentview,
+                false
+            )
 
         }
 
@@ -61,20 +73,28 @@ class CustomExpandableListAdapter(
         parent: Int,
         child: Int,
         isLastChild: Boolean,
-        convertView: View?,
+        convertview: View?,
         parentview: ViewGroup
     ): View {
-        var convertView = convertView
+        var convertview: View? = convertview
 
-        if (convertView == null) {
-            val inflater = _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = inflater.inflate(R.layout.item_recipe_detail_list_expandable_item, parentview, false)
+        if (convertview == null) {
+            val inflater =
+                _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            convertview = inflater.inflate(
+                R.layout.item_recipe_detail_list_expandable_item,
+                parentview,
+                false
+            )
 
         }
 
-        val childTextvew = convertView!!.findViewById(R.id.expandedListItem) as TextView
+        val childTextvew = convertview?.findViewById(R.id.expandedListItem) as TextView
+        Log.d("debago", "getchil is " + getChild(parent, child))
         childTextvew.text = getChild(parent, child) as String
-        return convertView
+
+
+        return convertview
     }
 
     override fun hasStableIds(): Boolean {

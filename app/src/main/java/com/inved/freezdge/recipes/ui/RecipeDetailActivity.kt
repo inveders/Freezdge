@@ -2,7 +2,6 @@ package com.inved.freezdge.recipes.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
@@ -12,9 +11,11 @@ import com.inved.freezdge.recipes.view.RecipeStepView
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.Domain.Companion.convertDpToPixel
 import com.inved.freezdge.utils.GlideApp
 
-class RecipeDetailActivity : BaseActivity() {
+
+open class RecipeDetailActivity : BaseActivity() {
 
     lateinit var recipeTitle: TextView
     lateinit var recipePrepCookTime: TextView
@@ -29,10 +30,6 @@ class RecipeDetailActivity : BaseActivity() {
     private var adapter: ExpandableListAdapter? = null
     private lateinit var listParent:ArrayList<String>
     private lateinit var listDataChild:HashMap<String,List<String>>
-
-    companion object {
-        lateinit var childList: ArrayList<ArrayList<String>>
-    }
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_recipe_detail
@@ -58,40 +55,43 @@ class RecipeDetailActivity : BaseActivity() {
         expandableListView = findViewById(R.id.expandableListView)
         if (expandableListView != null) {
 
-            Log.d("debago","childlist is ${childList.size}")
             adapter = CustomExpandableListAdapter(this, listParent, listDataChild)
 
             expandableListView?.setAdapter(adapter)
 
         }
 
+        expandableListView?.setOnGroupExpandListener {
+            var height = 0
+            for (i in 0 until expandableListView!!.getChildCount()) {
+                height += expandableListView!!.getChildAt(i).getMeasuredHeight()
+                height += expandableListView!!.getDividerHeight()
+            }
+            expandableListView?.layoutParams?.height = (height + 6) * 10
+        }
+
+        // Listview Group collapsed listener
+        expandableListView?.setOnGroupCollapseListener {
+
+            expandableListView?.layoutParams?.height = convertDpToPixel(61)
+        }
 
     }
 
     private fun addDataInExpandable(listFromString: List<String>) {
 
-        var ingredientsList = ArrayList<String>()
+        val ingredientsList = ArrayList<String>()
 
         for(i in listFromString){
             ingredientsList.add(i)
         }
 
-        ingredientsList.add("Tomate")
-        ingredientsList.add("Patate")
-        ingredientsList.add("Eau")
-
-        childList = ArrayList()
-
-        Log.d("debago","childlist is $ingredientsList")
-
-
         listParent= ArrayList()
         listDataChild= HashMap()
         // Adding child data
 
-        listParent?.add("Ingrédient")
-        listDataChild?.put("Ingrédients", ingredientsList); // Header, Child data
-
+        listParent.add("Ingrédients")
+        listDataChild[listParent[0]] = ingredientsList // Header, Child data
 
     }
 
