@@ -117,6 +117,7 @@
             android:layout_height="48dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            android:elevation="1dp"
             android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintRight_toRightOf="@id/view"
             app:layout_constraintTop_toTopOf="@id/view"/>
