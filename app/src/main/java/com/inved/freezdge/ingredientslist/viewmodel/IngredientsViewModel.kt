@@ -17,7 +17,7 @@ class IngredientsViewModel : ViewModel() {
         return IngredientsRepository.updateIngredient(ingredient)
     }
 
-    fun getIngredientsForFreezdgeList(): ObjectBoxLiveData<Ingredients> {
+    fun getIngredientsForFreezdgeList(): MutableList<Ingredients> {
         return IngredientsRepository.getIngredientsLiveDataBySelected()
     }
 

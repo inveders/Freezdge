@@ -9,7 +9,7 @@ class IngredientsRepository {
 
     companion object {
 
-        fun getIngredientsLiveDataBySelected(): ObjectBoxLiveData<Ingredients> {
+        fun getIngredientsLiveDataBySelected(): MutableList<Ingredients> {
             return IngredientsDAO.getAllIngredientBySelected()
         }
 

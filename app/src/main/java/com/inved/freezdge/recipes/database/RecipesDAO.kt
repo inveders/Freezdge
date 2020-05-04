@@ -34,7 +34,9 @@ class RecipesDAO {
                 val recipes: Recipes? =
                     getRecipesBox().query().equal(Recipes_.recipeTitle,name).build().findUnique()
 
-                return recipes!!.selectedRecipe
+                if (recipes != null) {
+                    return recipes.selectedRecipe
+                }
             }
             return false
         }

@@ -76,9 +76,9 @@ class ProfilDialog : DialogFragment() {
         // Inflate the layout for this fragment
         val view: View =
             inflater.inflate(R.layout.dialog_update_profile, container, false)
-        mContext = App.instance!!.applicationContext
+        mContext = App.applicationContext()
 
-        uid = FirebaseAuth.getInstance().currentUser!!.uid
+        uid = FirebaseAuth.getInstance().currentUser?.uid!!
         imageCameraOrGallery = ImageCameraOrGallery()
         profilPhoto = view.findViewById(R.id.profil_photo)
         changePhotoText =
@@ -97,7 +97,7 @@ class ProfilDialog : DialogFragment() {
         changePhotoText?.setOnClickListener { v: View? -> selectImage() }
         cancelSearchButton?.setOnClickListener { v: View? ->
             cancelSearchButton?.startAnimation(Domain.animation())
-            dialog!!.dismiss() }
+            dialog?.dismiss() }
         addActionButton?.setOnClickListener { v: View? ->
             addActionButton?.startAnimation(Domain.animation())
             updateProfile() }
@@ -107,7 +107,7 @@ class ProfilDialog : DialogFragment() {
     private fun fillDialog() {
         UserHelper.getUser(uid)?.get()?.addOnCompleteListener { task ->
             if (task.result != null) {
-                if (task.result!!.documents.isNotEmpty()) {
+                if (task.result?.documents!!.isNotEmpty()) {
 
                     val user: User =
                         task.result!!.documents[0].toObject(User::class.java)!!
@@ -147,8 +147,8 @@ class ProfilDialog : DialogFragment() {
     private fun updateProfile() {
            if (firstnameEditText?.text.toString().isEmpty()) {
                firstnameEditText?.error = getString(R.string.set_error_firstname)
-           } else if (lastnameEditText!!.text.toString().isEmpty()) {
-            lastnameEditText!!.error = getString(R.string.set_error_lastname)
+           } else if (lastnameEditText?.text.toString().isEmpty()) {
+            lastnameEditText?.error = getString(R.string.set_error_lastname)
         } else {
             val firstname = firstnameEditText?.text.toString()
             val lastname = lastnameEditText?.text.toString()
@@ -179,7 +179,7 @@ class ProfilDialog : DialogFragment() {
 
             //to close the dialog
             if (dialog != null) {
-                dialog!!.dismiss()
+                dialog?.dismiss()
             }
         }
     }
@@ -212,7 +212,7 @@ class ProfilDialog : DialogFragment() {
             items
         ) { dialog: DialogInterface, item: Int ->
             when {
-                items[item] == App.instance?.resources
+                items[item] == App.resource()
                     ?.getString(R.string.dialog_select_image_take_photo)
                 -> {
                     dispatchTakePictureIntentWithPermissionCheck()
@@ -284,7 +284,7 @@ class ProfilDialog : DialogFragment() {
             when (requestCode) {
                 REQUEST_GALLERY_PHOTO -> {
                     //data.getData returns the content URI for the selected Image
-                    val selectedImage = data!!.data
+                    val selectedImage = data?.data
                     try {
                         mPhotoFile = FileCompressor.compressToFile(
                             File(

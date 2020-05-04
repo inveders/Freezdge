@@ -10,7 +10,7 @@ class FileCompressor {
     companion object{
         private val compressFormat = CompressFormat.JPEG
         private const val mFileName = "/"
-        private val storageDir: File? = App.instance?.applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        private val storageDir: File? = App.applicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         @Throws(IOException::class)
         fun compressToFile(imageFile: File?): File? {

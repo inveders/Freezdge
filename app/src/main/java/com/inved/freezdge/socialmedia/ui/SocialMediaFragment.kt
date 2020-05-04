@@ -1,6 +1,7 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.Manifest
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -18,7 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -110,6 +115,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                         topDescription.text =
                             getString(R.string.social_media_description, user.firstname)
 
+                        Log.d("debago","user photo is ${user.photoUrl}")
                         //to upload a photo on Firebase storage
                         if (user.photoUrl != null) {
                             photoProfile.let {
@@ -117,12 +123,35 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                                     Glide.with(it1)
                                         .load(user.photoUrl)
                                         .apply(RequestOptions.circleCropTransform())
+                                        .listener(object : RequestListener<Drawable?> {
+                                            override fun onLoadFailed(
+                                                e: GlideException?,
+                                                model: Any,
+                                                target: Target<Drawable?>,
+                                                isFirstResource: Boolean
+                                            ): Boolean {
+                                                Log.e("debago", "Exception is : $e")
+                                                return false
+                                            }
+
+                                            override fun onResourceReady(
+                                                resource: Drawable?,
+                                                model: Any,
+                                                target: Target<Drawable?>,
+                                                dataSource: DataSource,
+                                                isFirstResource: Boolean
+                                            ): Boolean {
+                                                Log.d("debago","in on resurce ready social media fragment")
+                                                hideLoader()
+                                                return false
+                                            }
+                                        })
                                         .placeholder(R.drawable.ic_anon_user_48dp)
                                         .into(it)
                                 }
                             }
 
-                            hideLoader()
+
 
                         } else {
                             photoProfile.let {
@@ -139,9 +168,11 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                     }
                 }
             }?.addOnFailureListener {
+                hideLoader()
             Log.e(
                 "debago",
                 "Problem during the user creation"
+
             )
         }
     }

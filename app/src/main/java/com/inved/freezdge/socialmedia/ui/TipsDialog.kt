@@ -94,7 +94,7 @@ class TipsDialog : DialogFragment() {
         cancelButton?.setOnClickListener {
             Log.d("debago", "close tips dialog")
             cancelButton?.startAnimation(Domain.animation())
-            dialog!!.dismiss()
+            dialog?.dismiss()
         }
         validateButton?.setOnClickListener {
             validateButton?.startAnimation(Domain.animation())
@@ -159,7 +159,7 @@ class TipsDialog : DialogFragment() {
 
             //to close the dialog
             if (dialog != null) {
-                dialog!!.dismiss()
+                dialog?.dismiss()
             }
         }
     }

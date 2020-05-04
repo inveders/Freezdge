@@ -82,8 +82,8 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
                     return true
                 }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText!!.isNotEmpty()) {
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (newText.isNotEmpty()) {
 
                         foodSearchItemAdapter.clear()
                         val search = newText.toLowerCase(Locale.ROOT)

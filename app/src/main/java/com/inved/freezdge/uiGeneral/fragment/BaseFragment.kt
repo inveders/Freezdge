@@ -42,8 +42,6 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.flowOn
-import okhttp3.internal.wait
 import kotlin.math.roundToInt
 
 
@@ -58,7 +56,6 @@ abstract class BaseFragment : Fragment() {
 
     companion object {
         internal var listener: LoaderListener? = null
-
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
         }
@@ -138,16 +135,15 @@ abstract class BaseFragment : Fragment() {
 
         fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.imageFavourite }) { _, position, _: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
-
             if (item is Hit) {
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
-                    item.recipe!!.uri,
-                    item.recipe!!.label,
-                    item.recipe?.calories!!.div(10).roundToInt().toString(),
+                    item.recipe?.uri,
+                    item.recipe?.label,
+                    item.recipe?.calories?.div(10)?.roundToInt().toString(),
                     Domain.preparationTime(item.recipe?.totalTime),
-                    item.recipe!!.url,
-                    item.recipe!!.image,
-                    item.recipe!!.ingredientLines.toString()
+                    item.recipe?.url,
+                    item.recipe?.image,
+                    item.recipe?.ingredientLines.toString()
                 )
 
                 val bool: Boolean? =
@@ -166,6 +162,8 @@ abstract class BaseFragment : Fragment() {
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
                 }
+
+                Log.d("debago", "before notifyitemchanged")
                 fastAdapter.notifyItemChanged(position)
             }
 
@@ -174,10 +172,9 @@ abstract class BaseFragment : Fragment() {
 
         fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, position, _: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
-
             if (item is Recipes) {
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
-                    item.recipeTitle,
+                    item.id.toString(),
                     item.recipeTitle,
                     item.recipeCalories,
                     item.totalrecipeTime,
@@ -210,6 +207,7 @@ abstract class BaseFragment : Fragment() {
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
                 }
+                Log.d("debago", "before notifyitemchanged")
                 fastAdapter.notifyItemChanged(position)
             }
 
@@ -230,8 +228,18 @@ abstract class BaseFragment : Fragment() {
         favouritesFastAdapter.onClickListener =
             { v: View?, _: IAdapter<FavouritesRecipes>, item: FavouritesRecipes, _: Int ->
                 v?.let {
-                    val url: String = item.recipeUrl!!
+                    val url: String? = item.recipeUrl
+                    Log.d("debago", "recipe id ${item.id} and recipe url ${item.recipeUrl}")
                     openWebViewActivity(url)
+
+                    if (item.recipePhotoUrl?.contains("freezdge", true)!!) {
+                        val id: Long = item.recipeId!!.toLong()
+                        openRecipeDetailActivity(id)
+
+                    } else {
+                        val urlRetrofit: String = item.recipeUrl!!
+                        openWebViewActivity(urlRetrofit)
+                    }
                 }
                 true
             }
@@ -258,13 +266,13 @@ abstract class BaseFragment : Fragment() {
             } else {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
             }
-
+            Log.d("debago", "before notifyitemchanged")
             favouritesFastAdapter.notifyItemChanged(position)
         }
 
     }
 
-    private fun openWebViewActivity(url: String) {
+    private fun openWebViewActivity(url: String?) {
         let {
             val intent = Intent(activity, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)
@@ -283,33 +291,35 @@ abstract class BaseFragment : Fragment() {
     private fun detectWichFragmentIsOpen() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
+
                 setupRecipeRecyclerView()
-                //getAllRecipes()
+                getAllRecipes()
 
-                viewLifecycleOwner.lifecycleScope.launch {
-                    // Launch a concurrent coroutine to check if the main thread is blocked
-                 /*   launch {
-                        for (k in 1..3) {
-                            Log.d("debago","I'm not blocked $k")
-                            delay(100)
-                        }
+                /*    viewLifecycleOwner.lifecycleScope.launch {
+                        // Launch a concurrent coroutine to check if the main thread is blocked
+                        /*   launch {
+                               for (k in 1..3) {
+                                   Log.d("debago","I'm not blocked $k")
+                                   delay(100)
+                               }
+                           }*/
+                        // Collect the flow
+                        Log.d("debago", "in gell all recipes")
+                        fooRetrofitRecipes()
+                            .onCompletion { fillAdapter() }
+                            .collect { value -> setlistRetrofit.add(value) }
+
+                        fooDatabaseRecipes()
+                            .collect { value -> setlistDatabase.add(value) }
+
+
                     }*/
-                    // Collect the flow
-                    fooRetrofitRecipes()
-                        .onCompletion { fillAdapter() }
-                        .collect { value -> setlistRetrofit.add(value) }
-
-                    fooDatabaseRecipes()
-                        .collect { value -> setlistDatabase.add(value) }
-
-
-                }
 
                 //4second splash time
-                  Handler().postDelayed({
-                      //start main activity
-                      fillAdapter()
-                  }, 4000)
+              /*  Handler().postDelayed({
+                    //start main activity
+                    fillAdapter()
+                }, 4000)*/
 
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -353,89 +363,79 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun fooRetrofitRecipes(): Flow<List<Hit>> = flow { // flow builder
-        viewLifecycleOwner.lifecycleScope.async {
-        ingredientsViewmodel.getIngredientsForFreezdgeList()
-
-            .observe(viewLifecycleOwner, Observer<MutableList<Ingredients>> { result ->
-                if (result != null) {
-                    if (result.size != 0) {
-                        listener?.showLoader()
-                        notFoundTeextView.visibility = View.GONE
-                        lifecycleScope.launch {
-                            for (myresult in result) {
-
-                                /*   recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                                       .observe(viewLifecycleOwner, Observer<MutableList<Recipes>> { recipes ->
-
-                                           setlistDatabase.add(recipes)
-
-                                           //    Log.d("debago", "in DATABASE data in list")
-                                       })*/
+        val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
 
-                                recipeModel.getRecipes(myresult.name!!)
-                                    .observe(viewLifecycleOwner, Observer<Results> { hits ->
-                                        //  Log.d("debago", "in retrofit data in list")
-                                        lifecycleScope.async(Dispatchers.Default) {
-                                            setlistRetrofit.add(hits.hits)
-                                            Log.d("debago","in emit recipes retrofit")
-                                            emit(hits.hits)
-                                        }
-                                    })
+        if (result.size != 0) {
+            Log.d("debago", "in observer RETROFIT")
+            listener?.showLoader()
+            notFoundTeextView.visibility = View.GONE
+
+            for (myresult in result) {
+
+                /*   recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                           .observe(viewLifecycleOwner, Observer<MutableList<Recipes>> { recipes ->
+
+                                               setlistDatabase.add(recipes)
+
+                                               //    Log.d("debago", "in DATABASE data in list")
+                                           })*/
 
 
-                            }
-
+                recipeModel.getRecipes(myresult.name!!)
+                    .observe(viewLifecycleOwner, Observer<Results> { hits ->
+                        //  Log.d("debago", "in retrofit data in list")
+                        lifecycleScope.async(Dispatchers.Default) {
+                            setlistRetrofit.add(hits.hits)
+                            // Log.d("debago","in emit recipes retrofit")
+                            emit(hits.hits)
                         }
-
-                    } else {
-                        notFoundTeextView.visibility = View.VISIBLE
-                        notFoundTeextView.text =
-                            getString(R.string.no_item_found_recipes)
-                    }
-                }
+                    })
 
 
-            })
+            }
+
+
+        } else {
+            notFoundTeextView.visibility = View.VISIBLE
+            notFoundTeextView.text =
+                getString(R.string.no_item_found_recipes)
         }
+
+
     }.flowOn(Dispatchers.IO)
 
     fun fooDatabaseRecipes(): Flow<MutableList<Recipes>> = flow { // flow builder
-        viewLifecycleOwner.lifecycleScope.async {
-            ingredientsViewmodel.getIngredientsForFreezdgeList()
-                .observe(viewLifecycleOwner, Observer<MutableList<Ingredients>> { result ->
-                    if (result != null) {
-                        if (result.size != 0) {
-                            listener?.showLoader()
-                            notFoundTeextView.visibility = View.GONE
-                            lifecycleScope.launch {
-                                for (myresult in result) {
+        val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
-                                    recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                                        .observe(
-                                            viewLifecycleOwner,
-                                            Observer<MutableList<Recipes>> { recipes ->
-                                                lifecycleScope.async(Dispatchers.Default) {
-                                                     setlistDatabase.add(recipes)
-                                                    Log.d("debago", "in emit recipes database")
-                                                    emit(recipes)
-                                                }
-                                                //    Log.d("debago", "in DATABASE data in list")
-                                            })
-                                }
+        if (result != null) {
+            if (result.size != 0) {
+                Log.d("debago", "in observer RETROFIT")
+                listener?.showLoader()
+                notFoundTeextView.visibility = View.GONE
 
+                for (myresult in result) {
+
+                    recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                        .observe(viewLifecycleOwner, Observer<MutableList<Recipes>> { recipes ->
+                            lifecycleScope.async(Dispatchers.Default) {
+                                setlistDatabase.add(recipes)
+                                emit(recipes)
                             }
 
-                        } else {
-                            notFoundTeextView.visibility = View.VISIBLE
-                            notFoundTeextView.text =
-                                getString(R.string.no_item_found_recipes)
-                        }
-                    }
+                            //    Log.d("debago", "in DATABASE data in list")
+                        })
 
+                }
 
-                })
+            }
+
+        } else {
+            notFoundTeextView.visibility = View.VISIBLE
+            notFoundTeextView.text =
+                getString(R.string.no_item_found_recipes)
         }
+
 
     }.flowOn(Dispatchers.IO)
 
@@ -443,47 +443,42 @@ abstract class BaseFragment : Fragment() {
     //DATA
     fun getAllRecipes() {
 
-        ingredientsViewmodel.getIngredientsForFreezdgeList()
-            .observe(viewLifecycleOwner, Observer { result ->
-                uiScope.launch {
-                    if (result != null) {
-                        if (result.size != 0) {
-                            listener?.showLoader()
-                            notFoundTeextView.visibility = View.GONE
-                            lifecycleScope.launch {
-                                for (myresult in result) {
+        val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
-                                    recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                                        .observe(viewLifecycleOwner, Observer { recipes ->
+        uiScope.launch {
+            if (result.size != 0) {
 
-                                            setlistDatabase.add(recipes)
+                listener?.showLoader()
+                notFoundTeextView.visibility = View.GONE
+                lifecycleScope.launch {
+                    for (myresult in result) {
 
-                                            //    Log.d("debago", "in DATABASE data in list")
-                                        })
+                        recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                            .observe(viewLifecycleOwner, Observer { recipes ->
 
-                                    recipeModel.getRecipes(myresult.name!!)
-                                        .observe(viewLifecycleOwner, Observer { hits ->
-                                            //  Log.d("debago", "in retrofit data in list")
-                                            setlistRetrofit.add(hits.hits)
+                                setlistDatabase.add(recipes)
+
+                                //    Log.d("debago", "in DATABASE data in list")
+                            })
+
+                        recipeModel.getRecipes(myresult.name!!)
+                            .observe(viewLifecycleOwner, Observer { hits ->
+                                //  Log.d("debago", "in retrofit data in list")
+                                setlistRetrofit.add(hits.hits)
 
 
-                                        })
-                                }
-
-                            }
-                            delay(4000)
-                            fillAdapter()
-                        } else {
-                            notFoundTeextView.visibility = View.VISIBLE
-                            notFoundTeextView.text =
-                                getString(R.string.no_item_found_recipes)
-                        }
+                            })
                     }
+
                 }
-
-
-            })
-
+                delay(4000)
+                fillAdapter()
+            } else {
+                notFoundTeextView.visibility = View.VISIBLE
+                notFoundTeextView.text =
+                    getString(R.string.no_item_found_recipes)
+            }
+        }
 
     }
 

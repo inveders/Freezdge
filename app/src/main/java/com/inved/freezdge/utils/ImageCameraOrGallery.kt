@@ -45,7 +45,7 @@ class ImageCameraOrGallery {
             val proj =
                 arrayOf(MediaStore.Images.Media.DATA)
             cursor = contentUri?.let {
-                App.instance?.applicationContext?.getContentResolver()
+                App.applicationContext().contentResolver
                     ?.query(it, proj, null, null, null)
             }
             assert(cursor != null)

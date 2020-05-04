@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.os.IBinder
-import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -30,6 +29,7 @@ class MyUploadService : Service() {
                 intent.getParcelableExtra<Uri>(EXTRA_FILE_URI)
             val documentId = intent.getStringExtra(EXTRA_DOCUMENT_ID)
             val type = intent.getStringExtra(EXTRA_TYPE_ID)
+            if(documentId!=null)
             mStorageRef = FirebaseStorage.getInstance().getReference(documentId)
             uploadFromUri(fileUri, documentId, type)
         }
@@ -38,15 +38,15 @@ class MyUploadService : Service() {
 
     // [START upload_from_uri]
     private fun uploadFromUri(
-        fileUri: Uri,
-        documentId: String,
-        type: String
+        fileUri: Uri?,
+        documentId: String?,
+        type: String?
     ) {
 
         // [START get_child_ref]
         // Get a reference to store file at photos/<FILENAME>.jpg
-        if (fileUri.lastPathSegment != null) {
-            val photoRef: StorageReference? = mStorageRef?.child(type)?.child("$documentId.jpg")
+        if (fileUri?.lastPathSegment != null) {
+            val photoRef: StorageReference? = type?.let { mStorageRef?.child(it)?.child("$documentId.jpg") }
 
             //File from external
             val imageCameraOrGallery = ImageCameraOrGallery()
@@ -62,9 +62,12 @@ class MyUploadService : Service() {
             val mFileName = "/" + fileExternal!!.name
             val fileInternal = File(storageDir, mFileName) //file internal
             if (fileInternal.exists()) {
-                photoRef?.let { uploadInternalFile(it, fileUri, documentId,type) }
+                photoRef?.let { documentId?.let { it1 -> uploadInternalFile(it, fileUri, it1,type) } }
             } else if (fileExternal.exists()) {
-                photoRef?.let { uploadExternalFile(it, fileExternal, documentId,type) }
+                photoRef?.let { documentId?.let { it1 ->
+                    uploadExternalFile(it, fileExternal,
+                        it1,type)
+                } }
             }
         }
     }
@@ -80,12 +83,12 @@ class MyUploadService : Service() {
         photoRef.putFile(internalFile)
             .continueWithTask { task ->
                 // Forward any exceptions
-                if (!task.isSuccessful()) {
-                    if (task.getException() != null) {
+                if (!task.isSuccessful) {
+                    if (task.exception != null) {
                         throw task.exception!!
                     }
                 }
-                photoRef.getDownloadUrl()
+                photoRef.downloadUrl
             }
             .addOnSuccessListener { downloadUri ->
                 downloadUri.toString()
@@ -95,7 +98,7 @@ class MyUploadService : Service() {
                     UserHelper.updatePhotoUrl(downloadUri.toString(), documentId)
                 }
             }
-            .addOnFailureListener({ exception -> })
+            .addOnFailureListener { }
     }
 
     private fun uploadExternalFile(
@@ -132,8 +135,6 @@ class MyUploadService : Service() {
          * Intent Actions
          */
         const val ACTION_UPLOAD = "action_upload"
-        const val UPLOAD_ERROR = "upload_error"
-        const val UPLOAD_COMPLETED = "upload_completed"
 
         /**
          * Intent Extras
@@ -141,7 +142,6 @@ class MyUploadService : Service() {
         const val EXTRA_FILE_URI = "extra_file_uri"
         const val EXTRA_DOCUMENT_ID = "extra_document_id"
         const val EXTRA_TYPE_ID = "extra_type_id"
-        const val EXTRA_DOWNLOAD_URL = "extra_download_url"
     }
 
 

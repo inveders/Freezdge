@@ -15,7 +15,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -86,6 +90,8 @@ class PostsAdapter(
             if (post.descriptionAstuce != null) {
                 postContent.text = post.descriptionAstuce
                 postContent.visibility = View.VISIBLE
+                shimmer.stopShimmer()
+                shimmer.hideShimmer()
             } else {
                 postContent.visibility = View.GONE
             }
@@ -95,6 +101,29 @@ class PostsAdapter(
                 GlideApp.with(App.applicationContext())
                     .load(post.urlPhoto)
                     .apply(RequestOptions.centerCropTransform())
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any,
+                            target: Target<Drawable?>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.e("debago", "Exception is : $e")
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any,
+                            target: Target<Drawable?>,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            shimmer.stopShimmer()
+                            shimmer.hideShimmer()
+                            return false
+                        }
+                    })
                     .into(postImage)
             } else {
                 postImage.visibility = View.GONE
@@ -135,8 +164,6 @@ class PostsAdapter(
                         if (task.result!!.documents.isNotEmpty()) {
                             val currentPost: Post =
                                 task.result!!.documents[0].toObject(Post::class.java)!!
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
                             //Change like button color according to value of like
                             if (currentPost.likeNumber != 0) {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

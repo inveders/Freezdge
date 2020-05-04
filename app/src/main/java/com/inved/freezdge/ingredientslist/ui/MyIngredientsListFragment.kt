@@ -52,8 +52,8 @@ class MyIngredientsListFragment : BaseFragment() {
 
     private fun setupChips() {
 
-        ingredientsViewmodel.getIngredientsForFreezdgeList()
-            .observe(viewLifecycleOwner, Observer { result ->
+        val result:MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
+
                 if (result != null) {
                     if (result.size != 0) {
                         notFoundTeextView.visibility = View.GONE
@@ -102,7 +102,7 @@ class MyIngredientsListFragment : BaseFragment() {
 
                 }
 
-            })
+
     }
 
     fun openSearchIngredientActivity() {

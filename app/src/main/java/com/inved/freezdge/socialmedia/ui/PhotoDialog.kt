@@ -73,7 +73,7 @@ class PhotoDialog : DialogFragment() {
         // Inflate the layout for this fragment
         val view: View =
             inflater.inflate(R.layout.dialog_fullscreen_add_photo, container, false)
-        mContext= App.instance!!.applicationContext
+        mContext= App.applicationContext()
         imageCameraOrGallery = ImageCameraOrGallery()
         photoPreview = view.findViewById(R.id.photo_preview)
 
@@ -105,7 +105,7 @@ class PhotoDialog : DialogFragment() {
 
         cancelButton?.setOnClickListener { v: View? ->
             cancelButton?.startAnimation(Domain.animation())
-            dialog!!.dismiss() }
+            dialog?.dismiss() }
         validateButton?.setOnClickListener { v: View? ->
             validateButton?.startAnimation(Domain.animation())
             createPhotoPost(id) }
@@ -163,7 +163,7 @@ class PhotoDialog : DialogFragment() {
 
             //to close the dialog
             if (dialog != null) {
-                dialog!!.dismiss()
+                dialog?.dismiss()
             }
         }
     }
@@ -255,7 +255,7 @@ class PhotoDialog : DialogFragment() {
             when (requestCode) {
                 REQUEST_GALLERY_PHOTO -> {
                     //data.getData returns the content URI for the selected Image
-                    val selectedImage = data!!.data
+                    val selectedImage = data?.data
                     try {
                         mPhotoFile = FileCompressor.compressToFile(
                             File(

@@ -18,24 +18,30 @@ class ImageUtil {
             compressFormat: CompressFormat?, quality: Int, destinationPath: String?
         ): File? {
             var fileOutputStream: FileOutputStream? = null
-            val file = File(destinationPath).parentFile
-            if (!file.exists()) {
-                file.mkdirs()
-            }
-            try {
-                fileOutputStream = FileOutputStream(destinationPath)
-                // write the compressed bitmap at the destination specified by destinationPath.
-                decodeSampledBitmapFromFile(imageFile, reqWidth, reqHeight).compress(
-                    compressFormat, quality,
-                    fileOutputStream
-                )
-            } finally {
-                if (fileOutputStream != null) {
-                    fileOutputStream.flush()
-                    fileOutputStream.close()
+            if(destinationPath!=null){
+                val file = File(destinationPath).parentFile
+                if (!file.exists()) {
+                    file.mkdirs()
                 }
+                try {
+                    fileOutputStream = FileOutputStream(destinationPath)
+                    // write the compressed bitmap at the destination specified by destinationPath.
+                    decodeSampledBitmapFromFile(imageFile, reqWidth, reqHeight).compress(
+                        compressFormat, quality,
+                        fileOutputStream
+                    )
+                } finally {
+                    if (fileOutputStream != null) {
+                        fileOutputStream.flush()
+                        fileOutputStream.close()
+                    }
+                }
+                return File(destinationPath)
             }
-            return File(destinationPath)
+
+
+            return null
+
         }
 
         @Throws(IOException::class)

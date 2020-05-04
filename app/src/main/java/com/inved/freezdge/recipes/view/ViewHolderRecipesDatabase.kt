@@ -86,7 +86,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
     fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox()
-                .query().equal(FavouritesRecipes_.recipeId, recipeId!!)
+                .query().equal(FavouritesRecipes_.recipeId, recipeId)
                 .build().findUnique()
         return favouritesRecipes!=null
     }
