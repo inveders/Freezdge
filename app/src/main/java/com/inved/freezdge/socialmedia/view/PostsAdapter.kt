@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
@@ -448,6 +450,11 @@ class PostsAdapter(
     override fun onDataChanged() {
         super.onDataChanged()
         this.listener.onDataChanged()
+    }
+
+    override fun onError(@NonNull e: FirebaseFirestoreException) {
+        super.onError(e)
+        Log.d("debago", "adapter:error" + e.message)
     }
 
 }
