@@ -53,6 +53,10 @@
             android:id="@+id/action_to_social_media_fragment"
             app:destination="@id/social_media_fragment" />
 
+        <action
+            android:id="@+id/my_detail_recipe_activity"
+            app:destination="@id/my_detail_recipe_activity" />
+
     </fragment>
 
     <fragment android:id="@+id/all_recipes_fragment"
@@ -79,6 +83,10 @@
         <action
             android:id="@+id/action_to_social_media_fragment"
             app:destination="@id/social_media_fragment" />
+
+        <action
+            android:id="@+id/my_detail_recipe_activity"
+            app:destination="@id/my_detail_recipe_activity" />
 
     </fragment>
 

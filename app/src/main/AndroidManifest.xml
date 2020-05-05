@@ -18,20 +18,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!--
-        <meta-data
-            android:name="edanam.app_id_recipes"
-            android:value="@string/APP_ID_RECIPES" />
-        <meta-data
-            android:name="edanam.app_key_recipes"
-            android:value="@string/APP_KEY_RECIPES" />
-        <meta-data
-            android:name="edanam.app_id_food"
-            android:value="@string/APP_ID_FOOD" />
-        <meta-data
-            android:name="edanam.app_key_food"
-            android:value="@string/APP_KEY_FOOD" /> -->
-
         <activity android:name=".uiGeneral.activity.MainActivity"/>
         <activity android:name=".ingredientslist.ui.MyGroceryListActivity"/>
         <activity android:name=".uiGeneral.activity.SplashScreenActivity">
