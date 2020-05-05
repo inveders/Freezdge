@@ -62,9 +62,7 @@ class Domain {
         }
 
         fun preparationTime(time: Double?): String? {
-            Log.d("debago","time $time")
             if (time != null) {
-                Log.d("debago","time $time")
                 when {
                     time == 0.0 -> {
                         return App.resource().getString(R.string.recipe_list_item_no_time_known)
@@ -89,11 +87,8 @@ class Domain {
                     }
                 }
             }else{
-
                 val noTime:String=App.resource().getString(R.string.recipe_list_item_no_time_known)
-                Log.d("debago","notime is $noTime and app is ${App}")
                 return noTime
-
             }
 
         }

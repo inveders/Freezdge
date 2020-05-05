@@ -14,6 +14,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.view.MyViewPageStateAdapter
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import okhttp3.internal.notifyAll
 
 
@@ -33,6 +34,7 @@ companion object{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        BaseFragment.setlistRetrofit.clear()
         initToolbarBaseActivity(R.string.toolbar_search_ingredients)
         initViews()
         setStatePageAdapter()

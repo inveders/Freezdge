@@ -20,6 +20,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import io.objectbox.BoxStore.context
 
 class MyGroceryListActivity: BaseActivity() {
@@ -30,6 +31,7 @@ class MyGroceryListActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BaseFragment.setlistRetrofit.clear()
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
         chipGroup =findViewById(R.id.chipGroup)
         notFoundTeextView =findViewById(R.id.not_found)

@@ -60,6 +60,8 @@ abstract class BaseFragment : Fragment() {
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
         }
+        val setlistDatabase: MutableSet<MutableList<Recipes>> = mutableSetOf()
+        val setlistRetrofit: MutableSet<List<Hit>> = mutableSetOf()
     }
 
 
@@ -78,8 +80,8 @@ abstract class BaseFragment : Fragment() {
     private lateinit var recipeModel: RecipeModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
-    private val setlistDatabase: MutableSet<MutableList<Recipes>> = mutableSetOf()
-    private val setlistRetrofit: MutableSet<List<Hit>> = mutableSetOf()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -164,8 +166,7 @@ abstract class BaseFragment : Fragment() {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
                 }
 
-                Log.d("debago", "before notifyitemchanged")
-                fastAdapter.notifyItemChanged(position)
+                fastAdapter.notifyAdapterDataSetChanged()
             }
 
         }
@@ -184,11 +185,12 @@ abstract class BaseFragment : Fragment() {
                     item.recipeIngredients
                 )
 
+                Log.d("debago", "recipe id is ${item.id}")
                 val bool: Boolean? =
-                    item.recipeTitle.let {
+                    item.id.let {
                         it?.let { it1 ->
                             favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                                it1
+                                it1.toString()
                             )
                         }
                     }
@@ -203,13 +205,15 @@ abstract class BaseFragment : Fragment() {
                     }
                 }
 
+                Log.d("debago", "bool is ${bool}")
                 if (bool!!) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
                 } else {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
                 }
-                Log.d("debago", "before notifyitemchanged")
-                fastAdapter.notifyItemChanged(position)
+
+                fastAdapter.notifyAdapterDataSetChanged()
+
             }
 
         }
@@ -253,7 +257,7 @@ abstract class BaseFragment : Fragment() {
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
             )
 
-
+            Log.d("debago", "item recipe favourite ${item.recipeId}")
             val bool: Boolean? =
                 item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
@@ -267,8 +271,8 @@ abstract class BaseFragment : Fragment() {
             } else {
                 view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) }
             }
-            Log.d("debago", "before notifyitemchanged")
-            favouritesFastAdapter.notifyItemChanged(position)
+
+            favouritesFastAdapter.notifyAdapterDataSetChanged()
         }
 
     }
@@ -446,39 +450,44 @@ abstract class BaseFragment : Fragment() {
 
         val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
-        uiScope.launch {
-            if (result.size != 0) {
+        if(setlistRetrofit.isNullOrEmpty()){
+            uiScope.launch {
+                if (result.size != 0) {
 
-                listener?.showLoader()
-                notFoundTeextView.visibility = View.GONE
-                lifecycleScope.launch {
-                    for (myresult in result) {
+                    listener?.showLoader()
+                    notFoundTeextView.visibility = View.GONE
+                    lifecycleScope.launch {
+                        for (myresult in result) {
 
-                        recipeModel.getRecipeIfContainIngredient(myresult.name!!)
-                            .observe(viewLifecycleOwner, Observer { recipes ->
+                            recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                                .observe(viewLifecycleOwner, Observer { recipes ->
 
-                                setlistDatabase.add(recipes)
+                                    setlistDatabase.add(recipes)
 
-                                //    Log.d("debago", "in DATABASE data in list")
-                            })
+                                    //    Log.d("debago", "in DATABASE data in list")
+                                })
 
-                        recipeModel.getRecipes(myresult.name!!)
-                            .observe(viewLifecycleOwner, Observer { hits ->
-                                //  Log.d("debago", "in retrofit data in list")
-                                setlistRetrofit.add(hits.hits)
+                            recipeModel.getRecipes(myresult.name!!)
+                                .observe(viewLifecycleOwner, Observer { hits ->
+                                    //  Log.d("debago", "in retrofit data in list")
+                                    setlistRetrofit.add(hits.hits)
 
 
-                            })
+                                })
+                        }
+
                     }
-
+                    delay(4000)
+                    fillAdapter()
+                } else {
+                    notFoundTeextView.visibility = View.VISIBLE
+                    notFoundTeextView.text =
+                        getString(R.string.no_item_found_recipes)
                 }
-                delay(4000)
-                fillAdapter()
-            } else {
-                notFoundTeextView.visibility = View.VISIBLE
-                notFoundTeextView.text =
-                    getString(R.string.no_item_found_recipes)
             }
+
+        }else{
+            fillAdapter()
         }
 
     }

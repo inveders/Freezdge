@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.inved.freezdge.ingredientslist.model.food.ResultsFood
-import com.inved.freezdge.ingredientslist.repository.FoodRepository
 import com.inved.freezdge.model.recipes.Results
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.repository.RecipesRepository

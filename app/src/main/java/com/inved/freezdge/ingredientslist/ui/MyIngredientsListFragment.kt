@@ -91,6 +91,7 @@ class MyIngredientsListFragment : BaseFragment() {
                                     }
                                 }
                                 chipGroup.removeView(chip)
+                                setlistRetrofit.clear()
                             }
                             chipGroup.addView(chip)
                         }
