@@ -185,7 +185,6 @@ abstract class BaseFragment : Fragment() {
                     item.recipeIngredients
                 )
 
-                Log.d("debago", "recipe id is ${item.id}")
                 val bool: Boolean? =
                     item.id.let {
                         it?.let { it1 ->
@@ -205,7 +204,6 @@ abstract class BaseFragment : Fragment() {
                     }
                 }
 
-                Log.d("debago", "bool is ${bool}")
                 if (bool!!) {
                     view?.let { it1 -> item.getViewHolder(it1).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) }
                 } else {
@@ -234,7 +232,6 @@ abstract class BaseFragment : Fragment() {
             { v: View?, _: IAdapter<FavouritesRecipes>, item: FavouritesRecipes, _: Int ->
                 v?.let {
                     val url: String? = item.recipeUrl
-                    Log.d("debago", "recipe id ${item.id} and recipe url ${item.recipeUrl}")
                     openWebViewActivity(url)
 
                     if (item.recipePhotoUrl?.contains("freezdge", true)!!) {
@@ -257,7 +254,6 @@ abstract class BaseFragment : Fragment() {
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
             )
 
-            Log.d("debago", "item recipe favourite ${item.recipeId}")
             val bool: Boolean? =
                 item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
@@ -372,7 +368,6 @@ abstract class BaseFragment : Fragment() {
 
 
         if (result.size != 0) {
-            Log.d("debago", "in observer RETROFIT")
             listener?.showLoader()
             notFoundTeextView.visibility = View.GONE
 
@@ -415,7 +410,6 @@ abstract class BaseFragment : Fragment() {
 
         if (result != null) {
             if (result.size != 0) {
-                Log.d("debago", "in observer RETROFIT")
                 listener?.showLoader()
                 notFoundTeextView.visibility = View.GONE
 

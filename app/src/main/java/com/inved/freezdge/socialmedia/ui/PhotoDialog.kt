@@ -141,7 +141,7 @@ class PhotoDialog : DialogFragment() {
                         storageHelper.uploadFromUri(
                             Uri.parse(urlPicture),
                             postId,
-                            getString(R.string.type_storage_users)
+                            getString(R.string.type_storage_posts)
                         )
                     }
 

@@ -19,7 +19,6 @@ class CustomExpandableListAdapter(
 ) : BaseExpandableListAdapter() {
 
     override fun getChild(groupPosition: Int, childPosititon: Int): String {
-        Log.d("debago", "group position is $groupPosition and chil position is $childPosititon")
         return _listDataChild[_listDataHeader[groupPosition]]!![childPosititon]
     }
 
@@ -29,7 +28,6 @@ class CustomExpandableListAdapter(
 
 
     override fun getChildrenCount(parent: Int): Int {
-        Log.d("debago","get children coun is ${_listDataChild[_listDataHeader[parent]]!!.size}")
         return _listDataChild[_listDataHeader[parent]]!!.size
     }
 
@@ -90,7 +88,6 @@ class CustomExpandableListAdapter(
         }
 
         val childTextvew = convertview?.findViewById(R.id.expandedListItem) as TextView
-        Log.d("debago", "getchil is " + getChild(parent, child))
         childTextvew.text = getChild(parent, child) as String
 
 

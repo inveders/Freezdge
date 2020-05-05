@@ -115,7 +115,6 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                         topDescription.text =
                             App.resource().getString(R.string.social_media_description, user.firstname)
 
-                        Log.d("debago","user photo is ${user.photoUrl}")
                         //to upload a photo on Firebase storage
                         if (user.photoUrl != null) {
                             photoProfile.let {
@@ -215,20 +214,16 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
     private fun displayAllPosts() {
-        Log.d("debago", "in display all posts")
         mRecyclerPostsAdapter = PostsAdapter(
             generateOptionsForAdapter(PostHelper.getAllPosts()), this
         )
-
+        mRecyclerPostsAdapter.startListening()
         //Choose how to display the list in the RecyclerView (vertical or horizontal)
-        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(
             context,
             RecyclerView.VERTICAL,
             false
         )
-
-
         recyclerView.adapter = mRecyclerPostsAdapter
 
 
@@ -248,8 +243,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
 
     // Create options for RecyclerView from a Query
-    private fun generateOptionsForAdapter(query: Query): FirestoreRecyclerOptions<Post?> {
-        Log.d("debago", "in generate options for adapter")
+    private fun generateOptionsForAdapter(query: Query): FirestoreRecyclerOptions<Post> {
         return FirestoreRecyclerOptions.Builder<Post>()
             .setQuery(query, Post::class.java)
             .setLifecycleOwner(this)
@@ -375,7 +369,6 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     // --------------------
     override fun onDataChanged() {
         // 7 - Show TextView in case RecyclerView is empty
-        Log.d("debago", "in on data changed ${mRecyclerPostsAdapter.itemCount}")
         if (mRecyclerPostsAdapter.itemCount == 0) {
             no_post_found.visibility = View.VISIBLE
         } else {

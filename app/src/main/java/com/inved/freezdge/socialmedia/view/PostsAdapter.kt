@@ -33,7 +33,7 @@ import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideApp
 
 class PostsAdapter(
-    options: FirestoreRecyclerOptions<Post?>,
+    options: FirestoreRecyclerOptions<Post>,
     private val listener: ClickListener
 ) : FirestoreRecyclerAdapter<Post, PostsAdapter.PostViewHolder>(options) {
 
@@ -449,13 +449,10 @@ class PostsAdapter(
 
     override fun onDataChanged() {
         super.onDataChanged()
+        notifyDataSetChanged()
         this.listener.onDataChanged()
     }
 
-    override fun onError(@NonNull e: FirebaseFirestoreException) {
-        super.onError(e)
-        Log.d("debago", "adapter:error" + e.message)
-    }
 
 }
 

@@ -77,7 +77,6 @@ class MyIngredientsListFragment : BaseFragment() {
                             chip.setOnCloseIconClickListener {
                                 // Smoothly remove chip from chip group
                                 GlobalScope.async(Dispatchers.IO) {
-                                    Log.d("debago", "In coroutine mylist fragment")
                                     ingredientsViewmodel.updateIngredientSelectedByName(
                                         myresult.name,
                                         false

@@ -58,7 +58,6 @@ class TipsDialog : DialogFragment() {
         cancelButton = view.findViewById(R.id.close_button)
         val id: Int? = arguments?.getInt(KEY_TIP, 0)
         postIdUpdate= arguments?.getString(KEY_TIP_ID, null)!!
-        Log.d("debago","in tip dialog, postid is $postIdUpdate")
         if (!postIdUpdate.isNullOrEmpty() ) {
             fillTip(postIdUpdate)
         }
@@ -92,7 +91,6 @@ class TipsDialog : DialogFragment() {
     private fun initializeMethods(id: Int?) {
 
         cancelButton?.setOnClickListener {
-            Log.d("debago", "close tips dialog")
             cancelButton?.startAnimation(Domain.animation())
             dialog?.dismiss()
         }

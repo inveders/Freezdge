@@ -13,20 +13,11 @@ import kotlinx.coroutines.Dispatchers
 class RecipeModel(application: Application) : AndroidViewModel(application) {
 
     private val recipesRepository: RecipesRepository = RecipesRepository()
-    private val foodRepository: FoodRepository =
-        FoodRepository()
 
     suspend fun getRecipes(arg: String): LiveData<Results> {
         return liveData(Dispatchers.IO) {
             val retrievedRecipes = recipesRepository.getRecipesLiveData(arg)
             emit (retrievedRecipes)
-        }
-    }
-
-    fun getFood(arg: String): LiveData<ResultsFood> {
-        return liveData(Dispatchers.IO) {
-            val retrievedFood = foodRepository.getFoodLiveData(arg)
-            emit (retrievedFood)
         }
     }
 
