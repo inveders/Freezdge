@@ -1,6 +1,5 @@
 package com.inved.freezdge.recipes.view
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -71,7 +70,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
             .circleCrop()
             .into(imageOwner)
 
-        if(isRecipeIdIsPresent(item.recipeTitle)!!){
+        if(isRecipeIdIsPresent(item.id.toString())!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
