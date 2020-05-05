@@ -49,7 +49,7 @@ android {
 }
 
 def Properties props = new Properties()
-def propFile = new File('signing.properties')
+def propFile = new File('signin.properties')
 if (propFile.canRead()){
     props.load(new FileInputStream(propFile))
 
