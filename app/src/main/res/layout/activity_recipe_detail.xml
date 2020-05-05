@@ -19,7 +19,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_large_margin"
             android:orientation="vertical">
 
             <ImageView
@@ -42,6 +43,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/description_image"
                 android:scaleType="centerCrop"
+                android:elevation="1dp"
                 app:layout_constraintCircle="@id/activity_recipe_detail_kcal_image"
                 app:layout_constraintCircleAngle="15"
                 app:layout_constraintCircleRadius="120dp"
@@ -76,8 +78,8 @@
             <!-- INFORMATIONS TO CALL -->
             <ImageView
                 android:id="@+id/activity_recipe_detail_time_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="70dp"
                 android:contentDescription="@string/description_image"
@@ -92,17 +94,17 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="@string/recipe_detail_item_detail_time"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGrey"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_time_image"
                 app:layout_constraintRight_toRightOf="@id/activity_recipe_detail_time_image"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_time_image" />
 
             <ImageView
                 android:id="@+id/activity_recipe_detail_number_person_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="25dp"
                 android:contentDescription="@string/description_image"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -117,17 +119,17 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="@string/recipe_detail_item_number_person"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGrey"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_number_person_image"
                 app:layout_constraintRight_toRightOf="@id/activity_recipe_detail_number_person_image"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_number_person_image" />
 
             <ImageView
                 android:id="@+id/activity_recipe_detail_kcal_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="25dp"
                 android:contentDescription="@string/description_image"
@@ -142,9 +144,9 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="@string/recipe_detail_item_kcal"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGrey"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_kcal_image"
                 app:layout_constraintRight_toRightOf="@id/activity_recipe_detail_kcal_image"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_kcal_image" />
@@ -163,21 +165,23 @@
             <ExpandableListView
                 android:id="@+id/expandableListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="@dimen/default_large_margin"
                 android:layout_marginEnd="15dp"
                 android:divider="@android:color/darker_gray"
+                android:nestedScrollingEnabled="true"
                 android:dividerHeight="0.5dp"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-                app:layout_constraintTop_toBottomOf="@id/view" />
+                app:layout_constraintTop_toBottomOf="@id/view"
+                app:layout_constraintBottom_toTopOf="@id/summaryViewConstraintLayout"/>
 
             <!-- LINEARLAYOUT -->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/summaryViewConstraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:background="@color/colorWhite"
@@ -187,17 +191,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/expandableListView">
 
-                <LinearLayout
-                    android:id="@+id/summaryItemLinearLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/summaryTextView"
@@ -214,6 +207,20 @@
                     app:layout_constraintBottom_toTopOf="@id/summaryItemLinearLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/summaryItemLinearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

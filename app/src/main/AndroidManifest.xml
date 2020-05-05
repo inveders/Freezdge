@@ -4,6 +4,9 @@
     package="com.inved.freezdge">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".utils.App"
@@ -14,20 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <!--
-        <meta-data
-            android:name="edanam.app_id_recipes"
-            android:value="@string/APP_ID_RECIPES" />
-        <meta-data
-            android:name="edanam.app_key_recipes"
-            android:value="@string/APP_KEY_RECIPES" />
-        <meta-data
-            android:name="edanam.app_id_food"
-            android:value="@string/APP_ID_FOOD" />
-        <meta-data
-            android:name="edanam.app_key_food"
-            android:value="@string/APP_KEY_FOOD" /> -->
 
         <activity android:name=".uiGeneral.activity.MainActivity"/>
         <activity android:name=".ingredientslist.ui.MyGroceryListActivity"/>
@@ -42,6 +31,26 @@
         <activity android:name=".uiGeneral.activity.BaseActivity"/>
         <activity android:name=".recipes.ui.WebviewActivity"/>
         <activity android:name=".recipes.ui.RecipeDetailActivity"/>
+        <activity android:name=".uiGeneral.activity.LoginActivity"/>
+        <service
+            android:name=".utils.MyUploadService"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_path" />
+        </provider>
+
+     <!--   <provider
+            android:name=".provider.RealEstateManagerContentProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="true"/> -->
+
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.inved.freezdge.R
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 
 class RecipeStepView(context: Context?) : ConstraintLayout(context) {
 
@@ -16,8 +17,7 @@ class RecipeStepView(context: Context?) : ConstraintLayout(context) {
     }
 
     open fun setText(itemName: String?) {
-        itemNameTextView!!.text = itemName
+        itemNameTextView.text = itemName
     }
-
 
 }

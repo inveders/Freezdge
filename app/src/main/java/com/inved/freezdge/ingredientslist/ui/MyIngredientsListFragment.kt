@@ -52,8 +52,8 @@ class MyIngredientsListFragment : BaseFragment() {
 
     private fun setupChips() {
 
-        ingredientsViewmodel.getIngredientsForFreezdgeList()
-            .observe(viewLifecycleOwner, Observer { result ->
+        val result:MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
+
                 if (result != null) {
                     if (result.size != 0) {
                         notFoundTeextView.visibility = View.GONE
@@ -77,7 +77,6 @@ class MyIngredientsListFragment : BaseFragment() {
                             chip.setOnCloseIconClickListener {
                                 // Smoothly remove chip from chip group
                                 GlobalScope.async(Dispatchers.IO) {
-                                    Log.d("debago", "In coroutine mylist fragment")
                                     ingredientsViewmodel.updateIngredientSelectedByName(
                                         myresult.name,
                                         false
@@ -91,6 +90,7 @@ class MyIngredientsListFragment : BaseFragment() {
                                     }
                                 }
                                 chipGroup.removeView(chip)
+                                setlistRetrofit.clear()
                             }
                             chipGroup.addView(chip)
                         }
@@ -102,7 +102,7 @@ class MyIngredientsListFragment : BaseFragment() {
 
                 }
 
-            })
+
     }
 
     fun openSearchIngredientActivity() {

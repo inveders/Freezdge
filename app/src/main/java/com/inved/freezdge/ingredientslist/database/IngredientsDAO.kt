@@ -73,9 +73,9 @@ class IngredientsDAO {
             AddIngredientsInDatabase(getIngredientsBox())
         }
 
-        fun getAllIngredientBySelected(): ObjectBoxLiveData<Ingredients> {
+        fun getAllIngredientBySelected(): MutableList<Ingredients> {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-            return ObjectBoxLiveData(getIngredientsBox().query().equal(Ingredients_.selectedIngredient,true).order(Ingredients_.name).build())
+            return getIngredientsBox().query().equal(Ingredients_.selectedIngredient,true).order(Ingredients_.name).build().find()
         }
 
 

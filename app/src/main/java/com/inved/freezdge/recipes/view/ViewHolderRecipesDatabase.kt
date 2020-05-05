@@ -1,9 +1,9 @@
 package com.inved.freezdge.recipes.view
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
@@ -18,13 +18,15 @@ import io.objectbox.kotlin.boxFor
 
 class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(view){
 
-    var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
+    var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
-    var kcal: TextView = view.findViewById(R.id.fragment_recipes_list_item_kcal)
-    var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
+    var kcal: TextView = view.findViewById(R.id.description)
+    var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
-        view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
+        view.findViewById(R.id.favorite_image)
+    var imageOwner: ImageView =
+        view.findViewById(R.id.owner_image)
     var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: Recipes, payloads: MutableList<Any>) {
@@ -41,21 +43,34 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text="$proportionInPercent %"
 
-        Log.d("debago","PROPORTION IN PERCENT FOR ${item.recipeTitle} is $proportionInPercent")
-        if(proportionInPercent in 90..99){
-            proportionText.setBackgroundResource(R.drawable.border_green)
-        }else if (proportionInPercent in 50..94){
-            proportionText.setBackgroundResource(R.drawable.border_orange)
-        }else if (proportionInPercent in 0..49){
-            proportionText.setBackgroundResource(R.drawable.border_red)
+        when (proportionInPercent) {
+            in 80..99 -> {
+                proportionText.setBackgroundResource(R.drawable.border_green)
+            }
+            in 50..70 -> {
+                proportionText.setBackgroundResource(R.drawable.border_orange)
+            }
+            in 0..49 -> {
+                proportionText.setBackgroundResource(R.drawable.border_red)
+            }
         }
 
+        val storage = FirebaseStorage.getInstance()
+        // Create a reference to a file from a Google Cloud Storage URI
+        val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
         GlideApp.with(App.applicationContext())
-            .load(item.recipePhotoUrl)
-            .centerCrop()
+            .load(gsReference)
             .into(imageItem)
 
-        if(isRecipeIdIsPresent(item.recipeTitle)!!){
+
+        // Create a reference to a file from a Google Cloud Storage URI
+        val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+        GlideApp.with(App.applicationContext())
+            .load(gsReferenceOwner)
+            .circleCrop()
+            .into(imageOwner)
+
+        if(isRecipeIdIsPresent(item.id.toString())!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -80,7 +95,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
     fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox()
-                .query().equal(FavouritesRecipes_.recipeId, recipeId!!)
+                .query().equal(FavouritesRecipes_.recipeId, recipeId)
                 .build().findUnique()
         return favouritesRecipes!=null
     }

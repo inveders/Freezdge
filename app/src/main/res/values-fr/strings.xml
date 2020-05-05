@@ -1,0 +1,135 @@
+<resources>
+    <string name="app_name" translatable="false">Freezdge</string>
+
+    <string name="menu_bottom_ingredient_at_home">Ingrédients</string>
+    <string name="menu_bottom_favourites">Favoris</string>
+    <string name="menu_bottom_my_recipes">Rettes</string>
+    <string name="menu_bottom_social_media">Communauté</string>
+    <string name="menu_grocery_list">Liste de courses</string>
+    <string name="menu_logout">Déconnection</string>
+
+    <!--Toolbar-->
+    <string name="toolbar_grocery_list">Ma liste de courses</string>
+    <string name="toolbar_search_ingredients">Recherche d\'ingrédients</string>
+    <string name="toolbar_recipe_detail">Détail de la Recette</string>
+
+
+    <!--No item found-->
+    <string name="no_item_found_favourite">Aucun favori pour le moment</string>
+    <string name="no_item_found_recipes">Choisissez au moins un ingrédient pour chercher des recettes</string>
+    <string name="no_item_found_ingredients">Choisissez votre premier ingrédient</string>
+    <string name="no_item_found_grocery">Liste de courses vide</string>
+
+    <!--Recipe List item-->
+    <string name="recipe_list_item_image" translatable="false">image_recipe</string>
+    <string name="recipe_list_item_label" translatable="false">Recipe</string>
+    <string name="recipe_list_item_matching">100%</string>
+    <string name="recipe_list_item_no_time_known">Aucun temps indiqué</string>
+    <string name="recipe_list_item_time_min">%d min</string>
+    <string name="recipe_list_item_time_min_hours">%dh%d</string>
+    <string name="recipe_list_item_time_hours">%dh</string>
+    <string name="recipe_list_item_preparation_time">Temps de préparation</string>
+    <string name="recipe_list_item_kcal">kcal</string>
+    <string name="recipe_list_item_kcal_notknow">N.C</string>
+    <string name="description_image">Description image</string>
+
+    <!--Recipe Detail-->
+    <string name="recipe_detail_item_image" translatable="false">image_recipe</string>
+    <string name="recipe_detail_item_label">Titre de la recette</string>
+    <string name="recipe_detail_item_no_time_known">Aucun temps indiqué</string>
+    <string name="recipe_detail_item_detail_time">Prép. : %s\nCuisson : %s</string>
+    <string name="recipe_detail_item_total_time">Temps total : %s</string>
+    <string name="recipe_detail_item_kcal">%s\nkcal</string>
+    <string name="recipe_detail_item_number_person">%d\npers.</string>
+    <string name="recipe_detail_item_recipe_view">Recette</string>
+    <string name="toastNoIngredientResultSearch">Aucun ingrédient trouvé</string>
+    <string name="search_ingredient_searchview_label">Recherchez un ingrédient ici…</string>
+    <string name="dialog_cancel_action">Action annulée</string>
+    <string name="dialog_question_grocery">Avez-vous cet ingrédient à la maison à présent?</string>
+    <string name="Yes">Oui</string>
+
+    <!--Ingredients type -->
+    <string name="ingredient_type_cream" translatable="false">Crèmerie</string>
+    <string name="ingredient_type_fruits_vegetables" translatable="false">Fruits &amp; Légumes</string>
+    <string name="ingredient_type_fruits_vegetables_short">Fr &amp; Lég</string>
+    <string name="ingredient_type_epicerie" translatable="false">Epicerie</string>
+    <string name="ingredient_type_fish" translatable="false">Poisson</string>
+    <string name="ingredient_type_meat" translatable="false">Viande</string>
+    <string name="we_research_recipes_for_you">We research recipes for you</string>
+
+    <!--Login -->
+    <string name="loginFacebook">Se connecter avec Facebook</string>
+    <string name="loginGoogle">Se connecter avec Google</string>
+    <string name="appNameDescription">Mon frigo, mon réfrigérateur, mon Freezdge</string>
+
+    <!-- LOGIN ACTIVITY -->
+    <string name="error_authentication_canceled">Authentification annulée&#8230;</string>
+    <string name="error_no_internet">Aucune connexion internet !</string>
+    <string name="error_unknown_error">Une erreur inconnue s\'est produite&#8230;</string>
+    <string name="connection_succeed">Authentification réussie!</string>
+    <string name="button_login_text_logged">Vue du profil</string>
+    <string name="button_login_text_not_logged">Connexion</string>
+    <string name="button_logout">Déconnection</string>
+    <string name="button_logout_message_dialog">Voulez-vous vous déconnecter?</string>
+
+
+    <!--Change profil -->
+    <string name="firstname">Prénom</string>
+    <string name="lastname">Nom</string>
+    <string name="change_photo_profil">Changer ma photo de profil</string>
+    <string name="update_profil">Modifier mon profil</string>
+    <string name="set_error_firstname">Enrtez un prénom</string>
+    <string name="set_error_lastname">Entrez un nom</string>
+    <string name="dialog_select_image_take_photo">Prendre une photo</string>
+    <string name="dialog_select_image_choose_from_library">Choisir dans la galerie</string>
+    <string name="dialog_select_image_cancel">Annuler</string>
+    <string name="type_storage_users" translatable="false">users</string>
+    <string name="type_storage_posts" translatable="false">posts</string>
+    <string name="toast_updated_profil">Profil modifié</string>
+    <string name="toast_updated_tip">Astuce modifiée</string>
+    <string name="toast_created_tip">Astuce publiée</string>
+    <string name="toast_created_photo">Photo publiée</string>
+    <string name="toast_updated_photo_post">Post modifié</string>
+
+
+    <!--Social page -->
+    <string name="social_media_description">%s, partage une astuce cuisine ou une photo de ta création culinaire avec la communauté Freezdge !</string>
+    <string name="social_media_photo_post">Galerie</string>
+    <string name="social_media_camera_post">Caméra</string>
+    <string name="social_media_tips_post">Astuce</string>
+    <string name="social_media_like_number_tips">%d personnes ont trouvé cela utile</string>
+    <string name="social_media_like_number_photo">%d personnes ont trouvé cela magnifique</string>
+    <string name="social_media_like_number_tips_you_and_other">You and %d personnes ont trouvé cela utile</string>
+    <string name="social_media_like_number_photo_you_and_other">You and %d personnes ont trouvé cela magnifique</string>
+    <string name="social_media_like_number_tips_one_person">%d personne a trouvé cela utile</string>
+    <string name="social_media_like_number_photo_one_person">%d personne a trouvé cela magnifique</string>
+    <string name="social_media_like_number_tips_one_person_you">Vous avez trouvé cela utile</string>
+    <string name="social_media_like_number_photo_one_person_you">Vous avez trouvé cela magnifique</string>
+    <string name="social_media_title_post">Titre de l\'astuce</string>
+    <string name="social_media_username_post" translatable="false">Alexandra Gnimadi</string>
+    <string name="social_media_description_tips_post" translatable="false">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
+    <string name="social_media_no_post">Aucun post trouvé</string>
+    <string name="social_media_post_type_photo" translatable="false">Photo</string>
+    <string name="social_media_post_type_tips" translatable="false">Tips</string>
+    <string name="social_media_post_delete_title_dialog">Supprimer le post</string>
+    <string name="social_media_post_delete_message_dialog">Etes-vous sûr(e) de vouloir supprimer votre post</string>
+    <string name="social_media_post_delete_confirmation_dialog">Post supprimé</string>
+    <string name="social_media_community">Une communauté s\'ouvre à vous</string>
+
+    <!--Add post -->
+    <string name="title_tips">Titre de l\'astuce</string>
+    <string name="title_photo">Commentaire sur la photo (optionnel)</string>
+    <string name="tips_description">Votre astuce</string>
+    <string name="tips_dialog">Nouvelle astuce</string>
+    <string name="photo_dialog">Nouvelle photo</string>
+    <string name="publish">Publier</string>
+    <string name="set_error_title_tips">Entrez un titre</string>
+    <string name="set_error_description_tips">Entrez une astuce</string>
+    <string name="post_cant_change_photo">Vous ne pouvez pas changer la photo</string>
+    <string name="no_picture_add_photo_dialog">Il n\'y a pas d\'image</string>
+
+
+    <!--Step -->
+    <string name="step_recipe">Etape %d : %s</string>
+
+</resources>

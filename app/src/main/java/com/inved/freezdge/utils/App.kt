@@ -8,19 +8,15 @@ import io.objectbox.BoxStore
 
 open class App:Application() {
 
-    init {
-        instance = this
-    }
-
     companion object {
-        private var instance: App? = null
+        lateinit var appContext: Context
 
         fun applicationContext() : Context {
-            return instance!!.applicationContext
+            return appContext.applicationContext
         }
 
         fun resource() : Resources {
-            return instance!!.resources
+            return appContext.resources
         }
     }
 
@@ -28,6 +24,8 @@ open class App:Application() {
         super.onCreate()
         // initialize for any
         ObjectBox.init(this)
+        appContext=this
+
     }
 
     object ObjectBox {

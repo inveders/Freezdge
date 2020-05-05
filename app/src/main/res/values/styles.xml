@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
     <!-- Toolbar theme. -->
@@ -13,8 +14,96 @@
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
         <item name="android:fontFamily">@font/avocado_creamy</item>
+    </style>
+
+    <!-- STYLE SIGN-IN ACTIVITY -->
+    <style name="LoginTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@android:color/darker_gray</item>
+        <item name="colorControlHighlight">@android:color/darker_gray</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/darker_gray</item>
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
 
 
+    <style name="TapEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/black_three</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/background_custom_edittext</item>
+        <item name="backgroundTint">@color/tap_edittext_color_multiline</item>
+        <item name="android:textCursorDrawable">@drawable/orange_cursor</item>
+        <item name="android:textColorHint">@color/colorGrey</item>
+        <item name="android:layout_height">50dp</item>
+
+    </style>
+
+    <style name="TapEditTextMultiline" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/black_three</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:padding">10sp</item>
+        <item name="android:background">@drawable/background_custom_edittext_multiline</item>
+        <item name="backgroundTint">@color/tap_edittext_color_multiline</item>
+        <item name="android:textCursorDrawable">@drawable/orange_cursor</item>
+        <item name="android:textColorHint">@color/colorGrey</item>
+        <item name="android:layout_height">50dp</item>
+
+    </style>
+
+    <style name="TapTIL" parent="Widget.Design.TextInputLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="errorTextAppearance">@style/ErrorAppearance</item>
+        <item name="errorEnabled">true</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- FullScreen Dialog -->
+    <style name="FullscreenDialogTheme" parent="Theme.AppCompat.DayNight.DialogWhenLarge">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+    </style>
+
+
+    <!-- Alert Dialog Custom Theme -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">#212121</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/TitleTextStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/BodyTextStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+    <style name="TitleTextStyle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">#fafafa</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="BodyTextStyle" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">#c7c7c7</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+    </style>
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#757575</item>
+        <item name="rippleColor">#a4a4a4</item>
     </style>
 
 </resources>

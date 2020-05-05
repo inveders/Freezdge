@@ -15,10 +15,12 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import io.objectbox.BoxStore.context
 
 class MyGroceryListActivity: BaseActivity() {
@@ -29,6 +31,7 @@ class MyGroceryListActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BaseFragment.setlistRetrofit.clear()
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
         chipGroup =findViewById(R.id.chipGroup)
         notFoundTeextView =findViewById(R.id.not_found)
@@ -44,7 +47,6 @@ class MyGroceryListActivity: BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d("debago", "in navigation up")
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("BACKPRESS", 0)
         startActivity(intent)
@@ -89,7 +91,7 @@ class MyGroceryListActivity: BaseActivity() {
     }
 
     private fun launchAlertDialog(chip:Chip) {
-        val builder = AlertDialog.Builder(this)
+        val builder = MaterialAlertDialogBuilder(this)
         builder.setTitle(getString(R.string.menu_grocery_list))
         builder.setMessage(getString(R.string.dialog_question_grocery))
 

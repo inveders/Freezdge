@@ -34,7 +34,9 @@ class RecipesDAO {
                 val recipes: Recipes? =
                     getRecipesBox().query().equal(Recipes_.recipeTitle,name).build().findUnique()
 
-                return recipes!!.selectedRecipe
+                if (recipes != null) {
+                    return recipes.selectedRecipe
+                }
             }
             return false
         }
@@ -52,7 +54,7 @@ class RecipesDAO {
             return getRecipesBox().query().equal(Recipes_.id,id).build().findUnique()
         }
 
-        fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
+        suspend fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
             return ObjectBoxLiveData(getRecipesBox().query().contains(Recipes_.recipeIngredients,ingredientName).build())
         }
 

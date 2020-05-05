@@ -19,30 +19,30 @@ import kotlin.math.roundToInt
 
 class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
-    var label: TextView = view.findViewById(R.id.fragment_recipes_list_item_label)
+    var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
-    var kcal: TextView = view.findViewById(R.id.fragment_recipes_list_item_kcal)
-    var imageItem: ImageView = view.findViewById(R.id.fragment_recipes_list_item_image)
+    private var kcal: TextView = view.findViewById(R.id.description)
+    private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
-        view.findViewById(R.id.fragment_recipe_list_favorite_selected_or_not)
-    var proportionText: TextView =
+        view.findViewById(R.id.favorite_image)
+    private var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
 
         label.text = item.recipe?.label
         preparationTime.text=Domain.preparationTime(item.recipe?.totalTime)
 
-        kcal.text = item.recipe?.calories!!.div(10).roundToInt().toString()
+        kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()
 
-        val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe!!.ingredientLines)
+        val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe?.ingredientLines)
         proportionText.text="$proportionInPercent %"
 
         when (proportionInPercent) {
-            in 90..99 -> {
+            in 80..99 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
             }
-            in 50..94 -> {
+            in 50..79 -> {
                 proportionText.setBackgroundResource(R.drawable.border_orange)
             }
             in 0..49 -> {
@@ -78,11 +78,18 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
     }
 
     private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
-        val favouritesRecipes: FavouritesRecipes? =
-            getFavouritesRecipesBox()
-                .query().equal(FavouritesRecipes_.recipeId, recipeId!!)
-                .build().findUnique()
-        return favouritesRecipes!=null
+
+        return if(recipeId!=null){
+            val favouritesRecipes: FavouritesRecipes? =
+                getFavouritesRecipesBox()
+                    .query().equal(FavouritesRecipes_.recipeId, recipeId)
+                    .build().findUnique()
+            favouritesRecipes!=null
+        }else{
+            false
+        }
+
+
     }
 
 }
