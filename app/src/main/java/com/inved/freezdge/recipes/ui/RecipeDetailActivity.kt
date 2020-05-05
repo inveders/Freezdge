@@ -2,6 +2,7 @@ package com.inved.freezdge.recipes.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
@@ -187,6 +188,11 @@ open class RecipeDetailActivity : BaseActivity() {
         addDataInExpandable(Domain.retrieveListFromString(recipe.recipeIngredients))
         setupExpandableView()
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d("debago","on back press recipe detail")
     }
 
 

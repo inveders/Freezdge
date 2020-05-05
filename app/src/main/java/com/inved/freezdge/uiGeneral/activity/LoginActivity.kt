@@ -61,8 +61,7 @@ class LoginActivity: BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        val user = getCurrentUser()
-        if (user != null) {
+        if (isCurrentUserLogged()) {
             startActivity(MainActivity.getLaunchIntent(this))
             finish()
         }

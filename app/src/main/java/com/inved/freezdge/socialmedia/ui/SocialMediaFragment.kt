@@ -113,7 +113,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                             task.result!!.documents[0].toObject(User::class.java)!!
 
                         topDescription.text =
-                            getString(R.string.social_media_description, user.firstname)
+                            App.resource().getString(R.string.social_media_description, user.firstname)
 
                         Log.d("debago","user photo is ${user.photoUrl}")
                         //to upload a photo on Firebase storage
