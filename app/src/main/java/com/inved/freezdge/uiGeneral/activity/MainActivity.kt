@@ -3,32 +3,42 @@ package com.inved.freezdge.uiGeneral.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.LoaderListener
 
-class MainActivity : BaseActivity(), LoaderListener {
+
+class MainActivity : BaseActivity(), LoaderListener, NavigationView.OnNavigationItemSelectedListener {
 
     private val navController by lazy { findNavController(R.id.navHost) }
     private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation) }
     private lateinit var toolbar: Toolbar
     private var loader: FrameLayout? = null
+
+    var drawerLayout: DrawerLayout? = null
+    var navigationView: NavigationView? = null
+
+    //NavigationDrawer
+    private var logoutMenu:MenuItem? = null
+    private var groceryListMenu:MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,8 @@ class MainActivity : BaseActivity(), LoaderListener {
         initToolbar(navController)
         loader=findViewById(R.id.animation_view_container)
         setUpNavigationBottom(navController, id)
+        logoutMenu = findViewById(R.id.menu_logout)
+        groceryListMenu = findViewById(R.id.menu_grocery_list)
 
     }
 
@@ -66,6 +78,10 @@ class MainActivity : BaseActivity(), LoaderListener {
             )
         )
 
+       /* appBarConfig = AppBarConfiguration.Builder(R.id.starFragment, R.id.statsFragment, R.id.userFragment)
+            .setDrawerLayout(drawerLayout)
+            .build()*/
+
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
 
     }
@@ -79,9 +95,19 @@ class MainActivity : BaseActivity(), LoaderListener {
             bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
         }*/
 
+        drawerLayout = findViewById(R.id.activity_main_drawer_layout);
+
+        navigationView = findViewById(R.id.activity_main_nav_view);
+
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
+
+     /*   NavigationUI.setupWithNavController(navigationView, navController);
+
+        navigationView.setNavigationItemSelectedListener(this);*/
+
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+   /* override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
         val item: MenuItem = menu.findItem(R.id.menu_logout)
@@ -90,7 +116,7 @@ class MainActivity : BaseActivity(), LoaderListener {
             true
         }
         return true
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -136,6 +162,10 @@ class MainActivity : BaseActivity(), LoaderListener {
 
     override fun hideLoader() {
         loader?.visibility = View.GONE
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        TODO("Not yet implemented")
     }
 
 }
