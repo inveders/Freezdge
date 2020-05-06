@@ -105,8 +105,8 @@
             android:focusable="true">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:src="@drawable/logo"
                 android:contentDescription="@string/description_image" />
