@@ -1,77 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!-- 1 | Main Activity RootView -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainContainer"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <!-- Toolbar -->
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+    android:fitsSystemWindows="true"
+    tools:context="com.inved.freezdge.uiGeneral.activity.MainActivity"
+    tools:openDrawer="start">
 
 
-    <fragment
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"
-        android:id="@+id/navHost"
+    <!-- 1 | Main Activity RootView -->
+    <RelativeLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_above="@id/activity_main_bottom_navigation">
+        android:orientation="vertical">
 
-    </fragment>
-
-    <!-- Bottom Navigation View -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/activity_main_bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:itemIconTint="@drawable/bottom_navigation_color"
-        app:itemTextColor="@drawable/bottom_navigation_color"
-        app:menu="@menu/bottom_navigation_menu" />
+        <!-- Toolbar -->
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
 
-    <FrameLayout
-        android:id="@+id/animation_view_container"
-        android:layout_width="match_parent"
+        <fragment
+            android:id="@+id/navHost"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/activity_main_bottom_navigation"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph">
+
+        </fragment>
+
+        <!-- Bottom Navigation View -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/activity_main_bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@drawable/bottom_navigation_color"
+            app:itemTextColor="@drawable/bottom_navigation_color"
+            app:menu="@menu/bottom_navigation_menu" />
+
+
+        <FrameLayout
+            android:id="@+id/animation_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/activity_main_bottom_navigation"
+            android:layout_below="@id/toolbar"
+            android:background="@color/colorWhite"
+            android:clickable="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/loader_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="40dp"
+                android:text="@string/we_research_recipes_for_you"
+                android:visibility="visible" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="10816-walking-taco.json"
+                app:lottie_loop="true" />
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <!-- 2 | NavigationView -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/activity_main_nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:visibility="gone"
-        android:clickable="true"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/activity_main_bottom_navigation"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/menu_drawer"
         >
 
-        <TextView
-            android:id="@+id/loader_message"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="@string/we_research_recipes_for_you"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            />
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:focusable="true">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="58dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="10816-walking-taco.json"
-            app:lottie_loop="true" />
-    </FrameLayout>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                android:contentDescription="@string/description_image" />
 
-</RelativeLayout>
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
