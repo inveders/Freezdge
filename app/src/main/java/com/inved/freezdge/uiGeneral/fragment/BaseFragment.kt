@@ -5,10 +5,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +27,7 @@ import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
+import com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.model.recipes.Results
@@ -32,9 +38,11 @@ import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeModel
+import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.Domain.Companion.preparationTime
 import com.inved.freezdge.utils.LoaderListener
+import com.inved.freezdge.utils.NetworkUtils
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -43,6 +51,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import java.util.*
 import kotlin.math.roundToInt
 
 
@@ -91,6 +100,7 @@ abstract class BaseFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerview)
         notFoundTeextView = view.findViewById(R.id.not_found)
         notFoundImageView = view.findViewById(R.id.image_arrow)
+        setHasOptionsMenu(true)
         initViewModel()
         insertFood()
         insertRecipes()
@@ -294,7 +304,14 @@ abstract class BaseFragment : Fragment() {
             getForegroundFragment() is AllRecipesFragment -> run {
 
                 setupRecipeRecyclerView()
-                getAllRecipes()
+                if(NetworkUtils.isInternetAvailable(App.applicationContext())){
+                    Log.d("debago","internet yes")
+                    getAllRecipes()
+                }else{
+                    notFoundTeextView.visibility=View.VISIBLE
+                    notFoundTeextView.text=getString(R.string.internet_connexion)
+                }
+
 
                 /*    viewLifecycleOwner.lifecycleScope.launch {
                         // Launch a concurrent coroutine to check if the main thread is blocked
@@ -331,6 +348,68 @@ abstract class BaseFragment : Fragment() {
                 //TODO
             }
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+
+
+        val searchItem = menu.findItem(R.id.search_menu)
+    Log.d("debago","in on prepareOptionMenu")
+        if (searchItem != null) {
+            val searchView = searchItem.actionView as SearchView
+
+            val edittext =
+                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            edittext.hint = getString(R.string.search_recipe_searchview_label)
+            val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
+            edittext.typeface=tf
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    when {
+                        getForegroundFragment() is AllRecipesFragment -> run {
+                            recipesRetrofitItemAdapter.filter(newText)
+                            recipesRetrofitItemAdapter.itemFilter.filterPredicate =
+                                { item: Hit, constraint: CharSequence? ->
+                                    item.recipe?.label!!.contains(
+                                        constraint.toString(),
+                                        ignoreCase = true
+                                    )
+                                }
+
+                            recipesDatabaseItemAdapter.filter(newText)
+                            recipesDatabaseItemAdapter.itemFilter.filterPredicate =
+                                { item: Recipes, constraint: CharSequence? ->
+                                    item.recipeTitle!!.contains(
+                                        constraint.toString(),
+                                        ignoreCase = true
+                                    )
+                                }
+                        }
+                        getForegroundFragment() is MyRecipesFragment -> run {
+                            favouriteRecipesItemAdapter.filter(newText)
+                            favouriteRecipesItemAdapter.itemFilter.filterPredicate =
+                                { item: FavouritesRecipes, constraint: CharSequence? ->
+                                    item.recipeTitle!!.contains(
+                                        constraint.toString(),
+                                        ignoreCase = true
+                                    )
+                                }
+                        }
+                    }
+
+                    return true
+                }
+            })
+
+
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
 
@@ -444,16 +523,16 @@ abstract class BaseFragment : Fragment() {
     fun getAllRecipes() {
 
         val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
-
+        Log.d("debago","setlistretrofit ${setlistRetrofit.size}")
         if(setlistRetrofit.isNullOrEmpty()){
             uiScope.launch {
                 if (result.size != 0) {
-
+                    Log.d("debago","result size not null")
                     listener?.showLoader()
                     notFoundTeextView.visibility = View.GONE
                     lifecycleScope.launch {
                         for (myresult in result) {
-
+                            Log.d("debago","result loop")
                             recipeModel.getRecipeIfContainIngredient(myresult.name!!)
                                 .observe(viewLifecycleOwner, Observer { recipes ->
 
@@ -466,6 +545,7 @@ abstract class BaseFragment : Fragment() {
                                 .observe(viewLifecycleOwner, Observer { hits ->
                                     //  Log.d("debago", "in retrofit data in list")
                                     setlistRetrofit.add(hits.hits)
+                                    Log.d("debago","in retrofit call ${setlistRetrofit.size}")
 
 
                                 })

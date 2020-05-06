@@ -44,6 +44,7 @@
     <string name="recipe_detail_item_recipe_view">Recipe</string>
     <string name="toastNoIngredientResultSearch">No ingredient found</string>
     <string name="search_ingredient_searchview_label">Search ingredient here…</string>
+    <string name="search_recipe_searchview_label">Search recipe here…</string>
     <string name="dialog_cancel_action">Cancelled action</string>
     <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
     <string name="Yes">Yes</string>
@@ -131,5 +132,6 @@
 
     <!--Step -->
     <string name="step_recipe">Step %d : %s</string>
+    <string name="internet_connexion">No internet connection</string>
 
 </resources>

@@ -21,8 +21,8 @@ class SearchIngredientsActivity : BaseActivity() {
         var currentPage: Int? = 0
     }
 
-    lateinit var viewPager: ViewPager2
-    lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
     private val tabIcons:IntArray=
         intArrayOf(R.drawable.ic_cream,R.drawable.ic_vegetable,R.drawable.ic_epicerie,R.drawable.ic_fish,R.drawable.ic_bottom_meat)
 

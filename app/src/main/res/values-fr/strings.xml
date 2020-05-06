@@ -131,5 +131,7 @@
 
     <!--Step -->
     <string name="step_recipe">Etape %d : %s</string>
+    <string name="internet_connexion">Pas de connexion internet</string>
+    <string name="search_recipe_searchview_label">Recherchez une recette ici...</string>
 
 </resources>

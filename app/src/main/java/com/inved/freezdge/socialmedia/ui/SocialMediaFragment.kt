@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -37,6 +38,7 @@ import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.LoaderListener
+import com.inved.freezdge.utils.NetworkUtils
 import kotlinx.android.synthetic.main.fragment_social_media.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
@@ -89,6 +91,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         //RecyclerView initialization
         // topDescription.startAnimation(Domain.animationFromTransparency())
         // photoProfile.startAnimation(Domain.animationFromTransparency())
+        setHasOptionsMenu(true)
         showLoader()
         initButtons()
         initProfil()
@@ -363,14 +366,27 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val searchItem = menu.findItem(R.id.search_menu)
+        searchItem.isVisible = false
+        super.onPrepareOptionsMenu(menu)
+    }
 
     // --------------------
     // CALLBACK
     // --------------------
     override fun onDataChanged() {
+        Log.d("debago","in on data changed ${mRecyclerPostsAdapter.itemCount}")
         // 7 - Show TextView in case RecyclerView is empty
         if (mRecyclerPostsAdapter.itemCount == 0) {
-            no_post_found.visibility = View.VISIBLE
+            if(NetworkUtils.isInternetAvailable(App.applicationContext())){
+                Log.d("debago","internet yes")
+                no_post_found.visibility = View.VISIBLE
+            }else{
+                no_post_found.visibility = View.VISIBLE
+                no_post_found.text=getString(R.string.internet_connexion)
+            }
+
         } else {
             no_post_found.visibility = View.GONE
         }

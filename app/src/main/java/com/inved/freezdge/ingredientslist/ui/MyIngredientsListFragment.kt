@@ -3,10 +3,9 @@ package com.inved.freezdge.ingredientslist.ui
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -48,6 +47,12 @@ class MyIngredientsListFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         setupChips()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val searchItem = menu.findItem(R.id.search_menu)
+        searchItem.isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 
     private fun setupChips() {

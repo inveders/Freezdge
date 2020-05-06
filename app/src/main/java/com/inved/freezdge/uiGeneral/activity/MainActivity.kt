@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
@@ -108,7 +109,6 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
                                                 dataSource: DataSource,
                                                 isFirstResource: Boolean
                                             ): Boolean {
-                                                Log.d("debago","in on resurce ready social media fragment")
                                                 hideLoader()
                                                 return false
                                             }
@@ -155,7 +155,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 id.my_ingredients_list_fragment,
-                R.id.my_recipes_fragment,
+                id.my_recipes_fragment,
                 id.all_recipes_fragment,
                 id.social_media_fragment
             ),drawerLayout
@@ -198,6 +198,14 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         }
         return true
     }*/
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
