@@ -94,7 +94,6 @@ class MainActivity : BaseActivity(), LoaderListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 

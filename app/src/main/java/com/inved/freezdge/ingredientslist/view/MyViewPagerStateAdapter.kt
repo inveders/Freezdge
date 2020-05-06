@@ -1,31 +1,20 @@
 package com.inved.freezdge.ingredientslist.view
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.inved.freezdge.ingredientslist.ui.TypeIngredientsFragment
 
-class MyViewPageStateAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm,
-    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-){
-    private val fragmentList:MutableList<Fragment> = ArrayList()
-    private val fragmentTitleList:MutableList<String> = ArrayList()
+class MyViewPageStateAdapter(fm: FragmentActivity): FragmentStateAdapter(fm){
+    override fun getItemCount(): Int = 5
 
-    override fun getItem(position: Int): Fragment {
-        return fragmentList[position]
-    }
-
-    override fun getCount(): Int {
-        return fragmentList.size
-    }
-
-  /*  override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentTitleList[position]
-    }*/
-
-    fun addFragment(fragment: Fragment, title:String){
-        fragmentList.add(fragment)
-        fragmentTitleList.add(title)
-
+    override fun createFragment(position: Int): Fragment {
+        val fragment = TypeIngredientsFragment()
+        fragment.arguments = Bundle().apply {
+            // Our object is just an integer :-P
+            putInt("PositionViewpager", position)
+        }
+        return fragment
     }
 }

@@ -342,6 +342,7 @@ abstract class BaseFragment : Fragment() {
                 favouriteRecipesItemAdapter.clear()
                 if (result != null) {
                     if (result.size != 0) {
+
                         notFoundTeextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
                         for (myresult in result) {

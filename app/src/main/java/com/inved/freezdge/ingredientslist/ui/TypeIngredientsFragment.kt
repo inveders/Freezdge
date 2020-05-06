@@ -1,7 +1,6 @@
-package com.inved.freezdge.uiGeneral.fragment
+package com.inved.freezdge.ingredientslist.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -11,13 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
@@ -28,8 +25,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.util.*
 
-
-abstract class BaseIngredientsSearchFragment: Fragment() {
+class TypeIngredientsFragment:Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     lateinit var ingredientViewmodel: IngredientsViewModel
@@ -37,11 +33,12 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
     private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
     private lateinit var linearLayoutManager: LinearLayoutManager
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(getLayoutRes(), container, false)
+        val view = inflater.inflate(R.layout.fragment_type_ingredients, container, false)
         recyclerView = view.findViewById(R.id.recyclerview)
         setHasOptionsMenu(true)
         initViewModel()
@@ -49,12 +46,14 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        SearchIngredientsActivity.currentPage?.let { getForegroundFragment(it) }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        arguments?.takeIf { it.containsKey("PositionViewpager") }?.apply {
+            val position:Int = getInt("PositionViewpager")
+            getForegroundFragment(position)
+        }
     }
 
-    abstract fun getLayoutRes(): Int
+
 
     //INITIALIZATION
     private fun initViewModel() {
@@ -122,7 +121,8 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
 
 
     fun getForegroundFragment(value:Int) {
-         when (value) {
+
+        when (value) {
             0 -> run {
                 getAllFoodByType(getString(R.string.ingredient_type_cream))
             }
@@ -143,7 +143,7 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
 
     private fun getAllFoodByType(typeIngredient:String) {
         foodSearchItemAdapter.clear()
-        ingredientViewmodel.getAllIngredientsByType(typeIngredient).observe(viewLifecycleOwner, Observer {
+        ingredientViewmodel.getAllIngredientsByType(typeIngredient).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             foodSearchItemAdapter.add(it)
 
         })
@@ -180,4 +180,5 @@ abstract class BaseIngredientsSearchFragment: Fragment() {
 
 
     }
+
 }
