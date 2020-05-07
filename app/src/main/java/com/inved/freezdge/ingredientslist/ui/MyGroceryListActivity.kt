@@ -1,11 +1,9 @@
 package com.inved.freezdge.ingredientslist.ui
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -18,9 +16,11 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import com.inved.freezdge.utils.App
 import io.objectbox.BoxStore.context
 
 class MyGroceryListActivity: BaseActivity() {
@@ -35,9 +35,19 @@ class MyGroceryListActivity: BaseActivity() {
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
         chipGroup =findViewById(R.id.chipGroup)
         notFoundTeextView =findViewById(R.id.not_found)
-        ingredientsViewmodel =
-            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+       initViewModel()
         setupChips()
+
+    }
+    //INITIALIZATION
+    private fun initViewModel() {
+
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,this)
+        ingredientsViewmodel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsViewModel::class.java)
+
 
     }
 
