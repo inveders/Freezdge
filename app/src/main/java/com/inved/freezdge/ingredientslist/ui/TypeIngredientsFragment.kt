@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
@@ -57,8 +59,12 @@ class TypeIngredientsFragment:Fragment() {
 
     //INITIALIZATION
     private fun initViewModel() {
-        ingredientViewmodel =
-            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,App.applicationContext())
+        ingredientViewmodel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsViewModel::class.java)
 
     }
 

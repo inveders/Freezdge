@@ -1,31 +1,19 @@
 package com.inved.freezdge.uiGeneral.fragment
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
@@ -34,8 +22,8 @@ import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
-import com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.model.recipes.Hit
 import com.inved.freezdge.model.recipes.Results
 import com.inved.freezdge.recipes.database.Recipes
@@ -44,7 +32,7 @@ import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
-import com.inved.freezdge.recipes.viewmodel.RecipeModel
+import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.Domain.Companion.preparationTime
@@ -58,7 +46,6 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.util.*
 import kotlin.math.roundToInt
 
 
@@ -93,7 +80,7 @@ abstract class BaseFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
     //Viewmodel
-    private lateinit var recipeModel: RecipeModel
+    private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
 
@@ -119,11 +106,20 @@ abstract class BaseFragment : Fragment() {
 
     //INITIALIZATION
     private fun initViewModel() {
-        recipeModel = ViewModelProviders.of(this).get(RecipeModel::class.java)
-        favouriteRecipesViewmodel =
-            ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
-        ingredientsViewmodel =
-            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,App.applicationContext())
+        recipeViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(RecipeViewModel::class.java)
+        favouriteRecipesViewmodel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(FavouritesRecipesViewModel::class.java)
+        ingredientsViewmodel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsViewModel::class.java)
 
     }
 
@@ -240,7 +236,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun insertRecipes() {
-        recipeModel.insertRecipesInDatabase()
+        recipeViewModel.insertRecipesInDatabase()
     }
 
 
@@ -413,7 +409,7 @@ abstract class BaseFragment : Fragment() {
                                            })*/
 
 
-                recipeModel.getRecipes(myresult.name!!)
+                recipeViewModel.getRecipes(myresult.name!!)
                     .observe(viewLifecycleOwner, Observer<Results> { hits ->
                         //  Log.d("debago", "in retrofit data in list")
                         lifecycleScope.async(Dispatchers.Default) {
@@ -446,7 +442,7 @@ abstract class BaseFragment : Fragment() {
 
                 for (myresult in result) {
 
-                    recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                    recipeViewModel.getRecipeIfContainIngredient(myresult.name!!)
                         .observe(viewLifecycleOwner, Observer<MutableList<Recipes>> { recipes ->
                             lifecycleScope.async(Dispatchers.Default) {
                                 setlistDatabase.add(recipes)
@@ -484,7 +480,7 @@ abstract class BaseFragment : Fragment() {
                     lifecycleScope.launch {
                         for (myresult in result) {
                             Log.d("debago","result loop")
-                            recipeModel.getRecipeIfContainIngredient(myresult.name!!)
+                            recipeViewModel.getRecipeIfContainIngredient(myresult.name!!)
                                 .observe(viewLifecycleOwner, Observer { recipes ->
 
                                     setlistDatabase.add(recipes)
@@ -492,7 +488,7 @@ abstract class BaseFragment : Fragment() {
                                     //    Log.d("debago", "in DATABASE data in list")
                                 })
 
-                            recipeModel.getRecipes(myresult.name!!)
+                            recipeViewModel.getRecipes(myresult.name!!)
                                 .observe(viewLifecycleOwner, Observer { hits ->
                                     //  Log.d("debago", "in retrofit data in list")
                                     setlistRetrofit.add(hits.hits)

@@ -97,7 +97,7 @@ open class RecipeDetailActivity : BaseActivity() {
     }
 
     private fun getRecipeById(id: Long) {
-        val recipe: Recipes? = recipeModel.getRecipeLiveDataById(id)
+        val recipe: Recipes? = recipeViewModel.getRecipeLiveDataById(id)
         if (recipe != null) {
             fillRecipePage(recipe)
         }

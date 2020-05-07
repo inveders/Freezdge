@@ -9,7 +9,9 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.inved.freezdge.R
-import com.inved.freezdge.recipes.viewmodel.RecipeModel
+import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.utils.App
 
 
 abstract class BaseActivity:AppCompatActivity() {
@@ -17,7 +19,7 @@ abstract class BaseActivity:AppCompatActivity() {
     private lateinit var toolbar: Toolbar
 
     //Viewmodel
-    lateinit var recipeModel: RecipeModel
+    lateinit var recipeViewModel: RecipeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,12 @@ abstract class BaseActivity:AppCompatActivity() {
 
     //INITIALIZATION
     private fun initViewModel() {
-        recipeModel = ViewModelProviders.of(this).get(RecipeModel::class.java)
+
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,this)
+        recipeViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(RecipeViewModel::class.java)
 
     }
 

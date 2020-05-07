@@ -3,9 +3,9 @@ package com.inved.freezdge.utils
 import android.util.DisplayMetrics
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.R
-import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
+import com.inved.freezdge.favourites.database.FavouritesRecipes
+import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.database.IngredientsDAO
 import com.inved.freezdge.ingredientslist.database.Ingredients_
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -265,11 +265,39 @@ class Domain {
         fun updateItemForGroceryList(name: String, bool: Boolean, nameEnglish: String) {
             // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
           //  Log.d("debago","GROCERY update item for grocery list $name")
-            IngredientsDAO.updateIngredientSelectedForGroceryByName(name, bool)
+            updateIngredientSelectedForGroceryByName(name, bool)
             if(!bool){
-                FavouritesRecipesDAO.isIngredientPresentInFavoriteRecipeUpdateGrocery(name, nameEnglish)
+                isIngredientPresentInFavoriteRecipeUpdateGrocery(name, nameEnglish)
             }
 
+
+        }
+
+        fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
+
+            if(name!=null){
+                val ingredient:Ingredients? =
+                    App.ObjectBox.boxStore.boxFor<Ingredients>().query().equal(Ingredients_.name,name).build().findUnique()
+                ingredient?.grocerySelectedIngredient = bool
+                if(ingredient!=null)
+                    App.ObjectBox.boxStore.boxFor<Ingredients>().put(ingredient)
+            }
+
+        }
+
+        fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
+
+            for(i in App.ObjectBox.boxStore.boxFor<FavouritesRecipes>().query().order(FavouritesRecipes_.id).build().find()){
+                if (i.recipeIngredients?.let { it.contains(ingredientNameFrench, true) }!!) {
+
+                    Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
+                }
+
+                if (i.recipeIngredients?.let { it.contains(ingredientNameEnglish, true) }!!) {
+
+                    Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
+                }
+            }
 
         }
 

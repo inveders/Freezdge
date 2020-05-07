@@ -1,74 +1,93 @@
 package com.inved.freezdge.ingredientslist.repository
 
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.database.IngredientsDAO
+import com.inved.freezdge.ingredientslist.database.Ingredients_
+import com.inved.freezdge.utils.AddIngredientsInDatabase
+import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
 
 
-class IngredientsRepository {
+class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>) {
 
-    companion object {
+    fun updateIngredient(ingredient: Ingredients) {
 
-        fun getIngredientsLiveDataBySelected(): MutableList<Ingredients> {
-            return IngredientsDAO.getAllIngredientBySelected()
+        ingredient.selectedIngredient = !ingredient.selectedIngredient
+        getIngredientsBox.put(ingredient)
+    }
+
+    fun updateIngredientSelectedByName(name: String?,bool:Boolean) {
+
+        if(name!=null){
+            val ingredient:Ingredients? =
+                getIngredientsBox.query().equal(Ingredients_.name,name).build().findUnique()
+            ingredient?.selectedIngredient = bool
+            if(ingredient!=null)
+                getIngredientsBox.put(ingredient)
         }
 
-        fun getIngredientsLiveDataBySelectedForGrocery(): ObjectBoxLiveData<Ingredients> {
-            return IngredientsDAO.getAllIngredientBySelectedForGrocery()
+    }
+
+    fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
+
+        if(name!=null){
+            val ingredient:Ingredients? =
+                getIngredientsBox.query().equal(Ingredients_.name,name).build().findUnique()
+            ingredient?.grocerySelectedIngredient = bool
+            if(ingredient!=null)
+                getIngredientsBox.put(ingredient)
         }
 
-        fun getIngredientsLiveDataById(): ObjectBoxLiveData<Ingredients> {
-            return IngredientsDAO.getAllIngredientsById()
+    }
+
+    fun isIngredientSelected(name: String?):Boolean {
+
+        if(name!=null){
+            val ingredient:Ingredients? =
+                getIngredientsBox.query().equal(Ingredients_.name,name).build().findUnique()
+
+            return ingredient!!.selectedIngredient
         }
+        return false
+    }
 
-        fun getIngredientsLiveDataByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
-            return IngredientsDAO.getAllIngredientsByTypeId(typeIngredient)
+    fun isIngredientSelectedInGrocery(name: String?):Boolean {
+
+        if(name!=null){
+            val ingredient:Ingredients? =
+                getIngredientsBox.query().equal(Ingredients_.name,name).build().findUnique()
+
+            return ingredient!!.grocerySelectedIngredient
         }
+        return false
+    }
 
+    fun insertIngredients() {
+        AddIngredientsInDatabase(getIngredientsBox)
+    }
 
-        fun isIngredientSelected(name: String?): Boolean {
-            return IngredientsDAO.isIngredientSelected(name)
-        }
-
-        fun isIngredientSelectedInGrocery(name: String?): Boolean {
-            return IngredientsDAO.isIngredientSelectedInGrocery(name)
-        }
-
-        fun insertIngredients() {
-            return IngredientsDAO.insertIngredients()
-        }
-
-        fun updateIngredient(ingredient: Ingredients) {
-            return IngredientsDAO.updateIngredient(ingredient)
-        }
-
-        fun updateIngredientSelectedByName(name: String?,bool:Boolean) {
-            return IngredientsDAO.updateIngredientSelectedByName(name,bool)
-        }
-
-        fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
-            return IngredientsDAO.updateIngredientSelectedForGroceryByName(name,bool)
-        }
-
-
-
-        //Mock data for testing
-        fun initDatabase() {
-       /*     val mTotalCount:Long = 7
-            val valueIcon: Int = R.drawable.ic_btn_speak_now
-            val modelList: ArrayList<Ingredients> = ArrayList()
-            if (IngredientsDAO.getIngredientsBox().count() != mTotalCount) {
-                IngredientsDAO.removeAll()
-            }
-            if (IngredientsDAO.getIngredientsBox().count() == 0) {
-                for (i in 0 until mTotalCount) {
-                    modelList.add(Ingredients(i.toLong(), "Beurre","Crèmerie","valueIcon",false))
-                }
-                IngredientsDAO.getIngredientsBox().put(modelList)
-            }*/
-        }
+    fun getAllIngredientBySelected(): MutableList<Ingredients> {
+        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+        return getIngredientsBox.query().equal(Ingredients_.selectedIngredient,true).order(
+            Ingredients_.name).build().find()
     }
 
 
+
+    fun getAllIngredientBySelectedForGrocery(): ObjectBoxLiveData<Ingredients> {
+        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+        return ObjectBoxLiveData(getIngredientsBox.query().equal(Ingredients_.grocerySelectedIngredient,true).order(
+            Ingredients_.name).build())
+    }
+
+    fun getAllIngredientsById(): ObjectBoxLiveData<Ingredients> {
+        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+        return ObjectBoxLiveData(getIngredientsBox.query().order(Ingredients_.id).build())
+    }
+
+    fun getAllIngredientsByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
+        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+        return ObjectBoxLiveData(getIngredientsBox.query().equal(Ingredients_.typeIngredient,typeIngredient).order(
+            Ingredients_.name).build())
+    }
 
 }

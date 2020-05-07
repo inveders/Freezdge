@@ -6,47 +6,47 @@ import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import io.objectbox.android.ObjectBoxLiveData
 
 
-class IngredientsViewModel : ViewModel() {
+class IngredientsViewModel(private val ingredientsRepository: IngredientsRepository) : ViewModel() {
 
 
     fun insertIngredients() {
-        IngredientsRepository.insertIngredients()
+        ingredientsRepository.insertIngredients()
     }
 
     fun updateIngredient(ingredient: Ingredients) {
-        return IngredientsRepository.updateIngredient(ingredient)
+        return ingredientsRepository.updateIngredient(ingredient)
     }
 
     fun getIngredientsForFreezdgeList(): MutableList<Ingredients> {
-        return IngredientsRepository.getIngredientsLiveDataBySelected()
+        return ingredientsRepository.getAllIngredientBySelected()
     }
 
     fun updateIngredientSelectedByName(name:String?,bool:Boolean) {
-        return IngredientsRepository.updateIngredientSelectedByName(name,bool)
+        return ingredientsRepository.updateIngredientSelectedByName(name,bool)
     }
 
     fun updateIngredientSelectedForGroceryByName(name:String?,bool:Boolean) {
-        return IngredientsRepository.updateIngredientSelectedForGroceryByName(name,bool)
+        return ingredientsRepository.updateIngredientSelectedForGroceryByName(name,bool)
     }
 
     fun getIngredientsForGrocery(): ObjectBoxLiveData<Ingredients> {
-        return IngredientsRepository.getIngredientsLiveDataBySelectedForGrocery()
+        return ingredientsRepository.getAllIngredientBySelectedForGrocery()
     }
 
     fun getAllIngredients(): ObjectBoxLiveData<Ingredients> {
-        return IngredientsRepository.getIngredientsLiveDataById()
+        return ingredientsRepository.getAllIngredientsById()
     }
 
     fun getAllIngredientsByType(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
-        return IngredientsRepository.getIngredientsLiveDataByTypeId(typeIngredient)
+        return ingredientsRepository.getAllIngredientsByTypeId(typeIngredient)
     }
 
     fun isIngredientSelected(name: String?): Boolean {
-        return IngredientsRepository.isIngredientSelected(name)
+        return ingredientsRepository.isIngredientSelected(name)
     }
 
     fun isIngredientSelectedInGrocery(name: String?): Boolean {
-        return IngredientsRepository.isIngredientSelectedInGrocery(name)
+        return ingredientsRepository.isIngredientSelectedInGrocery(name)
     }
 
 }
