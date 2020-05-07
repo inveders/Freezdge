@@ -38,14 +38,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled= true
+            minifyEnabled= false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "APP_ID_RECIPES", APP_ID_RECIPES)
             buildConfigField("String", "APP_KEY_RECIPES", APP_KEY_RECIPES)
             debuggable = false
             multiDexEnabled= true
-            shrinkResources= true // Remove unused resources
-            useProguard= true     // Remove unused codes
+            shrinkResources= false // Remove unused resources
+            useProguard= false     // Remove unused codes
             signingConfig signingConfigs.release
         }
         debug {
