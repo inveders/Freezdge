@@ -1,6 +1,6 @@
 package com.inved.freezdge.recipes.retrofit
 
-import com.inved.freezdge.model.recipes.Results
+import com.inved.freezdge.recipes.model.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
 

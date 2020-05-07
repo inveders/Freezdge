@@ -8,7 +8,6 @@ import io.objectbox.android.ObjectBoxLiveData
 
 class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<FavouritesRecipes>) {
 
-
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
@@ -34,12 +33,12 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
     fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
 
         for(i in getFavouritesRecipesBox.query().order(FavouritesRecipes_.id).build().find()){
-            if (i.recipeIngredients?.let { it.contains(ingredientNameFrench, true) }!!) {
+            if (i.recipeIngredients?.contains(ingredientNameFrench, true)!!) {
 
                 Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
             }
 
-            if (i.recipeIngredients?.let { it.contains(ingredientNameEnglish, true) }!!) {
+            if (i.recipeIngredients?.contains(ingredientNameEnglish, true)!!) {
 
                 Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
             }
@@ -71,15 +70,12 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
     }
 
     fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
-
         getFavouritesRecipesBox.remove(favouritesRecipes.id)
-
     }
 
 
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
-        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-        return ObjectBoxLiveData(
+         return ObjectBoxLiveData(
             getFavouritesRecipesBox.query().order(FavouritesRecipes_.id).build()
         )
     }

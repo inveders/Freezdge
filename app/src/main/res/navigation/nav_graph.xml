@@ -73,10 +73,6 @@
             app:destination="@id/my_ingredients_list_fragment" />
 
         <action
-            android:id="@+id/action_to_filter_dialog"
-            app:destination="@id/filter_dialog" />
-
-        <action
             android:id="@+id/menu_grocery_list"
             app:destination="@id/my_grocery_list_activity" />
 
@@ -134,13 +130,6 @@
 
     </activity>
 
-
-    <dialog android:id="@+id/filter_dialog"
-        android:name="com.inved.freezdge.uiGeneral.dialog.FilterDialog"
-        android:label="Filter dialog"
-        tools:layout="@layout/dialog_filter">
-
-    </dialog>
 
 
 </navigation>

@@ -20,13 +20,11 @@ class WebviewActivity : AppCompatActivity() {
         webview.loadUrl(url)
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
         webview=findViewById(R.id.webview)
-        val url:String = intent.getStringExtra("WEBVIEW_URL")
-        cardViewClick(url)
+        val url:String? = intent.getStringExtra("WEBVIEW_URL")
+        url?.let { cardViewClick(it) }
     }
 }

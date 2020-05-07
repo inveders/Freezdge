@@ -24,7 +24,6 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
     }
 
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
-        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-        return favouritesRecipesRepository.getAllFavouritesRecipes()
+         return favouritesRecipesRepository.getAllFavouritesRecipes()
     }
 }

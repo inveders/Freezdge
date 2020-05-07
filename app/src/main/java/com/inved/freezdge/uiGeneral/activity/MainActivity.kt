@@ -62,7 +62,6 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         }
         initProfil()
 
-
         initToolbar(navController)
         loader=findViewById(R.id.animation_view_container)
         setUpNavigationBottom(navController, id)
@@ -85,7 +84,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
                         firstnameHeader.text = user.firstname
 
                         //to upload a photo on Firebase storage
-                        if (user.photoUrl != null) {
+                        if (user.photoUrl.isNullOrEmpty()) {
                             imageHeader.let {
                                 this.let { it1 ->
                                     Glide.with(it1)
@@ -117,9 +116,6 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
                                         .into(it)
                                 }
                             }
-
-
-
                         }
 
                     }
@@ -145,9 +141,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
     }
 
     //INITIALIZATION
-
-
-    fun initToolbar(navController: NavController) {
+    private fun initToolbar(navController: NavController) {
 
         toolbar = findViewById(id.toolbar)
         setSupportActionBar(toolbar)
@@ -162,10 +156,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
 
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navigationView?.setupWithNavController(navController)
-
-
-
+        navigationView.setupWithNavController(navController)
     }
 
     override fun onBackPressed() {
@@ -181,24 +172,8 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         if (id == 1) {
             bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
             navController.navigate(R.id.action_to_all_recipes_fragment)
-        }/*else if(id==0){
-            bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
-        }*/
-
-
-    }
-
-   /* override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu, menu)
-        val item: MenuItem = menu.findItem(R.id.menu_logout)
-        item.setOnMenuItemClickListener {
-            signOut()
-            true
         }
-        return true
-    }*/
-
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -213,8 +188,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("debago","item is ${item.itemId} and R.id.menulogout is ${R.id.menu_logout}")
-        if(item.itemId==R.id.menu_logout){
+         if(item.itemId== id.menu_logout){
             signOut()
         }
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
@@ -247,6 +221,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
+        //TODO where do we use it?
         var currentPage:Int?=0
     }
 
@@ -259,11 +234,15 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-      Log.d("debago","item is ${item.itemId} and R.id.menulogout is ${R.id.menu_logout}")
-        if(item.itemId==R.id.menu_logout){
+        TODO("Not yet implemented")
+    }
+
+    //TODO see if we need it
+   /* override fun onNavigationItemSelected(item: MenuItem): Boolean {
+         if(item.itemId==id.menu_logout){
           signOut()
       }
         return true
-    }
+    }*/
 
 }

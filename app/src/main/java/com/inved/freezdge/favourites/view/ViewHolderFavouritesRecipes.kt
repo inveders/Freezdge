@@ -9,7 +9,6 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -21,7 +20,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
     var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
-    var kcal: TextView = view.findViewById(R.id.description)
+    private var kcal: TextView = view.findViewById(R.id.description)
     var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
     var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
     var imageItem: ImageView = view.findViewById(R.id.image)
@@ -45,7 +44,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }
 
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
-        proportionText.text="$proportionInPercent %"
+        val proportionString =
+            String.format("%d %", proportionInPercent)
+        proportionText.text=proportionString
 
         cuisineType.text= item.cuisineType?.let { Domain.uppercaseFirstCaracter(it) }
         if(item.dishType.equals("Main course")){
@@ -70,14 +71,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
             val storage = FirebaseStorage.getInstance()
             // Create a reference to a file from a Google Cloud Storage URI
             val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-            GlideApp.with(App.applicationContext())
-                .load(gsReference)
-                .into(imageItem)
+            Domain.loadPhotoWithGlide(gsReference,null,imageItem)
         }else{
-            GlideApp.with(App.applicationContext())
-                .load(item.recipePhotoUrl)
-                .centerCrop()
-                .into(imageItem)
+            Domain.loadPhotoWithGlideCenterCropUrl(item.recipePhotoUrl,imageItem)
         }
 
         if(isRecipeIdIsPresent(item.recipeId)!!){
@@ -85,7 +81,6 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
         }
-
     }
 
     override fun unbindView(item: FavouritesRecipes) {
@@ -95,13 +90,13 @@ class ViewHolderFavouritesRecipes(val view: View) :
         imageItem.setImageDrawable(null)
     }
 
-    fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
+    private fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
         val boxStore: BoxStore = App.ObjectBox.boxStore
         return boxStore.boxFor()
 
     }
 
-    fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox()
                 .query().equal(FavouritesRecipes_.recipeId, recipeId)

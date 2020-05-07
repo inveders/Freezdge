@@ -141,5 +141,7 @@
     <string name="array_filter_cocktail">Cocktail</string>
     <string name="array_filter_all">Tous</string>
     <string name="array_dialog_title">Filtre</string>
+    <string name="grocery_list_removed">%s a été supprimé de la liste de course</string>
+    <string name="google_sign_in">La connection avec Google a échoué :(</string>
 
 </resources>

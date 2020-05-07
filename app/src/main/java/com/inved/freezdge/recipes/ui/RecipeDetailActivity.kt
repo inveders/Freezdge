@@ -10,10 +10,8 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.CustomExpandableListAdapter
 import com.inved.freezdge.recipes.view.RecipeStepView
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
-import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.Domain.Companion.convertDpToPixel
-import com.inved.freezdge.utils.GlideApp
 
 
 open class RecipeDetailActivity : BaseActivity() {
@@ -55,44 +53,23 @@ open class RecipeDetailActivity : BaseActivity() {
     private fun setupExpandableView() {
         expandableListView = findViewById(R.id.expandableListView)
         if (expandableListView != null) {
-
             adapter = CustomExpandableListAdapter(this, listParent, listDataChild)
-
             expandableListView?.setAdapter(adapter)
-
         }
 
         expandableListView?.setOnGroupExpandListener {
             var height = 0
-            for (i in 0 until expandableListView!!.getChildCount()) {
-                height += expandableListView!!.getChildAt(i).getMeasuredHeight()
-                height += expandableListView!!.getDividerHeight()
+            for (i in 0 until expandableListView!!.childCount) {
+                height += expandableListView!!.getChildAt(i).measuredHeight
+                height += expandableListView!!.dividerHeight
             }
             expandableListView?.layoutParams?.height = (height + 6) * 10
         }
 
         // Listview Group collapsed listener
         expandableListView?.setOnGroupCollapseListener {
-
             expandableListView?.layoutParams?.height = convertDpToPixel(61)
         }
-
-    }
-
-    private fun addDataInExpandable(listFromString: List<String>) {
-
-        val ingredientsList = ArrayList<String>()
-
-        for(i in listFromString){
-            ingredientsList.add(i)
-        }
-
-        listParent= ArrayList()
-        listDataChild= HashMap()
-        // Adding child data
-
-        listParent.add("Ingrédients")
-        listDataChild[listParent[0]] = ingredientsList // Header, Child data
 
     }
 
@@ -100,8 +77,19 @@ open class RecipeDetailActivity : BaseActivity() {
         val recipe: Recipes? = recipeViewModel.getRecipeLiveDataById(id)
         if (recipe != null) {
             fillRecipePage(recipe)
+            fillRecipeSteps(recipe)
+
+            recipeOwnerImage.setOnClickListener {
+                recipe.recipeUrlOwnerLink?.let {
+                    recipeOwnerImage.startAnimation(Domain.animation())
+                    openWebViewActivity(
+                        it
+                    )
+                }
+            }
         }
     }
+
 
     private fun fillRecipePage(recipe: Recipes) {
         recipeTitle.text = recipe.recipeTitle
@@ -121,15 +109,19 @@ open class RecipeDetailActivity : BaseActivity() {
         recipeNumberPerson.text =
             getString(R.string.recipe_detail_item_number_person, recipe.numberPersons)
 
-
         val storage = FirebaseStorage.getInstance()
         // Create a reference to a file from a Google Cloud Storage URI
         val gsReference = recipe.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-        GlideApp.with(App.applicationContext())
-            .load(gsReference)
-            .into(recipeDetailPhoto)
+        Domain.loadPhotoWithGlide(gsReference,null,recipeDetailPhoto)
 
+        val gsReferenceOwner = recipe.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+        Domain.loadPhotoWithGlideCircleCrop(gsReferenceOwner,recipeOwnerImage)
 
+        addDataInExpandable(Domain.retrieveListFromString(recipe.recipeIngredients))
+        setupExpandableView()
+    }
+
+    private fun fillRecipeSteps(recipe: Recipes) {
         if (!recipe.step1.isNullOrEmpty()) {
             addSummaryRecipeItems(getString(R.string.step_recipe, 1, recipe.step1))
         }
@@ -166,28 +158,6 @@ open class RecipeDetailActivity : BaseActivity() {
         if (!recipe.step12.isNullOrEmpty()) {
             addSummaryRecipeItems(getString(R.string.step_recipe, 12, recipe.step12))
         }
-
-        val gsReferenceOwner = recipe.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
-
-        recipeOwnerImage.let {
-            GlideApp.with(App.applicationContext())
-                .load(gsReferenceOwner)
-                .circleCrop()
-                .into(it)
-        }
-
-        recipeOwnerImage.setOnClickListener {
-            recipe.recipeUrlOwnerLink?.let {
-                recipeOwnerImage.startAnimation(Domain.animation())
-                openWebViewActivity(
-                    it
-                )
-            }
-        }
-
-        addDataInExpandable(Domain.retrieveListFromString(recipe.recipeIngredients))
-        setupExpandableView()
-
     }
 
     override fun onBackPressed() {
@@ -202,6 +172,22 @@ open class RecipeDetailActivity : BaseActivity() {
             intent.putExtra("WEBVIEW_URL", url)
             startActivity(intent)
         }
+    }
+
+    private fun addDataInExpandable(listFromString: List<String>) {
+
+        val ingredientsList = ArrayList<String>()
+
+        for(i in listFromString){
+            ingredientsList.add(i)
+        }
+
+        listParent= ArrayList()
+        listDataChild= HashMap()
+        // Adding child data
+        listParent.add("Ingrédients")
+        listDataChild[listParent[0]] = ingredientsList // Header, Child data
+
     }
 
     private fun addSummaryRecipeItems(

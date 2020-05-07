@@ -8,15 +8,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
@@ -94,13 +91,15 @@ class ProfilDialog : DialogFragment() {
     }
 
     private fun initializeMethods() {
-        changePhotoText?.setOnClickListener { v: View? -> selectImage() }
-        cancelSearchButton?.setOnClickListener { v: View? ->
+        changePhotoText?.setOnClickListener { selectImage() }
+        cancelSearchButton?.setOnClickListener {
             cancelSearchButton?.startAnimation(Domain.animation())
-            dialog?.dismiss() }
-        addActionButton?.setOnClickListener { v: View? ->
+            dialog?.dismiss()
+        }
+        addActionButton?.setOnClickListener {
             addActionButton?.startAnimation(Domain.animation())
-            updateProfile() }
+            updateProfile()
+        }
     }
 
 
@@ -116,28 +115,13 @@ class ProfilDialog : DialogFragment() {
                     lastnameEditText?.setText(user.lastname)
 
                     //to upload a photo on Firebase storage
-                    if(user.photoUrl!=null){
-                        urlPicture=user.photoUrl
-                        profilPhoto?.let {
-                            Glide.with(mContext)
-                                .load(user.photoUrl)
-                                .apply(RequestOptions.circleCropTransform())
-                                .placeholder(R.drawable.ic_anon_user_48dp)
-                                .into(it)
-                        }
-                    }else{
-                        profilPhoto?.let {
-                            Glide.with(mContext)
-                                .load(R.drawable.ic_anon_user_48dp)
-                                .apply(RequestOptions.circleCropTransform())
-                                .placeholder(R.drawable.ic_anon_user_48dp)
-                                .into(it)
-                        }
+                    if (user.photoUrl != null) {
+                        urlPicture = user.photoUrl
                     }
-
+                    Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profilPhoto)
                 }
             }
-        }?.addOnFailureListener { e ->
+        }?.addOnFailureListener {
         }
     }
 
@@ -145,20 +129,18 @@ class ProfilDialog : DialogFragment() {
     // AGENT
     // --------------
     private fun updateProfile() {
-           if (firstnameEditText?.text.toString().isEmpty()) {
-               firstnameEditText?.error = getString(R.string.set_error_firstname)
-           } else if (lastnameEditText?.text.toString().isEmpty()) {
+        if (firstnameEditText?.text.toString().isEmpty()) {
+            firstnameEditText?.error = getString(R.string.set_error_firstname)
+        } else if (lastnameEditText?.text.toString().isEmpty()) {
             lastnameEditText?.error = getString(R.string.set_error_lastname)
         } else {
             val firstname = firstnameEditText?.text.toString()
             val lastname = lastnameEditText?.text.toString()
 
-            if (uid != null) {
-                //update agent in firebase
-                UserHelper.updateFirstname(firstname, uid)
-                UserHelper.updateLastname(lastname, uid)
-                UserHelper.updatePhotoUrl(urlPicture, uid)
-            }
+            //update agent in firebase
+            UserHelper.updateFirstname(firstname, uid)
+            UserHelper.updateLastname(lastname, uid)
+            UserHelper.updatePhotoUrl(urlPicture, uid)
 
 
             //to upload a photo on Firebase storage
@@ -171,11 +153,11 @@ class ProfilDialog : DialogFragment() {
                 )
             }
 
-               Toast.makeText(
-                   activity,
-                   getString(R.string.toast_updated_profil),
-                   Toast.LENGTH_LONG
-               ).show()
+            Toast.makeText(
+                activity,
+                getString(R.string.toast_updated_profil),
+                Toast.LENGTH_LONG
+            ).show()
 
             //to close the dialog
             if (dialog != null) {
@@ -184,15 +166,6 @@ class ProfilDialog : DialogFragment() {
         }
     }
 
-    private fun fillUserData() {
-
-        /**   firstnameEditText.setText(realEstateAgents.getFirstname())
-        lastnameEditText.setText(realEstateAgents.getLastname())
-        urlPicture = realEstateAgents.getUrlPicture()
-        // showImageInCircle(realEstateAgents.getUrlPicture());
-        showImage(realEstateAgents.getUrlPicture())*/
-
-    }
     // --------------
     // TAKE A PICTURE
     // --------------
@@ -213,7 +186,7 @@ class ProfilDialog : DialogFragment() {
         ) { dialog: DialogInterface, item: Int ->
             when {
                 items[item] == App.resource()
-                    ?.getString(R.string.dialog_select_image_take_photo)
+                    .getString(R.string.dialog_select_image_take_photo)
                 -> {
                     dispatchTakePictureIntentWithPermissionCheck()
                 }
@@ -234,29 +207,27 @@ class ProfilDialog : DialogFragment() {
     @NeedsPermission(Manifest.permission.CAMERA)
     fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (mContext != null) {
-            if (takePictureIntent.resolveActivity(mContext.packageManager) != null) {
-                // Create the File where the photo should go
-                var photoFile: File? = null
-                try {
-                    photoFile = imageCameraOrGallery?.createImageFile()
-                    cameraFilePath = photoFile?.let { imageCameraOrGallery?.getCameraFilePath(it) }
-                } catch (ex: IOException) {
-                    ex.printStackTrace()
-                    // Error occurred while creating the File
-                }
-                if (photoFile != null) {
-                    val photoURI = FileProvider.getUriForFile(
-                        mContext, BuildConfig.APPLICATION_ID.toString() + ".fileprovider",
-                        photoFile
-                    )
-                    mPhotoFile = photoFile
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(
-                        takePictureIntent,
-                        REQUEST_CAMERA_PHOTO
-                    )
-                }
+        if (takePictureIntent.resolveActivity(mContext.packageManager) != null) {
+            // Create the File where the photo should go
+            var photoFile: File? = null
+            try {
+                photoFile = imageCameraOrGallery?.createImageFile()
+                cameraFilePath = photoFile?.let { imageCameraOrGallery?.getCameraFilePath(it) }
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                val photoURI = FileProvider.getUriForFile(
+                    mContext, BuildConfig.APPLICATION_ID + ".fileprovider",
+                    photoFile
+                )
+                mPhotoFile = photoFile
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                startActivityForResult(
+                    takePictureIntent,
+                    REQUEST_CAMERA_PHOTO
+                )
             }
         }
     }
@@ -317,13 +288,14 @@ class ProfilDialog : DialogFragment() {
     private fun showImageInCircle(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
-            profilPhoto?.let {
+            Domain.loadPhotoWithGlideCircleCropUrl(photoStringFromRoom,profilPhoto)
+            /*profilPhoto?.let {
                 Glide.with(mContext)
                     .load(File(fileUri.path))
                     .apply(RequestOptions.circleCropTransform())
                     .placeholder(R.drawable.ic_anon_user_48dp)
                     .into(it)
-            }
+            }*/
         }
     }
 
@@ -331,7 +303,11 @@ class ProfilDialog : DialogFragment() {
     // --------------
     // PERMISSION
     // --------------
-    override fun onRequestPermissionsResult(rc: Int, permissions: Array<out String>, results: IntArray) {
+    override fun onRequestPermissionsResult(
+        rc: Int,
+        permissions: Array<out String>,
+        results: IntArray
+    ) {
         // Java: "MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, rc, results);"
         // I'm not satisfied with the method signature here, since it's too similar to the Android one.
         // However, the signature is already pretty long, so I'm open for ideas.

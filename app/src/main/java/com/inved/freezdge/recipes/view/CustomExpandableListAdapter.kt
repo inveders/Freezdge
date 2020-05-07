@@ -1,7 +1,6 @@
 package com.inved.freezdge.recipes.view
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.TextView
 import com.inved.freezdge.R
 
 
+@Suppress("NAME_SHADOWING")
 class CustomExpandableListAdapter(
     private val _context: Context, // header titles
     private val _listDataHeader: List<String>,
@@ -62,8 +62,8 @@ class CustomExpandableListAdapter(
 
         }
 
-        val parent_textvew = convertView!!.findViewById(R.id.listTitle) as TextView
-        parent_textvew.text = _listDataHeader[parent]
+        val parentTextvew = convertView!!.findViewById(R.id.listTitle) as TextView
+        parentTextvew.text = _listDataHeader[parent]
         return convertView
     }
 
@@ -88,7 +88,7 @@ class CustomExpandableListAdapter(
         }
 
         val childTextvew = convertview?.findViewById(R.id.expandedListItem) as TextView
-        childTextvew.text = getChild(parent, child) as String
+        childTextvew.text = getChild(parent, child)
 
 
         return convertview

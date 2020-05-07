@@ -45,7 +45,7 @@ abstract class BaseActivity:AppCompatActivity() {
     //INITIALIZATION
     private fun initViewModel() {
 
-        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,this)
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore)
         recipeViewModel = ViewModelProviders.of(
             this,
             viewModelFactory

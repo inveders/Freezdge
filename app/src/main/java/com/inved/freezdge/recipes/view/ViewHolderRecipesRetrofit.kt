@@ -6,10 +6,9 @@ import android.widget.TextView
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
-import com.inved.freezdge.model.recipes.Hit
+import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -45,7 +44,9 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()
 
         val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe?.ingredientLines)
-        proportionText.text="$proportionInPercent %"
+        val proportionString =
+            String.format("%d %", proportionInPercent)
+        proportionText.text=proportionString
 
         when (proportionInPercent) {
             in 80..99 -> {
@@ -59,10 +60,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
             }
         }
 
-        GlideApp.with(App.applicationContext())
-            .load(item.recipe?.image)
-            .centerCrop()
-            .into(imageItem)
+        Domain.loadPhotoWithGlideCenterCropUrl(item.recipe?.image,imageItem)
 
         if(isRecipeIdIsPresent(item.recipe?.uri)!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
@@ -97,8 +95,6 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         }else{
             false
         }
-
-
     }
 
 }

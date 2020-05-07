@@ -1,4 +1,4 @@
-package com.inved.freezdge.model.recipes
+package com.inved.freezdge.recipes.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

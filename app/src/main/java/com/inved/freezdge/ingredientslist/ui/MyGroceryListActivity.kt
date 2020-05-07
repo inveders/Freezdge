@@ -37,18 +37,14 @@ class MyGroceryListActivity: BaseActivity() {
         notFoundTeextView =findViewById(R.id.not_found)
        initViewModel()
         setupChips()
-
     }
-    //INITIALIZATION
-    private fun initViewModel() {
 
-        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,this)
+    private fun initViewModel() {
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore)
         ingredientsViewmodel = ViewModelProviders.of(
             this,
             viewModelFactory
         ).get(IngredientsViewModel::class.java)
-
-
     }
 
     override fun getLayoutContentViewID(): Int {
@@ -63,7 +59,6 @@ class MyGroceryListActivity: BaseActivity() {
     }
 
     private fun setupChips() {
-
         ingredientsViewmodel.getIngredientsForGrocery()
             .observe(this, Observer { result ->
                 if(result!=null){
@@ -84,7 +79,6 @@ class MyGroceryListActivity: BaseActivity() {
                                 ContextCompat.getDrawable(context as Context,R.drawable.ic_clear_grey_24dp) }
                             // Set chip close icon click listener
                             chip.setOnCloseIconClickListener{
-                                // Smoothly remove chip from chip group
                                 launchAlertDialog(chip)
                             }
                             chip.isClickable=true
@@ -94,9 +88,7 @@ class MyGroceryListActivity: BaseActivity() {
                         notFoundTeextView.visibility = View.VISIBLE
                         notFoundTeextView.text = getString(R.string.no_item_found_grocery)
                     }
-
                 }
-
             })
     }
 
@@ -107,7 +99,7 @@ class MyGroceryListActivity: BaseActivity() {
 
         builder.setPositiveButton(getString(R.string.Yes)) { dialog, which ->
             Toast.makeText(applicationContext,
-                "${chip.text} has been removed from grocery list", Toast.LENGTH_SHORT).show()
+                getString(R.string.grocery_list_removed,chip.text), Toast.LENGTH_SHORT).show()
 
             ingredientsViewmodel.updateIngredientSelectedByName(chip.text.toString(),true)
             ingredientsViewmodel.updateIngredientSelectedForGroceryByName(chip.text.toString(),false)
@@ -120,7 +112,6 @@ class MyGroceryListActivity: BaseActivity() {
                 getString(R.string.dialog_cancel_action), Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
-
         builder.show()
     }
 }

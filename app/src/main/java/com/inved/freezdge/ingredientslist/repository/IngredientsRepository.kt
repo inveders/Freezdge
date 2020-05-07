@@ -66,26 +66,20 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>) {
     }
 
     fun getAllIngredientBySelected(): MutableList<Ingredients> {
-        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return getIngredientsBox.query().equal(Ingredients_.selectedIngredient,true).order(
             Ingredients_.name).build().find()
     }
 
-
-
     fun getAllIngredientBySelectedForGrocery(): ObjectBoxLiveData<Ingredients> {
-        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return ObjectBoxLiveData(getIngredientsBox.query().equal(Ingredients_.grocerySelectedIngredient,true).order(
             Ingredients_.name).build())
     }
 
     fun getAllIngredientsById(): ObjectBoxLiveData<Ingredients> {
-        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return ObjectBoxLiveData(getIngredientsBox.query().order(Ingredients_.id).build())
     }
 
     fun getAllIngredientsByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
-        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return ObjectBoxLiveData(getIngredientsBox.query().equal(Ingredients_.typeIngredient,typeIngredient).order(
             Ingredients_.name).build())
     }

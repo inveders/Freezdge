@@ -14,7 +14,6 @@ import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 
-
 class SearchIngredientsActivity : BaseActivity() {
 
     companion object {
@@ -23,9 +22,14 @@ class SearchIngredientsActivity : BaseActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private val tabIcons:IntArray=
-        intArrayOf(R.drawable.ic_cream,R.drawable.ic_vegetable,R.drawable.ic_epicerie,R.drawable.ic_fish,R.drawable.ic_bottom_meat)
-
+    private val tabIcons: IntArray =
+        intArrayOf(
+            R.drawable.ic_cream,
+            R.drawable.ic_vegetable,
+            R.drawable.ic_epicerie,
+            R.drawable.ic_fish,
+            R.drawable.ic_bottom_meat
+        )
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_search_ingredients
@@ -38,47 +42,41 @@ class SearchIngredientsActivity : BaseActivity() {
         initToolbarBaseActivity(R.string.toolbar_search_ingredients)
         initViews()
         setStatePageAdapter()
+        initTabLayout()
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("BACKPRESS", 1)
+        startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    //TABLAYOUT
+    private fun initViews() {
+        viewPager = findViewById(R.id.pager)
+        tabLayout = findViewById(R.id.tabs)
+    }
+
+    private fun setStatePageAdapter() {
+        val myViewPageStateAdapter = MyViewPageStateAdapter(this)
+        viewPager.adapter = myViewPageStateAdapter
+    }
+
+    private fun initTabLayout() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 tab.icon = getDrawable(tabIcons[position])
             } else {
                 tab.icon =
                     ContextCompat.getDrawable(this, tabIcons[position])
             }
-
-
         }.attach()
     }
-        //INITIALIZATION
-
-        override fun onBackPressed() {
-            super.onBackPressed()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("BACKPRESS", 1)
-            startActivity(intent)
-        }
-
-        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
-            menuInflater.inflate(R.menu.search_menu, menu)
-
-            return super.onCreateOptionsMenu(menu)
-        }
-
-
-        //TABLAYOUT
-
-        private fun initViews() {
-            viewPager = findViewById(R.id.pager)
-            tabLayout = findViewById(R.id.tabs)
-        }
-
-        private fun setStatePageAdapter() {
-            val myViewPageStateAdapter = MyViewPageStateAdapter(this)
-            viewPager.adapter = myViewPageStateAdapter
-
-
-        }
-    }
+}

@@ -1,6 +1,5 @@
 package com.inved.freezdge.ingredientslist.database
 
-import android.util.Log
 import android.view.View
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.view.ViewHolderIngredients
@@ -18,8 +17,6 @@ data class Ingredients(@Id var id: Long = 0,
                        var selectedIngredient: Boolean = false,
                        var grocerySelectedIngredient: Boolean = false): AbstractItem<ViewHolderIngredients>(){
 
-
-
     /** defines the type defining this item. must be unique. preferably an id */
     override val type: Int
     get() = R.id.ingredient_list_row_id
@@ -33,9 +30,5 @@ data class Ingredients(@Id var id: Long = 0,
             v
         )
     }
-
-
-
-
 
 }

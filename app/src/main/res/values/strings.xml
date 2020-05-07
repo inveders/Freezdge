@@ -135,7 +135,7 @@
     <!--Step -->
     <string name="step_recipe">Step %d : %s</string>
     <string name="internet_connexion">No internet connection</string>
-
+    <string name="grocery_list_removed">%s has been remove from grocery list</string>
     <!--Array string -->
     <string name="array_filter_dessert">Dessert</string>
     <string name="array_filter_entry">Starter</string>
@@ -147,5 +147,6 @@
     <string name="array_filter_entry_search" translatable="false">Starter</string>
     <string name="array_filter_plat_search" translatable="false">Main course</string>
     <string name="array_filter_cocktail_search" translatable="false">Drinks</string>
+    <string name="google_sign_in">Google sign in failed:(</string>
 
 </resources>

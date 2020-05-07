@@ -1,7 +1,6 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,7 @@ class TipsDialog : DialogFragment() {
     // LIFE CYCLE AND VIEW MODEL
     // --------------
 
-    override fun onCreate(savedInstanceState: Bundle?): Unit {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullscreenDialogTheme)
     }
@@ -58,7 +57,7 @@ class TipsDialog : DialogFragment() {
         cancelButton = view.findViewById(R.id.close_button)
         val id: Int? = arguments?.getInt(KEY_TIP, 0)
         postIdUpdate= arguments?.getString(KEY_TIP_ID, null)!!
-        if (!postIdUpdate.isNullOrEmpty() ) {
+        if (postIdUpdate.isNotEmpty()) {
             fillTip(postIdUpdate)
         }
         initializeMethods(id)
@@ -79,12 +78,7 @@ class TipsDialog : DialogFragment() {
                         descriptionEdittext?.setText(post.descriptionAstuce)
                     }
                 }
-            }?.addOnFailureListener { e ->
-                Log.e(
-                    "debago",
-                    "Problem during the user creation"
-                )
-            }
+            }?.addOnFailureListener { }
         }
     }
 

@@ -10,7 +10,6 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.GlideApp
 import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -55,7 +54,10 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         }
 
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
-        proportionText.text="$proportionInPercent %"
+
+        val proportionString =
+            String.format("%d %", proportionInPercent)
+        proportionText.text=proportionString
 
         when (proportionInPercent) {
             in 80..99 -> {
@@ -70,19 +72,11 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         }
 
         val storage = FirebaseStorage.getInstance()
-        // Create a reference to a file from a Google Cloud Storage URI
         val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-        GlideApp.with(App.applicationContext())
-            .load(gsReference)
-            .into(imageItem)
+        Domain.loadPhotoWithGlide(gsReference,null,imageItem)
 
-
-        // Create a reference to a file from a Google Cloud Storage URI
         val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
-        GlideApp.with(App.applicationContext())
-            .load(gsReferenceOwner)
-            .circleCrop()
-            .into(imageOwner)
+        Domain.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
 
         if(isRecipeIdIsPresent(item.id.toString())!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
@@ -100,13 +94,13 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         imageItem.setImageDrawable(null)
     }
 
-    fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
+    private fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
         val boxStore: BoxStore = App.ObjectBox.boxStore
         return boxStore.boxFor()
 
     }
 
-    fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox()
                 .query().equal(FavouritesRecipes_.recipeId, recipeId)

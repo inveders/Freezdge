@@ -52,5 +52,4 @@ data class Recipes (
         return ViewHolderRecipesDatabase(v)
     }
 
-
 }

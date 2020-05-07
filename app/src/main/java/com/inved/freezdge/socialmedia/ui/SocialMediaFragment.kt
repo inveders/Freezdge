@@ -1,10 +1,8 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.Manifest
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -19,16 +17,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.Post
 import com.inved.freezdge.socialmedia.firebase.PostHelper
@@ -88,9 +81,6 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         topDescription = mView.findViewById(R.id.profile_activity_top_description)
         loader = mView.findViewById(R.id.animation_view_container)
         mSwipeRefreshLayout = mView.findViewById(R.id.swipeRefreshLayout)
-        //RecyclerView initialization
-        // topDescription.startAnimation(Domain.animationFromTransparency())
-        // photoProfile.startAnimation(Domain.animationFromTransparency())
         setHasOptionsMenu(true)
         showLoader()
         initButtons()
@@ -111,99 +101,58 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
                     if (task.result!!.documents.isNotEmpty()) {
-
                         val user: User =
                             task.result!!.documents[0].toObject(User::class.java)!!
-
                         topDescription.text =
-                            App.resource().getString(R.string.social_media_description, user.firstname)
-
-                        //to upload a photo on Firebase storage
-                        if (user.photoUrl != null) {
-                            photoProfile.let {
-                                activity?.let { it1 ->
-                                    Glide.with(it1)
-                                        .load(user.photoUrl)
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .listener(object : RequestListener<Drawable?> {
-                                            override fun onLoadFailed(
-                                                e: GlideException?,
-                                                model: Any,
-                                                target: Target<Drawable?>,
-                                                isFirstResource: Boolean
-                                            ): Boolean {
-                                                Log.e("debago", "Exception is : $e")
-                                                return false
-                                            }
-
-                                            override fun onResourceReady(
-                                                resource: Drawable?,
-                                                model: Any,
-                                                target: Target<Drawable?>,
-                                                dataSource: DataSource,
-                                                isFirstResource: Boolean
-                                            ): Boolean {
-                                                Log.d("debago","in on resurce ready social media fragment")
-                                                hideLoader()
-                                                return false
-                                            }
-                                        })
-                                        .placeholder(R.drawable.ic_anon_user_48dp)
-                                        .into(it)
-                                }
-                            }
-
-
-
+                            App.resource()
+                                .getString(R.string.social_media_description, user.firstname)
+                        //to show photo from Firebase storage or url. If photo is not from google, it's also from firebase
+                        if (user.photoUrl?.contains("googleusercontent", true)!!) {
+                            Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, photoProfile)
                         } else {
-                            photoProfile.let {
-                                activity?.let { it1 ->
-                                    Glide.with(it1)
-                                        .load(R.drawable.ic_anon_user_48dp)
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .placeholder(R.drawable.ic_anon_user_48dp)
-                                        .into(it)
-                                }
-                            }
+                            val storage = FirebaseStorage.getInstance()
+                            val gsReference = storage.getReferenceFromUrl(user.photoUrl!!)
+                            Domain.loadPhotoWithGlideCircleCrop(gsReference, photoProfile)
                         }
-
+                        hideLoader()
                     }
                 }
             }?.addOnFailureListener {
                 hideLoader()
-            Log.e(
-                "debago",
-                "Problem during the user creation"
-
-            )
-        }
+            }
     }
 
     private fun initButtons() {
         addPhotoCamera.setOnClickListener {
             addPhotoCamera.startAnimation(Domain.animation())
             addPhotoCameraText.startAnimation(Domain.animation())
-            onClickAddPhotoWithPermissionCheck(1, "") }
+            onClickAddPhotoWithPermissionCheck(1, "")
+        }
         addPhotoCameraText.setOnClickListener {
             addPhotoCamera.startAnimation(Domain.animation())
             addPhotoCameraText.startAnimation(Domain.animation())
-            onClickAddPhotoWithPermissionCheck(1, "") }
+            onClickAddPhotoWithPermissionCheck(1, "")
+        }
         addPhotoGallery.setOnClickListener {
             addPhotoGallery.startAnimation(Domain.animation())
             addPhotoGalleryText.startAnimation(Domain.animation())
-            onClickAddPhotoGalleryWithPermissionCheck() }
+            onClickAddPhotoGalleryWithPermissionCheck()
+        }
         addPhotoGalleryText.setOnClickListener {
             addPhotoGallery.startAnimation(Domain.animation())
             addPhotoGalleryText.startAnimation(Domain.animation())
-            onClickAddPhotoGalleryWithPermissionCheck() }
+            onClickAddPhotoGalleryWithPermissionCheck()
+        }
         addTipImage.setOnClickListener {
             addTipImage.startAnimation(Domain.animation())
             addTipText.startAnimation(Domain.animation())
-            onClickAddTips(0, "") }
+            onClickAddTips(0, "")
+        }
         addTipText.setOnClickListener {
             addTipImage.startAnimation(Domain.animation())
             addTipText.startAnimation(Domain.animation())
-            onClickAddTips(0, "") }
+            onClickAddTips(0, "")
+        }
         photoProfile.setOnClickListener { onClickUpdateProfil() }
         mSwipeRefreshLayout!!.setOnRefreshListener {
             mSwipeRefreshLayout?.isRefreshing = true
@@ -212,7 +161,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                 //start main activity
                 displayAllPosts()
                 mSwipeRefreshLayout?.isRefreshing = false
-            },1000)
+            }, 1000)
         }
     }
 
@@ -228,8 +177,6 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
             false
         )
         recyclerView.adapter = mRecyclerPostsAdapter
-
-
     }
 
     override fun onStart() {
@@ -239,9 +186,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     override fun onStop() {
         super.onStop()
-        if (mRecyclerPostsAdapter != null) {
-            mRecyclerPostsAdapter.stopListening()
-        }
+        mRecyclerPostsAdapter.stopListening()
     }
 
 
@@ -299,7 +244,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
 
-    fun onClickUpdateProfil() {
+    private fun onClickUpdateProfil() {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(ProfilDialog.TAG)
         if (previous != null) {
@@ -319,9 +264,6 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         permissions: Array<out String>,
         results: IntArray
     ) {
-        // Java: "MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, rc, results);"
-        // I'm not satisfied with the method signature here, since it's too similar to the Android one.
-        // However, the signature is already pretty long, so I'm open for ideas.
         this.onRequestPermissionsResult(rc, results)
     }
 
@@ -362,8 +304,6 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                 onClickAddPhotoWithPermissionCheck(value, postId)
             }
         }
-
-
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -372,19 +312,14 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         super.onPrepareOptionsMenu(menu)
     }
 
-    // --------------------
-    // CALLBACK
-    // --------------------
     override fun onDataChanged() {
-        Log.d("debago","in on data changed ${mRecyclerPostsAdapter.itemCount}")
         // 7 - Show TextView in case RecyclerView is empty
         if (mRecyclerPostsAdapter.itemCount == 0) {
-            if(NetworkUtils.isInternetAvailable(App.applicationContext())){
-                Log.d("debago","internet yes")
+            if (NetworkUtils.isInternetAvailable(App.applicationContext())) {
                 no_post_found.visibility = View.VISIBLE
-            }else{
+            } else {
                 no_post_found.visibility = View.VISIBLE
-                no_post_found.text=getString(R.string.internet_connexion)
+                no_post_found.text = getString(R.string.internet_connexion)
             }
 
         } else {
@@ -398,7 +333,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     override fun hideLoader() {
         loader?.visibility = View.GONE
-        nestedScrollView?.visibility = View.VISIBLE
+        nestedScrollView.visibility = View.VISIBLE
     }
 
 

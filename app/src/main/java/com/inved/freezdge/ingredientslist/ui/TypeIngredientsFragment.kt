@@ -17,7 +17,6 @@ import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
-import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
@@ -27,7 +26,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.util.*
 
-class TypeIngredientsFragment:Fragment() {
+class TypeIngredientsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     lateinit var ingredientViewmodel: IngredientsViewModel
@@ -35,11 +34,9 @@ class TypeIngredientsFragment:Fragment() {
     private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
     private lateinit var linearLayoutManager: LinearLayoutManager
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_type_ingredients, container, false)
         recyclerView = view.findViewById(R.id.recyclerview)
         setHasOptionsMenu(true)
@@ -50,39 +47,30 @@ class TypeIngredientsFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey("PositionViewpager") }?.apply {
-            val position:Int = getInt("PositionViewpager")
+            val position: Int = getInt("PositionViewpager")
             getForegroundFragment(position)
         }
     }
 
-
-
-    //INITIALIZATION
     private fun initViewModel() {
-
-        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore,App.applicationContext())
+        val viewModelFactory =
+            Injection.providesViewModelFactory(App.ObjectBox.boxStore)
         ingredientViewmodel = ViewModelProviders.of(
             this,
             viewModelFactory
         ).get(IngredientsViewModel::class.java)
-
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-
         val searchItem = menu.findItem(R.id.search_menu)
-
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
-
             val edittext =
                 searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
             edittext.hint = getString(R.string.search_ingredient_searchview_label)
             val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
-            edittext.typeface=tf
-
+            edittext.typeface = tf
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return true
                 }
@@ -94,40 +82,38 @@ class TypeIngredientsFragment:Fragment() {
                         val search = newText.toLowerCase(Locale.ROOT)
                         ingredientViewmodel.getAllIngredients()
                             .observe({ lifecycle }, { list ->
-
-                                var count =0
-                                if(list.size!=0){
-                                    list.forEach {
-                                        if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
-                                            foodSearchItemAdapter.add(it)
-                                            count=count.plus(1)
-                                        }
-                                    }
-
-                                    if(count==0){
-                                        Toast.makeText(activity,getString(R.string.toastNoIngredientResultSearch),
-                                            Toast.LENGTH_SHORT).show()
-                                    }
-
-                                }
-
+                                handleList(list,search)
                             })
-                    }else{
+                    } else {
                         SearchIngredientsActivity.currentPage?.let { getForegroundFragment(it) }
                     }
-
                     return true
                 }
             })
-
-
         }
         return super.onPrepareOptionsMenu(menu)
     }
 
+    fun handleList(list:MutableList<Ingredients>,search:String){
+        var count = 0
+        if (list.size != 0) {
+            list.forEach {
+                if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
+                    foodSearchItemAdapter.add(it)
+                    count = count.plus(1)
+                }
+            }
+            if (count == 0) {
+                Toast.makeText(
+                    activity,
+                    getString(R.string.toastNoIngredientResultSearch),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
-    fun getForegroundFragment(value:Int) {
-
+    fun getForegroundFragment(value: Int) {
         when (value) {
             0 -> run {
                 getAllFoodByType(getString(R.string.ingredient_type_cream))
@@ -147,44 +133,38 @@ class TypeIngredientsFragment:Fragment() {
         }
     }
 
-    private fun getAllFoodByType(typeIngredient:String) {
+    private fun getAllFoodByType(typeIngredient: String) {
         foodSearchItemAdapter.clear()
-        ingredientViewmodel.getAllIngredientsByType(typeIngredient).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            foodSearchItemAdapter.add(it)
-
-        })
-
+        ingredientViewmodel.getAllIngredientsByType(typeIngredient)
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                foodSearchItemAdapter.add(it)
+            })
     }
 
     private fun setupRecyclerView() {
         linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = fastAdapterFoodSearch
-
-
-        fastAdapterFoodSearch.onClickListener= { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
-            v?.let {
-
-                val bool:Boolean? =ingredientViewmodel.isIngredientSelected(item.name)
-                if(bool!!){
-                    item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
-                }else{
-                    item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
-                }
-
-                GlobalScope.async (Dispatchers.IO) {
-                    ingredientViewmodel.updateIngredient(item)
-                    if(ingredientViewmodel.isIngredientSelectedInGrocery(item.name)){
-                        ingredientViewmodel.updateIngredientSelectedForGroceryByName(item.name,false)
+        fastAdapterFoodSearch.onClickListener =
+            { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
+                v?.let {
+                    val bool: Boolean? = ingredientViewmodel.isIngredientSelected(item.name)
+                    if (bool!!) {
+                        item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
+                    } else {
+                        item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
+                    }
+                    GlobalScope.async(Dispatchers.IO) {
+                        ingredientViewmodel.updateIngredient(item)
+                        if (ingredientViewmodel.isIngredientSelectedInGrocery(item.name)) {
+                            ingredientViewmodel.updateIngredientSelectedForGroceryByName(
+                                item.name,
+                                false
+                            )
+                        }
                     }
                 }
-
-
+                true
             }
-            true
-        }
-
-
     }
-
 }

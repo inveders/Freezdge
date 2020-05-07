@@ -1,7 +1,16 @@
 package com.inved.freezdge.utils
 
+import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.animation.AlphaAnimation
+import android.widget.ImageView
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.firebase.storage.StorageReference
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
@@ -283,6 +292,93 @@ class Domain {
                     App.ObjectBox.boxStore.boxFor<Ingredients>().put(ingredient)
             }
 
+        }
+
+        fun loadPhotoWithGlide(gsReference:StorageReference?,shimmer:ShimmerFrameLayout?,image:ImageView){
+            GlideApp.with(App.applicationContext())
+                .load(gsReference)
+                .listener(object : RequestListener<Drawable?> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any,
+                        target: Target<Drawable?>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.e("debago", "Exception is : $e")
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any,
+                        target: Target<Drawable?>,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        if(shimmer!=null){
+                            shimmer.stopShimmer()
+                            shimmer.hideShimmer()
+                        }
+                        return false
+                    }
+                })
+                .into(image)
+        }
+
+        fun loadPhotoWithGlideUrl(url:String?,shimmer:ShimmerFrameLayout?,image:ImageView){
+            GlideApp.with(App.applicationContext())
+                .load(url)
+                .listener(object : RequestListener<Drawable?> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any,
+                        target: Target<Drawable?>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.e("debago", "Exception is : $e")
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any,
+                        target: Target<Drawable?>,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        if(shimmer!=null){
+                            shimmer.stopShimmer()
+                            shimmer.hideShimmer()
+                        }
+                        return false
+                    }
+                })
+                .into(image)
+        }
+
+        fun loadPhotoWithGlideCircleCrop(gsReference:StorageReference?,image:ImageView){
+            GlideApp.with(App.applicationContext())
+                .load(gsReference)
+                .circleCrop()
+                .into(image)
+        }
+
+        fun loadPhotoWithGlideCircleCropUrl(url:String?,image:ImageView?){
+            image?.let {
+                GlideApp.with(App.applicationContext())
+                    .load(url)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_anon_user_48dp)
+                    .into(it)
+            }
+
+        }
+
+        fun loadPhotoWithGlideCenterCropUrl(url:String?,image:ImageView){
+            GlideApp.with(App.applicationContext())
+                .load(url)
+                .centerCrop()
+                .into(image)
         }
 
         fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){

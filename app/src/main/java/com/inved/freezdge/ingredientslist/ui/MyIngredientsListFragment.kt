@@ -57,57 +57,57 @@ class MyIngredientsListFragment : BaseFragment() {
 
     private fun setupChips() {
 
-        val result:MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
+        val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
-                if (result != null) {
-                    if (result.size != 0) {
-                        notFoundTeextView.visibility = View.GONE
-                        notFoundImageView.visibility = View.GONE
-                        chipGroup.removeAllViews()
-                        for (myresult in result) {
-                            val chip = Chip(chipGroup.context)
-                            val chipDrawable = ChipDrawable.createFromAttributes(
-                                chipGroup.context,
-                                null,
-                                0,
-                                R.style.Widget_MaterialComponents_Chip_Entry
+        if (result.size != 0) {
+            notFoundTeextView.visibility = View.GONE
+            notFoundImageView.visibility = View.GONE
+            chipGroup.removeAllViews()
+            handleChip(result)
+
+        } else {
+            notFoundTeextView.visibility = View.VISIBLE
+            notFoundImageView.visibility = View.VISIBLE
+            notFoundTeextView.text = getString(R.string.no_item_found_ingredients)
+        }
+
+    }
+
+    fun handleChip(result:MutableList<Ingredients>){
+        for (myresult in result) {
+            val chip = Chip(chipGroup.context)
+            val chipDrawable = ChipDrawable.createFromAttributes(
+                chipGroup.context,
+                null,
+                0,
+                R.style.Widget_MaterialComponents_Chip_Entry
+            )
+            chip.setChipDrawable(chipDrawable)
+            chip.text = myresult.name
+            handleChipColor(myresult, chip)
+            chip.closeIcon = context?.let {
+                ContextCompat.getDrawable(it, R.drawable.ic_clear_grey_24dp)
+            }
+            // Set chip close icon click listener
+            chip.setOnCloseIconClickListener {
+                GlobalScope.async(Dispatchers.IO) {
+                    ingredientsViewmodel.updateIngredientSelectedByName(
+                        myresult.name,
+                        false
+                    )
+                    myresult.name?.let { it1 ->
+                        myresult.nameEnglish?.let { it2 ->
+                            favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
+                                it1, it2
                             )
-                            chip.setChipDrawable(chipDrawable)
-                            chip.text = myresult.name
-                            handleChipColor(myresult,chip)
-                            chip.closeIcon = context?.let {
-                                ContextCompat.getDrawable(it, R.drawable.ic_clear_grey_24dp)
-                            }
-                            // Set chip close icon click listener
-                            chip.setOnCloseIconClickListener {
-                                // Smoothly remove chip from chip group
-                                GlobalScope.async(Dispatchers.IO) {
-                                    ingredientsViewmodel.updateIngredientSelectedByName(
-                                        myresult.name,
-                                        false
-                                    )
-                                    myresult.name?.let { it1 ->
-                                        myresult.nameEnglish?.let { it2 ->
-                                            favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
-                                                it1, it2
-                                            )
-                                        }
-                                    }
-                                }
-                                chipGroup.removeView(chip)
-                                setlistRetrofit.clear()
-                            }
-                            chipGroup.addView(chip)
                         }
-                    } else {
-                        notFoundTeextView.visibility = View.VISIBLE
-                        notFoundImageView.visibility = View.VISIBLE
-                        notFoundTeextView.text = getString(R.string.no_item_found_ingredients)
                     }
-
                 }
-
-
+                chipGroup.removeView(chip)
+                setlistRetrofit.clear()
+            }
+            chipGroup.addView(chip)
+        }
     }
 
     fun openSearchIngredientActivity() {
@@ -117,7 +117,7 @@ class MyIngredientsListFragment : BaseFragment() {
         }
     }
 
-    fun handleChipColor(myresult:Ingredients,chip:Chip){
+    private fun handleChipColor(myresult: Ingredients, chip: Chip) {
         if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_cream))) {
             chip.chipBackgroundColor = context?.let {
                 ContextCompat.getColor(
@@ -132,22 +132,25 @@ class MyIngredientsListFragment : BaseFragment() {
                 )
             }?.let { ColorStateList.valueOf(it) }
         }
-        if(myresult.typeIngredient.equals(getString(R.string.ingredient_type_epicerie))){
+        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_epicerie))) {
             chip.chipBackgroundColor = context?.let {
                 ContextCompat.getColor(
-                    it, R.color.colorEpicerie)
+                    it, R.color.colorEpicerie
+                )
             }?.let { ColorStateList.valueOf(it) }
         }
-        if(myresult.typeIngredient.equals(getString(R.string.ingredient_type_fish))){
+        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_fish))) {
             chip.chipBackgroundColor = context?.let {
                 ContextCompat.getColor(
-                    it, R.color.colorFish)
+                    it, R.color.colorFish
+                )
             }?.let { ColorStateList.valueOf(it) }
         }
-        if(myresult.typeIngredient.equals(getString(R.string.ingredient_type_meat))){
+        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_meat))) {
             chip.chipBackgroundColor = context?.let {
                 ContextCompat.getColor(
-                    it, R.color.colorMeat)
+                    it, R.color.colorMeat
+                )
             }?.let { ColorStateList.valueOf(it) }
         }
 

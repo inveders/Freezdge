@@ -8,7 +8,6 @@ import io.objectbox.android.ObjectBoxLiveData
 
 class IngredientsViewModel(private val ingredientsRepository: IngredientsRepository) : ViewModel() {
 
-
     fun insertIngredients() {
         ingredientsRepository.insertIngredients()
     }

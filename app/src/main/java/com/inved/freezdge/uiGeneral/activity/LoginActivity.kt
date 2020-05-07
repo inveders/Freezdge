@@ -2,10 +2,8 @@ package com.inved.freezdge.uiGeneral.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -25,9 +23,9 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity: BaseActivity() {
 
     //FOR DATA
-    val RC_SIGN_IN: Int = 1
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var mGoogleSignInOptions: GoogleSignInOptions
+    private val RC_SIGN_IN: Int = 1
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_login
@@ -35,12 +33,6 @@ class LoginActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //Progress bar
-        progressBar.indeterminateDrawable.setColorFilter(
-            getResources().getColor(R.color.colorPrimary),
-            PorterDuff.Mode.MULTIPLY
-        )
 
         configureGoogleSignIn()
         login_facebook_button.setOnClickListener{ onClickFacebookLoginButton() }
@@ -54,7 +46,7 @@ class LoginActivity: BaseActivity() {
                 isUserExistInFirebase()
                 startActivity(MainActivity.getLaunchIntent(this))
             } else {
-                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.google_sign_in), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -125,10 +117,6 @@ class LoginActivity: BaseActivity() {
         }
     }
 
-    private fun showProgressBar() {
-        progressBar.visibility = View.VISIBLE
-    }
-
     // --------------------
     // ACTIONS
     // --------------------
@@ -160,17 +148,6 @@ class LoginActivity: BaseActivity() {
     }*/
 
     private fun startGoogleSignInActivity() {
-       /* startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setTheme(R.style.LoginTheme)
-                .setAvailableProviders(listOf(GoogleBuilder().build())) //GOOGLE
-                .setIsSmartLockEnabled(false, true)
-                .setLogo(R.drawable.ic_logo_go4lunch)
-                .build(),
-            RCSIGNIN
-        )*/
-
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
 

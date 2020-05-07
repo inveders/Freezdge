@@ -1,6 +1,5 @@
 package com.inved.freezdge.socialmedia.firebase
 
-import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -9,10 +8,10 @@ import com.google.firebase.firestore.Query
 class UserHelper {
 
     companion object{
-        private val COLLECTION_NAME = "users"
+        private const val COLLECTION_NAME = "users"
 
         // --- COLLECTION REFERENCE ---
-        fun getUsersCollection(): CollectionReference? {
+        private fun getUsersCollection(): CollectionReference? {
             return FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME)
         }
@@ -62,9 +61,6 @@ class UserHelper {
         ): Task<Void?>? {
             return getUsersCollection()?.document(uid)?.update("photoUrl", photoUrl)
         }
-
     }
-
-
 
 }
