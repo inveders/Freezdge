@@ -38,19 +38,25 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled= true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "APP_ID_RECIPES", APP_ID_RECIPES)
             buildConfigField("String", "APP_KEY_RECIPES", APP_KEY_RECIPES)
             debuggable = false
-            multiDexEnabled true
+            multiDexEnabled= true
+            shrinkResources= true // Remove unused resources
+            useProguard= true     // Remove unused codes
             signingConfig signingConfigs.release
         }
         debug {
-            testCoverageEnabled true
+            testCoverageEnabled= true
             buildConfigField"String", "APP_ID_RECIPES", APP_ID_RECIPES
             buildConfigField"String", "APP_KEY_RECIPES", APP_KEY_RECIPES
-            multiDexEnabled true
+            multiDexEnabled= true
+            minifyEnabled =false
+            shrinkResources =false
+            useProguard= false
+            debuggable= true
         }
     }
 }
