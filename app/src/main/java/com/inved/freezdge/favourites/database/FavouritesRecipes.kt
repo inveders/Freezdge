@@ -17,7 +17,9 @@ class FavouritesRecipes(
     var recipeTime: String? = null,
     var recipeUrl: String? = null,
     var recipePhotoUrl: String? = null,
-    var recipeIngredients: String? = null
+    var recipeIngredients: String? = null,
+    var cuisineType: String? = null,
+    var dishType: String? = null
 ) : AbstractItem<ViewHolderFavouritesRecipes>() {
 
     /** defines the type defining this item. must be unique. preferably an id */

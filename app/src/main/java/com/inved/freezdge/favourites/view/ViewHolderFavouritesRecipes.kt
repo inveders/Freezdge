@@ -1,6 +1,5 @@
 package com.inved.freezdge.favourites.view
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,6 +22,8 @@ class ViewHolderFavouritesRecipes(val view: View) :
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
     var kcal: TextView = view.findViewById(R.id.description)
+    var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
+    var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
     var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
@@ -30,13 +31,28 @@ class ViewHolderFavouritesRecipes(val view: View) :
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
         label.text = item.recipeTitle
-        preparationTime.text = item.recipeTime
-        kcal.text = item.recipeCalories
 
-        Log.d("debago","${item.recipeTitle} ${item.recipeId} ${item.recipeUrl} ${item.recipePhotoUrl}")
+        if(item.recipeTime.isNullOrEmpty()){
+            preparationTime.text = App.resource().getString(R.string.recipe_list_item_no_time_known)
+        }else{
+            preparationTime.text = item.recipeTime
+        }
+
+        if(item.recipeCalories.isNullOrEmpty()){
+            kcal.text = App.resource().getString(R.string.recipe_list_item_kcal_notknow)
+        }else{
+            kcal.text = item.recipeCalories
+        }
 
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text="$proportionInPercent %"
+
+        cuisineType.text= item.cuisineType?.let { Domain.uppercaseFirstCaracter(it) }
+        if(item.dishType.equals("Main course")){
+            dishType.text=App.resource().getString(R.string.array_filter_plat)
+        }else{
+            dishType.text= item.dishType?.let { Domain.uppercaseFirstCaracter(it) }
+        }
 
         when (proportionInPercent) {
             in 80..99 -> {
@@ -63,11 +79,6 @@ class ViewHolderFavouritesRecipes(val view: View) :
                 .centerCrop()
                 .into(imageItem)
         }
-
-
-
-
-
 
         if(isRecipeIdIsPresent(item.recipeId)!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
@@ -97,6 +108,5 @@ class ViewHolderFavouritesRecipes(val view: View) :
                 .build().findUnique()
         return favouritesRecipes!=null
     }
-
 
 }

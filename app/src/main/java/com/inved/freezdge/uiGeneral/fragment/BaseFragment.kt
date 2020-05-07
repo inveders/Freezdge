@@ -1,8 +1,11 @@
 package com.inved.freezdge.uiGeneral.fragment
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,6 +15,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -20,6 +24,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
@@ -62,7 +69,7 @@ abstract class BaseFragment : Fragment() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
+    private lateinit var floatingActionButton: FloatingActionButton
 
     companion object {
         internal var listener: LoaderListener? = null
@@ -74,13 +81,13 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-    private val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
-    private val recipesDatabaseItemAdapter = ItemAdapter<Recipes>()
+    val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
+    val recipesDatabaseItemAdapter = ItemAdapter<Recipes>()
     private var fastAdapter: GenericFastAdapter =
         FastAdapter.with(listOf(recipesDatabaseItemAdapter, recipesRetrofitItemAdapter))
 
-    private val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
-    private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
+    val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
+    val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
@@ -97,10 +104,10 @@ abstract class BaseFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(getLayoutRes(), container, false)
+        floatingActionButton = view.findViewById(R.id.floating_button)
         recyclerView = view.findViewById(R.id.recyclerview)
         notFoundTeextView = view.findViewById(R.id.not_found)
         notFoundImageView = view.findViewById(R.id.image_arrow)
-        setHasOptionsMenu(true)
         initViewModel()
         insertFood()
         insertRecipes()
@@ -156,7 +163,9 @@ abstract class BaseFragment : Fragment() {
                     preparationTime(item.recipe?.totalTime),
                     item.recipe?.url,
                     item.recipe?.image,
-                    item.recipe?.ingredientLines.toString()
+                    item.recipe?.ingredientLines.toString(),
+                    item.recipe?.cuisineType?.get(0),
+                    item.recipe?.dishType?.get(0)
                 )
 
                 val bool: Boolean? =
@@ -192,7 +201,9 @@ abstract class BaseFragment : Fragment() {
                     item.totalrecipeTime,
                     item.recipeUrlOwnerLink,
                     item.recipePhotoUrl,
-                    item.recipeIngredients
+                    item.recipeIngredients,
+                    item.cuisineType,
+                    item.dishType
                 )
 
                 val bool: Boolean? =
@@ -232,6 +243,8 @@ abstract class BaseFragment : Fragment() {
         recipeModel.insertRecipesInDatabase()
     }
 
+
+
     private fun setupFavouriteRecipeRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
@@ -261,7 +274,8 @@ abstract class BaseFragment : Fragment() {
 
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
-                item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients
+                item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients,
+                item.cuisineType,item.dishType
             )
 
             val bool: Boolean? =
@@ -349,69 +363,6 @@ abstract class BaseFragment : Fragment() {
             }
         }
     }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-
-
-        val searchItem = menu.findItem(R.id.search_menu)
-    Log.d("debago","in on prepareOptionMenu")
-        if (searchItem != null) {
-            val searchView = searchItem.actionView as SearchView
-
-            val edittext =
-                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-            edittext.hint = getString(R.string.search_recipe_searchview_label)
-            val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
-            edittext.typeface=tf
-
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    when {
-                        getForegroundFragment() is AllRecipesFragment -> run {
-                            recipesRetrofitItemAdapter.filter(newText)
-                            recipesRetrofitItemAdapter.itemFilter.filterPredicate =
-                                { item: Hit, constraint: CharSequence? ->
-                                    item.recipe?.label!!.contains(
-                                        constraint.toString(),
-                                        ignoreCase = true
-                                    )
-                                }
-
-                            recipesDatabaseItemAdapter.filter(newText)
-                            recipesDatabaseItemAdapter.itemFilter.filterPredicate =
-                                { item: Recipes, constraint: CharSequence? ->
-                                    item.recipeTitle!!.contains(
-                                        constraint.toString(),
-                                        ignoreCase = true
-                                    )
-                                }
-                        }
-                        getForegroundFragment() is MyRecipesFragment -> run {
-                            favouriteRecipesItemAdapter.filter(newText)
-                            favouriteRecipesItemAdapter.itemFilter.filterPredicate =
-                                { item: FavouritesRecipes, constraint: CharSequence? ->
-                                    item.recipeTitle!!.contains(
-                                        constraint.toString(),
-                                        ignoreCase = true
-                                    )
-                                }
-                        }
-                    }
-
-                    return true
-                }
-            })
-
-
-        }
-        return super.onPrepareOptionsMenu(menu)
-    }
-
 
     private fun getFavouritesRecipes() {
         favouriteRecipesItemAdapter.clear()

@@ -100,7 +100,7 @@
     },
     {
       "id": "3:5942598635681225889",
-      "lastPropertyId": "23:1602087352304229876",
+      "lastPropertyId": "25:6117471842794335135",
       "name": "Recipes",
       "properties": [
         {
@@ -154,7 +154,7 @@
           "id": "10:8316927505076238392",
           "name": "selectedRecipe",
           "type": 1,
-          "flags": 2
+          "flags": 4
         },
         {
           "id": "11:3692217185749191494",
@@ -220,6 +220,16 @@
         {
           "id": "23:1602087352304229876",
           "name": "step12",
+          "type": 9
+        },
+        {
+          "id": "24:8015237381018466037",
+          "name": "recipePhotoUrlOwner",
+          "type": 9
+        },
+        {
+          "id": "25:6117471842794335135",
+          "name": "recipeUrlOwnerLink",
           "type": 9
         }
       ],

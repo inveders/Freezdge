@@ -15,8 +15,9 @@ class FavouritesRecipesRepository {
         fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                                   recipeUrl: String?,
                                   recipePhotoUrl: String?,
-                                  recipeIngredients: String?) {
-            FavouritesRecipesDAO.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
+                                  recipeIngredients: String?,
+                                  cuisineType:String?,dishType:String?) {
+            FavouritesRecipesDAO.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType)
         }
 
         fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){

@@ -21,7 +21,9 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
     var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
-    var kcal: TextView = view.findViewById(R.id.description)
+    private var kcal: TextView = view.findViewById(R.id.description)
+    var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
+    var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
     var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
@@ -32,7 +34,19 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
     override fun bindView(item: Recipes, payloads: MutableList<Any>) {
 
         label.text = item.recipeTitle
-        preparationTime.text=item.totalrecipeTime
+
+        if(item.totalrecipeTime.isNullOrEmpty()){
+            preparationTime.text = App.resource().getString(R.string.recipe_list_item_no_time_known)
+        }else{
+            preparationTime.text = item.preparationTime
+        }
+
+        cuisineType.text= item.cuisineType?.let { Domain.uppercaseFirstCaracter(it) }
+        if(item.dishType.equals("Main course",true)){
+            dishType.text=App.resource().getString(R.string.array_filter_plat)
+        }else{
+            dishType.text= item.dishType?.let { Domain.uppercaseFirstCaracter(it) }
+        }
 
         if(item.recipeCalories.isNullOrEmpty()){
             kcal.text = App.resource().getString(R.string.recipe_list_item_kcal_notknow)

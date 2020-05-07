@@ -11,8 +11,9 @@ class FavouritesRecipesViewModel:ViewModel() {
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
-                              recipeIngredients: String?) {
-        FavouritesRecipesRepository.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
+                              recipeIngredients: String?,cuisineType:String?,
+                              dishType:String?) {
+        FavouritesRecipesRepository.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType)
     }
 
     fun isRecipeIdIsPresent(recipeId:String):Boolean? {

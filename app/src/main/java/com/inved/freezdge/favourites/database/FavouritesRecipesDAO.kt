@@ -20,7 +20,7 @@ class FavouritesRecipesDAO {
         fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                                   recipeUrl: String?,
                                   recipePhotoUrl: String?,
-                                  recipeIngredients: String?) {
+                                  recipeIngredients: String?,cuisineType:String?,dishType:String?) {
 
             val favouritesRecipes: FavouritesRecipes? =
                 getFavouritesRecipesBox().query().equal(FavouritesRecipes_.recipeId, recipeId!!)
@@ -28,7 +28,7 @@ class FavouritesRecipesDAO {
             if (favouritesRecipes != null) {
                 removeFavouriteRecipe(favouritesRecipes)
             } else {
-                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients)
+                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType)
             }
         }
 
@@ -59,7 +59,9 @@ class FavouritesRecipesDAO {
             recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
             recipeUrl: String?,
             recipePhotoUrl: String?,
-            recipeIngredients: String?
+            recipeIngredients: String?,
+            cuisineType: String?,
+            dishType: String?
         ) {
             getFavouritesRecipesBox().put(
                 FavouritesRecipes(
@@ -69,7 +71,9 @@ class FavouritesRecipesDAO {
                     recipeTime =recipeTime,
                     recipeUrl =recipeUrl,
                     recipePhotoUrl =recipePhotoUrl,
-                    recipeIngredients =recipeIngredients
+                    recipeIngredients =recipeIngredients,
+                    cuisineType = cuisineType,
+                    dishType = dishType
                 )
             )
         }

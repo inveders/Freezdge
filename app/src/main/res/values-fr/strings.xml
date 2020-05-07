@@ -24,7 +24,7 @@
     <string name="recipe_list_item_image" translatable="false">image_recipe</string>
     <string name="recipe_list_item_label" translatable="false">Recipe</string>
     <string name="recipe_list_item_matching">100%</string>
-    <string name="recipe_list_item_no_time_known">Aucun temps indiqué</string>
+    <string name="recipe_list_item_no_time_known">Non indiqué</string>
     <string name="recipe_list_item_time_min">%d min</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
     <string name="recipe_list_item_time_hours">%dh</string>
@@ -36,7 +36,7 @@
     <!--Recipe Detail-->
     <string name="recipe_detail_item_image" translatable="false">image_recipe</string>
     <string name="recipe_detail_item_label">Titre de la recette</string>
-    <string name="recipe_detail_item_no_time_known">Aucun temps indiqué</string>
+    <string name="recipe_detail_item_no_time_known">Non indiqué</string>
     <string name="recipe_detail_item_detail_time">Prép. : %s\nCuisson : %s</string>
     <string name="recipe_detail_item_total_time">Temps total : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
@@ -133,5 +133,13 @@
     <string name="step_recipe">Etape %d : %s</string>
     <string name="internet_connexion">Pas de connexion internet</string>
     <string name="search_recipe_searchview_label">Recherchez une recette ici...</string>
+
+    <!--Array string -->
+    <string name="array_filter_dessert">Dessert</string>
+    <string name="array_filter_entry">Entrée</string>
+    <string name="array_filter_plat">Plat principal</string>
+    <string name="array_filter_cocktail">Cocktail</string>
+    <string name="array_filter_all">Tous</string>
+    <string name="array_dialog_title">Filtre</string>
 
 </resources>

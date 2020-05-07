@@ -34,7 +34,7 @@ class MyIngredientsListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        floatingActionButton = view.findViewById(R.id.fragment_ingredient_list_floating_button)
+        floatingActionButton = view.findViewById(R.id.floating_button)
         chipGroup = view.findViewById(R.id.chipGroup)
         floatingActionButton.setOnClickListener { _ -> openSearchIngredientActivity() }
         ingredientsViewmodel =

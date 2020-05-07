@@ -82,7 +82,6 @@
             android:layout_height="24dp"
             android:contentDescription="@string/recipe_list_item_image"
             app:layout_constraintTop_toTopOf="@id/favorite_image"
-            app:layout_constraintBottom_toBottomOf="@id/favorite_image"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:srcCompat="@drawable/ic_timer_black_24dp" />
 
@@ -133,6 +132,43 @@
             app:layout_constraintTop_toTopOf="@id/like_number_image"
             app:layout_constraintBottom_toBottomOf="@id/like_number_image"/>
 
+
+        <TextView
+            android:id="@+id/fragment_recipes_list_cuisine_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:textSize="12sp"
+            android:text="@string/recipe_list_item_cuisine_type"
+            app:layout_constraintStart_toStartOf="@id/like_number_image"
+            app:layout_constraintTop_toBottomOf="@id/like_number_image"
+            />
+
+        <TextView
+            android:id="@+id/fragment_recipes_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:text="-"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/fragment_recipes_list_cuisine_type"
+            app:layout_constraintTop_toBottomOf="@id/like_number_image"
+            />
+
+        <TextView
+            android:id="@+id/fragment_recipes_list_dish_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:textSize="12sp"
+            android:text="@string/recipe_list_item_dish_type"
+            app:layout_constraintStart_toEndOf="@id/fragment_recipes_line"
+            app:layout_constraintTop_toBottomOf="@id/like_number_image"
+            />
 
         <TextView
             android:id="@+id/description"

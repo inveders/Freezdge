@@ -1,7 +1,6 @@
 package com.inved.freezdge.utils
 
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipesDAO
@@ -32,6 +31,11 @@ class Domain {
             animation1.startOffset = 2000
             animation1.fillAfter = true
             return animation1
+        }
+
+        fun uppercaseFirstCaracter(name:String):String{
+            val s1 = name.substring(0, 1).toUpperCase()
+            return s1 + name.substring(1)
         }
 
         fun convertDpToPixel(dp: Int): Int {

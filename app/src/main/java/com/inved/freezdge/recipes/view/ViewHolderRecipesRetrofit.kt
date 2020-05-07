@@ -23,6 +23,8 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
     private var kcal: TextView = view.findViewById(R.id.description)
+    private var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
+    private var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
     private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
@@ -32,6 +34,13 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
 
         label.text = item.recipe?.label
         preparationTime.text=Domain.preparationTime(item.recipe?.totalTime)
+
+        cuisineType.text= item.recipe?.cuisineType?.get(0)?.let { Domain.uppercaseFirstCaracter(it) }
+        if(item.recipe?.dishType?.get(0).equals("Main course",true)){
+            dishType.text=App.resource().getString(R.string.array_filter_plat)
+        }else{
+            dishType.text= item.recipe?.dishType?.get(0)?.let { Domain.uppercaseFirstCaracter(it) }
+        }
 
         kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()
 
