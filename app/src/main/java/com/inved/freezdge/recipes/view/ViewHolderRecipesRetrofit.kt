@@ -10,6 +10,7 @@ import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.adapters.ItemFilter
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
@@ -29,6 +30,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         view.findViewById(R.id.favorite_image)
     private var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
+
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
 
         label.text = item.recipe?.label
@@ -44,9 +46,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()
 
         val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe?.ingredientLines)
-        val proportionString =
-            String.format("%d %", proportionInPercent)
-        proportionText.text=proportionString
+        proportionText.text="$proportionInPercent %"
 
         when (proportionInPercent) {
             in 80..99 -> {

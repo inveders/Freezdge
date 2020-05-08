@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
+import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
@@ -27,8 +28,11 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
+import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
+import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.LoaderListener
 import com.inved.freezdge.utils.NetworkUtils
 import com.mikepenz.fastadapter.FastAdapter
@@ -36,7 +40,9 @@ import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.coroutines.*
+import kotlin.math.roundToInt
 
 
 abstract class BaseFragment : Fragment() {
@@ -53,8 +59,10 @@ abstract class BaseFragment : Fragment() {
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
         }
-        val setlistDatabase: MutableSet<MutableList<Recipes>> = mutableSetOf()
-        val setlistRetrofit: MutableSet<List<Hit>> = mutableSetOf()
+        var setlistDatabase: MutableSet<MutableList<Recipes>> = mutableSetOf()
+        var setlistRetrofit: MutableSet<List<Hit>> = mutableSetOf()
+        val setlistDatabaseFilter: MutableSet<MutableList<Recipes>> = mutableSetOf()
+        val setlistRetrofitFilter: MutableSet<List<Hit>> = mutableSetOf()
     }
 
     val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
@@ -135,11 +143,7 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        view?.let {
-            recipeViewModel.handleFastAdapterClick(fastAdapter,favouriteRecipesViewmodel,
-                it
-            )
-        }
+        handleFastAdapterClick(fastAdapter,favouriteRecipesViewmodel)
     }
 
     private fun setupFavouriteRecipeRecyclerView() {
@@ -166,11 +170,7 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        view?.let {
-            recipeViewModel.handleFavouriteFastAdapterClick(favouritesFastAdapter,favouriteRecipesViewmodel,
-                it
-            )
-        }
+        handleFavouriteFastAdapterClick(favouritesFastAdapter,favouriteRecipesViewmodel)
 
     }
 
@@ -195,8 +195,10 @@ abstract class BaseFragment : Fragment() {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
                 if(NetworkUtils.isInternetAvailable(App.applicationContext())){
-                    Log.d("debago","internet yes")
-                    getAllRecipes()
+                    lifecycleScope.launch {
+                        getAllRecipes()
+                    }
+
                 }else{
                     notFoundTeextView.visibility=View.VISIBLE
                     notFoundTeextView.text=getString(R.string.internet_connexion)
@@ -209,7 +211,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun getFavouritesRecipes() {
+    private fun getFavouritesRecipes() {
         favouriteRecipesItemAdapter.clear()
 
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
@@ -237,61 +239,174 @@ abstract class BaseFragment : Fragment() {
     }
 
     //DATA
-    fun getAllRecipes() {
+    private suspend fun getAllRecipes() {
 
-        val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
-        Log.d("debago","setlistretrofit ${setlistRetrofit.size}")
         if(setlistRetrofit.isNullOrEmpty()){
-            uiScope.launch {
-                if (result.size != 0) {
-                    Log.d("debago","result size not null")
-                    listener?.showLoader()
-                    notFoundTeextView.visibility = View.GONE
-                    lifecycleScope.launch {
-                        setList(result)
-                    }
-                    delay(4000)
-                    fillAdapter()
-                } else {
+            val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
+            recipeViewModel.getRetrofitRecipes(result)?.observe(viewLifecycleOwner, Observer { result ->
+                if(result.isNullOrEmpty()){
                     notFoundTeextView.visibility = View.VISIBLE
                     notFoundTeextView.text =
                         getString(R.string.no_item_found_recipes)
+                }else{
+                    notFoundTeextView.visibility = View.GONE
+                    fillAdapterRetrofit(result)
                 }
-            }
-
+            })
+            recipeViewModel.getDatabaseRecipes(result)?.observe(viewLifecycleOwner, Observer { result ->
+                if(result.isNullOrEmpty()){
+                    notFoundTeextView.visibility = View.VISIBLE
+                    notFoundTeextView.text =
+                        getString(R.string.no_item_found_recipes)
+                }else{
+                    notFoundTeextView.visibility = View.GONE
+                    fillAdapterDatabase(result)
+                }
+            })
         }else{
-            fillAdapter()
+            fillAdapterRetrofit(setlistRetrofit)
+            fillAdapterDatabase(setlistDatabase)
         }
 
     }
 
-    suspend fun setList(result:MutableList<Ingredients>){
-        for (myresult in result) {
-            Log.d("debago","result loop")
-            recipeViewModel.getRecipeIfContainIngredient(myresult.name!!)
-                .observe(viewLifecycleOwner, Observer { recipes ->
-                    setlistDatabase.add(recipes)
-                })
 
-            recipeViewModel.getRecipes(myresult.name!!)
-                .observe(viewLifecycleOwner, Observer { hits ->
-                    //  Log.d("debago", "in retrofit data in list")
-                    setlistRetrofit.add(hits.hits)
-                })
-        }
-    }
 
-    private fun fillAdapter() {
-        Log.d("debago", "in fill adapter ${setlistRetrofit.size}")
+    private fun fillAdapterRetrofit(setlistRetrofit: MutableSet<List<Hit>>) {
+        Log.d("debago", "in fill adapter, setlistretrofit is : ${setlistRetrofit.size}")
         recipesRetrofitItemAdapter.clear()
+        for (hits in setlistRetrofit) {
+            recipesRetrofitItemAdapter.add(hits)
+        }
+        BaseFragment.setlistRetrofit=setlistRetrofit
+        listener?.hideLoader()
+    }
+
+    private fun fillAdapterDatabase(setlistDatabase: MutableSet<MutableList<Recipes>>) {
+        Log.d("debago", "in fill adapter, setlistdatabase size is : ${setlistDatabase.size}")
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
             recipesDatabaseItemAdapter.add(recipes)
         }
-        for (hits in setlistRetrofit) {
-            recipesRetrofitItemAdapter.add(hits)
-        }
+        BaseFragment.setlistDatabase=setlistDatabase
         listener?.hideLoader()
+    }
+
+    private fun handleFastAdapterClick(
+        fastAdapter: GenericFastAdapter,
+        favouriteRecipesViewmodel: FavouritesRecipesViewModel
+    ) {
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.imageFavourite }) { _, _, _: FastAdapter<GenericItem>, item: GenericItem ->
+            //react on the click event
+            if (item is Hit) {
+                favouriteRecipesViewmodel.detectFavouriteRecipe(
+                    item.recipe?.uri,
+                    item.recipe?.label,
+                    item.recipe?.calories?.div(10)?.roundToInt().toString(),
+                    Domain.preparationTime(item.recipe?.totalTime),
+                    item.recipe?.url,
+                    item.recipe?.image,
+                    item.recipe?.ingredientLines.toString(),
+                    item.recipe?.cuisineType?.get(0),
+                    item.recipe?.dishType?.get(0)
+                )
+
+                val bool: Boolean? =
+                    item.recipe?.uri?.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
+
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(500)
+                    Domain.correspondanceCalculForGrocery(
+                        item.recipe?.ingredientLines.toString(),
+                        bool!!
+                    )
+                }
+
+                if (bool!!) {
+                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) } }
+                } else {
+                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) } }
+                }
+
+                fastAdapter.notifyAdapterDataSetChanged()
+            }
+
+        }
+
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, _, _: FastAdapter<GenericItem>, item: GenericItem ->
+            //react on the click event
+            if (item is Recipes) {
+                favouriteRecipesViewmodel.detectFavouriteRecipe(
+                    item.id.toString(),
+                    item.recipeTitle,
+                    item.recipeCalories,
+                    item.totalrecipeTime,
+                    item.recipeUrlOwnerLink,
+                    item.recipePhotoUrl,
+                    item.recipeIngredients,
+                    item.cuisineType,
+                    item.dishType
+                )
+
+                val bool: Boolean? =
+                    item.id.let {
+                        it.let { it1 ->
+                            favouriteRecipesViewmodel.isRecipeIdIsPresent(
+                                it1.toString()
+                            )
+                        }
+                    }
+
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(500)
+                    item.recipeIngredients?.let {
+                        Domain.correspondanceCalculForGrocery(
+                            it,
+                            bool!!
+                        )
+                    }
+                }
+
+                if (bool!!) {
+                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) } }
+                } else {
+                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) } }
+                }
+
+                fastAdapter.notifyAdapterDataSetChanged()
+            }
+        }
+    }
+
+    private fun handleFavouriteFastAdapterClick(
+        favouritesFastAdapter: FastAdapter<FavouritesRecipes>,
+        favouriteRecipesViewmodel: FavouritesRecipesViewModel
+    ) {
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, _: Int, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+            //react on the click event
+
+            favouriteRecipesViewmodel.detectFavouriteRecipe(
+                item.recipeId, item.recipeTitle, item.recipeCalories,
+                item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients,
+                item.cuisineType, item.dishType
+            )
+
+            val bool: Boolean? =
+                item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
+
+            GlobalScope.launch(Dispatchers.IO) {
+                delay(500)
+                item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it, bool!!) }
+            }
+
+            if (bool!!) {
+                view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) } }
+            } else {
+                view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) } }
+            }
+
+            favouritesFastAdapter.notifyAdapterDataSetChanged()
+        }
     }
 
 }

@@ -44,9 +44,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }
 
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
-        val proportionString =
-            String.format("%d %", proportionInPercent)
-        proportionText.text=proportionString
+        proportionText.text="$proportionInPercent %"
 
         cuisineType.text= item.cuisineType?.let { Domain.uppercaseFirstCaracter(it) }
         if(item.dishType.equals("Main course")){

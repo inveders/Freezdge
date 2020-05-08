@@ -25,6 +25,7 @@ class MyRecipesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         floatingActionButton = view.findViewById(R.id.floating_button)
+        floatingActionButton.hide()
         floatingActionButton.setOnClickListener {
             launchFilterDialog()
         }

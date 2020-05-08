@@ -1,4 +1,5 @@
 package com.inved.freezdge.recipes.ui
+
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,14 +10,13 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
-import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import kotlinx.android.synthetic.main.fragment_all_recipes.*
 
-class AllRecipesFragment: BaseFragment(){
+class AllRecipesFragment : BaseFragment() {
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_all_recipes
@@ -28,6 +28,7 @@ class AllRecipesFragment: BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         floatingActionButton = view.findViewById(R.id.floating_button)
+        floatingActionButton.hide()
         floatingActionButton.setOnClickListener { _ -> launchFilterDialog() }
     }
 
@@ -40,7 +41,7 @@ class AllRecipesFragment: BaseFragment(){
                 searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
             edittext.hint = getString(R.string.search_recipe_searchview_label)
             val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
-            edittext.typeface=tf
+            edittext.typeface = tf
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -49,7 +50,11 @@ class AllRecipesFragment: BaseFragment(){
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    handleTeextFilter(newText,recipesRetrofitItemAdapter,recipesDatabaseItemAdapter)
+                    handleTeextFilter(
+                        newText,
+                        recipesRetrofitItemAdapter,
+                        recipesDatabaseItemAdapter
+                    )
                     return true
                 }
             })
@@ -57,15 +62,16 @@ class AllRecipesFragment: BaseFragment(){
         return super.onPrepareOptionsMenu(menu)
     }
 
-    fun handleTeextFilter(newText:String,recipesRetrofitItemAdapter : ItemAdapter<Hit>,recipesDatabaseItemAdapter: ItemAdapter<Recipes>){
+    fun handleTeextFilter(
+        newText: String,
+        recipesRetrofitItemAdapter: ItemAdapter<Hit>,
+        recipesDatabaseItemAdapter: ItemAdapter<Recipes>
+    ) {
+
         recipesRetrofitItemAdapter.filter(newText)
         recipesRetrofitItemAdapter.itemFilter.filterPredicate =
             { item: Hit, constraint: CharSequence? ->
                 item.recipe?.label!!.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )
-                item.recipe?.cuisineType?.get(0)!!.contains(
                     constraint.toString(),
                     ignoreCase = true
                 )
@@ -78,27 +84,23 @@ class AllRecipesFragment: BaseFragment(){
                     constraint.toString(),
                     ignoreCase = true
                 )
-                item.cuisineType!!.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )
             }
     }
 
     private fun launchFilterDialog() {
         val builder = MaterialAlertDialogBuilder(activity)
         builder.setTitle(getString(R.string.array_dialog_title))
-            .setItems(R.array.filter_recipe_array
+            .setItems(
+                R.array.filter_recipe_array
             ) { _, which ->
                 // The 'which' argument contains the index position of selected item
-                when(which){
-                    0->filterDishType(activity?.getString(R.string.array_filter_entry_search))
-                    1->filterDishType(activity?.getString(R.string.array_filter_plat_search))
-                    2->filterDishType(activity?.getString(R.string.array_filter_dessert_search))
-                    3->filterDishType(activity?.getString(R.string.array_filter_cocktail_search))
-                    4->{
+                when (which) {
+                    0 -> filterDishType(activity?.getString(R.string.array_filter_entry_search))
+                    1 -> filterDishType(activity?.getString(R.string.array_filter_plat_search))
+                    2 -> filterDishType(activity?.getString(R.string.array_filter_dessert_search))
+                    3 -> filterDishType(activity?.getString(R.string.array_filter_cocktail_search))
+                    4 -> {
                         filterDishType("")
-                        recyclerview.smoothScrollBy(0,0)
                     }
                 }
             }
@@ -107,26 +109,34 @@ class AllRecipesFragment: BaseFragment(){
 
     }
 
-    fun filterDishType(filterText:String?){
-        recipesRetrofitItemAdapter.filter(filterText)
+    fun filterDishType(filterText: String?) {
+        Log.d("debago", "in filterDistype $filterText")
 
-        recipesRetrofitItemAdapter.itemFilter.filterPredicate =
-            { item: Hit, constraint: CharSequence? ->
-                Log.d("debago","filtertext is ${item.recipe?.dishType?.get(0)}")
-                item.recipe?.dishType?.get(0)!!.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )
-            }
+        recipesRetrofitItemAdapter.itemFilter.filter(filterText)
+        recipesRetrofitItemAdapter.itemFilter.filterPredicate = { item, constraint ->
+            item.recipe?.dishType?.get(0)?.contains(constraint.toString(), true)!!
 
-        recipesDatabaseItemAdapter.filter(filterText)
-        recipesDatabaseItemAdapter.itemFilter.filterPredicate =
-            { item: Recipes, constraint: CharSequence? ->
-                item.dishType!!.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )
-            }
+        }
+
+        recipesDatabaseItemAdapter.itemFilter.filter(filterText)
+        recipesDatabaseItemAdapter.itemFilter.filterPredicate = { item, constraint ->
+            item.dishType?.contains(constraint.toString(), true)!!
+
+        }
+
+    }
+
+
+    private fun fillAdapterAfterClear() {
+        Log.d("debago", "in fill adapter after filter ${setlistRetrofit.size}")
+        recipesRetrofitItemAdapter.clear()
+        recipesDatabaseItemAdapter.clear()
+        for (recipes in setlistDatabase) {
+            recipesDatabaseItemAdapter.add(recipes)
+        }
+        for (hits in setlistRetrofit) {
+            recipesRetrofitItemAdapter.add(hits)
+        }
     }
 
 }

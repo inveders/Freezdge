@@ -55,9 +55,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
 
         val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
 
-        val proportionString =
-            String.format("%d %", proportionInPercent)
-        proportionText.text=proportionString
+        proportionText.text="$proportionInPercent %"
 
         when (proportionInPercent) {
             in 80..99 -> {
