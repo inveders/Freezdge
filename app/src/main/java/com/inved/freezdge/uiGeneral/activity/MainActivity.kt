@@ -30,6 +30,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
+import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
@@ -58,6 +59,10 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         navigationView = findViewById(R.id.activity_main_nav_view)
         navigationView.menu.findItem(R.id.menu_logout).setOnMenuItemClickListener {
             signOut()
+            true
+        }
+        navigationView.menu.findItem(R.id.menu_info).setOnMenuItemClickListener {
+            startActivity(Intent(this, OnboardingActivity::class.java))
             true
         }
         initProfil()

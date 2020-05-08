@@ -32,6 +32,7 @@
         <activity android:name=".recipes.ui.WebviewActivity"/>
         <activity android:name=".recipes.ui.RecipeDetailActivity"/>
         <activity android:name=".uiGeneral.activity.LoginActivity"/>
+        <activity android:name=".onboarding.OnboardingActivity"/>
         <service
             android:name=".utils.MyUploadService"
             android:exported="false" />

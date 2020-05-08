@@ -27,6 +27,10 @@
             app:destination="@id/my_grocery_list_activity" />
 
         <action
+            android:id="@+id/menu_info"
+            app:destination="@id/onboarding_activity" />
+
+        <action
             android:id="@+id/action_to_social_media_fragment"
             app:destination="@id/social_media_fragment" />
 
@@ -48,6 +52,10 @@
         <action
             android:id="@+id/menu_grocery_list"
             app:destination="@id/my_grocery_list_activity" />
+
+        <action
+            android:id="@+id/menu_info"
+            app:destination="@id/onboarding_activity" />
 
         <action
             android:id="@+id/action_to_social_media_fragment"
@@ -75,6 +83,10 @@
         <action
             android:id="@+id/menu_grocery_list"
             app:destination="@id/my_grocery_list_activity" />
+
+        <action
+            android:id="@+id/menu_info"
+            app:destination="@id/onboarding_activity" />
 
         <action
             android:id="@+id/action_to_social_media_fragment"
@@ -107,12 +119,23 @@
             android:id="@+id/menu_grocery_list"
             app:destination="@id/my_grocery_list_activity" />
 
+        <action
+            android:id="@+id/menu_info"
+            app:destination="@id/onboarding_activity" />
+
     </fragment>
 
     <activity android:id="@+id/my_grocery_list_activity"
         android:name="com.inved.freezdge.ingredientslist.ui.MyGroceryListActivity"
         android:label="Grocery list"
         tools:layout="@layout/activity_my_grocery_list">
+
+    </activity>
+
+    <activity android:id="@+id/onboarding_activity"
+        android:name="com.inved.freezdge.onboarding.OnboardingActivity"
+        android:label="Onboarding"
+        tools:layout="@layout/activity_onboarding">
 
     </activity>
 

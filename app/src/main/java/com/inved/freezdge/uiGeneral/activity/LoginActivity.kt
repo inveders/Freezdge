@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.GoogleAuthProvider
 import com.inved.freezdge.R
+import com.inved.freezdge.onboarding.OnboardingActivity
+import com.inved.freezdge.onboarding.OnboardingActivity.Companion.PREF_NAME
+import com.inved.freezdge.onboarding.OnboardingActivity.Companion.sharedPref
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.activity_login.*
@@ -44,7 +47,7 @@ class LoginActivity: BaseActivity() {
         getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
             if (it.isSuccessful) {
                 isUserExistInFirebase()
-                startActivity(MainActivity.getLaunchIntent(this))
+                handleStartActivityOrOnboarding()
             } else {
                 Toast.makeText(this, getString(R.string.google_sign_in), Toast.LENGTH_LONG).show()
             }
@@ -54,8 +57,16 @@ class LoginActivity: BaseActivity() {
     override fun onStart() {
         super.onStart()
         if (isCurrentUserLogged()) {
-            startActivity(MainActivity.getLaunchIntent(this))
+           handleStartActivityOrOnboarding()
             finish()
+        }
+    }
+
+    fun handleStartActivityOrOnboarding(){
+        if (sharedPref.getBoolean(PREF_NAME, false)) {
+            startActivity(MainActivity.getLaunchIntent(this))
+        } else {
+            startActivity(OnboardingActivity.getLaunchIntent(this))
         }
     }
 

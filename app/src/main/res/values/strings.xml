@@ -7,6 +7,7 @@
     <string name="menu_bottom_social_media">Community</string>
     <string name="menu_grocery_list">Grocery List</string>
     <string name="menu_logout">Logout</string>
+    <string name="menu_info">How to use app?</string>
 
     <!--Toolbar-->
     <string name="toolbar_grocery_list">My grocery list</string>
@@ -148,5 +149,17 @@
     <string name="array_filter_plat_search" translatable="false">Main course</string>
     <string name="array_filter_cocktail_search" translatable="false">Drinks</string>
     <string name="google_sign_in">Google sign in failed:(</string>
+
+    <!--Onboarding -->
+    <string name="onboarding1_title">Les ingrédients de chez toi</string>
+    <string name="onboarding1_description">Regarde dans ton frigo, ton congélo et tes placards, et ajoute les aliments que tu as chez toi dans l\'application</string>
+    <string name="onboarding2_title">Trouve les recettes</string>
+    <string name="onboarding2_description">En fonction des ingrédients que tu as chez toi, trouve la liste des recettes qui matchent le plus avec tes ingrédients en pourcentage</string>
+    <string name="onboarding3_title">Liste de courses pour toi</string>
+    <string name="onboarding3_description">Si tu choisis des recettes favorites, une liste de courses approximative est automatiquement générée s\'il te manque des aliments pour cuisiner ces recettes</string>
+    <string name="onboarding4_title">Partage avec la communauté Freezdge !</string>
+    <string name="onboarding4_description">Partage tes astuces de cuisine, ou la photo d\'une de tes réalisations culinaires avec toute la communauté Freezdge et au-delà</string>
+    <string name="start">Start</string>
+    <string name="next">Next</string>
 
 </resources>
