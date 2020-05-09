@@ -25,7 +25,6 @@ class MyRecipesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         floatingActionButton = view.findViewById(R.id.floating_button)
-        floatingActionButton.hide()
         floatingActionButton.setOnClickListener {
             launchFilterDialog()
         }
@@ -69,30 +68,50 @@ class MyRecipesFragment : BaseFragment() {
     private fun launchFilterDialog() {
         val builder = MaterialAlertDialogBuilder(activity)
         builder.setTitle(getString(R.string.array_dialog_title))
-            .setItems(R.array.filter_recipe_array
+            .setItems(
+                R.array.filter_recipe_array
             ) { _, which ->
-                // The 'which' argument contains the index position of the selected item
+                // The 'which' argument contains the index position of selected item
                 when (which) {
                     0 -> filterDishType(activity?.getString(R.string.array_filter_entry_search))
                     1 -> filterDishType(activity?.getString(R.string.array_filter_plat_search))
                     2 -> filterDishType(activity?.getString(R.string.array_filter_dessert_search))
                     3 -> filterDishType(activity?.getString(R.string.array_filter_cocktail_search))
-                    4 -> filterDishType("")
+                    4 -> {
+                        filterDishType("")
+                    }
                 }
             }
         builder.create()
         builder.show()
+
     }
 
     private fun filterDishType(filterText: String?) {
-        favouriteRecipesItemAdapter.filter(filterText)
-        favouriteRecipesItemAdapter.itemFilter.filterPredicate =
-            { item: FavouritesRecipes, constraint: CharSequence? ->
-                item.dishType!!.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )
+        setFavouriteListFilter.clear()
+
+        for(recipes in setFavouriteList){
+            if(recipes.dishType?.contains(filterText.toString(),true)!!){
+                setFavouriteListFilter.add(recipes)
             }
+        }
+
+        if(filterText.equals("")){
+            fillFavouriteAdapterFilter(setFavouriteList)
+        }else{
+            fillFavouriteAdapterFilter(setFavouriteListFilter)
+        }
+
+
+    }
+
+    private fun fillFavouriteAdapterFilter(setfavouritelist: MutableList<FavouritesRecipes>) {
+        favouriteRecipesItemAdapter.clear()
+
+        for (recipes in setfavouritelist) {
+            favouriteRecipesItemAdapter.add(recipes)
+        }
+
     }
 
 }

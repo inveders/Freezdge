@@ -34,44 +34,56 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.insertRecipesInDatabase()
     }
 
-    suspend fun getRetrofitRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableSet<List<Hit>>>? {
-        val setListRetrofitViewModel: MutableLiveData<MutableSet<List<Hit>>>? = MutableLiveData()
-        val setRetrofitListRecipes: MutableSet<List<Hit>>? = mutableSetOf()
-
+    suspend fun getRetrofitRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableList<Hit>>? {
+        val setListRetrofitViewModel: MutableLiveData<MutableList<Hit>>? = MutableLiveData()
+        val setRetrofitSetListRecipes:MutableSet<Hit>? = mutableSetOf()
         if (result.size != 0) {
             BaseFragment.listener?.showLoader()
 
             for (myresult in result) {
                 getRecipes(myresult.name!!).observeForever {
-                    setRetrofitListRecipes?.add(it.hits)
-                    setListRetrofitViewModel?.postValue(setRetrofitListRecipes)
+
+                    for(i in it.hits.indices){
+                        setRetrofitSetListRecipes?.add(it.hits[i])
+                    }
+                    setListRetrofitViewModel?.postValue(setRetrofitSetListRecipes?.toMutableList())
                 }
+
             }
+
             return setListRetrofitViewModel
         }
         return null
     }
 
 
-    fun getDatabaseRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableSet<MutableList<Recipes>>>? {
+    fun getDatabaseRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableList<Recipes>>? {
 
-        val setListDatabaseViewModel: MutableLiveData<MutableSet<MutableList<Recipes>>>? =
+        val setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
             MutableLiveData()
-        val setDatabaseListRecipes: MutableSet<MutableList<Recipes>>? = mutableSetOf()
+        val setDatabaseSetListRecipes:MutableSet<Recipes>? = mutableSetOf()
 
             if (result.size != 0) {
                 BaseFragment.listener?.showLoader()
                 for (myresult in result) {
                     getRecipeIfContainIngredient(myresult.name!!)
                         .observeForever {
-                            setDatabaseListRecipes?.add(it)
-                            setListDatabaseViewModel?.postValue(setDatabaseListRecipes)
+                            for(i in it.indices){
+                                setDatabaseSetListRecipes?.add(it[i])
+                            }
+                            setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
                         }
+
                 }
+
                 return setListDatabaseViewModel
             }
 
         return null
     }
+
+
+
+
 
 }

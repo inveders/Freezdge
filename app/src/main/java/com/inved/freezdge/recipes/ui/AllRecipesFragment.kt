@@ -1,7 +1,6 @@
 package com.inved.freezdge.recipes.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
@@ -28,7 +27,7 @@ class AllRecipesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         floatingActionButton = view.findViewById(R.id.floating_button)
-        floatingActionButton.hide()
+       // floatingActionButton.hide()
         floatingActionButton.setOnClickListener { _ -> launchFilterDialog() }
     }
 
@@ -109,26 +108,34 @@ class AllRecipesFragment : BaseFragment() {
 
     }
 
-    fun filterDishType(filterText: String?) {
-        Log.d("debago", "in filterDistype $filterText")
+    private fun filterDishType(filterText: String?) {
+        setlistRetrofitFilter.clear()
+        setlistDatabaseFilter.clear()
 
-        recipesRetrofitItemAdapter.itemFilter.filter(filterText)
-        recipesRetrofitItemAdapter.itemFilter.filterPredicate = { item, constraint ->
-            item.recipe?.dishType?.get(0)?.contains(constraint.toString(), true)!!
-
+        for(recipes in setlistRetrofit){
+            if(!recipes.recipe?.dishType?.get(0).isNullOrEmpty()){
+                if(recipes.recipe?.dishType?.get(0)?.contains(filterText.toString(),true)!!){
+                    setlistRetrofitFilter.add(recipes)
+                }
+            }
         }
 
-        recipesDatabaseItemAdapter.itemFilter.filter(filterText)
-        recipesDatabaseItemAdapter.itemFilter.filterPredicate = { item, constraint ->
-            item.dishType?.contains(constraint.toString(), true)!!
-
+        for(recipes in setlistDatabase){
+            if(recipes.dishType?.contains(filterText.toString(),true)!!){
+                setlistDatabaseFilter.add(recipes)
+            }
         }
+
+        if(filterText.equals("")){
+            fillAdapterFilter(setlistDatabase, setlistRetrofit)
+        }else{
+            fillAdapterFilter(setlistDatabaseFilter, setlistRetrofitFilter)
+        }
+
 
     }
 
-
-    private fun fillAdapterAfterClear() {
-        Log.d("debago", "in fill adapter after filter ${setlistRetrofit.size}")
+    fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>, setlistRetrofit: MutableList<Hit>) {
         recipesRetrofitItemAdapter.clear()
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {

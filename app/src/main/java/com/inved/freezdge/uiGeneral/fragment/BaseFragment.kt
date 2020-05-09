@@ -59,10 +59,12 @@ abstract class BaseFragment : Fragment() {
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
         }
-        var setlistDatabase: MutableSet<MutableList<Recipes>> = mutableSetOf()
-        var setlistRetrofit: MutableSet<List<Hit>> = mutableSetOf()
-        val setlistDatabaseFilter: MutableSet<MutableList<Recipes>> = mutableSetOf()
-        val setlistRetrofitFilter: MutableSet<List<Hit>> = mutableSetOf()
+        var setlistDatabase: MutableList<Recipes> = mutableListOf()
+        var setFavouriteList: MutableList<FavouritesRecipes> = mutableListOf()
+        var setFavouriteListFilter: MutableList<FavouritesRecipes> = mutableListOf()
+        var setlistRetrofit: MutableList<Hit> = mutableListOf()
+        val setlistDatabaseFilter: MutableList<Recipes> = mutableListOf()
+        val setlistRetrofitFilter: MutableList<Hit> = mutableListOf()
     }
 
     val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
@@ -213,7 +215,7 @@ abstract class BaseFragment : Fragment() {
 
     private fun getFavouritesRecipes() {
         favouriteRecipesItemAdapter.clear()
-
+        setFavouriteList.clear()
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
                 favouriteRecipesItemAdapter.clear()
@@ -223,6 +225,7 @@ abstract class BaseFragment : Fragment() {
                         notFoundImageView.visibility = View.INVISIBLE
                         for (myresult in result) {
                             favouriteRecipesItemAdapter.add(myresult)
+                            setFavouriteList.add(myresult)
                         }
                     } else {
                         notFoundTeextView.visibility = View.VISIBLE
@@ -240,7 +243,7 @@ abstract class BaseFragment : Fragment() {
 
     //DATA
     private suspend fun getAllRecipes() {
-
+       Log.d("debago","in get all recipes")
         if(setlistRetrofit.isNullOrEmpty()){
             val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
             recipeViewModel.getRetrofitRecipes(result)?.observe(viewLifecycleOwner, Observer { result ->
@@ -248,6 +251,7 @@ abstract class BaseFragment : Fragment() {
                     notFoundTeextView.visibility = View.VISIBLE
                     notFoundTeextView.text =
                         getString(R.string.no_item_found_recipes)
+                    listener?.hideLoader()
                 }else{
                     notFoundTeextView.visibility = View.GONE
                     fillAdapterRetrofit(result)
@@ -258,6 +262,7 @@ abstract class BaseFragment : Fragment() {
                     notFoundTeextView.visibility = View.VISIBLE
                     notFoundTeextView.text =
                         getString(R.string.no_item_found_recipes)
+                    listener?.hideLoader()
                 }else{
                     notFoundTeextView.visibility = View.GONE
                     fillAdapterDatabase(result)
@@ -272,7 +277,7 @@ abstract class BaseFragment : Fragment() {
 
 
 
-    private fun fillAdapterRetrofit(setlistRetrofit: MutableSet<List<Hit>>) {
+    private fun fillAdapterRetrofit(setlistRetrofit: MutableList<Hit>) {
         Log.d("debago", "in fill adapter, setlistretrofit is : ${setlistRetrofit.size}")
         recipesRetrofitItemAdapter.clear()
         for (hits in setlistRetrofit) {
@@ -282,7 +287,7 @@ abstract class BaseFragment : Fragment() {
         listener?.hideLoader()
     }
 
-    private fun fillAdapterDatabase(setlistDatabase: MutableSet<MutableList<Recipes>>) {
+    private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>) {
         Log.d("debago", "in fill adapter, setlistdatabase size is : ${setlistDatabase.size}")
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
@@ -291,6 +296,8 @@ abstract class BaseFragment : Fragment() {
         BaseFragment.setlistDatabase=setlistDatabase
         listener?.hideLoader()
     }
+
+
 
     private fun handleFastAdapterClick(
         fastAdapter: GenericFastAdapter,

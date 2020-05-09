@@ -135,7 +135,7 @@
     <!--Step -->
     <string name="step_recipe">Etape %d : %s</string>
     <string name="internet_connexion">Pas de connexion internet</string>
-    <string name="search_recipe_searchview_label">Recherchez une recette ici...</string>
+    <string name="search_recipe_searchview_label">Recherche sur le nom d\'une recette…</string>
 
     <!--Array string -->
     <string name="array_filter_dessert">Dessert</string>
