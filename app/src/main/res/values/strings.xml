@@ -126,6 +126,8 @@
     <string name="tips_description">Your tip</string>
     <string name="tips_dialog">New tip</string>
     <string name="photo_dialog">New Photo</string>
+    <string name="tips_dialog_update">Update tip</string>
+    <string name="photo_dialog_update">Update Photo\'s title</string>
     <string name="publish">Publish</string>
     <string name="set_error_title_tips">Enter a title</string>
     <string name="set_error_description_tips">Enter a tip</string>

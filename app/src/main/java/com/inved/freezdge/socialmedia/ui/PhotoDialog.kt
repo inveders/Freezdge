@@ -51,6 +51,7 @@ class PhotoDialog : DialogFragment() {
     private var photoPreview: ImageView? = null
     private var photoTitle: EditText? = null
     private var validateButton: TextView? = null
+    private var dialogTitle: TextView? = null
     private var cancelButton: ImageButton? = null
     private var mPhotoFile: File? = null
     private lateinit var mContext: Context
@@ -74,7 +75,7 @@ class PhotoDialog : DialogFragment() {
         mContext = App.applicationContext()
         imageCameraOrGallery = ImageCameraOrGallery()
         photoPreview = view.findViewById(R.id.photo_preview)
-
+        dialogTitle = view.findViewById(R.id.dialogTitle)
         photoTitle = view.findViewById(R.id.titleEdittext)
         validateButton = view.findViewById(R.id.validate_button)
         cancelButton = view.findViewById(R.id.close_button)
@@ -187,8 +188,13 @@ class PhotoDialog : DialogFragment() {
                         val post: Post =
                             task.result!!.documents[0].toObject(Post::class.java)!!
 
+                        dialogTitle?.text=App.resource().getString(R.string.photo_dialog_update)
                         photoTitle?.setText(post.titleAstuce)
-                        Domain.loadPhotoWithGlideCircleCropUrl(post.urlPhoto, photoPreview)
+                        photoPreview?.let { it1 ->
+                            Domain.loadPhotoWithGlideCenterCropUrl(post.urlPhoto,
+                                it1
+                            )
+                        }
                         urlPicture = post.urlPhoto
                         photoPreview?.setOnClickListener {
                             Toast.makeText(
@@ -273,7 +279,7 @@ class PhotoDialog : DialogFragment() {
                     }
                     if (selectedImage != null) {
                         urlPicture = imageCameraOrGallery?.getRealPathFromUri(selectedImage)
-                        showImageInCircle(urlPicture)
+                        showImage(urlPicture)
                     }
                 }
                 REQUEST_CAMERA_PHOTO -> {
@@ -284,14 +290,14 @@ class PhotoDialog : DialogFragment() {
                     }
                     if (cameraFilePath != null) {
                         urlPicture = cameraFilePath
-                        showImageInCircle(cameraFilePath)
+                        showImage(cameraFilePath)
                     }
                 }
             }
         }
     }
 
-    private fun showImageInCircle(photoStringFromRoom: String?) {
+    private fun showImage(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
             photoPreview?.let { Domain.loadPhotoWithGlideCenterCropUrl(fileUri.path, it) }

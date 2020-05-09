@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.Post
 import com.inved.freezdge.socialmedia.firebase.PostHelper
+import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.dialog_fullscreen_add_tips.*
 import java.util.*
@@ -36,6 +37,7 @@ class TipsDialog : DialogFragment() {
 
     private var validateButton: TextView? = null
     private var cancelButton: ImageButton? = null
+    private var dialogTitle: TextView? = null
     private lateinit var postIdUpdate: String
     // --------------
     // LIFE CYCLE AND VIEW MODEL
@@ -54,6 +56,7 @@ class TipsDialog : DialogFragment() {
         val view: View =
             inflater.inflate(R.layout.dialog_fullscreen_add_tips, container, false)
         validateButton = view.findViewById(R.id.validate_button)
+        dialogTitle = view.findViewById(R.id.dialogTitle)
         cancelButton = view.findViewById(R.id.close_button)
         val id: Int? = arguments?.getInt(KEY_TIP, 0)
         postIdUpdate= arguments?.getString(KEY_TIP_ID, null)!!
@@ -73,7 +76,7 @@ class TipsDialog : DialogFragment() {
 
                         val post: Post =
                             task.result!!.documents[0].toObject(Post::class.java)!!
-
+                        dialogTitle?.text= App.resource().getString(R.string.tips_dialog_update)
                         titleEdittext?.setText(post.titleAstuce)
                         descriptionEdittext?.setText(post.descriptionAstuce)
                     }

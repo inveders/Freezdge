@@ -1,6 +1,5 @@
 package com.inved.freezdge.uiGeneral.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +7,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -24,7 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
 import com.inved.freezdge.onboarding.OnboardingActivity
@@ -69,7 +65,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         initToolbar(navController)
         loader=findViewById(R.id.animation_view_container)
         setUpNavigationBottom(navController, id)
-        var drawerListener = CustomDrawer()
+        val drawerListener = CustomDrawer()
         drawerLayout?.addDrawerListener(drawerListener)
 
     }

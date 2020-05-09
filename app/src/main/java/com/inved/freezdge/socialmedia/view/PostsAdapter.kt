@@ -1,25 +1,14 @@
 package com.inved.freezdge.socialmedia.view
 
-import android.app.Dialog
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.os.Build
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -28,7 +17,6 @@ import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.GlideApp
 
 
 class PostsAdapter(
@@ -39,7 +27,7 @@ class PostsAdapter(
     interface ClickListener {
         fun onClickListener(value: Int, postId: String)
         fun onDataChanged()
-        fun onClickImageListener(postImage:String?)
+        fun onClickImageListener(postImage: String?)
     }
 
     override fun onBindViewHolder(
@@ -65,9 +53,9 @@ class PostsAdapter(
         private var likeText: TextView = view.findViewById(R.id.like_number)
         private var profileImage: ImageView = view.findViewById(R.id.profile_image)
         private var postImage: ImageView = view.findViewById(R.id.image)
-        private var deleteButton: ImageView = view.findViewById(R.id.delete_button)
-        private var updateButton: ImageView = view.findViewById(R.id.update_button)
-        private var likeButton: ImageView = view.findViewById(R.id.like_number_image)
+        private var deleteButton: ImageButton = view.findViewById(R.id.delete_button)
+        private var updateButton: ImageButton = view.findViewById(R.id.update_button)
+        private var likeButton: ImageButton = view.findViewById(R.id.like_number_image)
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
         fun updateWithPosts(post: Post, listener: ClickListener) {
 
@@ -126,9 +114,15 @@ class PostsAdapter(
                                 task.result!!.documents[0].toObject(Post::class.java)!!
                             handleLikeButtonColor(currentPost, likeButton)
 
-                            if (currentPost.postType.equals(App.resource().getString(R.string.social_media_post_type_photo))) {
+                            if (currentPost.postType.equals(
+                                    App.resource().getString(R.string.social_media_post_type_photo)
+                                )
+                            ) {
                                 handleLikeTextPhotoPost(currentPost, likeText, post)
-                            } else if (currentPost.postType.equals(App.resource().getString(R.string.social_media_post_type_tips))) {
+                            } else if (currentPost.postType.equals(
+                                    App.resource().getString(R.string.social_media_post_type_tips)
+                                )
+                            ) {
                                 handleLikeTextTipsPost(currentPost, likeText, post)
                             }
                         }
@@ -206,7 +200,6 @@ class PostsAdapter(
 
     override fun onDataChanged() {
         super.onDataChanged()
-        notifyDataSetChanged()
         this.listener.onDataChanged()
     }
 
@@ -269,37 +262,22 @@ class PostsAdapter(
     fun handleLikeButtonColor(currentPost: Post, likeButton: ImageView) {
         //Change like button color according to value of like
         if (currentPost.likeNumber != 0) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                likeButton.backgroundTintList =
-                    ColorStateList.valueOf(Color.parseColor("#c56000"))
-            } else {
-                val drawable: Drawable? =
-                    ContextCompat.getDrawable(
-                        App.applicationContext(),
-                        R.drawable.ic_like_enable
-                    )?.let {
-                        DrawableCompat.wrap(it)
-                    }
+            likeButton.setImageDrawable(
+                ContextCompat.getDrawable(
+                    App.applicationContext(),
+                    R.drawable.ic_like_enable
+                )
+            )
 
-                // We can now set a tint
-                drawable?.let { DrawableCompat.setTint(it, Color.BLUE) }
-                // ...or a tint list
-                drawable?.let {
-                    DrawableCompat.setTintList(
-                        it,
-                        ColorStateList.valueOf(Color.parseColor("#c56000"))
-                    )
-                }
-                // ...and a different tint mode
-                drawable?.let {
-                    DrawableCompat.setTintMode(
-                        it,
-                        PorterDuff.Mode.SRC_OVER
-                    )
-                }
-            }
-
+        } else {
+            likeButton.setImageDrawable(
+                ContextCompat.getDrawable(
+                    App.applicationContext(),
+                    R.drawable.ic_like_disable
+                )
+            )
         }
+
     }
 
     fun handleLikeTextPhotoPost(currentPost: Post, likeText: TextView, post: Post) {

@@ -123,6 +123,8 @@
     <string name="tips_description">Votre astuce</string>
     <string name="tips_dialog">Nouvelle astuce</string>
     <string name="photo_dialog">Nouvelle photo</string>
+    <string name="tips_dialog_update">Modifier l\'astuce</string>
+    <string name="photo_dialog_update">Modifier la photo</string>
     <string name="publish">Publier</string>
     <string name="set_error_title_tips">Entrez un titre</string>
     <string name="set_error_description_tips">Entrez une astuce</string>
