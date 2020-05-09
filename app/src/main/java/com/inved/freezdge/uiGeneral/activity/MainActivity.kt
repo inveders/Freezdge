@@ -1,16 +1,18 @@
 package com.inved.freezdge.uiGeneral.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -18,16 +20,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
 import com.inved.freezdge.onboarding.OnboardingActivity
@@ -35,6 +32,7 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.LoaderListener
 
 
@@ -47,14 +45,15 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     //NavigationDrawer
-    private var drawerLayout: DrawerLayout? = null
+    private val drawerLayout by lazy { findViewById<DrawerLayout>(id.activity_main_drawer_layout)}
     private lateinit var navigationView: NavigationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val id: Int = intent.getIntExtra("BACKPRESS", 0)
-        drawerLayout = findViewById(R.id.activity_main_drawer_layout)
+
 
         navigationView = findViewById(R.id.activity_main_nav_view)
         navigationView.menu.findItem(R.id.menu_logout).setOnMenuItemClickListener {
@@ -70,6 +69,8 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         initToolbar(navController)
         loader=findViewById(R.id.animation_view_container)
         setUpNavigationBottom(navController, id)
+        var drawerListener = CustomDrawer()
+        drawerLayout?.addDrawerListener(drawerListener)
 
     }
 
@@ -89,40 +90,8 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
                         firstnameHeader.text = user.firstname
 
                         //to upload a photo on Firebase storage
-                        if (user.photoUrl.isNullOrEmpty()) {
-                            imageHeader.let {
-                                this.let { it1 ->
-                                    Glide.with(it1)
-                                        .load(user.photoUrl)
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .listener(object : RequestListener<Drawable?> {
-                                            override fun onLoadFailed(
-                                                e: GlideException?,
-                                                model: Any,
-                                                target: Target<Drawable?>,
-                                                isFirstResource: Boolean
-                                            ): Boolean {
-                                                Log.e("debago", "Exception is : $e")
-                                                return false
-                                            }
-
-                                            override fun onResourceReady(
-                                                resource: Drawable?,
-                                                model: Any,
-                                                target: Target<Drawable?>,
-                                                dataSource: DataSource,
-                                                isFirstResource: Boolean
-                                            ): Boolean {
-                                                hideLoader()
-                                                return false
-                                            }
-                                        })
-                                        .placeholder(R.drawable.ic_anon_user_48dp)
-                                        .into(it)
-                                }
-                            }
-                        }
-
+                        Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, imageHeader)
+                        hideLoader()
                     }
                 }
             }?.addOnFailureListener {
@@ -242,12 +211,23 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         TODO("Not yet implemented")
     }
 
-    //TODO see if we need it
-   /* override fun onNavigationItemSelected(item: MenuItem): Boolean {
-         if(item.itemId==id.menu_logout){
-          signOut()
-      }
-        return true
-    }*/
+
+    inner class CustomDrawer : DrawerLayout.DrawerListener{
+
+        override fun onDrawerStateChanged(newState: Int) {
+        }
+
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+        }
+
+        override fun onDrawerClosed(drawerView: View) {
+
+        }
+
+        override fun onDrawerOpened(drawerView: View) {
+           initProfil()
+        }
+    }
 
 }

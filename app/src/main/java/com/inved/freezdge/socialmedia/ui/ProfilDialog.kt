@@ -29,11 +29,19 @@ import java.io.IOException
 @RuntimePermissions
 class ProfilDialog : DialogFragment() {
 
+    interface ChangePhotoListener {
+        fun onPhotoChanged()
+    }
+
+
     companion object {
         //final values
         private const val REQUEST_CAMERA_PHOTO = 456
         private const val REQUEST_GALLERY_PHOTO = 455
-
+        private var photoListener:ChangePhotoListener?=null
+        fun setChangePhotoListener(callback: ChangePhotoListener) {
+            this.photoListener = callback
+        }
         //final values
         const val TAG = "PROFIL"
         private const val KEY_PROFIL = "profil"
@@ -162,6 +170,7 @@ class ProfilDialog : DialogFragment() {
             //to close the dialog
             if (dialog != null) {
                 dialog?.dismiss()
+                photoListener?.onPhotoChanged()
             }
         }
     }

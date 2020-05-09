@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -328,6 +329,7 @@ class Domain {
         fun loadPhotoWithGlideUrl(url:String?,shimmer:ShimmerFrameLayout?,image:ImageView){
             GlideApp.with(App.applicationContext())
                 .load(url)
+                .centerCrop()
                 .listener(object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -362,6 +364,7 @@ class Domain {
                 .circleCrop()
                 .into(image)
         }
+
 
         fun loadPhotoWithGlideCircleCropUrl(url:String?,image:ImageView?){
             image?.let {

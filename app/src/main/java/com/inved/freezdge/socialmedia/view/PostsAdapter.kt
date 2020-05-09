@@ -1,10 +1,12 @@
 package com.inved.freezdge.socialmedia.view
 
+import android.app.Dialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -22,6 +28,8 @@ import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.GlideApp
+
 
 class PostsAdapter(
     options: FirestoreRecyclerOptions<Post>,
@@ -31,6 +39,7 @@ class PostsAdapter(
     interface ClickListener {
         fun onClickListener(value: Int, postId: String)
         fun onDataChanged()
+        fun onClickImageListener(postImage:String?)
     }
 
     override fun onBindViewHolder(
@@ -91,6 +100,9 @@ class PostsAdapter(
             if (post.urlPhoto != null) {
                 postImage.visibility = View.VISIBLE
                 Domain.loadPhotoWithGlideUrl(post.urlPhoto, shimmer, postImage)
+                postImage.setOnClickListener {
+                    listener.onClickImageListener(post.urlPhoto)
+                }
             } else {
                 postImage.visibility = View.GONE
             }

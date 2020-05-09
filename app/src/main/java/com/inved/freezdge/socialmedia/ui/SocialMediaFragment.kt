@@ -1,22 +1,23 @@
 package com.inved.freezdge.socialmedia.ui
 
 import android.Manifest
+import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -32,12 +33,13 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.LoaderListener
 import com.inved.freezdge.utils.NetworkUtils
+import kotlinx.android.synthetic.main.dialog_image.*
 import kotlinx.android.synthetic.main.fragment_social_media.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
-class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListener {
+class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListener,ProfilDialog.ChangePhotoListener {
 
     private lateinit var mRecyclerPostsAdapter: PostsAdapter
     private lateinit var recyclerView: RecyclerView
@@ -107,13 +109,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                             App.resource()
                                 .getString(R.string.social_media_description, user.firstname)
                         //to show photo from Firebase storage or url. If photo is not from google, it's also from firebase
-                        if (user.photoUrl?.contains("googleusercontent", true)!!) {
-                            Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, photoProfile)
-                        } else {
-                            val storage = FirebaseStorage.getInstance()
-                            val gsReference = storage.getReferenceFromUrl(user.photoUrl!!)
-                            Domain.loadPhotoWithGlideCircleCrop(gsReference, photoProfile)
-                        }
+                        Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, photoProfile)
                         hideLoader()
                     }
                 }
@@ -253,6 +249,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         transaction?.addToBackStack(null)
 
         val dialogFragment = ProfilDialog.newInstance("profil")
+        ProfilDialog.setChangePhotoListener(this)
         if (transaction != null) {
             dialogFragment.show(transaction, ProfilDialog.TAG)
         }
@@ -327,6 +324,20 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         }
     }
 
+    override fun onClickImageListener(postImage: String?) {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        val previous = activity?.supportFragmentManager?.findFragmentByTag(PreviewPhotoDialog.TAG)
+        if (previous != null) {
+            transaction?.remove(previous)
+        }
+        transaction?.addToBackStack(null)
+
+        val dialogFragment = postImage?.let { PreviewPhotoDialog.newInstance(it) }
+        if (transaction != null) {
+            dialogFragment?.show(transaction, PreviewPhotoDialog.TAG)
+        }
+    }
+
     override fun showLoader() {
         loader?.visibility = View.VISIBLE
     }
@@ -334,6 +345,11 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     override fun hideLoader() {
         loader?.visibility = View.GONE
         nestedScrollView.visibility = View.VISIBLE
+    }
+
+    override fun onPhotoChanged() {
+        Log.d("debago","in onPhotoChangedInterface")
+        initProfil()
     }
 
 
