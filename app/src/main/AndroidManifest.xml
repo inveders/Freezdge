@@ -18,6 +18,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity android:name=".uiGeneral.activity.MainActivity"/>
         <activity android:name=".ingredientslist.ui.MyGroceryListActivity"/>
         <activity android:name=".uiGeneral.activity.SplashScreenActivity">
@@ -31,7 +35,10 @@
         <activity android:name=".uiGeneral.activity.BaseActivity"/>
         <activity android:name=".recipes.ui.WebviewActivity"/>
         <activity android:name=".recipes.ui.RecipeDetailActivity"/>
-        <activity android:name=".uiGeneral.activity.LoginActivity"/>
+        <activity android:name=".uiGeneral.activity.LoginActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+
+            />
         <activity android:name=".onboarding.OnboardingActivity"/>
         <service
             android:name=".utils.MyUploadService"

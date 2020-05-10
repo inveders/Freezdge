@@ -123,5 +123,7 @@ dependencies {
 
     //Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.facebook.android:facebook-login:5.15.3'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
 
 }

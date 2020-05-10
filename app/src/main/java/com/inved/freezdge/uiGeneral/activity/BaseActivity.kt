@@ -17,7 +17,6 @@ import com.inved.freezdge.utils.App
 abstract class BaseActivity:AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
-
     //Viewmodel
     lateinit var recipeViewModel: RecipeViewModel
 

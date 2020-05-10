@@ -54,21 +54,17 @@
             android:orientation="vertical"
             android:layout_margin="@dimen/default_large_margin">
 
-
-
             <!-- BUTTON LOGIN FACEBOOK -->
             <Button
                 android:id="@+id/login_facebook_button"
-                android:text="@string/loginFacebook"
-                android:textColor="#fff"
-                android:textSize="@dimen/default_text_size"
-                android:background="@drawable/border_facebook"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_margin="@dimen/default_large_margin"
-                android:padding="@dimen/default_large_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:layout_margin="@dimen/default_large_margin"
+                android:padding="@dimen/default_large_margin"
+                android:text="@string/loginFacebook"
+                style="@style/ButtonFacebook"
                 />
 
             <!-- BUTTON LOGIN GOOGLE -->
@@ -77,15 +73,13 @@
                 android:text="@string/loginGoogle"
                 android:textColor="#fff"
                 android:textSize="@dimen/default_text_size"
-                android:background="@drawable/border_google"
-                style="?android:attr/borderlessButtonStyle"
+
                 android:layout_margin="@dimen/default_large_margin"
                 android:padding="@dimen/default_large_margin"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-
+                style="@style/ButtonGoogle"
                 />
 
         </LinearLayout>

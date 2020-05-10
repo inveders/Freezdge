@@ -158,6 +158,7 @@
     <string name="onboarding4_description">Partage tes astuces de cuisine, ou la photo d\'une de tes réalisations culinaires avec toute la communauté Freezdge et au-delà</string>
     <string name="start">Aller</string>
     <string name="next">Suivant</string>
+    <string name="facebook_sign_in">La connexion avec Facebook a échoué :(</string>
 
 
 </resources>

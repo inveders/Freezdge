@@ -4,8 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -13,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 import com.inved.freezdge.R
 import com.inved.freezdge.onboarding.OnboardingActivity
@@ -21,6 +29,7 @@ import com.inved.freezdge.onboarding.OnboardingActivity.Companion.sharedPref
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.*
 
 
 class LoginActivity: BaseActivity() {
@@ -29,17 +38,18 @@ class LoginActivity: BaseActivity() {
     private val RC_SIGN_IN: Int = 1
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mGoogleSignInOptions: GoogleSignInOptions
-
+    private var callbackManager: CallbackManager = CallbackManager.Factory.create()
+    private val facebookLoginButton by lazy { findViewById<Button>(R.id.login_facebook_button) }
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_login
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         configureGoogleSignIn()
-        login_facebook_button.setOnClickListener{ onClickFacebookLoginButton() }
+        facebookLoginButton.setOnClickListener{ onClickFacebookLoginButton() }
         login_google_button.setOnClickListener{ onClickGoogleLoginButton() }
+
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
@@ -74,6 +84,7 @@ class LoginActivity: BaseActivity() {
         UserHelper.getUser(getCurrentUser()?.uid)?.get()?.addOnCompleteListener { task ->
             if (task.result != null) {
                 if (task.result!!.documents.isEmpty()) {
+                    Log.d("debago","user not exist in firebase")
                     getCurrentUser()?.uid?.let { UserHelper.createUser(it,getCurrentUser()?.displayName,"",getCurrentUser()?.photoUrl.toString()) }
                 }
             }
@@ -85,8 +96,10 @@ class LoginActivity: BaseActivity() {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
           //  val response: IdpResponse = IdpResponse.fromResultIntent(data)
@@ -133,8 +146,8 @@ class LoginActivity: BaseActivity() {
     // --------------------
 
     private fun onClickFacebookLoginButton() {
-        login_facebook_button.startAnimation(Domain.animation())
-          //  startFacebookSignInActivity()
+        facebookLoginButton.startAnimation(Domain.animation())
+            startFacebookSignInActivity()
     }
 
     private fun onClickGoogleLoginButton() {
@@ -145,18 +158,27 @@ class LoginActivity: BaseActivity() {
     // --------------------
     // NAVIGATION
     // --------------------
-  /*  private fun startFacebookSignInActivity() {
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setTheme(R.style.LoginTheme)
-                .setAvailableProviders(listOf(FacebookBuilder().build())) // FACEBOOK
-                .setIsSmartLockEnabled(false, true)
-                .setLogo(R.drawable.ic_logo_go4lunch)
-                .build(),
-            RCSIGNIN
-        )
-    }*/
+    private fun startFacebookSignInActivity() {
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"))
+        LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                Log.d("debago", "facebook:onSuccess:$loginResult")
+                loginResult?.accessToken?.let { handleFacebookAccessToken(it) }
+            }
+
+            override fun onCancel() {
+                Log.d("debago", "facebook:onCancel")
+                // ...
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.d("debago", "facebook:onError", error)
+                // ...
+            }
+        })
+
+    }
 
     private fun startGoogleSignInActivity() {
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
@@ -187,6 +209,25 @@ class LoginActivity: BaseActivity() {
         fun getLaunchIntent(from: Context) = Intent(from, LoginActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d("debago", "handleFacebookAccessToken:$token")
+
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        getFirebaseAuth()?.signInWithCredential(credential)
+            ?.addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("debago", "signInWithCredential:success")
+                    isUserExistInFirebase()
+                    handleStartActivityOrOnboarding()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("debago", "signInWithCredential:failure", task.exception)
+                    Toast.makeText(this, getString(R.string.facebook_sign_in), Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
 }

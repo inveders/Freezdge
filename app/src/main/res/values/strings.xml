@@ -151,6 +151,7 @@
     <string name="array_filter_plat_search" translatable="false">Main course</string>
     <string name="array_filter_cocktail_search" translatable="false">Drinks</string>
     <string name="google_sign_in">Google sign in failed:(</string>
+    <string name="facebook_sign_in">Facebook sign in failed:(</string>
 
     <!--Onboarding -->
     <string name="onboarding1_title">Les ingrédients de chez toi</string>
@@ -163,5 +164,10 @@
     <string name="onboarding4_description">Partage tes astuces de cuisine, ou la photo d\'une de tes réalisations culinaires avec toute la communauté Freezdge et au-delà</string>
     <string name="start">Start</string>
     <string name="next">Next</string>
+
+    <string name="facebook_app_id" translatable="false">605347353660093</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb605347353660093</string>
+
+
 
 </resources>
