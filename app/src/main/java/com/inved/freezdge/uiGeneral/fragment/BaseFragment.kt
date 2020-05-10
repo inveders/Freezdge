@@ -2,7 +2,6 @@ package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +22,8 @@ import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
-import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
@@ -51,7 +50,6 @@ abstract class BaseFragment : Fragment() {
     lateinit var notFoundImageView: ImageView
 
     private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private lateinit var floatingActionButton: FloatingActionButton
 
     companion object {
@@ -59,6 +57,7 @@ abstract class BaseFragment : Fragment() {
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
         }
+
         var setlistDatabase: MutableList<Recipes> = mutableListOf()
         var setFavouriteList: MutableList<FavouritesRecipes> = mutableListOf()
         var setFavouriteListFilter: MutableList<FavouritesRecipes> = mutableListOf()
@@ -120,6 +119,7 @@ abstract class BaseFragment : Fragment() {
     private fun insertFood() {
         ingredientsViewmodel.insertIngredients()
     }
+
     private fun insertRecipes() {
         recipeViewModel.insertRecipesInDatabase()
     }
@@ -145,7 +145,7 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        handleFastAdapterClick(fastAdapter,favouriteRecipesViewmodel)
+        handleFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
     }
 
     private fun setupFavouriteRecipeRecyclerView() {
@@ -172,7 +172,7 @@ abstract class BaseFragment : Fragment() {
                 true
             }
 
-        handleFavouriteFastAdapterClick(favouritesFastAdapter,favouriteRecipesViewmodel)
+        handleFavouriteFastAdapterClick(favouritesFastAdapter, favouriteRecipesViewmodel)
 
     }
 
@@ -196,14 +196,14 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                if(NetworkUtils.isInternetAvailable(App.applicationContext())){
+                if (NetworkUtils.isInternetAvailable(App.applicationContext())) {
                     lifecycleScope.launch {
                         getAllRecipes()
                     }
 
-                }else{
-                    notFoundTeextView.visibility=View.VISIBLE
-                    notFoundTeextView.text=getString(R.string.internet_connexion)
+                } else {
+                    notFoundTeextView.visibility = View.VISIBLE
+                    notFoundTeextView.text = getString(R.string.internet_connexion)
                 }
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -243,32 +243,34 @@ abstract class BaseFragment : Fragment() {
 
     //DATA
     private suspend fun getAllRecipes() {
-       Log.d("debago","in get all recipes")
-        if(setlistRetrofit.isNullOrEmpty()){
-            val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
-            recipeViewModel.getRetrofitRecipes(result)?.observe(viewLifecycleOwner, Observer { result ->
-                if(result.isNullOrEmpty()){
-                    notFoundTeextView.visibility = View.VISIBLE
-                    notFoundTeextView.text =
-                        getString(R.string.no_item_found_recipes)
-                    listener?.hideLoader()
-                }else{
-                    notFoundTeextView.visibility = View.GONE
-                    fillAdapterRetrofit(result)
-                }
-            })
-            recipeViewModel.getDatabaseRecipes(result)?.observe(viewLifecycleOwner, Observer { result ->
-                if(result.isNullOrEmpty()){
-                    notFoundTeextView.visibility = View.VISIBLE
-                    notFoundTeextView.text =
-                        getString(R.string.no_item_found_recipes)
-                    listener?.hideLoader()
-                }else{
-                    notFoundTeextView.visibility = View.GONE
-                    fillAdapterDatabase(result)
-                }
-            })
-        }else{
+        if (setlistRetrofit.isNullOrEmpty()) {
+            val result: MutableList<Ingredients> =
+                ingredientsViewmodel.getIngredientsForFreezdgeList()
+            recipeViewModel.getRetrofitRecipes(result)
+                ?.observe(viewLifecycleOwner, Observer { result ->
+                    if (result.isNullOrEmpty()) {
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text =
+                            getString(R.string.no_item_found_recipes)
+                        listener?.hideLoader()
+                    } else {
+                        notFoundTeextView.visibility = View.GONE
+                        fillAdapterRetrofit(result)
+                    }
+                })
+            recipeViewModel.getDatabaseRecipes(result)
+                ?.observe(viewLifecycleOwner, Observer { result ->
+                    if (result.isNullOrEmpty()) {
+                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTeextView.text =
+                            getString(R.string.no_item_found_recipes)
+                        listener?.hideLoader()
+                    } else {
+                        notFoundTeextView.visibility = View.GONE
+                        fillAdapterDatabase(result)
+                    }
+                })
+        } else {
             fillAdapterRetrofit(setlistRetrofit)
             fillAdapterDatabase(setlistDatabase)
         }
@@ -276,27 +278,23 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-
     private fun fillAdapterRetrofit(setlistRetrofit: MutableList<Hit>) {
-        Log.d("debago", "in fill adapter, setlistretrofit is : ${setlistRetrofit.size}")
         recipesRetrofitItemAdapter.clear()
         for (hits in setlistRetrofit) {
             recipesRetrofitItemAdapter.add(hits)
         }
-        BaseFragment.setlistRetrofit=setlistRetrofit
+        BaseFragment.setlistRetrofit = setlistRetrofit
         listener?.hideLoader()
     }
 
     private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>) {
-        Log.d("debago", "in fill adapter, setlistdatabase size is : ${setlistDatabase.size}")
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
             recipesDatabaseItemAdapter.add(recipes)
         }
-        BaseFragment.setlistDatabase=setlistDatabase
+        BaseFragment.setlistDatabase = setlistDatabase
         listener?.hideLoader()
     }
-
 
 
     private fun handleFastAdapterClick(
@@ -330,9 +328,21 @@ abstract class BaseFragment : Fragment() {
                 }
 
                 if (bool!!) {
-                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) } }
+                    view.let { it1 ->
+                        it1?.let {
+                            item.getViewHolder(it).imageFavourite.setImageResource(
+                                R.drawable.ic_favorite_selected_24dp
+                            )
+                        }
+                    }
                 } else {
-                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) } }
+                    view.let { it1 ->
+                        it1?.let {
+                            item.getViewHolder(it).imageFavourite.setImageResource(
+                                R.drawable.ic_favorite_not_selected_24dp
+                            )
+                        }
+                    }
                 }
 
                 fastAdapter.notifyAdapterDataSetChanged()
@@ -375,9 +385,21 @@ abstract class BaseFragment : Fragment() {
                 }
 
                 if (bool!!) {
-                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) } }
+                    view.let { it1 ->
+                        it1?.let {
+                            item.getViewHolder(it).imageFavourite.setImageResource(
+                                R.drawable.ic_favorite_selected_24dp
+                            )
+                        }
+                    }
                 } else {
-                    view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) } }
+                    view.let { it1 ->
+                        it1?.let {
+                            item.getViewHolder(it).imageFavourite.setImageResource(
+                                R.drawable.ic_favorite_not_selected_24dp
+                            )
+                        }
+                    }
                 }
 
                 fastAdapter.notifyAdapterDataSetChanged()
@@ -407,9 +429,21 @@ abstract class BaseFragment : Fragment() {
             }
 
             if (bool!!) {
-                view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp) } }
+                view.let { it1 ->
+                    it1?.let {
+                        item.getViewHolder(it).imageFavourite.setImageResource(
+                            R.drawable.ic_favorite_selected_24dp
+                        )
+                    }
+                }
             } else {
-                view.let { it1 -> it1?.let { item.getViewHolder(it).imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp) } }
+                view.let { it1 ->
+                    it1?.let {
+                        item.getViewHolder(it).imageFavourite.setImageResource(
+                            R.drawable.ic_favorite_not_selected_24dp
+                        )
+                    }
+                }
             }
 
             favouritesFastAdapter.notifyAdapterDataSetChanged()
