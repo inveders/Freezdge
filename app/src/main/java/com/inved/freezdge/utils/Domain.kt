@@ -143,8 +143,6 @@ class Domain {
             }
 
             nbIngredientInFridge = 0.0
-          //  Log.d("debago", "1. number ingredient in recipe is $nbIngredientInRecipe")
-
         }
 
         fun retrieveListFromString(input: String?): List<String> {
@@ -178,11 +176,10 @@ class Domain {
 
 
             nbIngredientInFridge = 0.0
-          //  Log.d("debago", "1. number ingredient in recipe is $nbIngredientInRecipe")
 
         }
 
-        private fun proportionCalcul(nbIngredientInFridge: Double, nbIngredientInRecipe: Double): Int {
+       fun proportionCalcul(nbIngredientInFridge: Double, nbIngredientInRecipe: Double): Int {
             val n: Int = ((nbIngredientInFridge / nbIngredientInRecipe) * 100).roundToInt()
             val pourcent:Int
             pourcent = if(((n + 4) / 5 * 5)<100){
@@ -270,8 +267,6 @@ class Domain {
             if(!bool){
                 isIngredientPresentInFavoriteRecipeUpdateGrocery(name, nameEnglish)
             }
-
-
         }
 
         fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
@@ -285,8 +280,6 @@ class Domain {
             }
 
         }
-
-
 
 
         fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
@@ -304,8 +297,5 @@ class Domain {
             }
 
         }
-
-
-
 
 }
