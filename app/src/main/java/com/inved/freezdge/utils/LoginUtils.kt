@@ -2,10 +2,12 @@ package com.inved.freezdge.utils
 
 import android.util.Log
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.facebook.FacebookSdk.getApplicationContext
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.inved.freezdge.R
+import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 
 class LoginUtils {
@@ -29,14 +31,19 @@ class LoginUtils {
         }
 
         fun isUserExistInFirebase(){
-            UserHelper.getUser(getCurrentUser?.uid)?.get()?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result!!.documents.isEmpty()) {
-                        Log.d("debago","user not exist in firebase")
-                        getCurrentUser?.uid?.let { UserHelper.createUser(it,getCurrentUser?.displayName,"",getCurrentUser?.photoUrl.toString()) }
+
+            UserHelper.getUser(getCurrentUser?.uid)?.get()
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        if (task.result != null) {
+                            if (task.result?.documents?.size == 0) {
+                                Log.d("debago","user not exist in firebase")
+                                getCurrentUser?.uid?.let { UserHelper.createUser(it,getCurrentUser?.displayName,"",getCurrentUser?.photoUrl.toString()) }
+
+                            }
+                        }
                     }
-                }
-            }?.addOnFailureListener { e ->
+                }?.addOnFailureListener { e ->
                 Log.e(
                     "debago",
                     "Problem during the user creation"

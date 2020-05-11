@@ -148,7 +148,11 @@ class AllRecipesFragment : BaseFragment() {
 
     fun recipesNumberFilter(){
         recipesNumberSize= setlistDatabaseFilter.size+ setlistRetrofitFilter.size
-        numberRecipesTextview.text=getString(R.string.recipe_list_number, recipesNumberSize)
+        if(recipesNumberSize!=1){
+            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+        }else{
+            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesNumberSize)
+        }
     }
 
 

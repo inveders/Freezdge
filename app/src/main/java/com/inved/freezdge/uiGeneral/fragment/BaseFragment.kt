@@ -3,6 +3,7 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,6 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
-import kotlinx.android.synthetic.main.fragment_all_recipes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -224,15 +224,16 @@ abstract class BaseFragment : Fragment() {
                 setupRecipeRecyclerView()
                 if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
                     lifecycleScope.launch {
+                        Log.d("debago","in get all recipes")
                         getAllRecipes()
                     }
 
                 } else {
+                    Log.d("debago","in no internet")
                     notFoundTeextView.visibility = View.VISIBLE
                     notFoundTeextView.text = getString(R.string.internet_connexion)
                     floatingActionButton.hide()
-                    numberRecipesTextview.visibility = View.INVISIBLE
-                    numberRecipesTextview.text="no way"
+                    numberRecipesTextview.visibility = View.GONE
                 }
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -250,6 +251,7 @@ abstract class BaseFragment : Fragment() {
                 favouriteRecipesItemAdapter.clear()
                 if (result != null) {
                     if (result.size != 0) {
+                        Log.d("debago","in favourites recipes")
                         notFoundTeextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
                         floatingActionButton.show()
@@ -259,6 +261,7 @@ abstract class BaseFragment : Fragment() {
                         }
                         favouritesRecipesNumber()
                     } else {
+                        Log.d("debago","in no result favourite recipe")
                         notFoundTeextView.visibility = View.VISIBLE
                         notFoundImageView.visibility = View.VISIBLE
                         floatingActionButton.hide()
@@ -279,35 +282,58 @@ abstract class BaseFragment : Fragment() {
         if (setlistRetrofit.isNullOrEmpty()) {
             val result: MutableList<Ingredients> =
                 ingredientsViewmodel.getIngredientsForFreezdgeList()
-            recipeViewModel.getRetrofitRecipes(result)
-                ?.observe(viewLifecycleOwner, Observer { result ->
-                    if (result.isNullOrEmpty()) {
-                        notFoundTeextView.visibility = View.VISIBLE
-                        notFoundTeextView.text =
-                            getString(R.string.no_item_found_recipes)
-                        floatingActionButton.hide()
-                        listener?.hideLoader()
-                    } else {
-                        notFoundTeextView.visibility = View.GONE
-                        floatingActionButton.show()
-                        fillAdapterRetrofit(result)
-                    }
-                })
-            recipeViewModel.getDatabaseRecipes(result)
-                ?.observe(viewLifecycleOwner, Observer { result ->
-                    if (result.isNullOrEmpty()) {
-                        notFoundTeextView.visibility = View.VISIBLE
-                        notFoundTeextView.text =
-                            getString(R.string.no_item_found_recipes)
-                        floatingActionButton.hide()
-                        listener?.hideLoader()
-                    } else {
-                        notFoundTeextView.visibility = View.GONE
-                        floatingActionButton.show()
-                        fillAdapterDatabase(result)
-                    }
-                })
+            Log.d("debago","in result from fridge is ${result.size}")
+            if(result.size!=0){
+                recipeViewModel.getDatabaseRecipes(result)
+                    ?.observe(viewLifecycleOwner, Observer { result2 ->
+                        Log.d("debago","in result is ${result2.size}")
+                        if (result2.isNullOrEmpty()) {
+                            Log.d("debago","in no result database")
+                            notFoundTeextView.visibility = View.VISIBLE
+                            notFoundTeextView.text =
+                                getString(R.string.no_recipes_found)
+                            numberRecipesTextview.visibility=View.GONE
+                            floatingActionButton.hide()
+                            listener?.hideLoader()
+                        } else {
+                            Log.d("debago","in result ok database")
+                            notFoundTeextView.visibility = View.GONE
+                            floatingActionButton.show()
+                            fillAdapterDatabase(result2)
+                        }
+                    })
+                recipeViewModel.getRetrofitRecipes(result)
+                    ?.observe(viewLifecycleOwner, Observer { result3 ->
+                        Log.d("debago","in result retrofit is ${result3.size}")
+                        if (result3.isNullOrEmpty()) {
+                            Log.d("debago","in no result")
+                            notFoundTeextView.visibility = View.VISIBLE
+                            notFoundTeextView.text =
+                                getString(R.string.no_recipes_found)
+                            numberRecipesTextview.visibility=View.GONE
+                            floatingActionButton.hide()
+                            listener?.hideLoader()
+                        } else {
+                            Log.d("debago","in result ok")
+                            notFoundTeextView.visibility = View.GONE
+                            floatingActionButton.show()
+                            fillAdapterRetrofit(result3)
+                        }
+
+
+
+                    })
+            }else{
+                notFoundTeextView.visibility = View.VISIBLE
+                notFoundTeextView.text =
+                    getString(R.string.no_item_found_recipes)
+                numberRecipesTextview.visibility=View.GONE
+                floatingActionButton.hide()
+                listener?.hideLoader()
+            }
+
         } else {
+            Log.d("debago","in set list not null")
             fillAdapterRetrofit(setlistRetrofit)
             fillAdapterDatabase(setlistDatabase)
         }
@@ -490,13 +516,24 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun recipesNumber() {
+        numberRecipesTextview.visibility = View.VISIBLE
         recipesNumberSize = setlistDatabase.size + setlistRetrofit.size
-        numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+        if(recipesNumberSize!=1){
+            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+        }else{
+            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesNumberSize)
+        }
     }
 
     fun favouritesRecipesNumber() {
+        numberRecipesTextview.visibility = View.VISIBLE
         recipesFavouritesNumberSize = setFavouriteList.size
-        numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+        if(recipesFavouritesNumberSize!=1){
+            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesFavouritesNumberSize)
+        }else{
+            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
+        }
+
     }
 
 

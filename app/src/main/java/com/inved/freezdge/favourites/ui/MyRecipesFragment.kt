@@ -117,7 +117,11 @@ class MyRecipesFragment : BaseFragment() {
     fun favouritesRecipesNumberFilter(){
 
         recipesFavouritesNumberSize= setFavouriteListFilter.size
-        numberRecipesTextview.text=getString(R.string.recipe_list_number, recipesNumberSize)
+        if(recipesFavouritesNumberSize!=1){
+            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesFavouritesNumberSize)
+        }else{
+            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
+        }
     }
 
 }

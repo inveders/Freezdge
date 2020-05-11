@@ -18,11 +18,13 @@
     <!--No item found-->
     <string name="no_item_found_favourite">No favourite recipes for the moment</string>
     <string name="no_item_found_recipes">Choose at least one ingredient to see recipes</string>
+    <string name="no_recipes_found">No recipes found</string>
     <string name="no_item_found_ingredients">Choose your first ingredient</string>
     <string name="no_item_found_grocery">Empty grocery list</string>
 
     <!--Recipe List item-->
-    <string name="recipe_list_number">%d recipes founds</string>
+    <string name="recipe_list_number">(%d) recipes found</string>
+    <string name="recipe_list_number_one">%d recipe found</string>
     <string name="recipe_list_item_image">image_recipe</string>
     <string name="recipe_list_item_label">Recipe label</string>
     <string name="recipe_list_item_matching">100%</string>
@@ -155,14 +157,14 @@
     <string name="facebook_sign_in">Facebook sign in failed:(</string>
 
     <!--Onboarding -->
-    <string name="onboarding1_title">Les ingrédients de chez toi</string>
-    <string name="onboarding1_description">Regarde dans ton frigo, ton congélo et tes placards, et ajoute les aliments que tu as chez toi dans l\'application</string>
-    <string name="onboarding2_title">Trouve les recettes</string>
-    <string name="onboarding2_description">En fonction des ingrédients que tu as chez toi, trouve la liste des recettes qui matchent le plus avec tes ingrédients en pourcentage</string>
-    <string name="onboarding3_title">Liste de courses pour toi</string>
-    <string name="onboarding3_description">Si tu choisis des recettes favorites, une liste de courses approximative est automatiquement générée s\'il te manque des aliments pour cuisiner ces recettes</string>
-    <string name="onboarding4_title">Partage avec la communauté Freezdge !</string>
-    <string name="onboarding4_description">Partage tes astuces de cuisine, ou la photo d\'une de tes réalisations culinaires avec toute la communauté Freezdge et au-delà</string>
+    <string name="onboarding1_title">My ingredients</string>
+    <string name="onboarding1_description">I look in my fridge, my freezer or my closets and I add what I\'ve got on the app</string>
+    <string name="onboarding2_title">Find my recipes</string>
+    <string name="onboarding2_description">I find the list of recipes that correspond to my ingredients</string>
+    <string name="onboarding3_title">A personal grocery list</string>
+    <string name="onboarding3_description">The recipes I choose as favourites automatically generate my grocery list, as needed</string>
+    <string name="onboarding4_title">My Freezdge community!</string>
+    <string name="onboarding4_description">I can share my cooking tips, or photos of my cooking skills with the entire Freezdge community</string>
     <string name="start">Start</string>
     <string name="next">Next</string>
 
