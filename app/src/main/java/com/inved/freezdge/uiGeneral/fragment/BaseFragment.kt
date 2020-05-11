@@ -2,6 +2,7 @@ package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -196,7 +197,7 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                if (NetworkUtils.isInternetAvailable(App.applicationContext())) {
+                 if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
                     lifecycleScope.launch {
                         getAllRecipes()
                     }

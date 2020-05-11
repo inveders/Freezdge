@@ -312,7 +312,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     override fun onDataChanged() {
         // 7 - Show TextView in case RecyclerView is empty
         if (mRecyclerPostsAdapter.itemCount == 0) {
-            if (NetworkUtils.isInternetAvailable(App.applicationContext())) {
+            if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
                 no_post_found.visibility = View.VISIBLE
             } else {
                 no_post_found.visibility = View.VISIBLE

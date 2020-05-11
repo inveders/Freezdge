@@ -42,6 +42,7 @@ class MyIngredientsListFragment : BaseFragment() {
         favouritesRecipesViewmodel =
             ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
         setupChips()
+        setHasOptionsMenu(true)
     }
 
     override fun onResume() {
