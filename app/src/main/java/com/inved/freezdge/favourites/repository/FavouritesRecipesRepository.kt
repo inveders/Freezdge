@@ -7,6 +7,7 @@ import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
 
 class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<FavouritesRecipes>) {
+    var domain=Domain()
 
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
@@ -35,12 +36,12 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         for(i in getFavouritesRecipesBox.query().order(FavouritesRecipes_.id).build().find()){
             if (i.recipeIngredients?.contains(ingredientNameFrench, true)!!) {
 
-                Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
+                domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
             }
 
             if (i.recipeIngredients?.contains(ingredientNameEnglish, true)!!) {
 
-                Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
+                domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
             }
         }
 

@@ -11,11 +11,12 @@ import com.inved.freezdge.recipes.view.CustomExpandableListAdapter
 import com.inved.freezdge.recipes.view.RecipeStepView
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.Domain.Companion.convertDpToPixel
+import com.inved.freezdge.utils.GlideUtils
 
 
 open class RecipeDetailActivity : BaseActivity() {
 
+    var domain=Domain()
     lateinit var recipeTitle: TextView
     lateinit var recipePrepCookTime: TextView
     lateinit var recipeTotalTime: TextView
@@ -68,7 +69,7 @@ open class RecipeDetailActivity : BaseActivity() {
 
         // Listview Group collapsed listener
         expandableListView?.setOnGroupCollapseListener {
-            expandableListView?.layoutParams?.height = convertDpToPixel(61)
+            expandableListView?.layoutParams?.height = domain.convertDpToPixel(61)
         }
 
     }
@@ -81,7 +82,7 @@ open class RecipeDetailActivity : BaseActivity() {
 
             recipeOwnerImage.setOnClickListener {
                 recipe.recipeUrlOwnerLink?.let {
-                    recipeOwnerImage.startAnimation(Domain.animation())
+                    recipeOwnerImage.startAnimation(domain.animation())
                     openWebViewActivity(
                         it
                     )
@@ -112,12 +113,12 @@ open class RecipeDetailActivity : BaseActivity() {
         val storage = FirebaseStorage.getInstance()
         // Create a reference to a file from a Google Cloud Storage URI
         val gsReference = recipe.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-        Domain.loadPhotoWithGlide(gsReference,null,recipeDetailPhoto)
+        GlideUtils.loadPhotoWithGlide(gsReference,null,recipeDetailPhoto)
 
         val gsReferenceOwner = recipe.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
-        Domain.loadPhotoWithGlideCircleCrop(gsReferenceOwner,recipeOwnerImage)
+        GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,recipeOwnerImage)
 
-        addDataInExpandable(Domain.retrieveListFromString(recipe.recipeIngredients))
+        addDataInExpandable(domain.retrieveListFromString(recipe.recipeIngredients))
         setupExpandableView()
     }
 

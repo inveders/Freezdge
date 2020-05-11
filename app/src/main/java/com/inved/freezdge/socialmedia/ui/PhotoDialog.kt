@@ -43,6 +43,7 @@ class PhotoDialog : DialogFragment() {
     }
 
     //Photo
+    var domain=Domain()
     private var urlPicture: String? = null
     private var cameraFilePath: String? = null
     private var imageCameraOrGallery: ImageCameraOrGallery? = null
@@ -103,11 +104,11 @@ class PhotoDialog : DialogFragment() {
     private fun initializeMethods(id: Int?) {
 
         cancelButton?.setOnClickListener { v: View? ->
-            cancelButton?.startAnimation(Domain.animation())
+            cancelButton?.startAnimation(domain.animation())
             dialog?.dismiss()
         }
         validateButton?.setOnClickListener { v: View? ->
-            validateButton?.startAnimation(Domain.animation())
+            validateButton?.startAnimation(domain.animation())
             createPhotoPost(id)
         }
     }
@@ -133,7 +134,7 @@ class PhotoDialog : DialogFragment() {
             }
             if (id == 1 || id == 2) {
                 if (uid != null) {
-                    val postId: String = Domain.createRandomString()
+                    val postId: String = domain.createRandomString()
                     //create post in firebase
                     PostHelper.createPost(
                         postId,
@@ -191,7 +192,7 @@ class PhotoDialog : DialogFragment() {
                         dialogTitle?.text=App.resource().getString(R.string.photo_dialog_update)
                         photoTitle?.setText(post.titleAstuce)
                         photoPreview?.let { it1 ->
-                            Domain.loadPhotoWithGlideCenterCropUrl(post.urlPhoto,
+                            GlideUtils.loadPhotoWithGlideCenterCropUrl(post.urlPhoto,
                                 it1
                             )
                         }
@@ -300,7 +301,7 @@ class PhotoDialog : DialogFragment() {
     private fun showImage(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
-            photoPreview?.let { Domain.loadPhotoWithGlideCenterCropUrl(fileUri.path, it) }
+            photoPreview?.let { GlideUtils.loadPhotoWithGlideCenterCropUrl(fileUri.path, it) }
         }
     }
 

@@ -10,7 +10,7 @@ import com.inved.freezdge.socialmedia.firebase.UserHelper
 
 class LoginUtils {
 
-    companion object{
+
 
         var getCurrentUser:FirebaseUser?= FirebaseAuth.getInstance().currentUser
         fun showSnackBar(
@@ -43,6 +43,6 @@ class LoginUtils {
                 )
             }
         }
-    }
+
 
 }

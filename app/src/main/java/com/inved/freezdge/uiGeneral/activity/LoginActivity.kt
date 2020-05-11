@@ -28,13 +28,14 @@ import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.LoginUtils
 import com.inved.freezdge.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.*
 
 
 class LoginActivity: BaseActivity() {
 
     //FOR DATA
+    var domain=Domain()
     private val RC_SIGN_IN: Int = 1
+    val loginUtils = LoginUtils()
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mGoogleSignInOptions: GoogleSignInOptions
     private var callbackManager: CallbackManager = CallbackManager.Factory.create()
@@ -48,14 +49,14 @@ class LoginActivity: BaseActivity() {
 
         login_facebook_button.setOnClickListener{
            if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
-               LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.error_no_internet))
+               loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.error_no_internet))
            }else{
                onClickFacebookLoginButton()
            }
              }
         login_google_button.setOnClickListener{
             if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
-                LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.error_no_internet))
+                loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.error_no_internet))
             }else{
                 onClickGoogleLoginButton()
             }
@@ -67,10 +68,10 @@ class LoginActivity: BaseActivity() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                LoginUtils.isUserExistInFirebase()
+                loginUtils.isUserExistInFirebase()
                 handleStartActivityOrOnboarding()
             } else {
-                LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))
+                loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))
             }
         }
     }
@@ -107,10 +108,10 @@ class LoginActivity: BaseActivity() {
                         firebaseAuthWithGoogle(account)
                     }
                     // SUCCESS
-                    LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed))
+                    loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed))
                 } catch (e: ApiException) {
                     Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
-                    LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))
+                    loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))
                 }
             }
         }
@@ -121,12 +122,12 @@ class LoginActivity: BaseActivity() {
     // --------------------
 
     private fun onClickFacebookLoginButton() {
-        login_facebook_button.startAnimation(Domain.animation())
+        login_facebook_button.startAnimation(domain.animation())
             startFacebookSignInActivity()
     }
 
     private fun onClickGoogleLoginButton() {
-        login_google_button.startAnimation(Domain.animation())
+        login_google_button.startAnimation(domain.animation())
         startGoogleSignInActivity()
     }
 
@@ -135,20 +136,20 @@ class LoginActivity: BaseActivity() {
     // --------------------
     private fun startFacebookSignInActivity() {
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"))
+        LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile"))
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                loginResult?.accessToken?.let { handleFacebookAccessToken(it) }
+                loginResult.accessToken?.let { handleFacebookAccessToken(it) }
             }
 
             override fun onCancel() {
                 Log.d("debago", "facebook:onCancel")
-                LoginUtils.cancelFacebookSnackBar(coordinatorLayout)
+                loginUtils.cancelFacebookSnackBar(coordinatorLayout)
             }
 
             override fun onError(error: FacebookException) {
                 Log.d("debago", "facebook:onError", error)
-                LoginUtils.errorFacebookSnackBar(coordinatorLayout)
+                loginUtils.errorFacebookSnackBar(coordinatorLayout)
             }
         })
 
@@ -186,12 +187,12 @@ class LoginActivity: BaseActivity() {
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    LoginUtils.isUserExistInFirebase()
+                    loginUtils.isUserExistInFirebase()
                     handleStartActivityOrOnboarding()
-                    LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed))
+                    loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed))
                 } else {
                     // If sign in fails, display a message to the user.
-                    LoginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.facebook_sign_in))
+                    loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.facebook_sign_in))
                 }
             }
     }

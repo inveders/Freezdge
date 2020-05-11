@@ -29,6 +29,7 @@ import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
 
 
@@ -86,7 +87,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
                         firstnameHeader.text = user.firstname
 
                         //to upload a photo on Firebase storage
-                        Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, imageHeader)
+                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, imageHeader)
                         hideLoader()
                     }
                 }
@@ -191,8 +192,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
-        //TODO where do we use it?
-        var currentPage:Int?=0
+
     }
 
     override fun showLoader() {

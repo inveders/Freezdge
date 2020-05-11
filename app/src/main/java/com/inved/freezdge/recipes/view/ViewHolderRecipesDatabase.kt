@@ -10,6 +10,7 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -17,6 +18,7 @@ import io.objectbox.kotlin.boxFor
 
 class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(view){
 
+    var domain=Domain()
     var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
@@ -40,11 +42,11 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
             preparationTime.text = item.preparationTime
         }
 
-        cuisineType.text= item.cuisineType?.let { Domain.uppercaseFirstCaracter(it) }
+        cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCaracter(it) }
         if(item.dishType.equals("Main course",true)){
             dishType.text=App.resource().getString(R.string.array_filter_plat)
         }else{
-            dishType.text= item.dishType?.let { Domain.uppercaseFirstCaracter(it) }
+            dishType.text= item.dishType?.let { domain.uppercaseFirstCaracter(it) }
         }
 
         if(item.recipeCalories.isNullOrEmpty()){
@@ -53,7 +55,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
             kcal.text = item.recipeCalories
         }
 
-        val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
+        val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
 
         proportionText.text="$proportionInPercent %"
 
@@ -71,10 +73,10 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
 
         val storage = FirebaseStorage.getInstance()
         val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-        Domain.loadPhotoWithGlide(gsReference,null,imageItem)
+        GlideUtils.loadPhotoWithGlide(gsReference,null,imageItem)
 
         val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
-        Domain.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
+        GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
 
         if(isRecipeIdIsPresent(item.id.toString())!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)

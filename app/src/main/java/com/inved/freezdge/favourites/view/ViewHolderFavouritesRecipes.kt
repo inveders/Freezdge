@@ -9,6 +9,7 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -17,6 +18,7 @@ import io.objectbox.kotlin.boxFor
 class ViewHolderFavouritesRecipes(val view: View) :
     FastAdapter.ViewHolder<FavouritesRecipes>(view) {
 
+    var domain=Domain()
     var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
@@ -43,14 +45,14 @@ class ViewHolderFavouritesRecipes(val view: View) :
             kcal.text = item.recipeCalories
         }
 
-        val proportionInPercent:Int= Domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
+        val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text="$proportionInPercent %"
 
-        cuisineType.text= item.cuisineType?.let { Domain.uppercaseFirstCaracter(it) }
+        cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCaracter(it) }
         if(item.dishType.equals("Main course")){
             dishType.text=App.resource().getString(R.string.array_filter_plat)
         }else{
-            dishType.text= item.dishType?.let { Domain.uppercaseFirstCaracter(it) }
+            dishType.text= item.dishType?.let { domain.uppercaseFirstCaracter(it) }
         }
 
         when (proportionInPercent) {
@@ -69,9 +71,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
             val storage = FirebaseStorage.getInstance()
             // Create a reference to a file from a Google Cloud Storage URI
             val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-            Domain.loadPhotoWithGlide(gsReference,null,imageItem)
+            GlideUtils.loadPhotoWithGlide(gsReference,null,imageItem)
         }else{
-            Domain.loadPhotoWithGlideCenterCropUrl(item.recipePhotoUrl,imageItem)
+            GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipePhotoUrl,imageItem)
         }
 
         if(isRecipeIdIsPresent(item.recipeId)!!){

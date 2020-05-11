@@ -17,6 +17,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.GlideUtils
 
 
 class PostsAdapter(
@@ -29,6 +30,8 @@ class PostsAdapter(
         fun onDataChanged()
         fun onClickImageListener(postImage: String?)
     }
+
+    var domain=Domain()
 
     override fun onBindViewHolder(
         postViewHolder: PostViewHolder,
@@ -87,7 +90,7 @@ class PostsAdapter(
 
             if (post.urlPhoto != null) {
                 postImage.visibility = View.VISIBLE
-                Domain.loadPhotoWithGlideUrl(post.urlPhoto, shimmer, postImage)
+                GlideUtils.loadPhotoWithGlideUrl(post.urlPhoto, shimmer, postImage)
                 postImage.setOnClickListener {
                     listener.onClickImageListener(post.urlPhoto)
                 }
@@ -101,7 +104,7 @@ class PostsAdapter(
                         val user: User =
                             task.result!!.documents[0].toObject(User::class.java)!!
                         username.text = user.firstname
-                        Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profileImage)
+                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profileImage)
                     }
                 }
             }?.addOnFailureListener {}
@@ -138,7 +141,7 @@ class PostsAdapter(
             //like button clicklistener
             likeButton.setOnClickListener {
 
-                likeButton.startAnimation(Domain.animation())
+                likeButton.startAnimation(domain.animation())
 
                 FavoritePostHelper.isThisPostIsFavorite(
                     FirebaseAuth.getInstance().currentUser?.uid,
@@ -159,7 +162,7 @@ class PostsAdapter(
             //update button clicklistener
             updateButton.setOnClickListener {
 
-                updateButton.startAnimation(Domain.animation())
+                updateButton.startAnimation(domain.animation())
                 if (post.postType.equals(
                         App.resource().getString(R.string.social_media_post_type_photo)
                     )
@@ -185,7 +188,7 @@ class PostsAdapter(
 
             //delete button clicklistener
             deleteButton.setOnClickListener {
-                deleteButton.startAnimation(Domain.animation())
+                deleteButton.startAnimation(domain.animation())
                 post.postId?.let { it1 ->
                     listener.onClickListener(
                         1,

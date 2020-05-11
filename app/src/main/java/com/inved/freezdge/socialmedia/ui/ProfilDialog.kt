@@ -70,7 +70,7 @@ class ProfilDialog : DialogFragment() {
     private var cancelSearchButton: ImageButton? = null
     private var mPhotoFile: File? = null
     private lateinit var mContext: Context
-
+    var domain=Domain()
     // --------------
     // LIFE CYCLE AND VIEW MODEL
     // --------------
@@ -82,7 +82,7 @@ class ProfilDialog : DialogFragment() {
         val view: View =
             inflater.inflate(R.layout.dialog_update_profile, container, false)
         mContext = App.applicationContext()
-
+        var domain=Domain()
         uid = FirebaseAuth.getInstance().currentUser?.uid!!
         imageCameraOrGallery = ImageCameraOrGallery()
         profilPhoto = view.findViewById(R.id.profil_photo)
@@ -101,11 +101,11 @@ class ProfilDialog : DialogFragment() {
     private fun initializeMethods() {
         changePhotoText?.setOnClickListener { selectImage() }
         cancelSearchButton?.setOnClickListener {
-            cancelSearchButton?.startAnimation(Domain.animation())
+            cancelSearchButton?.startAnimation(domain.animation())
             dialog?.dismiss()
         }
         addActionButton?.setOnClickListener {
-            addActionButton?.startAnimation(Domain.animation())
+            addActionButton?.startAnimation(domain.animation())
             updateProfile()
         }
     }
@@ -126,7 +126,7 @@ class ProfilDialog : DialogFragment() {
                     if (user.photoUrl != null) {
                         urlPicture = user.photoUrl
                     }
-                    Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profilPhoto)
+                    GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profilPhoto)
                 }
             }
         }?.addOnFailureListener {
@@ -297,7 +297,7 @@ class ProfilDialog : DialogFragment() {
     private fun showImageInCircle(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
-            Domain.loadPhotoWithGlideCircleCropUrl(photoStringFromRoom,profilPhoto)
+            GlideUtils.loadPhotoWithGlideCircleCropUrl(photoStringFromRoom,profilPhoto)
             /*profilPhoto?.let {
                 Glide.with(mContext)
                     .load(File(fileUri.path))

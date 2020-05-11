@@ -50,9 +50,8 @@ abstract class BaseFragment : Fragment() {
     lateinit var notFoundTeextView: TextView
     lateinit var notFoundImageView: ImageView
 
-    private var viewModelJob = Job()
     private lateinit var floatingActionButton: FloatingActionButton
-
+    var domain=Domain()
     companion object {
         internal var listener: LoaderListener? = null
         fun setLoaderListener(callback: LoaderListener) {
@@ -309,7 +308,7 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.uri,
                     item.recipe?.label,
                     item.recipe?.calories?.div(10)?.roundToInt().toString(),
-                    Domain.preparationTime(item.recipe?.totalTime),
+                    domain.preparationTime(item.recipe?.totalTime),
                     item.recipe?.url,
                     item.recipe?.image,
                     item.recipe?.ingredientLines.toString(),
@@ -322,7 +321,7 @@ abstract class BaseFragment : Fragment() {
 
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(500)
-                    Domain.correspondanceCalculForGrocery(
+                    domain.correspondanceCalculForGrocery(
                         item.recipe?.ingredientLines.toString(),
                         bool!!
                     )
@@ -378,7 +377,7 @@ abstract class BaseFragment : Fragment() {
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(500)
                     item.recipeIngredients?.let {
-                        Domain.correspondanceCalculForGrocery(
+                        domain.correspondanceCalculForGrocery(
                             it,
                             bool!!
                         )
@@ -426,7 +425,7 @@ abstract class BaseFragment : Fragment() {
 
             GlobalScope.launch(Dispatchers.IO) {
                 delay(500)
-                item.recipeIngredients?.let { Domain.correspondanceCalculForGrocery(it, bool!!) }
+                item.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, bool!!) }
             }
 
             if (bool!!) {

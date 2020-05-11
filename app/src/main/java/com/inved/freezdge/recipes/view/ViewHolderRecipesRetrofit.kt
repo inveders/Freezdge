@@ -9,6 +9,7 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemFilter
 import io.objectbox.Box
@@ -19,6 +20,7 @@ import kotlin.math.roundToInt
 
 class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) {
 
+    var domain=Domain()
     var label: TextView = view.findViewById(R.id.title)
     var preparationTime: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
@@ -34,18 +36,18 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
     override fun bindView(item: Hit, payloads: MutableList<Any>) {
 
         label.text = item.recipe?.label
-        preparationTime.text=Domain.preparationTime(item.recipe?.totalTime)
+        preparationTime.text=domain.preparationTime(item.recipe?.totalTime)
 
-        cuisineType.text= item.recipe?.cuisineType?.get(0)?.let { Domain.uppercaseFirstCaracter(it) }
+        cuisineType.text= item.recipe?.cuisineType?.get(0)?.let { domain.uppercaseFirstCaracter(it) }
         if(item.recipe?.dishType?.get(0).equals("Main course",true)){
             dishType.text=App.resource().getString(R.string.array_filter_plat)
         }else{
-            dishType.text= item.recipe?.dishType?.get(0)?.let { Domain.uppercaseFirstCaracter(it) }
+            dishType.text= item.recipe?.dishType?.get(0)?.let { domain.uppercaseFirstCaracter(it) }
         }
 
         kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()
 
-        val proportionInPercent:Int=Domain.ingredientsMatchingMethod(item.recipe?.ingredientLines)
+        val proportionInPercent:Int=domain.ingredientsMatchingMethod(item.recipe?.ingredientLines)
         proportionText.text="$proportionInPercent %"
 
         when (proportionInPercent) {
@@ -60,7 +62,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
             }
         }
 
-        Domain.loadPhotoWithGlideCenterCropUrl(item.recipe?.image,imageItem)
+        GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipe?.image,imageItem)
 
         if(isRecipeIdIsPresent(item.recipe?.uri)!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)

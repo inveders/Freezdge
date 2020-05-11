@@ -13,35 +13,10 @@ import java.net.URL
 class NetworkUtils {
 
     companion object{
-      /*  @Suppress("DEPRECATION")
-        fun isInternetAvailable(context: Context): Boolean {
-
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val nw      = connectivityManager.activeNetwork ?: return false
-                Log.d("debago","in is internet available before $nw")
-                val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
-                return when {
-                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                    else -> false
-
-                }
-                Log.d("debago","in is internet available before 2 $actNw")
-            } else {
-                val nwInfo = connectivityManager.activeNetworkInfo ?: return false
-
-                Log.d("debago","in is internet available after $nwInfo.isConnected")
-                return nwInfo.isConnected
-            }
-        }*/
 
         fun isWifiAvailable(context: Context): Boolean{
             val wifi = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-
-
             return  wifi.isWifiEnabled
-
         }
 
         fun isInternetAvailable(context: Context): Boolean{
@@ -73,20 +48,17 @@ class NetworkUtils {
             return false
         }
 
-
         fun typeNetworkConnection(context: Context): TypeConnection{
             val wifiConnection = isWifiAvailable(context)
             val internetConnection = isInternetAvailable(context)
             val internetConnected = isInternetAccessible(context)
-            Log.d("debago","wifi info $internetConnected")
-            return when{
+             return when{
                 !internetConnected -> TypeConnection.NONE
                 !internetConnection -> TypeConnection.NONE
                 !wifiConnection && internetConnection -> TypeConnection.DATA
                 wifiConnection -> TypeConnection.WIFI
                 else -> TypeConnection.NONE
             }
-
         }
 
         enum class TypeConnection{
@@ -94,8 +66,6 @@ class NetworkUtils {
             DATA,
             NONE
         }
-
-
     }
 
 

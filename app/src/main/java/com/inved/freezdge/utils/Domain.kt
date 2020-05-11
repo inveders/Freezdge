@@ -26,21 +26,12 @@ import kotlin.math.roundToInt
 
 class Domain {
 
-    companion object {
 
         private var nbIngredientInRecipe: Double = 0.0
         private var nbIngredientInFridge: Double = 0.0
 
         fun animation():AlphaAnimation{
            return AlphaAnimation(1f, 0.8f)
-        }
-
-        fun animationFromTransparency():AlphaAnimation{
-            val animation1 = AlphaAnimation(0.0f, 1.0f)
-            animation1.duration = 500
-            animation1.startOffset = 2000
-            animation1.fillAfter = true
-            return animation1
         }
 
         fun uppercaseFirstCaracter(name:String):String{
@@ -295,112 +286,26 @@ class Domain {
 
         }
 
-        fun loadPhotoWithGlide(gsReference:StorageReference?,shimmer:ShimmerFrameLayout?,image:ImageView){
-            GlideApp.with(App.applicationContext())
-                .load(gsReference)
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.e("debago", "Exception is : $e")
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        if(shimmer!=null){
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
-                        }
-                        return false
-                    }
-                })
-                .into(image)
-        }
-
-        fun loadPhotoWithGlideUrl(url:String?,shimmer:ShimmerFrameLayout?,image:ImageView){
-            GlideApp.with(App.applicationContext())
-                .load(url)
-                .centerCrop()
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.e("debago", "Exception is : $e")
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        if(shimmer!=null){
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
-                        }
-                        return false
-                    }
-                })
-                .into(image)
-        }
-
-        fun loadPhotoWithGlideCircleCrop(gsReference:StorageReference?,image:ImageView){
-            GlideApp.with(App.applicationContext())
-                .load(gsReference)
-                .circleCrop()
-                .into(image)
-        }
 
 
-        fun loadPhotoWithGlideCircleCropUrl(url:String?,image:ImageView?){
-            image?.let {
-                GlideApp.with(App.applicationContext())
-                    .load(url)
-                    .circleCrop()
-                    .placeholder(R.drawable.ic_anon_user_48dp)
-                    .into(it)
-            }
-
-        }
-
-        fun loadPhotoWithGlideCenterCropUrl(url:String?,image:ImageView){
-            GlideApp.with(App.applicationContext())
-                .load(url)
-                .centerCrop()
-                .into(image)
-        }
 
         fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
 
             for(i in App.ObjectBox.boxStore.boxFor<FavouritesRecipes>().query().order(FavouritesRecipes_.id).build().find()){
                 if (i.recipeIngredients?.let { it.contains(ingredientNameFrench, true) }!!) {
 
-                    Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
+                    updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
                 }
 
                 if (i.recipeIngredients?.let { it.contains(ingredientNameEnglish, true) }!!) {
 
-                    Domain.updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
+                    updateItemForGroceryList(ingredientNameFrench, true,ingredientNameEnglish)
                 }
             }
 
         }
 
-    }
+
 
 
 }

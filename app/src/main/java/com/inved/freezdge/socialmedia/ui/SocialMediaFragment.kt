@@ -29,10 +29,7 @@ import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
-import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.LoaderListener
-import com.inved.freezdge.utils.NetworkUtils
+import com.inved.freezdge.utils.*
 import kotlinx.android.synthetic.main.dialog_image.*
 import kotlinx.android.synthetic.main.fragment_social_media.*
 import permissions.dispatcher.NeedsPermission
@@ -41,6 +38,7 @@ import permissions.dispatcher.RuntimePermissions
 @RuntimePermissions
 class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListener,ProfilDialog.ChangePhotoListener {
 
+    var domain=Domain()
     private lateinit var mRecyclerPostsAdapter: PostsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var nestedScrollView: NestedScrollView
@@ -109,7 +107,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                             App.resource()
                                 .getString(R.string.social_media_description, user.firstname)
                         //to show photo from Firebase storage or url. If photo is not from google, it's also from firebase
-                        Domain.loadPhotoWithGlideCircleCropUrl(user.photoUrl, photoProfile)
+                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, photoProfile)
                         hideLoader()
                     }
                 }
@@ -120,33 +118,33 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     private fun initButtons() {
         addPhotoCamera.setOnClickListener {
-            addPhotoCamera.startAnimation(Domain.animation())
-            addPhotoCameraText.startAnimation(Domain.animation())
+            addPhotoCamera.startAnimation(domain.animation())
+            addPhotoCameraText.startAnimation(domain.animation())
             onClickAddPhotoWithPermissionCheck(1, "")
         }
         addPhotoCameraText.setOnClickListener {
-            addPhotoCamera.startAnimation(Domain.animation())
-            addPhotoCameraText.startAnimation(Domain.animation())
+            addPhotoCamera.startAnimation(domain.animation())
+            addPhotoCameraText.startAnimation(domain.animation())
             onClickAddPhotoWithPermissionCheck(1, "")
         }
         addPhotoGallery.setOnClickListener {
-            addPhotoGallery.startAnimation(Domain.animation())
-            addPhotoGalleryText.startAnimation(Domain.animation())
+            addPhotoGallery.startAnimation(domain.animation())
+            addPhotoGalleryText.startAnimation(domain.animation())
             onClickAddPhotoGalleryWithPermissionCheck()
         }
         addPhotoGalleryText.setOnClickListener {
-            addPhotoGallery.startAnimation(Domain.animation())
-            addPhotoGalleryText.startAnimation(Domain.animation())
+            addPhotoGallery.startAnimation(domain.animation())
+            addPhotoGalleryText.startAnimation(domain.animation())
             onClickAddPhotoGalleryWithPermissionCheck()
         }
         addTipImage.setOnClickListener {
-            addTipImage.startAnimation(Domain.animation())
-            addTipText.startAnimation(Domain.animation())
+            addTipImage.startAnimation(domain.animation())
+            addTipText.startAnimation(domain.animation())
             onClickAddTips(0, "")
         }
         addTipText.setOnClickListener {
-            addTipImage.startAnimation(Domain.animation())
-            addTipText.startAnimation(Domain.animation())
+            addTipImage.startAnimation(domain.animation())
+            addTipText.startAnimation(domain.animation())
             onClickAddTips(0, "")
         }
         photoProfile.setOnClickListener { onClickUpdateProfil() }

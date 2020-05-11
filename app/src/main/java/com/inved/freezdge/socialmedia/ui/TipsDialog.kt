@@ -34,7 +34,7 @@ class TipsDialog : DialogFragment() {
                 }
             }
     }
-
+    var domain=Domain()
     private var validateButton: TextView? = null
     private var cancelButton: ImageButton? = null
     private var dialogTitle: TextView? = null
@@ -88,11 +88,11 @@ class TipsDialog : DialogFragment() {
     private fun initializeMethods(id: Int?) {
 
         cancelButton?.setOnClickListener {
-            cancelButton?.startAnimation(Domain.animation())
+            cancelButton?.startAnimation(domain.animation())
             dialog?.dismiss()
         }
         validateButton?.setOnClickListener {
-            validateButton?.startAnimation(Domain.animation())
+            validateButton?.startAnimation(domain.animation())
             updatePost(id) }
     }
 
@@ -117,7 +117,7 @@ class TipsDialog : DialogFragment() {
             //id=0 on crée le post, sinon on update
             if (id == 0) {
                 if (uid != null) {
-                    val postId: String = Domain.createRandomString()
+                    val postId: String = domain.createRandomString()
                     //create post in firebase
                     PostHelper.createPost(
                         postId,
