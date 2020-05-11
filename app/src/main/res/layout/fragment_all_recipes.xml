@@ -1,51 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_ingredient_list_rootview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/topTextview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryLight"
+        android:gravity="center"
+        android:padding="15dp"
+        tools:text="TBL: Number of recipes"
+        android:visibility="visible"
+        />
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/not_found"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="TBL: ALL RECIPES"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        />
+        android:visibility="visible"
+        android:gravity="center"/>
 
     <ImageView
         android:id="@+id/image_arrow"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="40dp"
-        android:rotation="200"
-        android:scaleY="-1"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_turn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
     <!-- DECLARING FLOATING ACTION BUTTON -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button"

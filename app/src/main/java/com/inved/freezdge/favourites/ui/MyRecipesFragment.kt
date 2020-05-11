@@ -111,7 +111,13 @@ class MyRecipesFragment : BaseFragment() {
         for (recipes in setfavouritelist) {
             favouriteRecipesItemAdapter.add(recipes)
         }
+        favouritesRecipesNumberFilter()
+    }
 
+    fun favouritesRecipesNumberFilter(){
+
+        recipesFavouritesNumberSize= setFavouriteListFilter.size
+        numberRecipesTextview.text=getString(R.string.recipe_list_number, recipesNumberSize)
     }
 
 }

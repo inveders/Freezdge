@@ -22,6 +22,7 @@
     <string name="no_item_found_grocery">Empty grocery list</string>
 
     <!--Recipe List item-->
+    <string name="recipe_list_number">%d recipes founds</string>
     <string name="recipe_list_item_image">image_recipe</string>
     <string name="recipe_list_item_label">Recipe label</string>
     <string name="recipe_list_item_matching">100%</string>

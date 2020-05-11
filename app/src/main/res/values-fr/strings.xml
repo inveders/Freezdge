@@ -159,6 +159,7 @@
     <string name="start">Aller</string>
     <string name="next">Suivant</string>
     <string name="facebook_sign_in">La connexion avec Facebook a échoué :(</string>
+    <string name="recipe_list_number">%d recettes trouvées</string>
 
 
 </resources>

@@ -1,10 +1,12 @@
 package com.inved.freezdge.recipes.repository
 
 import com.inved.freezdge.BuildConfig
+import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.database.Recipes_
 import com.inved.freezdge.recipes.retrofit.RecipesApi
 import com.inved.freezdge.recipes.retrofit.RetrofitServiceRecipes
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.AddRecipesInDatabase
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
@@ -64,8 +66,20 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
 
     fun insertRecipesInDatabase() {
         AddRecipesInDatabase(getRecipesBox)
+        val editor = BaseFragment.sharedPref.edit()
+        editor.putLong(BaseFragment.PREF_NAME, getRecipesBox.count())
+        editor.apply()
     }
 
+
+    fun deleteAllRecipesInBox() {
+        getRecipesBox.removeAll()
+        insertRecipesInDatabase()
+    }
+
+    fun countRecipesInBox():Long {
+        return getRecipesBox.count()
+    }
 
 }
 

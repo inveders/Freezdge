@@ -34,6 +34,14 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.insertRecipesInDatabase()
     }
 
+    fun deleteAllRecipesInDatabase() {
+        return recipesRepository.deleteAllRecipesInBox()
+    }
+
+    fun countAllRecipesInDatabase():Long {
+        return recipesRepository.countRecipesInBox()
+    }
+
     suspend fun getRetrofitRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableList<Hit>>? {
         val setListRetrofitViewModel: MutableLiveData<MutableList<Hit>>? = MutableLiveData()
         val setRetrofitSetListRecipes:MutableSet<Hit>? = mutableSetOf()

@@ -1,8 +1,8 @@
 package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,17 +41,24 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
-import kotlinx.coroutines.*
+import kotlinx.android.synthetic.main.fragment_all_recipes.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 
 abstract class BaseFragment : Fragment() {
 
     lateinit var notFoundTeextView: TextView
+    lateinit var numberRecipesTextview: TextView
     lateinit var notFoundImageView: ImageView
 
+
     private lateinit var floatingActionButton: FloatingActionButton
-    var domain=Domain()
+    var domain = Domain()
+
     companion object {
         internal var listener: LoaderListener? = null
         fun setLoaderListener(callback: LoaderListener) {
@@ -62,8 +69,18 @@ abstract class BaseFragment : Fragment() {
         var setFavouriteList: MutableList<FavouritesRecipes> = mutableListOf()
         var setFavouriteListFilter: MutableList<FavouritesRecipes> = mutableListOf()
         var setlistRetrofit: MutableList<Hit> = mutableListOf()
+        var recipesNumberSize: Int? = 0
+        var recipesFavouritesNumberSize: Int? = 0
         val setlistDatabaseFilter: MutableList<Recipes> = mutableListOf()
         val setlistRetrofitFilter: MutableList<Hit> = mutableListOf()
+
+        private var PRIVATE_MODE = 0
+        val PREF_NAME = "RECIPES_DATABASE"
+        val sharedPref: SharedPreferences =
+            App.applicationContext().getSharedPreferences(
+                PREF_NAME,
+                PRIVATE_MODE
+            )
     }
 
     val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
@@ -89,6 +106,7 @@ abstract class BaseFragment : Fragment() {
         floatingActionButton = view.findViewById(R.id.floating_button)
         recyclerView = view.findViewById(R.id.recyclerview)
         notFoundTeextView = view.findViewById(R.id.not_found)
+        numberRecipesTextview = view.findViewById(R.id.topTextview)
         notFoundImageView = view.findViewById(R.id.image_arrow)
         initViewModel()
         insertFood()
@@ -121,7 +139,15 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun insertRecipes() {
-        recipeViewModel.insertRecipesInDatabase()
+        if (recipeViewModel.countAllRecipesInDatabase().equals(0)) {
+            recipeViewModel.insertRecipesInDatabase()
+        } else if (recipeViewModel.countAllRecipesInDatabase() != sharedPref.getLong(
+                PREF_NAME,
+                0
+            )
+        ) {
+            recipeViewModel.deleteAllRecipesInDatabase()
+        }
     }
 
     private fun setupRecipeRecyclerView() {
@@ -196,7 +222,7 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                 if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
+                if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
                     lifecycleScope.launch {
                         getAllRecipes()
                     }
@@ -204,6 +230,9 @@ abstract class BaseFragment : Fragment() {
                 } else {
                     notFoundTeextView.visibility = View.VISIBLE
                     notFoundTeextView.text = getString(R.string.internet_connexion)
+                    floatingActionButton.hide()
+                    numberRecipesTextview.visibility = View.INVISIBLE
+                    numberRecipesTextview.text="no way"
                 }
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -223,13 +252,17 @@ abstract class BaseFragment : Fragment() {
                     if (result.size != 0) {
                         notFoundTeextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
+                        floatingActionButton.show()
                         for (myresult in result) {
                             favouriteRecipesItemAdapter.add(myresult)
                             setFavouriteList.add(myresult)
                         }
+                        favouritesRecipesNumber()
                     } else {
                         notFoundTeextView.visibility = View.VISIBLE
                         notFoundImageView.visibility = View.VISIBLE
+                        floatingActionButton.hide()
+                        numberRecipesTextview.visibility=View.GONE
                         notFoundTeextView.text = getString(R.string.no_item_found_favourite)
                     }
                 }
@@ -252,9 +285,11 @@ abstract class BaseFragment : Fragment() {
                         notFoundTeextView.visibility = View.VISIBLE
                         notFoundTeextView.text =
                             getString(R.string.no_item_found_recipes)
+                        floatingActionButton.hide()
                         listener?.hideLoader()
                     } else {
                         notFoundTeextView.visibility = View.GONE
+                        floatingActionButton.show()
                         fillAdapterRetrofit(result)
                     }
                 })
@@ -264,9 +299,11 @@ abstract class BaseFragment : Fragment() {
                         notFoundTeextView.visibility = View.VISIBLE
                         notFoundTeextView.text =
                             getString(R.string.no_item_found_recipes)
+                        floatingActionButton.hide()
                         listener?.hideLoader()
                     } else {
                         notFoundTeextView.visibility = View.GONE
+                        floatingActionButton.show()
                         fillAdapterDatabase(result)
                     }
                 })
@@ -284,6 +321,7 @@ abstract class BaseFragment : Fragment() {
             recipesRetrofitItemAdapter.add(hits)
         }
         BaseFragment.setlistRetrofit = setlistRetrofit
+        recipesNumber()
         listener?.hideLoader()
     }
 
@@ -293,6 +331,7 @@ abstract class BaseFragment : Fragment() {
             recipesDatabaseItemAdapter.add(recipes)
         }
         BaseFragment.setlistDatabase = setlistDatabase
+        recipesNumber()
         listener?.hideLoader()
     }
 
@@ -449,6 +488,17 @@ abstract class BaseFragment : Fragment() {
             favouritesFastAdapter.notifyAdapterDataSetChanged()
         }
     }
+
+    fun recipesNumber() {
+        recipesNumberSize = setlistDatabase.size + setlistRetrofit.size
+        numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+    }
+
+    fun favouritesRecipesNumber() {
+        recipesFavouritesNumberSize = setFavouriteList.size
+        numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+    }
+
 
 }
 

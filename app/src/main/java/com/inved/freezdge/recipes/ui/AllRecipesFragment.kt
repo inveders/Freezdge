@@ -27,7 +27,6 @@ class AllRecipesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         floatingActionButton = view.findViewById(R.id.floating_button)
-       // floatingActionButton.hide()
         floatingActionButton.setOnClickListener { _ -> launchFilterDialog() }
     }
 
@@ -144,6 +143,13 @@ class AllRecipesFragment : BaseFragment() {
         for (hits in setlistRetrofit) {
             recipesRetrofitItemAdapter.add(hits)
         }
+        recipesNumberFilter()
     }
+
+    fun recipesNumberFilter(){
+        recipesNumberSize= setlistDatabaseFilter.size+ setlistRetrofitFilter.size
+        numberRecipesTextview.text=getString(R.string.recipe_list_number, recipesNumberSize)
+    }
+
 
 }
