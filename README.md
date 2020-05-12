@@ -20,18 +20,18 @@ Creamery, fruit and vegetables, groceries, fish, meat
 
 All ingredients in your freezdge ! Also, automatic grocery list is generated when you choose recipes as favorites!
 
-<img src="./screenshot/ingredients_list.png" width="30%" height="30%">&ensp;<img src="./screenshot/grocery_list.png" width="30%" height="30%">
+<img src="./screenshot/ingredient_list_good.png" width="30%" height="30%">&ensp;<img src="./screenshot/grocery_list.png" width="30%" height="30%">
 
 ## Find recipes and filter by dish type
 
-<img src="./screenshot/Liste_recette.png" width="30%" height="30%">&ensp;<img src="./screenshot/Filtre_recette_par_type.png" width="30%" height="30%">
-<img src="./screenshot/result_dessert.png" width="30%" height="30%">
+<img src="./screenshot/recettes_liste1.png" width="30%" height="30%">&ensp;<img src="./screenshot/recettes_liste2.png" width="30%" height="30%">
+<img src="./screenshot/recettes_liste3.png" width="30%" height="30%">
 
 ## Social media
 
 Share tips or culinary photo with the community !
 
-<img src="./screenshot/Social_media_modifier_astuce_3.png" width="30%" height="30%">&ensp;<img src="./screenshot/Social_media_change_profil.png" width="30%" height="30%">
+<img src="./screenshot/Social_media_page.png" width="30%" height="30%">&ensp;<img src="./screenshot/Social_media_change_profil.png" width="30%" height="30%">
 <img src="./screenshot/Social_media_supprimer_post_dialog.png" width="30%" height="30%">
 
 ## Library
