@@ -28,7 +28,6 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
 
@@ -50,7 +49,6 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         super.onCreate(savedInstanceState)
 
         val id: Int = intent.getIntExtra("BACKPRESS", 0)
-
 
         navigationView = findViewById(R.id.activity_main_nav_view)
         navigationView.menu.findItem(R.id.menu_logout).setOnMenuItemClickListener {
