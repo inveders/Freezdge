@@ -78,11 +78,12 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
                         .observeForever {
                             for(i in it.indices){
                                 setDatabaseSetListRecipes?.add(it[i])
+                                setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
                             }
-                            setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
-                        }
 
+                        }
                 }
+
 
                 return setListDatabaseViewModel
             }
