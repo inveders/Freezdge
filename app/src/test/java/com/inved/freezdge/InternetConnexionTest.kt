@@ -22,7 +22,7 @@ import java.io.IOException
 @LooperMode(LooperMode.Mode.PAUSED)
 @Config(sdk = [Build.VERSION_CODES.O_MR1])
 class InternetConnexionTest {
-    private var shadowConnectivityManager: ShadowConnectivityManager? = null
+ /*   private var shadowConnectivityManager: ShadowConnectivityManager? = null
 
     @Before
     @Throws(IOException::class)
@@ -58,5 +58,5 @@ class InternetConnexionTest {
     }
 
     private val connectivityManager: ConnectivityManager
-        private get() = RuntimeEnvironment.systemContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        private get() = RuntimeEnvironment.systemContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager*/
 }

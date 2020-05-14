@@ -25,10 +25,10 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
     private var kcal: TextView = view.findViewById(R.id.description)
     var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
     var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
-    var imageItem: ImageView = view.findViewById(R.id.image)
+    private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
-    var imageOwner: ImageView =
+    private var imageOwner: ImageView =
         view.findViewById(R.id.owner_image)
     var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)

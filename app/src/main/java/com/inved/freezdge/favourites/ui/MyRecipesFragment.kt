@@ -114,7 +114,7 @@ class MyRecipesFragment : BaseFragment() {
         favouritesRecipesNumberFilter()
     }
 
-    fun favouritesRecipesNumberFilter(){
+    private fun favouritesRecipesNumberFilter(){
 
         recipesFavouritesNumberSize= setFavouriteListFilter.size
         if(recipesFavouritesNumberSize!=1){

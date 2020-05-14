@@ -74,7 +74,7 @@ class MyIngredientsListFragment : BaseFragment() {
 
     }
 
-    fun handleChip(result:MutableList<Ingredients>){
+    private fun handleChip(result:MutableList<Ingredients>){
         for (myresult in result) {
             val chip = Chip(chipGroup.context)
             val chipDrawable = ChipDrawable.createFromAttributes(
@@ -111,7 +111,7 @@ class MyIngredientsListFragment : BaseFragment() {
         }
     }
 
-    fun openSearchIngredientActivity() {
+    private fun openSearchIngredientActivity() {
         activity?.let {
             val intent = Intent(it, SearchIngredientsActivity::class.java)
             it.startActivity(intent)

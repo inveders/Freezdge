@@ -10,7 +10,7 @@ class WebviewActivity : AppCompatActivity() {
 
     private lateinit var webview:WebView
 
-    fun cardViewClick(url:String) {
+    private fun cardViewClick(url:String) {
         webview.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 view?.loadUrl(url)

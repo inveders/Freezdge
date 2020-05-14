@@ -1,17 +1,7 @@
 package com.inved.freezdge.utils
 
-import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.animation.AlphaAnimation
-import android.widget.ImageView
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import com.facebook.shimmer.ShimmerFrameLayout
-import com.google.firebase.storage.StorageReference
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_

@@ -27,7 +27,7 @@ class MyGroceryListActivity: BaseActivity() {
 
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     private lateinit var chipGroup: ChipGroup
-    lateinit var notFoundTeextView: TextView
+    private lateinit var notFoundTeextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +107,7 @@ class MyGroceryListActivity: BaseActivity() {
             chipGroup.removeView(chip)
         }
 
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
             Toast.makeText(applicationContext,
                 getString(R.string.dialog_cancel_action), Toast.LENGTH_SHORT).show()
             dialog.dismiss()

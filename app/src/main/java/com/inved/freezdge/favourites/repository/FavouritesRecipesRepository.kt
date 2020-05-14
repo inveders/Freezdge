@@ -47,7 +47,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
 
     }
 
-    fun insertFavouriteRecipe(
+    private fun insertFavouriteRecipe(
         recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
         recipeUrl: String?,
         recipePhotoUrl: String?,
@@ -70,7 +70,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         )
     }
 
-    fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
+    private fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
         getFavouritesRecipesBox.remove(favouritesRecipes.id)
     }
 

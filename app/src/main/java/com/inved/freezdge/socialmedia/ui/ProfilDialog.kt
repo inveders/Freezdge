@@ -150,7 +150,6 @@ class ProfilDialog : DialogFragment() {
             UserHelper.updateLastname(lastname, uid)
             UserHelper.updatePhotoUrl(urlPicture, uid)
 
-
             //to upload a photo on Firebase storage
             if (urlPicture != null) {
                 val storageHelper = StorageHelper()

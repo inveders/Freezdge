@@ -27,7 +27,7 @@ class AllRecipesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         floatingActionButton = view.findViewById(R.id.floating_button)
-        floatingActionButton.setOnClickListener { _ -> launchFilterDialog() }
+        floatingActionButton.setOnClickListener { launchFilterDialog() }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -134,7 +134,7 @@ class AllRecipesFragment : BaseFragment() {
 
     }
 
-    fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>, setlistRetrofit: MutableList<Hit>) {
+    private fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>, setlistRetrofit: MutableList<Hit>) {
         recipesRetrofitItemAdapter.clear()
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
@@ -146,7 +146,7 @@ class AllRecipesFragment : BaseFragment() {
         recipesNumberFilter()
     }
 
-    fun recipesNumberFilter(){
+    private fun recipesNumberFilter(){
         recipesNumberSize= setlistDatabaseFilter.size+ setlistRetrofitFilter.size
         if(recipesNumberSize!=1){
             numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)

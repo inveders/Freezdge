@@ -59,12 +59,10 @@ class OnboardingActivity : BaseActivity() {
                     editor.apply()
                     finish()
                 }
-
-
         }
     }
 
-    fun setupOnaboardingItems() {
+    private fun setupOnaboardingItems() {
 
         val onboardingItemList: ArrayList<OnboardingItem> = arrayListOf()
 
@@ -100,7 +98,7 @@ class OnboardingActivity : BaseActivity() {
 
     }
 
-    fun setupOnboardingIndicator() {
+    private fun setupOnboardingIndicator() {
 
             val indicatorImage: Array<ImageView?>? = arrayOfNulls(onboardingAdapter.itemCount)
             val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
@@ -154,8 +152,6 @@ class OnboardingActivity : BaseActivity() {
             } else {
                 buttonOnboardingAction.text = getString(R.string.next)
             }
-
-
     }
 
 }

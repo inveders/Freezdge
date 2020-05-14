@@ -194,7 +194,6 @@ open class RecipeDetailActivity : BaseActivity() {
     private fun addSummaryRecipeItems(
         stepRecipe: String
     ) {
-        //TBL
         val stepRecipeSummaryView =
             RecipeStepView(this)
         stepRecipeSummaryView.init()
