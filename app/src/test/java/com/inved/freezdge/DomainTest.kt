@@ -1,12 +1,18 @@
 package com.inved.freezdge
 
+import android.os.Build
 import com.inved.freezdge.utils.Domain
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.O_MR1])
 class DomainTest {
 
-    var domain = Domain()
+    private var domain = Domain()
 
     @Test
     fun uppercaseFistCharacter() {
@@ -18,6 +24,13 @@ class DomainTest {
     fun randomStringLenght() {
         val myLenght = 20
         assertEquals(myLenght, domain.createRandomString().length)
+    }
+
+    @Test
+    fun shouldHavePxFromDp() {
+        val dpValue = 20
+        val pxValue = 20
+        assertEquals(pxValue, domain.convertDpToPixel(dpValue))
     }
 
     @Test

@@ -14,8 +14,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.3' //firebase
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"//navigationUI
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.1.0' //crashlytics
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"//objectbox
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.0.0' //crashlytics
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -28,6 +28,7 @@ allprojects {
         excludeAppGlideModule = true
         dispatcher="4.7.0"
         mock_version="1.10.0"
+        multidexVersion="2.0.1"
 
     }
 
