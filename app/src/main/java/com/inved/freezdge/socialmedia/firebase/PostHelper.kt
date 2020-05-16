@@ -54,18 +54,6 @@ class PostHelper {
                 .orderBy("timestamp", Query.Direction.DESCENDING)
         }
 
-        fun getAllPostsByType(postType: String?): Query? {
-            return getPostCollection()
-                .whereEqualTo("postType", postType)
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-        }
-
-        // --- GET ---
-        fun getMyPost(userUid: String?): Query? {
-            return getPostCollection()
-                .whereEqualTo("userUid", userUid)
-        }
-
         // --- UPDATE ---
         fun updateTitleAstuce(
             titleAstuce: String?,

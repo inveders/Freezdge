@@ -3,6 +3,7 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +75,7 @@ abstract class BaseFragment : Fragment() {
         val setlistRetrofitFilter: MutableList<Hit> = mutableListOf()
 
         private var PRIVATE_MODE = 0
-        val PREF_NAME = "RECIPES_DATABASE"
+        const val PREF_NAME = "RECIPES_DATABASE"
         val sharedPref: SharedPreferences =
             App.applicationContext().getSharedPreferences(
                 PREF_NAME,
@@ -88,14 +89,14 @@ abstract class BaseFragment : Fragment() {
         FastAdapter.with(listOf(recipesDatabaseItemAdapter, recipesRetrofitItemAdapter))
 
     val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
-    val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
+    private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
 
     //Viewmodel
     private lateinit var recipeViewModel: RecipeViewModel
-    lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
+    private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
 
     override fun onCreateView(
@@ -223,7 +224,7 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                if (!NetworkUtils.isNetworkAvailable(App.applicationContext())) {
+                if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                     lifecycleScope.launch {
                         getAllRecipes()
                     }
@@ -257,6 +258,7 @@ abstract class BaseFragment : Fragment() {
                             favouriteRecipesItemAdapter.add(myresult)
                             setFavouriteList.add(myresult)
                         }
+                        Log.d("debago","in getfavourite recipes")
                         favouritesRecipesNumber()
                     } else {
                         notFoundTeextView.visibility = View.VISIBLE
@@ -461,6 +463,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    //click on a favourite recipe, manage favourite image enable or not
     private fun handleFavouriteFastAdapterClick(
         favouritesFastAdapter: FastAdapter<FavouritesRecipes>,
         favouriteRecipesViewmodel: FavouritesRecipesViewModel
@@ -490,6 +493,7 @@ abstract class BaseFragment : Fragment() {
                         )
                     }
                 }
+                Log.d("debago","in add one favourite recipe")
             } else {
                 view.let { it1 ->
                     it1?.let {
@@ -498,13 +502,16 @@ abstract class BaseFragment : Fragment() {
                         )
                     }
                 }
+                Log.d("debago","in remove one favourite recipe")
             }
 
             favouritesFastAdapter.notifyAdapterDataSetChanged()
+
         }
     }
 
-    fun recipesNumber() {
+    // show number of recipes found
+    private fun recipesNumber() {
         numberRecipesTextview.visibility = View.VISIBLE
         recipesNumberSize = setlistDatabase.size + setlistRetrofit.size
         if(recipesNumberSize!=1){
@@ -514,7 +521,8 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun favouritesRecipesNumber() {
+    // show number of favourites recipes found
+    private fun favouritesRecipesNumber() {
         numberRecipesTextview.visibility = View.VISIBLE
         recipesFavouritesNumberSize = setFavouriteList.size
         if(recipesFavouritesNumberSize!=1){
@@ -523,6 +531,10 @@ abstract class BaseFragment : Fragment() {
             numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
         }
     }
+
+  /*  private fun secondFavouriteRecipesNumber(){
+        numberRecipesTextview.text = getString(R.string.recipe_list_number_one, favouriteRecipesViewmodel.countAllFavouritesRecipes())
+    }*/
 
 }
 

@@ -12,8 +12,6 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
-import io.objectbox.Box
-import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
 
 class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(view){
@@ -30,7 +28,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         view.findViewById(R.id.favorite_image)
     private var imageOwner: ImageView =
         view.findViewById(R.id.owner_image)
-    var proportionText: TextView =
+    private var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: Recipes, payloads: MutableList<Any>) {
 
@@ -55,10 +53,12 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
             kcal.text = item.recipeCalories
         }
 
+        // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
         val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
 
-        proportionText.text="$proportionInPercent %"
+        proportionText.text=App.resource().getString(R.string.recipe_matching_percent,proportionInPercent)
 
+        // We attribute different color according to the matching value
         when (proportionInPercent) {
             in 80..99 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
@@ -73,12 +73,14 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
 
         val storage = FirebaseStorage.getInstance()
         val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
+        // we show photo from our firebase storage
         GlideUtils.loadPhotoWithGlide(gsReference,null,imageItem)
 
         val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
         GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
 
-        if(isRecipeIdIsPresent(item.id.toString())!!){
+        // We detect if the recipe is in our favourite and update UI according to
+        if(item.id.toString().let {isRecipeIdIsPresent(it)}){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -94,15 +96,9 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         imageItem.setImageDrawable(null)
     }
 
-    private fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
-        val boxStore: BoxStore = App.ObjectBox.boxStore
-        return boxStore.boxFor()
-
-    }
-
-    private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String):Boolean {
         val favouritesRecipes: FavouritesRecipes? =
-            getFavouritesRecipesBox()
+            App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
                 .query().equal(FavouritesRecipes_.recipeId, recipeId)
                 .build().findUnique()
         return favouritesRecipes!=null

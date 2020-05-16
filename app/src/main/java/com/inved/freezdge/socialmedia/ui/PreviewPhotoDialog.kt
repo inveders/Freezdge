@@ -20,6 +20,7 @@ class PreviewPhotoDialog : DialogFragment() {
         const val TAG = "PREVIEW"
         private const val KEY_PREVIEW = "preview_photo"
 
+        // to pass image url in tis dialog
         @JvmStatic
         fun newInstance(param1: String) =
             PreviewPhotoDialog().apply {
@@ -33,9 +34,6 @@ class PreviewPhotoDialog : DialogFragment() {
     private var profilPhoto: ImageView? = null
     private lateinit var mContext: Context
 
-    // --------------
-    // LIFE CYCLE AND VIEW MODEL
-    // --------------
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +50,7 @@ class PreviewPhotoDialog : DialogFragment() {
         return view
     }
 
+    // fill the dialog with the image we click on
     private fun fillDialog(postImage:String?) {
         profilPhoto?.let {
             GlideApp.with(App.applicationContext())

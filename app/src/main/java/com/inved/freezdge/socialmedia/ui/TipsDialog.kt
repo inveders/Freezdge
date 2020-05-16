@@ -25,6 +25,7 @@ class TipsDialog : DialogFragment() {
         private const val KEY_TIP = "tip_update"
         private const val KEY_TIP_ID = "tip_id"
 
+        //To pass args to our dialog
         @JvmStatic
         fun newInstance(param1: Int, param2: String) =
             TipsDialog().apply {
@@ -34,14 +35,12 @@ class TipsDialog : DialogFragment() {
                 }
             }
     }
-    var domain=Domain()
+
+    var domain = Domain()
     private var validateButton: TextView? = null
     private var cancelButton: ImageButton? = null
     private var dialogTitle: TextView? = null
     private lateinit var postIdUpdate: String
-    // --------------
-    // LIFE CYCLE AND VIEW MODEL
-    // --------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +58,7 @@ class TipsDialog : DialogFragment() {
         dialogTitle = view.findViewById(R.id.dialogTitle)
         cancelButton = view.findViewById(R.id.close_button)
         val id: Int? = arguments?.getInt(KEY_TIP, 0)
-        postIdUpdate= arguments?.getString(KEY_TIP_ID, null)!!
+        postIdUpdate = arguments?.getString(KEY_TIP_ID, null)!!
         if (postIdUpdate.isNotEmpty()) {
             fillTip(postIdUpdate)
         }
@@ -68,6 +67,7 @@ class TipsDialog : DialogFragment() {
         return view
     }
 
+    // fill tip in case of update
     private fun fillTip(postId: String?) {
         postId?.let {
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
@@ -76,7 +76,7 @@ class TipsDialog : DialogFragment() {
 
                         val post: Post =
                             task.result!!.documents[0].toObject(Post::class.java)!!
-                        dialogTitle?.text= App.resource().getString(R.string.tips_dialog_update)
+                        dialogTitle?.text = App.resource().getString(R.string.tips_dialog_update)
                         titleEdittext?.setText(post.titleAstuce)
                         descriptionEdittext?.setText(post.descriptionAstuce)
                     }
@@ -93,13 +93,15 @@ class TipsDialog : DialogFragment() {
         }
         validateButton?.setOnClickListener {
             validateButton?.startAnimation(domain.animation())
-            updatePost(id) }
+            clickOnPublishButton(id)
+        }
     }
 
     // --------------
-// POST
-// --------------
-    private fun updatePost(id: Int?) {
+    // POST
+    // --------------
+    //Check tip before create or update it (after click on validate button)
+    private fun clickOnPublishButton(id: Int?) {
 
         if (titleEdittext?.text.toString().isEmpty()) {
             titleEdittext?.error = getString(R.string.set_error_title_tips)
@@ -117,46 +119,52 @@ class TipsDialog : DialogFragment() {
             //id=0 on crée le post, sinon on update
             if (id == 0) {
                 if (uid != null) {
-                    val postId: String = domain.createRandomString()
-                    //create post in firebase
-                    PostHelper.createPost(
-                        postId,
-                        Calendar.getInstance().time as Date,
-                        title,
-                        description,
-                        null,
-                        uid,
-                        getString(R.string.social_media_post_type_tips),
-                        0
-                    )
-
-                    Toast.makeText(
-                        activity,
-                        getString(R.string.toast_created_tip),
-                        Toast.LENGTH_LONG
-                    ).show()
-
+                   createPost(title, description, uid)
                 }
             } else {
                 if (uid != null) {
-                    //update agent in firebase
-                    PostHelper.updateTitleAstuce(title, postIdUpdate)
-                    PostHelper.updateDescriptionAstuce(description, postIdUpdate)
-
-                    Toast.makeText(
-                        activity,
-                        getString(R.string.toast_updated_tip),
-                        Toast.LENGTH_LONG
-                    ).show()
+                   updatePost(title, description)
                 }
             }
-
-
             //to close the dialog
             if (dialog != null) {
                 dialog?.dismiss()
             }
         }
+    }
+
+    //create post
+    private fun createPost(title:String?,description:String?,uid:String){
+        val postId: String = domain.createRandomString()
+        //create post in firebase
+        PostHelper.createPost(
+            postId,
+            Calendar.getInstance().time as Date,
+            title,
+            description,
+            null,
+            uid,
+            getString(R.string.social_media_post_type_tips),
+            0
+        )
+
+        Toast.makeText(
+            activity,
+            getString(R.string.toast_created_tip),
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    //update post in firebase
+    private fun updatePost(title:String?,description:String?){
+        PostHelper.updateTitleAstuce(title, postIdUpdate)
+        PostHelper.updateDescriptionAstuce(description, postIdUpdate)
+
+        Toast.makeText(
+            activity,
+            getString(R.string.toast_updated_tip),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
 

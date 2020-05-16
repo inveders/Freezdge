@@ -9,7 +9,6 @@ import io.objectbox.kotlin.boxFor
 class Injection {
 
     companion object {
-
         fun providesViewModelFactory(boxStore: BoxStore): ViewModelFactory {
             val ingredientsRepository = IngredientsRepository(boxStore.boxFor())
             val recipesRepository = RecipesRepository(boxStore.boxFor())

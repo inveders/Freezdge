@@ -16,7 +16,7 @@ import java.io.File
 abstract class AbstractObjectBoxTest {
 
     private val TEST_DIRECTORY = File("objectbox-example/test-db")
-    private lateinit var store: BoxStore
+    private var store: BoxStore?=null
     lateinit var ingredientsBox: Box<Ingredients>
     lateinit var ingredientsRepository: IngredientsRepository
     lateinit var recipessBox: Box<Recipes>
@@ -34,9 +34,9 @@ abstract class AbstractObjectBoxTest {
             // optional: add debug flags for more detailed ObjectBox log output
             .debugFlags(DebugFlags.LOG_QUERIES or DebugFlags.LOG_QUERY_PARAMETERS)
             .build()
-        ingredientsBox=store.boxFor(Ingredients::class.java)
-        recipessBox=store.boxFor(Recipes::class.java)
-        favouritesRecipesBox=store.boxFor(FavouritesRecipes::class.java)
+        ingredientsBox= store!!.boxFor(Ingredients::class.java)
+        recipessBox=store!!.boxFor(Recipes::class.java)
+        favouritesRecipesBox=store!!.boxFor(FavouritesRecipes::class.java)
         ingredientsRepository = IngredientsRepository(ingredientsBox)
         recipesRepository = RecipesRepository(recipessBox)
         favouritesRecipesRepository = FavouritesRecipesRepository(favouritesRecipesBox)
@@ -47,10 +47,12 @@ abstract class AbstractObjectBoxTest {
 
     @After
     fun tearDown() {
-        store.boxFor(Ingredients::class.java).removeAll()
-        store.boxFor(FavouritesRecipes::class.java).removeAll()
-        store.boxFor(Recipes::class.java).removeAll()
-        store.close()
+        if(store!=null){
+            store!!.boxFor(Ingredients::class.java).removeAll()
+            store!!.boxFor(FavouritesRecipes::class.java).removeAll()
+            store!!.boxFor(Recipes::class.java).removeAll()
+            store!!.close()
+        }
         BoxStore.deleteAllFiles(TEST_DIRECTORY)
     }
 

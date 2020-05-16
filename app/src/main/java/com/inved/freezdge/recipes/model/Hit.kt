@@ -20,11 +20,11 @@ class Hit : AbstractItem<ViewHolderRecipesRetrofit>() {
     @Expose
     var bought: Boolean? = null
 
-    /** defines the type defining this item. must be unique. preferably an id */
+    // defines the type defining this item. must be unique. preferably an id
     override val type: Int
         get() = R.id.recipe_list_retrofit_row_id
 
-    /** defines the layout which will be used for this item in the list  */
+    // defines the layout which will be used for this item in the list
     override val layoutRes: Int
         get() = R.layout.item_recipes_list_retrofit
 

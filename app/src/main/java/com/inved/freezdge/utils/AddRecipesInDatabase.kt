@@ -13,7 +13,6 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
     private fun addRecipes() {
 
         if (recipeBox.isEmpty) {
-            //TODO change url for burger to google play page
             recipeBox.put(
                 Recipes(
                     recipeTitle = "Burger et frites de patate douce",
@@ -25,7 +24,7 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
                     cookedTime = "35 min",
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/frite_patate_douce_burger.jpg",
                     recipePhotoUrlOwner="gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
-                    recipeUrlOwnerLink="",
+                    recipeUrlOwnerLink="https://github.com/inveders/Freezdge",
                     recipeIngredients = "1 pain de burger, 1 steak haché,2 cornichons, 1 patate douce, Ail, Poivre, Sel, Herbes de Provence, 2 cuillères à soupe d’Huile d’olive, Ketchup, Mayonnaise, 1 oignon",
                     numberPersons = 1,
                     selectedRecipe = false,

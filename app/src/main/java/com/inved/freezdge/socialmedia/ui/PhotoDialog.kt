@@ -32,6 +32,7 @@ class PhotoDialog : DialogFragment() {
         private const val KEY_PHOTO = "photoParam"
         private const val KEY_PHOTO_ID = "tip_id"
 
+        //To pass args to our dialog
         @JvmStatic
         fun newInstance(param1: Int, param2: String) =
             PhotoDialog().apply {
@@ -43,7 +44,7 @@ class PhotoDialog : DialogFragment() {
     }
 
     //Photo
-    var domain=Domain()
+    var domain = Domain()
     private var urlPicture: String? = null
     private var cameraFilePath: String? = null
     private var imageCameraOrGallery: ImageCameraOrGallery? = null
@@ -58,9 +59,6 @@ class PhotoDialog : DialogFragment() {
     private lateinit var mContext: Context
     private lateinit var postIdUpdate: String
 
-    // --------------
-    // LIFE CYCLE AND VIEW MODEL
-    // --------------
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullscreenDialogTheme)
@@ -86,12 +84,15 @@ class PhotoDialog : DialogFragment() {
         initializeMethods(id)
         when (id) {
             1 -> {
+                //open camera
                 dispatchTakePictureIntent()
             }
             2 -> {
+                //open gallery
                 dispatchGalleryIntent()
             }
             3 -> {
+                //update
                 fillDialog(postIdUpdate)
             }
             else -> {
@@ -113,9 +114,7 @@ class PhotoDialog : DialogFragment() {
         }
     }
 
-    // --------------
-    // AGENT
-    // --------------
+    //Check photo before create (after click on publish button)
     private fun createPhotoPost(id: Int?) {
         if (urlPicture == null) {
             Toast.makeText(
@@ -132,6 +131,7 @@ class PhotoDialog : DialogFragment() {
             if (FirebaseAuth.getInstance().currentUser != null) {
                 uid = FirebaseAuth.getInstance().currentUser?.uid
             }
+            // if id is for create a post (id = 1 or 2)
             if (id == 1 || id == 2) {
                 if (uid != null) {
                     val postId: String = domain.createRandomString()
@@ -163,7 +163,9 @@ class PhotoDialog : DialogFragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
-            } else {
+            }
+            // if id is for update the post (id = 3)
+            else {
                 PostHelper.updateTitleAstuce(title, postIdUpdate)
                 Toast.makeText(
                     activity,
@@ -180,6 +182,7 @@ class PhotoDialog : DialogFragment() {
         }
     }
 
+    // fill dialog in case of update
     private fun fillDialog(postId: String?) {
         postId?.let {
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
@@ -189,10 +192,11 @@ class PhotoDialog : DialogFragment() {
                         val post: Post =
                             task.result!!.documents[0].toObject(Post::class.java)!!
 
-                        dialogTitle?.text=App.resource().getString(R.string.photo_dialog_update)
+                        dialogTitle?.text = App.resource().getString(R.string.photo_dialog_update)
                         photoTitle?.setText(post.titleAstuce)
                         photoPreview?.let { it1 ->
-                            GlideUtils.loadPhotoWithGlideCenterCropUrl(post.urlPhoto,
+                            GlideUtils.loadPhotoWithGlideCenterCropUrl(
+                                post.urlPhoto,
                                 it1
                             )
                         }
@@ -215,10 +219,7 @@ class PhotoDialog : DialogFragment() {
     // TAKE A PICTURE
     // --------------
 
-    /**
-     * Capture image from camera
-     */
-
+    //Capture image from camera
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(mContext.packageManager) != null) {
@@ -246,9 +247,7 @@ class PhotoDialog : DialogFragment() {
         }
     }
 
-    /**
-     * Select image fro gallery
-     */
+    //Select image fro gallery
     private fun dispatchGalleryIntent() {
         val pickPhoto = Intent(
             Intent.ACTION_PICK,
@@ -270,11 +269,16 @@ class PhotoDialog : DialogFragment() {
                     //data.getData returns the content URI for the selected Image
                     val selectedImage = data?.data
                     try {
-                        mPhotoFile = FileCompressor.compressToFile(
-                            File(
-                                imageCameraOrGallery?.getRealPathFromUri(selectedImage)
-                            )
-                        )
+                        imageCameraOrGallery?.getRealPathFromUri(selectedImage).let {
+                            if (!it.isNullOrEmpty()) {
+                                mPhotoFile = FileCompressor.compressToFile(
+                                    File(
+                                        it
+                                    )
+                                )
+                            }
+                        }
+
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }

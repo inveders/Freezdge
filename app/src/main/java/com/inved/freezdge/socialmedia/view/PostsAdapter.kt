@@ -60,6 +60,7 @@ class PostsAdapter(
         private var updateButton: ImageButton = view.findViewById(R.id.update_button)
         private var likeButton: ImageButton = view.findViewById(R.id.like_number_image)
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
+
         fun updateWithPosts(post: Post, listener: ClickListener) {
 
             //post and user ui
@@ -132,7 +133,7 @@ class PostsAdapter(
                     }
                 }?.addOnFailureListener {
                     Log.e(
-                        "debago",
+                        "firebase",
                         "Problem during the post show"
                     )
                 }
@@ -283,6 +284,7 @@ class PostsAdapter(
 
     }
 
+    // handle the text a person found it great
     fun handleLikeTextPhotoPost(currentPost: Post, likeText: TextView, post: Post) {
         when (currentPost.likeNumber) {
             0 -> {
@@ -340,6 +342,7 @@ class PostsAdapter(
         }
     }
 
+    // handle the text a person found it useful
     fun handleLikeTextTipsPost(currentPost: Post, likeText: TextView, post: Post) {
         when (currentPost.likeNumber) {
             0 -> {

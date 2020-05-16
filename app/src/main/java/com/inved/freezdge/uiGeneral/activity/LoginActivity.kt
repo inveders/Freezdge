@@ -3,7 +3,6 @@ package com.inved.freezdge.uiGeneral.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -32,9 +31,15 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
 
+    companion object {
+        private const val RC_SIGN_IN = 1
+        fun getLaunchIntent(from: Context) = Intent(from, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+    }
+
     //FOR DATA
     var domain = Domain()
-    private val RC_SIGN_IN: Int = 1
     val loginUtils = LoginUtils()
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mGoogleSignInOptions: GoogleSignInOptions
@@ -46,7 +51,11 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         configureGoogleSignIn()
+        initButton()
+    }
 
+    //click on google or facebook button
+    private fun initButton() {
         login_facebook_button.setOnClickListener {
             if (!NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                 loginUtils.showSnackBar(
@@ -67,21 +76,19 @@ class LoginActivity : BaseActivity() {
                 onClickGoogleLoginButton()
             }
         }
-
     }
 
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
-            if (it.isSuccessful) {
-                loginUtils.isUserExistInFirebase()
-                handleStartActivityOrOnboarding()
-            } else {
-                loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))
-            }
-        }
+    private fun onClickFacebookLoginButton() {
+        login_facebook_button.startAnimation(domain.animation())
+        startFacebookSignInActivity()
     }
 
+    private fun onClickGoogleLoginButton() {
+        login_google_button.startAnimation(domain.animation())
+        startGoogleSignInActivity()
+    }
+
+    //check on start if user is already log in to directly open main activity
     override fun onStart() {
         super.onStart()
         if (isCurrentUserLogged()) {
@@ -129,22 +136,10 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    // --------------------
-    // ACTIONS
-    // --------------------
 
-    private fun onClickFacebookLoginButton() {
-        login_facebook_button.startAnimation(domain.animation())
-        startFacebookSignInActivity()
-    }
-
-    private fun onClickGoogleLoginButton() {
-        login_google_button.startAnimation(domain.animation())
-        startGoogleSignInActivity()
-    }
 
     // --------------------
-    // NAVIGATION
+    // FACEBOOK SIGN IN
     // --------------------
     private fun startFacebookSignInActivity() {
 
@@ -157,41 +152,14 @@ class LoginActivity : BaseActivity() {
                 }
 
                 override fun onCancel() {
-                    Log.d("debago", "facebook:onCancel")
                     loginUtils.cancelFacebookSnackBar(coordinatorLayout)
                 }
 
                 override fun onError(error: FacebookException) {
-                    Log.d("debago", "facebook:onError", error)
                     loginUtils.errorFacebookSnackBar(coordinatorLayout)
                 }
             })
 
-    }
-
-
-    private fun startGoogleSignInActivity() {
-        val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-
-    }
-
-    private fun configureGoogleSignIn() {
-        mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
-    }
-
-    // --------------------
-    // UI
-    // --------------------
-
-    companion object {
-        fun getLaunchIntent(from: Context) = Intent(from, LoginActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        }
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
@@ -215,5 +183,37 @@ class LoginActivity : BaseActivity() {
                 }
             }
     }
+
+
+    // --------------------
+    // GOOGLE SIGN IN
+    // --------------------
+
+    private fun startGoogleSignInActivity() {
+        val signInIntent: Intent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+
+    }
+
+    private fun configureGoogleSignIn() {
+        mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
+    }
+
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
+            if (it.isSuccessful) {
+                loginUtils.isUserExistInFirebase()
+                handleStartActivityOrOnboarding()
+            } else {
+                loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))
+            }
+        }
+    }
+
 
 }

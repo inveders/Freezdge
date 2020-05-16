@@ -11,8 +11,6 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
-import io.objectbox.Box
-import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
 
 class ViewHolderFavouritesRecipes(val view: View) :
@@ -28,7 +26,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
     private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
-    var proportionText: TextView =
+    private var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
         label.text = item.recipeTitle
@@ -45,8 +43,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
             kcal.text = item.recipeCalories
         }
 
+        // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
         val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
-        proportionText.text="$proportionInPercent %"
+        proportionText.text=App.resource().getString(R.string.recipe_matching_percent,proportionInPercent)
 
         cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCaracter(it) }
         if(item.dishType.equals("Main course")){
@@ -55,6 +54,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
             dishType.text= item.dishType?.let { domain.uppercaseFirstCaracter(it) }
         }
 
+        // We attribute different color according to the matching value
         when (proportionInPercent) {
             in 80..99 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
@@ -76,7 +76,8 @@ class ViewHolderFavouritesRecipes(val view: View) :
             GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipePhotoUrl,imageItem)
         }
 
-        if(isRecipeIdIsPresent(item.recipeId)!!){
+        // We detect if the recipe is in our favourite and update UI according to
+        if(item.recipeId?.let { isRecipeIdIsPresent(it) }!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -90,15 +91,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
         imageItem.setImageDrawable(null)
     }
 
-    private fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
-        val boxStore: BoxStore = App.ObjectBox.boxStore
-        return boxStore.boxFor()
-
-    }
-
-    private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String):Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
-            getFavouritesRecipesBox()
+            App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
                 .query().equal(FavouritesRecipes_.recipeId, recipeId)
                 .build().findUnique()
         return favouritesRecipes!=null

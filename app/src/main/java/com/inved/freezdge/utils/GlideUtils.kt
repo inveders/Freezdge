@@ -13,6 +13,8 @@ import com.inved.freezdge.R
 
 class GlideUtils {
 
+    //Glide functions for show images (center crop, circle crop, placeholder are handle here and not in the code)
+
     companion object{
         fun loadPhotoWithGlideCircleCropUrl(url:String?,image: ImageView?){
             image?.let {
@@ -43,7 +45,7 @@ class GlideUtils {
                         target: Target<Drawable?>,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.e("debago", "Exception is : $e")
+                        Log.e("glide", "Exception is : $e")
                         return false
                     }
 
@@ -82,7 +84,7 @@ class GlideUtils {
                         target: Target<Drawable?>,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.e("debago", "Exception is : $e")
+                        Log.e("glide", "Exception is : $e")
                         return false
                     }
 

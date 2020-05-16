@@ -17,7 +17,6 @@ class OnboardingAdapter(private val onboardingListItem: ArrayList<OnboardingItem
         private var textDescription:TextView?=itemView.findViewById(R.id.textDescription)
         private var imageOnboarding:ImageView?=itemView.findViewById(R.id.imageOnboarding)
 
-
         fun setOnboardingData(onboardingItem: OnboardingItem){
             textTitle?.text=onboardingItem.title
             textDescription?.text=onboardingItem.description
@@ -44,6 +43,5 @@ class OnboardingAdapter(private val onboardingListItem: ArrayList<OnboardingItem
     override fun onBindViewHolder(holder: OnboardingViewHolder, position: Int) {
         holder.setOnboardingData(onboardingListItem[position])
     }
-
 
 }

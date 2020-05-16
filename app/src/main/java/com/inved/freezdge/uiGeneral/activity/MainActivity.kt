@@ -32,7 +32,14 @@ import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
 
 
-class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), LoaderListener {
+
+    companion object {
+        fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+
+    }
 
     private val navController by lazy { findNavController(id.navHost) }
     private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(id.activity_main_bottom_navigation) }
@@ -44,23 +51,13 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
     private val drawerLayout by lazy { findViewById<DrawerLayout>(id.activity_main_drawer_layout)}
     private lateinit var navigationView: NavigationView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val id: Int = intent.getIntExtra("BACKPRESS", 0)
 
-        navigationView = findViewById(R.id.activity_main_nav_view)
-        navigationView.menu.findItem(R.id.menu_logout).setOnMenuItemClickListener {
-            signOut()
-            true
-        }
-        navigationView.menu.findItem(R.id.menu_info).setOnMenuItemClickListener {
-            startActivity(Intent(this, OnboardingActivity::class.java))
-            true
-        }
+        initNavigationView()
         initProfil()
-
         initToolbar(navController)
         loader=findViewById(R.id.animation_view_container)
         setUpNavigationBottom(navController, id)
@@ -69,8 +66,21 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
 
     }
 
-    private fun initProfil() {
+    //link in the navigation drawer
+    private fun initNavigationView(){
+        navigationView = findViewById(id.activity_main_nav_view)
+        navigationView.menu.findItem(id.menu_logout).setOnMenuItemClickListener {
+            signOut()
+            true
+        }
+        navigationView.menu.findItem(id.menu_info).setOnMenuItemClickListener {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            true
+        }
+    }
 
+    // retrieve user information to show in the naviagtion drawer
+    private fun initProfil() {
         UserHelper.getUser(FirebaseAuth.getInstance().currentUser?.uid)?.get()
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
@@ -84,7 +94,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
 
                         firstnameHeader.text = user.firstname
 
-                        //to upload a photo on Firebase storage
+                        //to show a photo from Firebase storage
                         GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, imageHeader)
                         hideLoader()
                     }
@@ -92,7 +102,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
             }?.addOnFailureListener {
                 hideLoader()
                 Log.e(
-                    "debago",
+                    "firebase",
                     "Problem during the user creation"
 
                 )
@@ -153,7 +163,6 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -163,6 +172,7 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
+    // launch alert dialog before the user sign out
     private fun signOut() {
 
             val builder = MaterialAlertDialogBuilder(this)
@@ -186,12 +196,8 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
 
     }
 
-    companion object {
-        fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        }
 
-    }
+
 
     override fun showLoader() {
         loader?.visibility = View.VISIBLE
@@ -200,11 +206,6 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
     override fun hideLoader() {
         loader?.visibility = View.GONE
     }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("Not yet implemented")
-    }
-
 
     inner class CustomDrawer : DrawerLayout.DrawerListener{
 
@@ -220,7 +221,8 @@ class MainActivity : BaseActivity(), LoaderListener,NavigationView.OnNavigationI
         }
 
         override fun onDrawerOpened(drawerView: View) {
-           initProfil()
+           // refresh profil on drawer open in case of update
+            initProfil()
         }
     }
 

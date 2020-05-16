@@ -11,8 +11,6 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
-import io.objectbox.Box
-import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
 import kotlin.math.roundToInt
 
@@ -46,9 +44,11 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
 
         kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()
 
+        // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
         val proportionInPercent:Int=domain.ingredientsMatchingMethod(item.recipe?.ingredientLines)
-        proportionText.text="$proportionInPercent %"
+        proportionText.text=App.resource().getString(R.string.recipe_matching_percent,proportionInPercent)
 
+        // We attribute different color according to the matching value
         when (proportionInPercent) {
             in 80..99 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
@@ -61,8 +61,10 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
             }
         }
 
+        // we show photo from the network call
         GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipe?.image,imageItem)
 
+        // We detect if the recipe is in our favourite and update UI according to
         if(isRecipeIdIsPresent(item.recipe?.uri)!!){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
@@ -79,17 +81,11 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         imageItem.setImageDrawable(null)
     }
 
-    private fun getFavouritesRecipesBox(): Box<FavouritesRecipes> {
-        val boxStore: BoxStore = App.ObjectBox.boxStore
-        return boxStore.boxFor()
-
-    }
-
     private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
 
         return if(recipeId!=null){
             val favouritesRecipes: FavouritesRecipes? =
-                getFavouritesRecipesBox()
+                App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
                     .query().equal(FavouritesRecipes_.recipeId, recipeId)
                     .build().findUnique()
             favouritesRecipes!=null

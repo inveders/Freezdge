@@ -9,6 +9,7 @@ import io.objectbox.android.ObjectBoxLiveData
 class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<FavouritesRecipes>) {
     var domain=Domain()
 
+    // detect if favourites recipes is in database, if not we add, if yes we remove
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
@@ -24,6 +25,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         }
     }
 
+    // check if a specific recipe is present in favourite database
     fun isRecipeIdIsPresent(recipeId: String): Boolean? {
         val favouritesRecipes: FavouritesRecipes? =
             getFavouritesRecipesBox.query().equal(FavouritesRecipes_.recipeId, recipeId)
@@ -31,6 +33,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         return favouritesRecipes != null
     }
 
+    // for each recipes in favourite database, check if the given ingredient is contained in, if yes add it in the grocery list
     fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
 
         for(i in getFavouritesRecipesBox.query().order(FavouritesRecipes_.id).build().find()){
@@ -47,6 +50,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
 
     }
 
+    // insert recipe in favurite database
     private fun insertFavouriteRecipe(
         recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
         recipeUrl: String?,
@@ -70,14 +74,21 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         )
     }
 
-    fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
+    // remove a recipe from favourite database
+    private fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
         getFavouritesRecipesBox.remove(favouritesRecipes.id)
     }
 
 
+    // retrieve all favourites recipes
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
          return ObjectBoxLiveData(
             getFavouritesRecipesBox.query().order(FavouritesRecipes_.id).build()
         )
+    }
+
+    // count all favourites recipes
+    fun countAllFavouritesRecipes(): Long {
+        return getFavouritesRecipesBox.count()
     }
 }

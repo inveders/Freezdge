@@ -49,15 +49,15 @@ class ImageCameraOrGallery {
                     ?.query(it, proj, null, null, null)
             }
             assert(cursor != null)
-            val column_index = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
             cursor?.moveToFirst()
-            column_index?.let { cursor?.getString(it) }
+            columnIndex?.let { cursor?.getString(it) }
         } finally {
             cursor?.close()
         }
     }
 
-    private val AUTHORITY = "com.inved.freezdge.fileprovider"
+    private val authority = "com.inved.freezdge.fileprovider"
 
 
     /**
@@ -75,7 +75,7 @@ class ImageCameraOrGallery {
 
 
     private fun isLocalStorageDocument(uri: Uri): Boolean {
-        return AUTHORITY == uri.authority
+        return authority == uri.authority
     }
 
     /**
@@ -138,8 +138,8 @@ class ImageCameraOrGallery {
         ).use { cursor ->
             if (cursor != null && cursor.moveToFirst()) {
                 if (DEBUG) DatabaseUtils.dumpCursor(cursor)
-                val column_index = cursor.getColumnIndexOrThrow(column)
-                return cursor.getString(column_index)
+                val columnIndex = cursor.getColumnIndexOrThrow(column)
+                return cursor.getString(columnIndex)
             }
         }
         return null
@@ -192,12 +192,16 @@ class ImageCameraOrGallery {
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                if ("image" == type) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                when (type) {
+                    "image" -> {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "video" -> {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "audio" -> {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
                 }
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(
@@ -224,7 +228,6 @@ class ImageCameraOrGallery {
      *
      * @return file A local file that the Uri was pointing to, or null if the
      * Uri is unsupported or pointed to a remote resource.
-     * @author paulburke
      * @see .getPath
      */
     fun getFile(context: Context, uri: Uri?): File? {

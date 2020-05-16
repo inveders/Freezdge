@@ -15,7 +15,8 @@ import kotlinx.coroutines.Dispatchers
 
 class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
 
-    suspend fun getRecipes(arg: String): LiveData<Results> {
+    // retrofit call
+    private suspend fun getRecipes(arg: String): LiveData<Results> {
         return liveData(Dispatchers.IO) {
             val retrievedRecipes = recipesRepository.getRecipesLiveData(arg)
             emit(retrievedRecipes)
@@ -46,12 +47,14 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.countRecipesInBox()
     }
 
+    // Make retrofit call here to search all recipes matching with given ingredient, and add these recipes in a Mutable Hashset list to avoid duplication
     suspend fun getRetrofitRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableList<Hit>>? {
         val setListRetrofitViewModel: MutableLiveData<MutableList<Hit>>? = MutableLiveData()
         val setRetrofitSetListRecipes:MutableSet<Hit>? = mutableSetOf()
         if (result.size != 0) {
             BaseFragment.listener?.showLoader()
 
+            // We make a loop for each ingredient selected
             for (myresult in result) {
                 getRecipes(myresult.name!!).observeForever {
 
@@ -68,7 +71,7 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return null
     }
 
-
+    // Search in our database all recipes wich match with given ingredients, and add these recipes in a Mutable Hashset list to avoid duplication
     fun getDatabaseRecipes(result: MutableList<Ingredients>): MutableLiveData<MutableList<Recipes>>? {
 
         val setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
@@ -94,9 +97,5 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
 
         return null
     }
-
-
-
-
 
 }

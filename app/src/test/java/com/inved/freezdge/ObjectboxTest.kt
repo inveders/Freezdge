@@ -31,13 +31,6 @@ class ObjectboxTest:AbstractObjectBoxTest() {
     fun shouldGetTwoSelectedIngredientsInGrocery() {
         ingredientsRepository.updateIngredientSelectedForGroceryByName("Tomate",true)
         ingredientsRepository.updateIngredientSelectedForGroceryByName("Feuilles de manioc",false)
-
-        //TODO
-       /** val mockedObserver = createPopularTVShowsFeedObserver()
-        ingredientsRepository.getAllIngredientBySelectedForGrocery().observeForever(mockedObserver)*/
-
-      //  val ingredients: Ingredients? =LiveDataUtil.getValueObjectbox(ingredientsRepository.getAllIngredientBySelectedForGrocery())
-
          val trueInGrocery=ingredientsRepository.isIngredientSelectedInGrocery("Tomate")
         val falseInGrocery=ingredientsRepository.isIngredientSelectedInGrocery("Feuilles de manioc")
         assertTrue(trueInGrocery)

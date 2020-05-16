@@ -19,10 +19,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(IngredientsViewModel::class.java) -> IngredientsViewModel(ingredientsRepository) as T
             modelClass.isAssignableFrom(FavouritesRecipesViewModel::class.java) -> FavouritesRecipesViewModel(favouritesRecipesRepository) as T
             modelClass.isAssignableFrom(RecipeViewModel::class.java) -> RecipeViewModel(recipesRepository) as T
-
             else -> throw Exception("Unknown ViewModel class")
-
         }
-
     }
 }

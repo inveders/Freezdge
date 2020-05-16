@@ -30,6 +30,7 @@ class AllRecipesFragment : BaseFragment() {
         floatingActionButton.setOnClickListener { launchFilterDialog() }
     }
 
+    // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.search_menu)
         if (searchItem != null) {
@@ -48,7 +49,7 @@ class AllRecipesFragment : BaseFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
-                    handleTeextFilter(
+                    handleTextFilter(
                         newText,
                         recipesRetrofitItemAdapter,
                         recipesDatabaseItemAdapter
@@ -60,7 +61,8 @@ class AllRecipesFragment : BaseFragment() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    fun handleTeextFilter(
+    // hande the text of searchview for recipes from retrofit or database
+    fun handleTextFilter(
         newText: String,
         recipesRetrofitItemAdapter: ItemAdapter<Hit>,
         recipesDatabaseItemAdapter: ItemAdapter<Recipes>
@@ -85,6 +87,7 @@ class AllRecipesFragment : BaseFragment() {
             }
     }
 
+    // launch dialog to choose dish type and filter recipes
     private fun launchFilterDialog() {
         val builder = MaterialAlertDialogBuilder(activity)
         builder.setTitle(getString(R.string.array_dialog_title))
@@ -107,6 +110,7 @@ class AllRecipesFragment : BaseFragment() {
 
     }
 
+    // the given text only filter on dishType for recipes from retrofit or database
     private fun filterDishType(filterText: String?) {
         setlistRetrofitFilter.clear()
         setlistDatabaseFilter.clear()
@@ -130,10 +134,9 @@ class AllRecipesFragment : BaseFragment() {
         }else{
             fillAdapterFilter(setlistDatabaseFilter, setlistRetrofitFilter)
         }
-
-
     }
 
+    // clear adapter and fill it with the filter recipes
     private fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>, setlistRetrofit: MutableList<Hit>) {
         recipesRetrofitItemAdapter.clear()
         recipesDatabaseItemAdapter.clear()
@@ -146,6 +149,7 @@ class AllRecipesFragment : BaseFragment() {
         recipesNumberFilter()
     }
 
+    // determines the recipes filter number to show
     private fun recipesNumberFilter(){
         recipesNumberSize= setlistDatabaseFilter.size+ setlistRetrofitFilter.size
         if(recipesNumberSize!=1){

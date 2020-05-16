@@ -17,11 +17,11 @@ data class Ingredients(@Id var id: Long = 0,
                        var selectedIngredient: Boolean = false,
                        var grocerySelectedIngredient: Boolean = false): AbstractItem<ViewHolderIngredients>(){
 
-    /** defines the type defining this item. must be unique. preferably an id */
+    // defines the type defining this item. must be unique. preferably an id
     override val type: Int
     get() = R.id.ingredient_list_row_id
 
-    /** defines the layout which will be used for this item in the list  */
+    // defines the layout which will be used for this item in the list
     override val layoutRes: Int
     get() = R.layout.item_ingredients_list
 

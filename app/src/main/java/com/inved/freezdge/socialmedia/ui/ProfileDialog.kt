@@ -27,17 +27,16 @@ import java.io.File
 import java.io.IOException
 
 @RuntimePermissions
-class ProfilDialog : DialogFragment() {
+class ProfileDialog : DialogFragment() {
 
     interface ChangePhotoListener {
         fun onPhotoChanged()
     }
 
-
     companion object {
         //final values
-        private const val REQUEST_CAMERA_PHOTO = 456
-        private const val REQUEST_GALLERY_PHOTO = 455
+        private const val REQUEST_CAMERA_PHOTO = 457
+        private const val REQUEST_GALLERY_PHOTO = 458
         private var photoListener:ChangePhotoListener?=null
         fun setChangePhotoListener(callback: ChangePhotoListener) {
             this.photoListener = callback
@@ -47,9 +46,10 @@ class ProfilDialog : DialogFragment() {
         private const val KEY_PROFIL = "profil"
         private lateinit var uid: String
 
+        //To pass args to our dialog
         @JvmStatic
         fun newInstance(param1: String) =
-            ProfilDialog().apply {
+            ProfileDialog().apply {
                 arguments = Bundle().apply {
                     putString(KEY_PROFIL, param1)
                 }
@@ -71,9 +71,7 @@ class ProfilDialog : DialogFragment() {
     private var mPhotoFile: File? = null
     private lateinit var mContext: Context
     var domain=Domain()
-    // --------------
-    // LIFE CYCLE AND VIEW MODEL
-    // --------------
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,7 +80,6 @@ class ProfilDialog : DialogFragment() {
         val view: View =
             inflater.inflate(R.layout.dialog_update_profile, container, false)
         mContext = App.applicationContext()
-        var domain=Domain()
         uid = FirebaseAuth.getInstance().currentUser?.uid!!
         imageCameraOrGallery = ImageCameraOrGallery()
         profilPhoto = view.findViewById(R.id.profil_photo)
@@ -90,15 +87,15 @@ class ProfilDialog : DialogFragment() {
             view.findViewById(R.id.change_profil_photo_text)
         lastnameEditText = view.findViewById(R.id.lastnameEdittext)
         firstnameEditText = view.findViewById(R.id.firstnameEdittext)
-        addActionButton = view.findViewById(R.id.agent_add_dialog_validate)
-        cancelSearchButton = view.findViewById(R.id.agent_add_dialog_close)
-
+        addActionButton = view.findViewById(R.id.profil_add_dialog_validate)
+        cancelSearchButton = view.findViewById(R.id.profil_add_dialog_close)
         initializeMethods()
         fillDialog()
         return view
     }
 
     private fun initializeMethods() {
+        profilPhoto?.setOnClickListener { selectImage() }
         changePhotoText?.setOnClickListener { selectImage() }
         cancelSearchButton?.setOnClickListener {
             cancelSearchButton?.startAnimation(domain.animation())
@@ -111,6 +108,7 @@ class ProfilDialog : DialogFragment() {
     }
 
 
+    // fill dialog with the user informations
     private fun fillDialog() {
         UserHelper.getUser(uid)?.get()?.addOnCompleteListener { task ->
             if (task.result != null) {
@@ -132,10 +130,7 @@ class ProfilDialog : DialogFragment() {
         }?.addOnFailureListener {
         }
     }
-
-    // --------------
-    // AGENT
-    // --------------
+    //Check photo before update profile (after click on validate button)
     private fun updateProfile() {
         if (firstnameEditText?.text.toString().isEmpty()) {
             firstnameEditText?.error = getString(R.string.set_error_firstname)
@@ -145,7 +140,7 @@ class ProfilDialog : DialogFragment() {
             val firstname = firstnameEditText?.text.toString()
             val lastname = lastnameEditText?.text.toString()
 
-            //update agent in firebase
+            //update post in firebase
             UserHelper.updateFirstname(firstname, uid)
             UserHelper.updateLastname(lastname, uid)
             UserHelper.updatePhotoUrl(urlPicture, uid)
@@ -177,9 +172,8 @@ class ProfilDialog : DialogFragment() {
     // --------------
     // TAKE A PICTURE
     // --------------
-    /**
-     * Alert dialog for capture or select from galley
-     */
+    //Alert dialog for capture or select from galley
+
     private fun selectImage() {
         val items = arrayOf<CharSequence>(
             getString(R.string.dialog_select_image_take_photo),
@@ -209,9 +203,8 @@ class ProfilDialog : DialogFragment() {
         builder.show()
     }
 
-    /**
-     * Capture image from camera
-     */
+    // Capture image from camera
+
     @NeedsPermission(Manifest.permission.CAMERA)
     fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -240,9 +233,8 @@ class ProfilDialog : DialogFragment() {
         }
     }
 
-    /**
-     * Select image fro gallery
-     */
+    //Select image fro gallery
+
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun dispatchGalleryIntent() {
         val pickPhoto = Intent(
@@ -265,11 +257,15 @@ class ProfilDialog : DialogFragment() {
                     //data.getData returns the content URI for the selected Image
                     val selectedImage = data?.data
                     try {
-                        mPhotoFile = FileCompressor.compressToFile(
-                            File(
-                                imageCameraOrGallery?.getRealPathFromUri(selectedImage)
-                            )
-                        )
+                        imageCameraOrGallery?.getRealPathFromUri(selectedImage).let {
+                            if (!it.isNullOrEmpty()) {
+                                mPhotoFile = FileCompressor.compressToFile(
+                                    File(
+                                        it
+                                    )
+                                )
+                            }
+                        }
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -297,13 +293,6 @@ class ProfilDialog : DialogFragment() {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
             GlideUtils.loadPhotoWithGlideCircleCropUrl(photoStringFromRoom,profilPhoto)
-            /*profilPhoto?.let {
-                Glide.with(mContext)
-                    .load(File(fileUri.path))
-                    .apply(RequestOptions.circleCropTransform())
-                    .placeholder(R.drawable.ic_anon_user_48dp)
-                    .into(it)
-            }*/
         }
     }
 
@@ -317,10 +306,7 @@ class ProfilDialog : DialogFragment() {
         results: IntArray
     ) {
         // Java: "MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, rc, results);"
-        // I'm not satisfied with the method signature here, since it's too similar to the Android one.
-        // However, the signature is already pretty long, so I'm open for ideas.
-        this.onRequestPermissionsResult(rc, results)
+         this.onRequestPermissionsResult(rc, results)
     }
-
 
 }

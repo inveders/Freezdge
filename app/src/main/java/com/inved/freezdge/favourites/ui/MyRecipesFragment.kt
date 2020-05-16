@@ -30,6 +30,7 @@ class MyRecipesFragment : BaseFragment() {
         }
     }
 
+    // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.search_menu)
         if (searchItem != null) {
@@ -65,6 +66,7 @@ class MyRecipesFragment : BaseFragment() {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    // launch dialog to choose dish type and filter recipes
     private fun launchFilterDialog() {
         val builder = MaterialAlertDialogBuilder(activity)
         builder.setTitle(getString(R.string.array_dialog_title))
@@ -87,6 +89,7 @@ class MyRecipesFragment : BaseFragment() {
 
     }
 
+    // the given text only filter on dishType for recipes from retrofit or database
     private fun filterDishType(filterText: String?) {
         setFavouriteListFilter.clear()
 
@@ -105,6 +108,7 @@ class MyRecipesFragment : BaseFragment() {
 
     }
 
+    // clear adapter and fill it with the filter recipes
     private fun fillFavouriteAdapterFilter(setfavouritelist: MutableList<FavouritesRecipes>) {
         favouriteRecipesItemAdapter.clear()
 
@@ -114,6 +118,7 @@ class MyRecipesFragment : BaseFragment() {
         favouritesRecipesNumberFilter()
     }
 
+    // determines the recipes filter number to show
     private fun favouritesRecipesNumberFilter(){
 
         recipesFavouritesNumberSize= setFavouriteListFilter.size

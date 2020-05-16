@@ -38,6 +38,7 @@
     <string name="recipe_list_item_kcal">kcal</string>
     <string name="recipe_list_item_kcal_notknow">N.C</string>
     <string name="description_image">Description image</string>
+    <string name="recipe_matching_percent" translatable="false">%d %%</string>
 
     <!--Recipe Detail-->
     <string name="recipe_detail_item_image">image_recipe</string>

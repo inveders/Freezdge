@@ -43,6 +43,7 @@ class CustomExpandableListAdapter(
         return groupPosition.toLong()
     }
 
+    // for "Ingrédient" name list
     override fun getGroupView(
         parent: Int,
         isExpanded: Boolean,
@@ -67,6 +68,7 @@ class CustomExpandableListAdapter(
         return convertView
     }
 
+    // for each ingredients of the recipe
     override fun getChildView(
         parent: Int,
         child: Int,
@@ -84,12 +86,10 @@ class CustomExpandableListAdapter(
                 parentview,
                 false
             )
-
         }
 
         val childTextvew = convertview?.findViewById(R.id.expandedListItem) as TextView
         childTextvew.text = getChild(parent, child)
-
 
         return convertview
     }

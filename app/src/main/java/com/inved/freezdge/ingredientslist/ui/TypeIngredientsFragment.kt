@@ -23,7 +23,7 @@ import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.util.*
 
 class TypeIngredientsFragment : Fragment() {
@@ -61,6 +61,7 @@ class TypeIngredientsFragment : Fragment() {
         ).get(IngredientsViewModel::class.java)
     }
 
+    // handle searchview on ingredient name
     override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.search_menu)
         if (searchItem != null) {
@@ -94,6 +95,7 @@ class TypeIngredientsFragment : Fragment() {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    // handle searchview result while typing
     fun handleList(list:MutableList<Ingredients>,search:String){
         var count = 0
         if (list.size != 0) {
@@ -113,6 +115,7 @@ class TypeIngredientsFragment : Fragment() {
         }
     }
 
+    // detect on wich ingredient type page we are (Creamery, Fruit & vegetables, epicerie, fish, or meat)
     fun getForegroundFragment(value: Int) {
         when (value) {
             0 -> run {
@@ -133,6 +136,7 @@ class TypeIngredientsFragment : Fragment() {
         }
     }
 
+    // fill adapter with good ingredient (from good type)
     private fun getAllFoodByType(typeIngredient: String) {
         foodSearchItemAdapter.clear()
         ingredientViewmodel.getAllIngredientsByType(typeIngredient)
@@ -154,7 +158,7 @@ class TypeIngredientsFragment : Fragment() {
                     } else {
                         item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
                     }
-                    GlobalScope.async(Dispatchers.IO) {
+                    GlobalScope.launch(Dispatchers.IO) {
                         ingredientViewmodel.updateIngredient(item)
                         if (ingredientViewmodel.isIngredientSelectedInGrocery(item.name)) {
                             ingredientViewmodel.updateIngredientSelectedForGroceryByName(

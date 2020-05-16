@@ -17,33 +17,38 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
 
     private var client: RecipesApi = RetrofitServiceRecipes.webservice
 
-    suspend fun getRecipesLiveData(ingredients: String) = client.getRecipes(ingredients, appID, appKEY)
+    // retrofit call to retrieve recipes wich contains given ingredient
+    suspend fun getRecipesLiveData(ingredient: String) = client.getRecipes(ingredient, appID, appKEY)
 
+    // get one specific recipe from our database
     fun getRecipeLiveDataById(id:Long): Recipes? {
         // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         return getRecipesBox.query().equal(Recipes_.id,id).build().findUnique()
     }
 
+    // in database, get recipes wich contains  given ingredient name
     fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
         return ObjectBoxLiveData(
             getRecipesBox.query().contains(Recipes_.recipeIngredients,ingredientName).build())
     }
 
+    // insert in database all recipes of mine
     fun insertRecipesInDatabase() {
         AddRecipesInDatabase(getRecipesBox)
-
     }
 
-
+    // delete all recipes in the database and inert again (only if there is an update of the database)
     fun deleteAllRecipesInBox() {
         getRecipesBox.removeAll()
         insertRecipesInDatabase()
     }
 
+    // count all recipes in the database
     fun countRecipesInBox():Long {
         return getRecipesBox.count()
     }
 
+    // put in the sharedPreferences the number of recipes in the database
     fun updateSharedPref(){
         val editor = BaseFragment.sharedPref.edit()
         editor.putLong(BaseFragment.PREF_NAME, getRecipesBox.count())

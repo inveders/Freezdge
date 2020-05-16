@@ -212,7 +212,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
 
-                        <ImageView
+                        <ImageButton
                             android:id="@+id/image_camera_post"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -249,7 +249,7 @@
                         app:layout_constraintVertical_chainStyle="spread_inside">
 
 
-                        <ImageView
+                        <ImageButton
                             android:id="@+id/image_photo_post"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -284,7 +284,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="spread_inside">
 
-                        <ImageView
+                        <ImageButton
                             android:id="@+id/image_tips_post"
                             android:layout_width="24dp"
                             android:layout_height="24dp"

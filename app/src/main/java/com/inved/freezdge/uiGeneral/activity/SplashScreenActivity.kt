@@ -18,7 +18,7 @@ class SplashScreenActivity: AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash_screen)
 
-        //4second splash time
+        //4 second splash time
         Handler().postDelayed({
             //start main activity
             startActivity(Intent(this, LoginActivity::class.java))

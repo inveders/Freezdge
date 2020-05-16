@@ -22,6 +22,8 @@ class SearchIngredientsActivity : BaseActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
+
+    //define icons for the tablayout
     private val tabIcons: IntArray =
         intArrayOf(
             R.drawable.ic_cream,
@@ -64,11 +66,13 @@ class SearchIngredientsActivity : BaseActivity() {
         tabLayout = findViewById(R.id.tabs)
     }
 
+    // configure viewpager adapter
     private fun setStatePageAdapter() {
         val myViewPageStateAdapter = MyViewPageStateAdapter(this)
         viewPager.adapter = myViewPageStateAdapter
     }
 
+    // init tablayout with icons
     private fun initTabLayout() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

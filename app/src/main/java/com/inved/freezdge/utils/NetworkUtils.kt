@@ -12,6 +12,7 @@ class NetworkUtils {
 
     companion object {
 
+        //check if network is available
         fun isNetworkAvailable(context: Context?): Boolean {
             if (context == null) return false
             val connectivityManager =

@@ -7,6 +7,7 @@ import io.objectbox.android.ObjectBoxLiveData
 
 class FavouritesRecipesViewModel(private val favouritesRecipesRepository: FavouritesRecipesRepository):ViewModel() {
 
+
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
@@ -25,5 +26,9 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
 
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
          return favouritesRecipesRepository.getAllFavouritesRecipes()
+    }
+
+    fun countAllFavouritesRecipes(): Long {
+        return favouritesRecipesRepository.countAllFavouritesRecipes()
     }
 }

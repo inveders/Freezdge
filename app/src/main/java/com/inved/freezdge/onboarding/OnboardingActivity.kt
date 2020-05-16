@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : BaseActivity() {
 
-    lateinit var onboardingAdapter: OnboardingAdapter
+    private lateinit var onboardingAdapter: OnboardingAdapter
 
     companion object {
         fun getLaunchIntent(from: Context) = Intent(from, OnboardingActivity::class.java).apply {
@@ -25,16 +25,14 @@ class OnboardingActivity : BaseActivity() {
         }
 
         private var PRIVATE_MODE = 0
-        val PREF_NAME = "ONBOARDING"
+        const val PREF_NAME = "ONBOARDING"
         val sharedPref: SharedPreferences =
             App.applicationContext().getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-
     }
 
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_onboarding
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +46,8 @@ class OnboardingActivity : BaseActivity() {
                 setCurrentOnboardingIndicator(position)
             }
         })
+        // handle click on next button
         buttonOnboardingAction.setOnClickListener {
-
                 if (onboardingViewpager.currentItem + 1 < onboardingAdapter.itemCount) {
                     onboardingViewpager.currentItem = onboardingViewpager.currentItem + 1
                 } else {
@@ -62,6 +60,7 @@ class OnboardingActivity : BaseActivity() {
         }
     }
 
+    // setup onboarding text and images for the four pages
     private fun setupOnaboardingItems() {
 
         val onboardingItemList: ArrayList<OnboardingItem> = arrayListOf()
@@ -98,6 +97,7 @@ class OnboardingActivity : BaseActivity() {
 
     }
 
+    // indicator for pages of the onboarding
     private fun setupOnboardingIndicator() {
 
             val indicatorImage: Array<ImageView?>? = arrayOfNulls(onboardingAdapter.itemCount)
@@ -122,10 +122,9 @@ class OnboardingActivity : BaseActivity() {
 
 
             }
-
-
     }
 
+    // change indicator ui for current state
     fun setCurrentOnboardingIndicator(index: Int) {
         val childCount: Int = layoutOnboardingIndicators.childCount
         for (i in 0..childCount) {

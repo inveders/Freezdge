@@ -43,7 +43,7 @@ abstract class BaseActivity:AppCompatActivity() {
     }
 
     // --------------------
-    // UTILS
+    // UTILS FIREBASE
     // --------------------
     protected open fun getCurrentUser(): FirebaseUser? {
         return FirebaseAuth.getInstance().currentUser

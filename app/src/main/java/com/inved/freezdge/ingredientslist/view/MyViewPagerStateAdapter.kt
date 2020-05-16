@@ -9,6 +9,7 @@ import com.inved.freezdge.ingredientslist.ui.TypeIngredientsFragment
 class MyViewPageStateAdapter(fm: FragmentActivity): FragmentStateAdapter(fm){
     override fun getItemCount(): Int = 5
 
+    // we use only one fragment to show ingredients of the 5 pages viewpager
     override fun createFragment(position: Int): Fragment {
         val fragment = TypeIngredientsFragment()
         fragment.arguments = Bundle().apply {

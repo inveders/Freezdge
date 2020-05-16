@@ -1,7 +1,6 @@
 package com.inved.freezdge.ingredientslist.ui
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -16,9 +15,11 @@ import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.ChipUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 class MyIngredientsListFragment : BaseFragment() {
@@ -36,7 +37,7 @@ class MyIngredientsListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         floatingActionButton = view.findViewById(R.id.floating_button)
         chipGroup = view.findViewById(R.id.chipGroup)
-        floatingActionButton.setOnClickListener { _ -> openSearchIngredientActivity() }
+        floatingActionButton.setOnClickListener { openSearchIngredientActivity() }
         ingredientsViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
         favouritesRecipesViewmodel =
@@ -56,6 +57,7 @@ class MyIngredientsListFragment : BaseFragment() {
         super.onPrepareOptionsMenu(menu)
     }
 
+    // if there is no ingredient change UI to show text, if there is ingredient, show chips
     private fun setupChips() {
 
         val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
@@ -74,6 +76,7 @@ class MyIngredientsListFragment : BaseFragment() {
 
     }
 
+    // configure chip with ingredient name, color
     private fun handleChip(result:MutableList<Ingredients>){
         for (myresult in result) {
             val chip = Chip(chipGroup.context)
@@ -85,13 +88,14 @@ class MyIngredientsListFragment : BaseFragment() {
             )
             chip.setChipDrawable(chipDrawable)
             chip.text = myresult.name
-            handleChipColor(myresult, chip)
+            val chipUtil= ChipUtil()
+            chipUtil.handleChipColor(myresult, chip, App.applicationContext())
             chip.closeIcon = context?.let {
                 ContextCompat.getDrawable(it, R.drawable.ic_clear_grey_24dp)
             }
             // Set chip close icon click listener
             chip.setOnCloseIconClickListener {
-                GlobalScope.async(Dispatchers.IO) {
+                GlobalScope.launch(Dispatchers.IO) {
                     ingredientsViewmodel.updateIngredientSelectedByName(
                         myresult.name,
                         false
@@ -111,6 +115,7 @@ class MyIngredientsListFragment : BaseFragment() {
         }
     }
 
+    // Open Search Ingredient Activity on floating button click
     private fun openSearchIngredientActivity() {
         activity?.let {
             val intent = Intent(it, SearchIngredientsActivity::class.java)
@@ -118,42 +123,4 @@ class MyIngredientsListFragment : BaseFragment() {
         }
     }
 
-    private fun handleChipColor(myresult: Ingredients, chip: Chip) {
-        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_cream))) {
-            chip.chipBackgroundColor = context?.let {
-                ContextCompat.getColor(
-                    it, R.color.colorCream
-                )
-            }?.let { ColorStateList.valueOf(it) }
-        }
-        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_fruits_vegetables))) {
-            chip.chipBackgroundColor = context?.let {
-                ContextCompat.getColor(
-                    it, R.color.colorVegetables
-                )
-            }?.let { ColorStateList.valueOf(it) }
-        }
-        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_epicerie))) {
-            chip.chipBackgroundColor = context?.let {
-                ContextCompat.getColor(
-                    it, R.color.colorEpicerie
-                )
-            }?.let { ColorStateList.valueOf(it) }
-        }
-        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_fish))) {
-            chip.chipBackgroundColor = context?.let {
-                ContextCompat.getColor(
-                    it, R.color.colorFish
-                )
-            }?.let { ColorStateList.valueOf(it) }
-        }
-        if (myresult.typeIngredient.equals(getString(R.string.ingredient_type_meat))) {
-            chip.chipBackgroundColor = context?.let {
-                ContextCompat.getColor(
-                    it, R.color.colorMeat
-                )
-            }?.let { ColorStateList.valueOf(it) }
-        }
-
-    }
 }

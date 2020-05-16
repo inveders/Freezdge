@@ -21,6 +21,7 @@ import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.ChipUtil
 import io.objectbox.BoxStore.context
 
 class MyGroceryListActivity: BaseActivity() {
@@ -58,6 +59,7 @@ class MyGroceryListActivity: BaseActivity() {
         startActivity(intent)
     }
 
+    // configure chip with ingredient name, color
     private fun setupChips() {
         ingredientsViewmodel.getIngredientsForGrocery()
             .observe(this, Observer { result ->
@@ -75,6 +77,8 @@ class MyGroceryListActivity: BaseActivity() {
                             )
                             chip.setChipDrawable(chipDrawable)
                             chip.text=myresult.name
+                            val chipUtil= ChipUtil()
+                            chipUtil.handleChipColor(myresult, chip, App.applicationContext())
                             chip.closeIcon=context?.let {
                                 ContextCompat.getDrawable(context as Context,R.drawable.ic_clear_grey_24dp) }
                             // Set chip close icon click listener
@@ -92,6 +96,8 @@ class MyGroceryListActivity: BaseActivity() {
             })
     }
 
+    // when we want to delete a ingredient from grocery list, a dialog is launch before delete,and
+    // if yes the ingredient is added in ingredient list and delete from grocery list
     private fun launchAlertDialog(chip:Chip) {
         val builder = MaterialAlertDialogBuilder(this)
         builder.setTitle(getString(R.string.menu_grocery_list))

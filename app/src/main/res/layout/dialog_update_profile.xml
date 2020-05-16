@@ -3,15 +3,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <!-- PRICE SURFACE POINTS OF INTEREST DATE ENTRY DATE SALE LOCALISATION NUMBER PHOTOS TYPE ROOM BATH BED -->
-    <!-- double maxSurface,
-      double maxPrice-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -29,7 +24,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/agent_add_dialog_close"
+                android:id="@+id/profil_add_dialog_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -45,13 +40,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
-                android:layout_toEndOf="@id/agent_add_dialog_close"
+                android:layout_toEndOf="@id/profil_add_dialog_close"
                 android:text="@string/update_profil"
                 android:textColor="@color/black_three"
                 android:textSize="17sp" />
 
             <ImageButton
-                android:id="@+id/agent_add_dialog_validate"
+                android:id="@+id/profil_add_dialog_validate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -115,7 +110,8 @@
                 style="@style/TapEditText"
                 android:layout_width="match_parent"
                 android:hint="@string/firstname"
-                android:inputType="text" />
+                android:inputType="text"
+                android:importantForAutofill="no" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +131,8 @@
                 style="@style/TapEditText"
                 android:layout_width="match_parent"
                 android:hint="@string/lastname"
-                android:inputType="text" />
+                android:inputType="text"
+                android:importantForAutofill="no" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
