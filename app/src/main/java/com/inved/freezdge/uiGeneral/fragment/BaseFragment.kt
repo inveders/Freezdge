@@ -3,7 +3,6 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -141,12 +140,14 @@ abstract class BaseFragment : Fragment() {
     private fun insertRecipes() {
         if (recipeViewModel.countAllRecipesInDatabase().toInt()==0) {
             recipeViewModel.insertRecipesInDatabase()
+            recipeViewModel.updateSharedPref()
         } else if (recipeViewModel.countAllRecipesInDatabase() != sharedPref.getLong(
                 PREF_NAME,
                 0
             )
         ) {
             recipeViewModel.deleteAllRecipesInDatabase()
+            recipeViewModel.updateSharedPref()
         }
     }
 
@@ -222,7 +223,7 @@ abstract class BaseFragment : Fragment() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView()
-                if (NetworkUtils.typeNetworkConnection(App.applicationContext()) != NetworkUtils.Companion.TypeConnection.NONE) {
+                if (!NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                     lifecycleScope.launch {
                         getAllRecipes()
                     }

@@ -48,7 +48,7 @@ class LoginActivity : BaseActivity() {
         configureGoogleSignIn()
 
         login_facebook_button.setOnClickListener {
-            if (NetworkUtils.typeNetworkConnection(App.applicationContext()) == NetworkUtils.Companion.TypeConnection.NONE) {
+            if (!NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                 loginUtils.showSnackBar(
                     this.coordinatorLayout,
                     getString(R.string.error_no_internet)
@@ -58,7 +58,7 @@ class LoginActivity : BaseActivity() {
             }
         }
         login_google_button.setOnClickListener {
-            if (NetworkUtils.typeNetworkConnection(App.applicationContext()) == NetworkUtils.Companion.TypeConnection.NONE) {
+            if (!NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                 loginUtils.showSnackBar(
                     this.coordinatorLayout,
                     getString(R.string.error_no_internet)
