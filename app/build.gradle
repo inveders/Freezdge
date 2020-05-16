@@ -84,7 +84,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    testImplementation "io.mockk:mockk:$mock_version"
     testImplementation 'org.robolectric:robolectric:4.3.1'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test.ext:truth:1.2.0'
@@ -140,5 +139,5 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:5.15.3'
 
     //MULTIDEX
-    implementation "androidx.multidex:multidex:$multidexVersion"
+    implementation 'com.android.support:multidex:1.0.3'
 }

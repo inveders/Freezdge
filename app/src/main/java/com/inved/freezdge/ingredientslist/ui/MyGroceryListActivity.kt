@@ -97,7 +97,7 @@ class MyGroceryListActivity: BaseActivity() {
         builder.setTitle(getString(R.string.menu_grocery_list))
         builder.setMessage(getString(R.string.dialog_question_grocery))
 
-        builder.setPositiveButton(getString(R.string.Yes)) { dialog, which ->
+        builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
             Toast.makeText(applicationContext,
                 getString(R.string.grocery_list_removed,chip.text), Toast.LENGTH_SHORT).show()
 

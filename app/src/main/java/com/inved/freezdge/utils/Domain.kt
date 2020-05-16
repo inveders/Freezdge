@@ -157,11 +157,11 @@ class Domain {
 
 
             if (poiList.contains("water") || poiList.contains("eau")) {
-                nbIngredientInRecipe = nbIngredientInRecipe?.minus(1)
+                nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
             }
 
             if (poiList.contains("salt") || poiList.contains("sel")) {
-                nbIngredientInRecipe = nbIngredientInRecipe?.minus(1)
+                nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
             }
 
 

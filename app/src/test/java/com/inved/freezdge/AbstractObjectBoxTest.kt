@@ -6,7 +6,6 @@ import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.repository.RecipesRepository
-import io.mockk.MockKAnnotations
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.DebugFlags
@@ -28,7 +27,6 @@ abstract class AbstractObjectBoxTest {
     @Before
     fun setUp() {
         // delete database files before each test to start with a clean database
-        MockKAnnotations.init(this)
         BoxStore.deleteAllFiles(TEST_DIRECTORY)
         store = MyObjectBox.builder()
             // add directory flag to change where ObjectBox puts its database files

@@ -127,7 +127,7 @@ class MyUploadService : Service() {
                 }
 
             }
-            .addOnFailureListener { exception2: Exception? -> }
+            .addOnFailureListener { }
     }
 
     companion object {
