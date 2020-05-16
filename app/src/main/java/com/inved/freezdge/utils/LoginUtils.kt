@@ -22,6 +22,10 @@ class LoginUtils {
             Snackbar.make(coordinatorLayout!!, message, Snackbar.LENGTH_SHORT).show()
         }
 
+    fun successFacebookSnackBar(coordinatorLayout: CoordinatorLayout?){
+        showSnackBar(coordinatorLayout, App.resource().getString(R.string.connection_succeed))
+    }
+
         fun errorFacebookSnackBar(coordinatorLayout: CoordinatorLayout?){
             showSnackBar(coordinatorLayout, App.resource().getString(R.string.facebook_sign_in))
         }
@@ -43,8 +47,8 @@ class LoginUtils {
                             }
                         }
                     }
-                }?.addOnFailureListener { e ->
-                Log.e(
+                }?.addOnFailureListener {
+                    Log.e(
                     "debago",
                     "Problem during the user creation"
                 )

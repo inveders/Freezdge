@@ -153,6 +153,7 @@ class LoginActivity : BaseActivity() {
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
                     loginResult.accessToken?.let { handleFacebookAccessToken(it) }
+                    loginUtils.successFacebookSnackBar(coordinatorLayout)
                 }
 
                 override fun onCancel() {
