@@ -34,6 +34,10 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.insertRecipesInDatabase()
     }
 
+    fun updateSharedPref() {
+        return recipesRepository.updateSharedPref()
+    }
+
     fun deleteAllRecipesInDatabase() {
         return recipesRepository.deleteAllRecipesInBox()
     }

@@ -70,7 +70,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         )
     }
 
-    private fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
+    fun removeFavouriteRecipe(favouritesRecipes: FavouritesRecipes) {
         getFavouritesRecipesBox.remove(favouritesRecipes.id)
     }
 

@@ -31,9 +31,7 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
 
     fun insertRecipesInDatabase() {
         AddRecipesInDatabase(getRecipesBox)
-        val editor = BaseFragment.sharedPref.edit()
-        editor.putLong(BaseFragment.PREF_NAME, getRecipesBox.count())
-        editor.apply()
+
     }
 
 
@@ -44,6 +42,12 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
 
     fun countRecipesInBox():Long {
         return getRecipesBox.count()
+    }
+
+    fun updateSharedPref(){
+        val editor = BaseFragment.sharedPref.edit()
+        editor.putLong(BaseFragment.PREF_NAME, getRecipesBox.count())
+        editor.apply()
     }
 
 }
