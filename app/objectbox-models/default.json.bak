@@ -51,7 +51,7 @@
     },
     {
       "id": "2:4637892699730040142",
-      "lastPropertyId": "9:2491993090437966920",
+      "lastPropertyId": "11:3691352285162051613",
       "name": "FavouritesRecipes",
       "properties": [
         {
@@ -94,13 +94,23 @@
           "id": "9:2491993090437966920",
           "name": "recipeIngredients",
           "type": 9
+        },
+        {
+          "id": "10:9156309053748280982",
+          "name": "cuisineType",
+          "type": 9
+        },
+        {
+          "id": "11:3691352285162051613",
+          "name": "dishType",
+          "type": 9
         }
       ],
       "relations": []
     },
     {
       "id": "3:5942598635681225889",
-      "lastPropertyId": "25:6117471842794335135",
+      "lastPropertyId": "27:4876369579246649020",
       "name": "Recipes",
       "properties": [
         {
@@ -230,6 +240,16 @@
         {
           "id": "25:6117471842794335135",
           "name": "recipeUrlOwnerLink",
+          "type": 9
+        },
+        {
+          "id": "26:7051800883875377157",
+          "name": "cuisineType",
+          "type": 9
+        },
+        {
+          "id": "27:4876369579246649020",
+          "name": "dishType",
           "type": 9
         }
       ],
