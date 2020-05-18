@@ -71,19 +71,19 @@ class AllRecipesFragment : BaseFragment() {
         recipesRetrofitItemAdapter.filter(newText)
         recipesRetrofitItemAdapter.itemFilter.filterPredicate =
             { item: Hit, constraint: CharSequence? ->
-                item.recipe?.label!!.contains(
+                item.recipe?.label?.contains(
                     constraint.toString(),
                     ignoreCase = true
-                )
+                )==true
             }
 
         recipesDatabaseItemAdapter.filter(newText)
         recipesDatabaseItemAdapter.itemFilter.filterPredicate =
             { item: Recipes, constraint: CharSequence? ->
-                item.recipeTitle!!.contains(
+                item.recipeTitle?.contains(
                     constraint.toString(),
                     ignoreCase = true
-                )
+                )==true
             }
     }
 
@@ -117,14 +117,14 @@ class AllRecipesFragment : BaseFragment() {
 
         for(recipes in setlistRetrofit){
             if(!recipes.recipe?.dishType?.get(0).isNullOrEmpty()){
-                if(recipes.recipe?.dishType?.get(0)?.contains(filterText.toString(),true)!!){
+                if(recipes.recipe?.dishType?.get(0)?.contains(filterText.toString(),true)==true){
                     setlistRetrofitFilter.add(recipes)
                 }
             }
         }
 
         for(recipes in setlistDatabase){
-            if(recipes.dishType?.contains(filterText.toString(),true)!!){
+            if(recipes.dishType?.contains(filterText.toString(),true)==true){
                 setlistDatabaseFilter.add(recipes)
             }
         }

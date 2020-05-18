@@ -40,7 +40,7 @@ class TipsDialog : DialogFragment() {
     private var validateButton: TextView? = null
     private var cancelButton: ImageButton? = null
     private var dialogTitle: TextView? = null
-    private lateinit var postIdUpdate: String
+    private var postIdUpdate: String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +58,8 @@ class TipsDialog : DialogFragment() {
         dialogTitle = view.findViewById(R.id.dialogTitle)
         cancelButton = view.findViewById(R.id.close_button)
         val id: Int? = arguments?.getInt(KEY_TIP, 0)
-        postIdUpdate = arguments?.getString(KEY_TIP_ID, null)!!
-        if (postIdUpdate.isNotEmpty()) {
+        postIdUpdate = arguments?.getString(KEY_TIP_ID, null)
+        if (postIdUpdate?.isNotEmpty()==true) {
             fillTip(postIdUpdate)
         }
         initializeMethods(id)
@@ -72,13 +72,13 @@ class TipsDialog : DialogFragment() {
         postId?.let {
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
                 if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
+                    if (task.result?.documents?.isNotEmpty()==true) {
 
-                        val post: Post =
-                            task.result!!.documents[0].toObject(Post::class.java)!!
+                        val post: Post? =
+                            task.result!!.documents[0].toObject(Post::class.java)
                         dialogTitle?.text = App.resource().getString(R.string.tips_dialog_update)
-                        titleEdittext?.setText(post.titleAstuce)
-                        descriptionEdittext?.setText(post.descriptionAstuce)
+                        titleEdittext?.setText(post?.titleAstuce)
+                        descriptionEdittext?.setText(post?.descriptionAstuce)
                     }
                 }
             }?.addOnFailureListener { }

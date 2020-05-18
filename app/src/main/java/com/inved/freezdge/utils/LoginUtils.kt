@@ -14,21 +14,21 @@ class LoginUtils {
 
     //handle Snackbar messages
     fun showSnackBar(
-        coordinatorLayout: CoordinatorLayout?,
+        coordinatorLayout: CoordinatorLayout,
         message: String
     ) {
-        Snackbar.make(coordinatorLayout!!, message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun successFacebookSnackBar(coordinatorLayout: CoordinatorLayout?) {
+    fun successFacebookSnackBar(coordinatorLayout: CoordinatorLayout) {
         showSnackBar(coordinatorLayout, App.resource().getString(R.string.connection_succeed))
     }
 
-    fun errorFacebookSnackBar(coordinatorLayout: CoordinatorLayout?) {
+    fun errorFacebookSnackBar(coordinatorLayout: CoordinatorLayout) {
         showSnackBar(coordinatorLayout, App.resource().getString(R.string.facebook_sign_in))
     }
 
-    fun cancelFacebookSnackBar(coordinatorLayout: CoordinatorLayout?) {
+    fun cancelFacebookSnackBar(coordinatorLayout: CoordinatorLayout) {
         showSnackBar(
             coordinatorLayout,
             App.resource().getString(R.string.error_authentication_canceled)

@@ -57,7 +57,7 @@ class PhotoDialog : DialogFragment() {
     private var cancelButton: ImageButton? = null
     private var mPhotoFile: File? = null
     private lateinit var mContext: Context
-    private lateinit var postIdUpdate: String
+    private var postIdUpdate: String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +80,7 @@ class PhotoDialog : DialogFragment() {
         cancelButton = view.findViewById(R.id.close_button)
 
         val id: Int? = arguments?.getInt(KEY_PHOTO, 0)
-        postIdUpdate = arguments?.getString(KEY_PHOTO_ID, null)!!
+        postIdUpdate = arguments?.getString(KEY_PHOTO_ID, null)
         initializeMethods(id)
         when (id) {
             1 -> {
@@ -187,20 +187,20 @@ class PhotoDialog : DialogFragment() {
         postId?.let {
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
                 if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
+                    if (task.result?.documents?.isNotEmpty()==true) {
 
-                        val post: Post =
-                            task.result!!.documents[0].toObject(Post::class.java)!!
+                        val post: Post? =
+                            task.result!!.documents[0].toObject(Post::class.java)
 
                         dialogTitle?.text = App.resource().getString(R.string.photo_dialog_update)
-                        photoTitle?.setText(post.titleAstuce)
+                        photoTitle?.setText(post?.titleAstuce)
                         photoPreview?.let { it1 ->
                             GlideUtils.loadPhotoWithGlideCenterCropUrl(
-                                post.urlPhoto,
+                                post?.urlPhoto,
                                 it1
                             )
                         }
-                        urlPicture = post.urlPhoto
+                        urlPicture = post?.urlPhoto
                         photoPreview?.setOnClickListener {
                             Toast.makeText(
                                 activity,

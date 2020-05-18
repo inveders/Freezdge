@@ -1,9 +1,6 @@
 package com.inved.freezdge
 
-import com.inved.freezdge.favourites.database.FavouritesRecipes
-import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.recipes.database.Recipes
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,17 +11,17 @@ class ObjectboxTest:AbstractObjectBoxTest() {
 
     @Test
     fun shouldGetAllIngredients() {
-        assertEquals(332, ingredientsBox.count())
+        assertEquals(332, ingredientsBox?.count())
     }
 
     @Test
     fun shouldGetTwoSelectedIngredients() {
         ingredientsRepository.updateIngredientSelectedByName("Tomate",true)
         ingredientsRepository.updateIngredientSelectedByName("Feuilles de manioc",true)
-        val number=ingredientsRepository.getAllIngredientBySelected().size
+        val number=ingredientsRepository.getAllIngredientBySelected()?.size
         val trueSelected=ingredientsRepository.isIngredientSelected("Feuilles de manioc")
         assertEquals(2, number)
-        assertTrue(trueSelected)
+        assertTrue(trueSelected==true)
     }
 
     @Test
@@ -33,8 +30,8 @@ class ObjectboxTest:AbstractObjectBoxTest() {
         ingredientsRepository.updateIngredientSelectedForGroceryByName("Feuilles de manioc",false)
          val trueInGrocery=ingredientsRepository.isIngredientSelectedInGrocery("Tomate")
         val falseInGrocery=ingredientsRepository.isIngredientSelectedInGrocery("Feuilles de manioc")
-        assertTrue(trueInGrocery)
-        assertFalse(falseInGrocery)
+        assertTrue(trueInGrocery==true)
+        assertFalse(falseInGrocery==false)
     }
 
     @Test

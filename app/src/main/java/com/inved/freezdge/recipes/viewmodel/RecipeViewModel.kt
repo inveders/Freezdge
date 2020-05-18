@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
 
     // retrofit call
-    private suspend fun getRecipes(arg: String): LiveData<Results> {
+    private suspend fun getRecipes(arg: String?): LiveData<Results> {
         return liveData(Dispatchers.IO) {
             val retrievedRecipes = recipesRepository.getRecipesLiveData(arg)
             emit(retrievedRecipes)
@@ -56,7 +56,7 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
 
             // We make a loop for each ingredient selected
             for (myresult in result) {
-                getRecipes(myresult.name!!).observeForever {
+                getRecipes(myresult.name).observeForever {
 
                     for(i in it.hits.indices){
                         setRetrofitSetListRecipes?.add(it.hits[i])
@@ -81,17 +81,18 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
             if (result.size != 0) {
                 BaseFragment.listener?.showLoader()
                 for (myresult in result) {
-                    getRecipeIfContainIngredient(myresult.name!!)
-                        .observeForever {
-                            for(i in it.indices){
-                                setDatabaseSetListRecipes?.add(it[i])
-                                setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
+                    myresult.name?.let { it ->
+                        getRecipeIfContainIngredient(it)
+                            .observeForever {
+                                for(i in it.indices){
+                                    setDatabaseSetListRecipes?.add(it[i])
+                                    setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
+                                }
+
                             }
+                    }
 
-                        }
                 }
-
-
                 return setListDatabaseViewModel
             }
 

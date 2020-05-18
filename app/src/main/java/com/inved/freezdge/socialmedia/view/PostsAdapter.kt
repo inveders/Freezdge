@@ -73,14 +73,14 @@ class PostsAdapter(
             }
 
             //post and user information
-            if (post.titleAstuce != null) {
+            if (!post.titleAstuce.isNullOrEmpty()) {
                 postTitle.text = post.titleAstuce
                 postTitle.visibility = View.VISIBLE
             } else {
                 postTitle.visibility = View.GONE
             }
 
-            if (post.descriptionAstuce != null) {
+            if (!post.descriptionAstuce.isNullOrEmpty()) {
                 postContent.text = post.descriptionAstuce
                 postContent.visibility = View.VISIBLE
                 shimmer.stopShimmer()
@@ -89,7 +89,7 @@ class PostsAdapter(
                 postContent.visibility = View.GONE
             }
 
-            if (post.urlPhoto != null) {
+            if (!post.urlPhoto.isNullOrEmpty()) {
                 postImage.visibility = View.VISIBLE
                 GlideUtils.loadPhotoWithGlideUrl(post.urlPhoto, shimmer, postImage)
                 postImage.setOnClickListener {
@@ -100,30 +100,30 @@ class PostsAdapter(
             }
 
             UserHelper.getUser(post.userUid)?.get()?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
-                        val user: User =
-                            task.result!!.documents[0].toObject(User::class.java)!!
-                        username.text = user.firstname
-                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profileImage)
+                if (task.result?.isEmpty==false) {
+                    if (task.result?.documents?.isNotEmpty()==true) {
+                        val user: User? =
+                            task.result!!.documents[0].toObject(User::class.java)
+                        username.text = user?.firstname
+                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, profileImage)
                     }
                 }
             }?.addOnFailureListener {}
 
             post.postId?.let { it ->
                 PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
-                    if (task.result != null) {
-                        if (task.result!!.documents.isNotEmpty()) {
-                            val currentPost: Post =
-                                task.result!!.documents[0].toObject(Post::class.java)!!
+                    if (task.result?.isEmpty==false) {
+                        if (task.result?.documents?.isNotEmpty()==true) {
+                            val currentPost: Post? =
+                                task.result!!.documents[0].toObject(Post::class.java)
                             handleLikeButtonColor(currentPost, likeButton)
 
-                            if (currentPost.postType.equals(
+                            if (currentPost?.postType.equals(
                                     App.resource().getString(R.string.social_media_post_type_photo)
                                 )
                             ) {
                                 handleLikeTextPhotoPost(currentPost, likeText, post)
-                            } else if (currentPost.postType.equals(
+                            } else if (currentPost?.postType.equals(
                                     App.resource().getString(R.string.social_media_post_type_tips)
                                 )
                             ) {
@@ -149,8 +149,8 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result != null) {
-                            if (task.result!!.documents.isNotEmpty()) {
+                        if (task.result?.isEmpty==false) {
+                            if (task.result?.documents?.isNotEmpty()==true) {
                                 handlePostLikeNumberDecrease(post)
                             } else {
                                 handlePostLikeNumberIncrease(post)
@@ -219,13 +219,13 @@ class PostsAdapter(
         }
         post.postId?.let { it ->
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
-                        val currentPost: Post =
-                            task.result!!.documents[0].toObject(Post::class.java)!!
+                if (task.result?.isEmpty==false) {
+                    if (task.result?.documents?.isNotEmpty()==true) {
+                        val currentPost: Post? =
+                            task.result!!.documents[0].toObject(Post::class.java)
                         val newValue: Int?
-                        newValue = currentPost.likeNumber?.plus(1)
-                        PostHelper.updateLikeNumber(newValue, post.postId!!)
+                        newValue = currentPost?.likeNumber?.plus(1)
+                        PostHelper.updateLikeNumber(newValue, post.postId)
                     }
                 }
             }
@@ -246,26 +246,26 @@ class PostsAdapter(
 
         post.postId?.let { it ->
             PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
-                        val currentPost: Post =
-                            task.result!!.documents[0].toObject(Post::class.java)!!
+                if (task.result?.isEmpty==false) {
+                    if (task.result?.documents?.isNotEmpty()==true) {
+                        val currentPost: Post? =
+                            task.result!!.documents[0].toObject(Post::class.java)
                         val newValue: Int?
-                        newValue = if (currentPost.likeNumber != 0) {
-                            currentPost.likeNumber?.minus(1)
+                        newValue = if (currentPost?.likeNumber != 0) {
+                            currentPost?.likeNumber?.minus(1)
                         } else {
                             0
                         }
-                        PostHelper.updateLikeNumber(newValue, post.postId!!)
+                        PostHelper.updateLikeNumber(newValue, post.postId)
                     }
                 }
             }
         }?.addOnFailureListener { }
     }
 
-    fun handleLikeButtonColor(currentPost: Post, likeButton: ImageView) {
+    fun handleLikeButtonColor(currentPost: Post?, likeButton: ImageView) {
         //Change like button color according to value of like
-        if (currentPost.likeNumber != 0) {
+        if (currentPost?.likeNumber != 0) {
             likeButton.setImageDrawable(
                 ContextCompat.getDrawable(
                     App.applicationContext(),
@@ -285,8 +285,8 @@ class PostsAdapter(
     }
 
     // handle the text a person found it great
-    fun handleLikeTextPhotoPost(currentPost: Post, likeText: TextView, post: Post) {
-        when (currentPost.likeNumber) {
+    fun handleLikeTextPhotoPost(currentPost: Post?, likeText: TextView, post: Post) {
+        when (currentPost?.likeNumber) {
             0 -> {
                 likeText.visibility = View.GONE
             }
@@ -296,8 +296,8 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result != null) {
-                            if (task.result!!.documents.isNotEmpty()) {
+                        if (task.result?.isEmpty==false) {
+                            if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo_one_person_you
@@ -320,18 +320,18 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result != null) {
-                            if (task.result!!.documents.isNotEmpty()) {
+                        if (task.result?.isEmpty==false) {
+                            if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo_you_and_other,
-                                    currentPost.likeNumber?.minus(1)
+                                    currentPost?.likeNumber?.minus(1)
                                 )
                             } else {
                                 //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo,
-                                    currentPost.likeNumber
+                                    currentPost?.likeNumber
                                 )
 
                             }
@@ -343,8 +343,8 @@ class PostsAdapter(
     }
 
     // handle the text a person found it useful
-    fun handleLikeTextTipsPost(currentPost: Post, likeText: TextView, post: Post) {
-        when (currentPost.likeNumber) {
+    fun handleLikeTextTipsPost(currentPost: Post?, likeText: TextView, post: Post) {
+        when (currentPost?.likeNumber) {
             0 -> {
                 likeText.visibility = View.GONE
             }
@@ -355,8 +355,8 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result != null) {
-                            if (task.result!!.documents.isNotEmpty()) {
+                        if (task.result?.isEmpty==false) {
+                            if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips_one_person_you
@@ -381,18 +381,18 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result != null) {
-                            if (task.result!!.documents.isNotEmpty()) {
+                        if (task.result?.isEmpty==false) {
+                            if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips_you_and_other,
-                                    currentPost.likeNumber?.minus(1)
+                                    currentPost?.likeNumber?.minus(1)
                                 )
                             } else {
                                 //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips,
-                                    currentPost.likeNumber
+                                    currentPost?.likeNumber
                                 )
 
                             }

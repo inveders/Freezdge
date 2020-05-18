@@ -50,14 +50,14 @@ class MyRecipesFragment : BaseFragment() {
                     favouriteRecipesItemAdapter.filter(newText)
                     favouriteRecipesItemAdapter.itemFilter.filterPredicate =
                         { item: FavouritesRecipes, constraint: CharSequence? ->
-                            item.recipeTitle!!.contains(
+                            item.recipeTitle?.contains(
                                 constraint.toString(),
                                 ignoreCase = true
                             )
-                            item.cuisineType!!.contains(
+                            item.cuisineType?.contains(
                                 constraint.toString(),
                                 ignoreCase = true
-                            )
+                            )==true
                         }
                     return true
                 }
@@ -94,7 +94,7 @@ class MyRecipesFragment : BaseFragment() {
         setFavouriteListFilter.clear()
 
         for(recipes in setFavouriteList){
-            if(recipes.dishType?.contains(filterText.toString(),true)!!){
+            if(recipes.dishType?.contains(filterText.toString(),true)==true){
                 setFavouriteListFilter.add(recipes)
             }
         }

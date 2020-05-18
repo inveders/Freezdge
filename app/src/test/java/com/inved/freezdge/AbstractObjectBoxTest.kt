@@ -15,28 +15,28 @@ import java.io.File
 
 abstract class AbstractObjectBoxTest {
 
-    private val TEST_DIRECTORY = File("objectbox-example/test-db")
+    private val testDirectory = File("objectbox-example/test-db")
     private var store: BoxStore?=null
-    lateinit var ingredientsBox: Box<Ingredients>
+    var ingredientsBox: Box<Ingredients>?=null
     lateinit var ingredientsRepository: IngredientsRepository
-    lateinit var recipessBox: Box<Recipes>
+    private var recipessBox: Box<Recipes>?=null
     lateinit var recipesRepository: RecipesRepository
-    lateinit var favouritesRecipesBox: Box<FavouritesRecipes>
+    private var favouritesRecipesBox: Box<FavouritesRecipes>?=null
     lateinit var favouritesRecipesRepository: FavouritesRecipesRepository
 
     @Before
     fun setUp() {
         // delete database files before each test to start with a clean database
-        BoxStore.deleteAllFiles(TEST_DIRECTORY)
+        BoxStore.deleteAllFiles(testDirectory)
         store = MyObjectBox.builder()
             // add directory flag to change where ObjectBox puts its database files
-            .directory(TEST_DIRECTORY)
+            .directory(testDirectory)
             // optional: add debug flags for more detailed ObjectBox log output
             .debugFlags(DebugFlags.LOG_QUERIES or DebugFlags.LOG_QUERY_PARAMETERS)
             .build()
-        ingredientsBox= store!!.boxFor(Ingredients::class.java)
-        recipessBox=store!!.boxFor(Recipes::class.java)
-        favouritesRecipesBox=store!!.boxFor(FavouritesRecipes::class.java)
+        ingredientsBox= store?.boxFor(Ingredients::class.java)
+        recipessBox=store?.boxFor(Recipes::class.java)
+        favouritesRecipesBox=store?.boxFor(FavouritesRecipes::class.java)
         ingredientsRepository = IngredientsRepository(ingredientsBox)
         recipesRepository = RecipesRepository(recipessBox)
         favouritesRecipesRepository = FavouritesRecipesRepository(favouritesRecipesBox)
@@ -48,12 +48,12 @@ abstract class AbstractObjectBoxTest {
     @After
     fun tearDown() {
         if(store!=null){
-            store!!.boxFor(Ingredients::class.java).removeAll()
-            store!!.boxFor(FavouritesRecipes::class.java).removeAll()
-            store!!.boxFor(Recipes::class.java).removeAll()
-            store!!.close()
+            store?.boxFor(Ingredients::class.java)?.removeAll()
+            store?.boxFor(FavouritesRecipes::class.java)?.removeAll()
+            store?.boxFor(Recipes::class.java)?.removeAll()
+            store?.close()
         }
-        BoxStore.deleteAllFiles(TEST_DIRECTORY)
+        BoxStore.deleteAllFiles(testDirectory)
     }
 
 }

@@ -67,7 +67,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
             }
         }
 
-        if(item.recipePhotoUrl?.contains("freezdge",true)!!){
+        if(item.recipePhotoUrl?.contains("freezdge",true)==true){
             val storage = FirebaseStorage.getInstance()
             // Create a reference to a file from a Google Cloud Storage URI
             val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
@@ -77,7 +77,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }
 
         // We detect if the recipe is in our favourite and update UI according to
-        if(item.recipeId?.let { isRecipeIdIsPresent(it) }!!){
+        if(item.recipeId?.let { isRecipeIdIsPresent(it) }==true){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -91,7 +91,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
         imageItem.setImageDrawable(null)
     }
 
-    private fun isRecipeIdIsPresent(recipeId:String):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String):Boolean {
         val favouritesRecipes: FavouritesRecipes? =
             App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
                 .query().equal(FavouritesRecipes_.recipeId, recipeId)

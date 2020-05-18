@@ -59,11 +59,11 @@ class MyUploadService : Service() {
             //File from internal
             val storageDir: File? = App.applicationContext()
                 .getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val mFileName = "/" + fileExternal!!.name
+            val mFileName = "/" + fileExternal?.name
             val fileInternal = File(storageDir, mFileName) //file internal
             if (fileInternal.exists()) {
                 photoRef?.let { documentId?.let { it1 -> uploadInternalFile(it, fileUri, it1,type) } }
-            } else if (fileExternal.exists()) {
+            } else if (fileExternal?.exists()==true) {
                 photoRef?.let { documentId?.let { it1 ->
                     uploadExternalFile(it, fileExternal,
                         it1,type)
@@ -103,7 +103,7 @@ class MyUploadService : Service() {
 
     private fun uploadExternalFile(
         photoRef: StorageReference,
-        externalFile: File,
+        externalFile: File?,
         documentId: String,
         type: String
     ) {

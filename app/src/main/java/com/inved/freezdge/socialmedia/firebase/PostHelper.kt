@@ -57,30 +57,30 @@ class PostHelper {
         // --- UPDATE ---
         fun updateTitleAstuce(
             titleAstuce: String?,
-            postId: String
+            postId: String?
         ): Task<Void?>? {
-            return getPostCollection().document(postId).update("titleAstuce", titleAstuce)
+            return postId?.let { getPostCollection().document(it).update("titleAstuce", titleAstuce) }
         }
 
         fun updateDescriptionAstuce(
             descriptionAstuce: String?,
-            postId: String
+            postId: String?
         ): Task<Void?>? {
-            return getPostCollection().document(postId).update("descriptionAstuce", descriptionAstuce)
+            return postId?.let { getPostCollection().document(it).update("descriptionAstuce", descriptionAstuce) }
         }
 
         fun updatePhotoUrl(
             urlPhoto: String?,
-            postId: String
+            postId: String?
         ): Task<Void?>? {
-            return getPostCollection().document(postId).update("urlPhoto", urlPhoto)
+            return postId?.let { getPostCollection().document(it).update("urlPhoto", urlPhoto) }
         }
 
         fun updateLikeNumber(
             likeNumber: Int?,
-            postId: String
+            postId: String?
         ): Task<Void?>? {
-            return getPostCollection().document(postId).update("likeNumber", likeNumber)
+            return postId?.let { getPostCollection().document(it).update("likeNumber", likeNumber) }
         }
 
 

@@ -60,9 +60,9 @@ open class RecipeDetailActivity : BaseActivity() {
 
         expandableListView?.setOnGroupExpandListener {
             var height = 0
-            for (i in 0 until expandableListView!!.childCount) {
-                height += expandableListView!!.getChildAt(i).measuredHeight
-                height += expandableListView!!.dividerHeight
+            for (i in 0 until expandableListView?.childCount!!) {
+                height += expandableListView?.getChildAt(i)?.measuredHeight!!
+                height += expandableListView?.dividerHeight!!
             }
             expandableListView?.layoutParams?.height = (height + 6) * 10
         }
@@ -101,10 +101,10 @@ open class RecipeDetailActivity : BaseActivity() {
         )
         recipeTotalTime.text =
             getString(R.string.recipe_detail_item_total_time, recipe.totalrecipeTime)
-        val kcal: String = if (recipe.recipeCalories?.isEmpty()!!) {
+        val kcal: String? = if (recipe.recipeCalories?.isEmpty()==true) {
             getString(R.string.recipe_list_item_kcal_notknow)
         } else {
-            recipe.recipeCalories!!
+            recipe.recipeCalories
         }
         recipeKcal.text = getString(R.string.recipe_detail_item_kcal, kcal)
         recipeNumberPerson.text =

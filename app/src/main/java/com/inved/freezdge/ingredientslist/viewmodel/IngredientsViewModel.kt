@@ -40,11 +40,11 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
         return ingredientsRepository.getAllIngredientsByTypeId(typeIngredient)
     }
 
-    fun isIngredientSelected(name: String?): Boolean {
+    fun isIngredientSelected(name: String?): Boolean? {
         return ingredientsRepository.isIngredientSelected(name)
     }
 
-    fun isIngredientSelectedInGrocery(name: String?): Boolean {
+    fun isIngredientSelectedInGrocery(name: String?): Boolean? {
         return ingredientsRepository.isIngredientSelectedInGrocery(name)
     }
 

@@ -44,7 +44,7 @@ class PreviewPhotoDialog : DialogFragment() {
         mContext = App.applicationContext()
 
         profilPhoto = view.findViewById(R.id.your_image)
-        val postImage = arguments?.getString(KEY_PREVIEW, null)!!
+        val postImage = arguments?.getString(KEY_PREVIEW, null)
 
         fillDialog(postImage)
         return view

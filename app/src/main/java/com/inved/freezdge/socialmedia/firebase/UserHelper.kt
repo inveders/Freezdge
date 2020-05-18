@@ -43,23 +43,23 @@ class UserHelper {
         // --- UPDATE ---
         fun updateFirstname(
             firstname: String?,
-            uid: String
+            uid: String?
         ): Task<Void?>? {
-            return getUsersCollection()?.document(uid)?.update("firstname", firstname)
+            return uid?.let { getUsersCollection()?.document(it)?.update("firstname", firstname) }
         }
 
         fun updateLastname(
             lastname: String?,
-            uid: String
+            uid: String?
         ): Task<Void?>? {
-            return getUsersCollection()?.document(uid)?.update("lastname", lastname)
+            return uid?.let { getUsersCollection()?.document(it)?.update("lastname", lastname) }
         }
 
         fun updatePhotoUrl(
             photoUrl: String?,
-            uid: String
+            uid: String?
         ): Task<Void?>? {
-            return getUsersCollection()?.document(uid)?.update("photoUrl", photoUrl)
+            return uid?.let { getUsersCollection()?.document(it)?.update("photoUrl", photoUrl) }
         }
     }
 

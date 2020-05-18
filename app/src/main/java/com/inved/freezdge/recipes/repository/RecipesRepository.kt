@@ -10,7 +10,7 @@ import com.inved.freezdge.utils.AddRecipesInDatabase
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
 
-class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
+class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
 
     private val appKEY: String = BuildConfig.APP_KEY_RECIPES
     private val appID: String = BuildConfig.APP_ID_RECIPES
@@ -18,18 +18,18 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
     private var client: RecipesApi = RetrofitServiceRecipes.webservice
 
     // retrofit call to retrieve recipes wich contains given ingredient
-    suspend fun getRecipesLiveData(ingredient: String) = client.getRecipes(ingredient, appID, appKEY)
+    suspend fun getRecipesLiveData(ingredient: String?) = client.getRecipes(ingredient, appID, appKEY)
 
     // get one specific recipe from our database
     fun getRecipeLiveDataById(id:Long): Recipes? {
         // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-        return getRecipesBox.query().equal(Recipes_.id,id).build().findUnique()
+        return getRecipesBox?.query()?.equal(Recipes_.id,id)?.build()?.findUnique()
     }
 
     // in database, get recipes wich contains  given ingredient name
     fun getRecipeIfContainIngredient(ingredientName: String): ObjectBoxLiveData<Recipes>  {
         return ObjectBoxLiveData(
-            getRecipesBox.query().contains(Recipes_.recipeIngredients,ingredientName).build())
+            getRecipesBox?.query()?.contains(Recipes_.recipeIngredients,ingredientName)?.build())
     }
 
     // insert in database all recipes of mine
@@ -39,19 +39,19 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>) {
 
     // delete all recipes in the database and inert again (only if there is an update of the database)
     fun deleteAllRecipesInBox() {
-        getRecipesBox.removeAll()
+        getRecipesBox?.removeAll()
         insertRecipesInDatabase()
     }
 
     // count all recipes in the database
-    fun countRecipesInBox():Long {
-        return getRecipesBox.count()
+    fun countRecipesInBox():Long? {
+        return getRecipesBox?.count()
     }
 
     // put in the sharedPreferences the number of recipes in the database
     fun updateSharedPref(){
         val editor = BaseFragment.sharedPref.edit()
-        editor.putLong(BaseFragment.PREF_NAME, getRecipesBox.count())
+        getRecipesBox?.count()?.let { editor.putLong(BaseFragment.PREF_NAME, it) }
         editor.apply()
     }
 

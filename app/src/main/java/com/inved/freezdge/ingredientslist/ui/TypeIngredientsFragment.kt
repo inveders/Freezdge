@@ -100,7 +100,7 @@ class TypeIngredientsFragment : Fragment() {
         var count = 0
         if (list.size != 0) {
             list.forEach {
-                if (it.name!!.toLowerCase(Locale.ROOT).contains(search)) {
+                if (it.name?.toLowerCase(Locale.ROOT)?.contains(search)==true) {
                     foodSearchItemAdapter.add(it)
                     count = count.plus(1)
                 }
@@ -153,14 +153,14 @@ class TypeIngredientsFragment : Fragment() {
             { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
                 v?.let {
                     val bool: Boolean? = ingredientViewmodel.isIngredientSelected(item.name)
-                    if (bool!!) {
+                    if (bool==true) {
                         item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
                     } else {
                         item.getViewHolder(v).imageSelection.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
                     }
                     GlobalScope.launch(Dispatchers.IO) {
                         ingredientViewmodel.updateIngredient(item)
-                        if (ingredientViewmodel.isIngredientSelectedInGrocery(item.name)) {
+                        if (ingredientViewmodel.isIngredientSelectedInGrocery(item.name)==true) {
                             ingredientViewmodel.updateIngredientSelectedForGroceryByName(
                                 item.name,
                                 false

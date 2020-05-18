@@ -37,14 +37,15 @@ class ProfileDialog : DialogFragment() {
         //final values
         private const val REQUEST_CAMERA_PHOTO = 457
         private const val REQUEST_GALLERY_PHOTO = 458
-        private var photoListener:ChangePhotoListener?=null
+        private var photoListener: ChangePhotoListener? = null
         fun setChangePhotoListener(callback: ChangePhotoListener) {
             this.photoListener = callback
         }
+
         //final values
         const val TAG = "PROFIL"
         private const val KEY_PROFIL = "profil"
-        private lateinit var uid: String
+        private var uid: String? = null
 
         //To pass args to our dialog
         @JvmStatic
@@ -70,7 +71,7 @@ class ProfileDialog : DialogFragment() {
     private var cancelSearchButton: ImageButton? = null
     private var mPhotoFile: File? = null
     private lateinit var mContext: Context
-    var domain=Domain()
+    var domain = Domain()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +81,7 @@ class ProfileDialog : DialogFragment() {
         val view: View =
             inflater.inflate(R.layout.dialog_update_profile, container, false)
         mContext = App.applicationContext()
-        uid = FirebaseAuth.getInstance().currentUser?.uid!!
+        uid = FirebaseAuth.getInstance().currentUser?.uid
         imageCameraOrGallery = ImageCameraOrGallery()
         profilPhoto = view.findViewById(R.id.profil_photo)
         changePhotoText =
@@ -112,24 +113,25 @@ class ProfileDialog : DialogFragment() {
     private fun fillDialog() {
         UserHelper.getUser(uid)?.get()?.addOnCompleteListener { task ->
             if (task.result != null) {
-                if (task.result?.documents!!.isNotEmpty()) {
+                if (task.result?.documents?.isNotEmpty() == true) {
 
-                    val user: User =
-                        task.result!!.documents[0].toObject(User::class.java)!!
+                    val user: User? =
+                        task.result!!.documents[0].toObject(User::class.java)
 
-                    firstnameEditText?.setText(user.firstname)
-                    lastnameEditText?.setText(user.lastname)
+                    firstnameEditText?.setText(user?.firstname)
+                    lastnameEditText?.setText(user?.lastname)
 
                     //to upload a photo on Firebase storage
-                    if (user.photoUrl != null) {
+                    if (user?.photoUrl != null) {
                         urlPicture = user.photoUrl
                     }
-                    GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, profilPhoto)
+                    GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, profilPhoto)
                 }
             }
         }?.addOnFailureListener {
         }
     }
+
     //Check photo before update profile (after click on validate button)
     private fun updateProfile() {
         if (firstnameEditText?.text.toString().isEmpty()) {
@@ -292,7 +294,7 @@ class ProfileDialog : DialogFragment() {
     private fun showImageInCircle(photoStringFromRoom: String?) {
         val fileUri = Uri.parse(photoStringFromRoom)
         if (fileUri.path != null) {
-            GlideUtils.loadPhotoWithGlideCircleCropUrl(photoStringFromRoom,profilPhoto)
+            GlideUtils.loadPhotoWithGlideCircleCropUrl(photoStringFromRoom, profilPhoto)
         }
     }
 
@@ -306,7 +308,7 @@ class ProfileDialog : DialogFragment() {
         results: IntArray
     ) {
         // Java: "MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, rc, results);"
-         this.onRequestPermissionsResult(rc, results)
+        this.onRequestPermissionsResult(rc, results)
     }
 
 }

@@ -3,7 +3,7 @@ package com.inved.freezdge.utils
 import com.inved.freezdge.recipes.database.Recipes
 import io.objectbox.Box
 
-class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
+class AddRecipesInDatabase(var recipeBox: Box<Recipes>?) {
 
     init {
         addRecipes()
@@ -12,8 +12,8 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
 
     private fun addRecipes() {
 
-        if (recipeBox.isEmpty) {
-            recipeBox.put(
+        if (recipeBox?.isEmpty==true) {
+            recipeBox?.put(
                 Recipes(
                     recipeTitle = "Burger et frites de patate douce",
                     recipeCalories = "",
@@ -44,7 +44,7 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
                 )
             )
 
-            recipeBox.put(
+            recipeBox?.put(
                 Recipes(
                     recipeTitle = "Poulet yassa",
                     recipeCalories = "",
@@ -76,7 +76,7 @@ class AddRecipesInDatabase(var recipeBox: Box<Recipes>) {
             )
 
 
-            recipeBox.put(
+            recipeBox?.put(
                 Recipes(
                     recipeTitle = "Bar à l’africaine",
                     recipeCalories = "",

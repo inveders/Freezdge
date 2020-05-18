@@ -84,18 +84,18 @@ class MainActivity : BaseActivity(), LoaderListener {
         UserHelper.getUser(FirebaseAuth.getInstance().currentUser?.uid)?.get()
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
+                    if (task.result?.documents?.isNotEmpty()==true) {
 
                         val imageHeader: ImageView = navigationView.findViewById(id.nav_header_profile_image)
                         val firstnameHeader:TextView = navigationView.findViewById(id.nav_header_FirstName)
 
-                        val user: User =
-                            task.result!!.documents[0].toObject(User::class.java)!!
+                        val user: User? =
+                            task.result!!.documents[0].toObject(User::class.java)
 
-                        firstnameHeader.text = user.firstname
+                        firstnameHeader.text = user?.firstname
 
                         //to show a photo from Firebase storage
-                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, imageHeader)
+                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, imageHeader)
                         hideLoader()
                     }
                 }
@@ -139,7 +139,7 @@ class MainActivity : BaseActivity(), LoaderListener {
     }
 
     override fun onBackPressed() {
-        if (drawerLayout?.isDrawerOpen(GravityCompat.START)!!) {
+        if (drawerLayout?.isDrawerOpen(GravityCompat.START)==true) {
             drawerLayout?.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()

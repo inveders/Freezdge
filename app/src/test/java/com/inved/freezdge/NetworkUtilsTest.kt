@@ -49,7 +49,7 @@ open class NetworkUtilsTest {
             true,
             NetworkInfo.State.CONNECTED
         )
-        shadowConnectivityManager!!.setActiveNetworkInfo(networkInfo)
+        shadowConnectivityManager?.setActiveNetworkInfo(networkInfo)
 
         Assert.assertTrue(NetworkUtils.isNetworkAvailable(RuntimeEnvironment.systemContext))
 
@@ -69,7 +69,7 @@ open class NetworkUtilsTest {
             false,
             NetworkInfo.State.DISCONNECTED
         )
-        shadowConnectivityManager!!.setActiveNetworkInfo(networkInfo)
+        shadowConnectivityManager?.setActiveNetworkInfo(networkInfo)
 
 
         Assert.assertFalse(NetworkUtils.isNetworkAvailable(RuntimeEnvironment.systemContext))

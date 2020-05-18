@@ -3,7 +3,6 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -139,7 +138,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun insertRecipes() {
-        if (recipeViewModel.countAllRecipesInDatabase().toInt()==0) {
+        if (recipeViewModel.countAllRecipesInDatabase().toInt() == 0) {
             recipeViewModel.insertRecipesInDatabase()
             recipeViewModel.updateSharedPref()
         } else if (recipeViewModel.countAllRecipesInDatabase() != sharedPref.getLong(
@@ -187,13 +186,11 @@ abstract class BaseFragment : Fragment() {
                 v?.let {
                     val url: String? = item.recipeUrl
                     openWebViewActivity(url)
-
-                    if (item.recipePhotoUrl?.contains("freezdge", true)!!) {
-                        val id: Long = item.recipeId!!.toLong()
+                    if (item.recipePhotoUrl.let { it?.contains("freezdge", true)==true }) {
+                        val id: Long? = item.recipeId?.toLong()
                         openRecipeDetailActivity(id)
-
                     } else {
-                        val urlRetrofit: String = item.recipeUrl!!
+                        val urlRetrofit: String? = item.recipeUrl
                         openWebViewActivity(urlRetrofit)
                     }
                 }
@@ -212,7 +209,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    private fun openRecipeDetailActivity(id: Long) {
+    private fun openRecipeDetailActivity(id: Long?) {
         let {
             val intent = Intent(activity, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_ID", id)
@@ -238,7 +235,7 @@ abstract class BaseFragment : Fragment() {
             }
             getForegroundFragment() is MyRecipesFragment -> run {
                 setupFavouriteRecipeRecyclerView()
-                    getFavouritesRecipes()
+                getFavouritesRecipes()
             }
         }
     }
@@ -263,7 +260,7 @@ abstract class BaseFragment : Fragment() {
                         notFoundTeextView.visibility = View.VISIBLE
                         notFoundImageView.visibility = View.VISIBLE
                         floatingActionButton.hide()
-                        numberRecipesTextview.visibility=View.GONE
+                        numberRecipesTextview.visibility = View.GONE
                         notFoundTeextView.text = getString(R.string.no_item_found_favourite)
                     }
                 }
@@ -280,14 +277,14 @@ abstract class BaseFragment : Fragment() {
         if (setlistRetrofit.isNullOrEmpty()) {
             val result: MutableList<Ingredients> =
                 ingredientsViewmodel.getIngredientsForFreezdgeList()
-            if(result.size!=0){
+            if (result.size != 0) {
                 recipeViewModel.getDatabaseRecipes(result)
                     ?.observe(viewLifecycleOwner, Observer { result2 ->
                         if (result2.isNullOrEmpty()) {
                             notFoundTeextView.visibility = View.VISIBLE
                             notFoundTeextView.text =
                                 getString(R.string.no_recipes_found)
-                            numberRecipesTextview.visibility=View.GONE
+                            numberRecipesTextview.visibility = View.GONE
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
@@ -302,7 +299,7 @@ abstract class BaseFragment : Fragment() {
                             notFoundTeextView.visibility = View.VISIBLE
                             notFoundTeextView.text =
                                 getString(R.string.no_recipes_found)
-                            numberRecipesTextview.visibility=View.GONE
+                            numberRecipesTextview.visibility = View.GONE
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
@@ -311,11 +308,11 @@ abstract class BaseFragment : Fragment() {
                             fillAdapterRetrofit(result3)
                         }
                     })
-            }else{
+            } else {
                 notFoundTeextView.visibility = View.VISIBLE
                 notFoundTeextView.text =
                     getString(R.string.no_item_found_recipes)
-                numberRecipesTextview.visibility=View.GONE
+                numberRecipesTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()
             }
@@ -368,7 +365,7 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.dishType?.get(0)
                 )
 
-                if(!item.recipe?.uri.isNullOrEmpty()){
+                if (!item.recipe?.uri.isNullOrEmpty()) {
                     val bool: Boolean? = item.recipe?.uri?.let {
                         favouriteRecipesViewmodel.isRecipeIdIsPresent(
                             it
@@ -379,11 +376,11 @@ abstract class BaseFragment : Fragment() {
                         delay(500)
                         domain.correspondanceCalculForGrocery(
                             item.recipe?.ingredientLines.toString(),
-                            bool!!
+                            bool
                         )
                     }
 
-                    if (bool!!) {
+                    if (bool == true) {
                         view.let { it1 ->
                             it1?.let {
                                 item.getViewHolder(it).imageFavourite.setImageResource(
@@ -423,7 +420,7 @@ abstract class BaseFragment : Fragment() {
                     item.dishType
                 )
 
-                val bool: Boolean =
+                val bool: Boolean? =
                     item.id.let {
                         it.let { it1 ->
                             favouriteRecipesViewmodel.isRecipeIdIsPresent(
@@ -442,7 +439,7 @@ abstract class BaseFragment : Fragment() {
                     }
                 }
 
-                if (bool) {
+                if (bool == true) {
                     view.let { it1 ->
                         it1?.let {
                             item.getViewHolder(it).imageFavourite.setImageResource(
@@ -479,15 +476,20 @@ abstract class BaseFragment : Fragment() {
                 item.cuisineType, item.dishType
             )
 
-            val bool: Boolean =
-                item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
+            val bool: Boolean? = item.recipeId.let {
+                it?.let { it1 ->
+                    favouriteRecipesViewmodel.isRecipeIdIsPresent(
+                        it1
+                    )
+                }
+            }
 
             GlobalScope.launch(Dispatchers.IO) {
                 delay(500)
-                item.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, bool!!) }
+                item.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, bool) }
             }
 
-            if (bool) {
+            if (bool == true) {
                 view.let { it1 ->
                     it1?.let {
                         item.getViewHolder(it).imageFavourite.setImageResource(
@@ -514,10 +516,11 @@ abstract class BaseFragment : Fragment() {
     private fun recipesNumber() {
         numberRecipesTextview.visibility = View.VISIBLE
         recipesNumberSize = setlistDatabase.size + setlistRetrofit.size
-        if(recipesNumberSize!=1){
+        if (recipesNumberSize != 1) {
             numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
-        }else{
-            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesNumberSize)
+        } else {
+            numberRecipesTextview.text =
+                getString(R.string.recipe_list_number_one, recipesNumberSize)
         }
     }
 
@@ -525,16 +528,14 @@ abstract class BaseFragment : Fragment() {
     private fun favouritesRecipesNumber() {
         numberRecipesTextview.visibility = View.VISIBLE
         recipesFavouritesNumberSize = setFavouriteList.size
-        if(recipesFavouritesNumberSize!=1){
-            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesFavouritesNumberSize)
-        }else{
-            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
+        if (recipesFavouritesNumberSize != 1) {
+            numberRecipesTextview.text =
+                getString(R.string.recipe_list_number, recipesFavouritesNumberSize)
+        } else {
+            numberRecipesTextview.text =
+                getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
         }
     }
-
-  /*  private fun secondFavouriteRecipesNumber(){
-        numberRecipesTextview.text = getString(R.string.recipe_list_number_one, favouriteRecipesViewmodel.countAllFavouritesRecipes())
-    }*/
 
 }
 

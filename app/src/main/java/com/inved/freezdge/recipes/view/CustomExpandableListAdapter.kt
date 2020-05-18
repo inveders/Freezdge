@@ -63,7 +63,7 @@ class CustomExpandableListAdapter(
 
         }
 
-        val parentTextvew = convertView!!.findViewById(R.id.listTitle) as TextView
+        val parentTextvew = convertView?.findViewById(R.id.listTitle) as TextView
         parentTextvew.text = _listDataHeader[parent]
         return convertView
     }

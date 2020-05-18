@@ -65,7 +65,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipe?.image,imageItem)
 
         // We detect if the recipe is in our favourite and update UI according to
-        if(isRecipeIdIsPresent(item.recipe?.uri)!!){
+        if(isRecipeIdIsPresent(item.recipe?.uri)){
             imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
@@ -81,7 +81,7 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         imageItem.setImageDrawable(null)
     }
 
-    private fun isRecipeIdIsPresent(recipeId:String?):Boolean? {
+    private fun isRecipeIdIsPresent(recipeId:String?):Boolean {
 
         return if(recipeId!=null){
             val favouritesRecipes: FavouritesRecipes? =

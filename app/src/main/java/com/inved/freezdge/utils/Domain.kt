@@ -140,7 +140,7 @@ class Domain {
     fun retrieveListFromString(input: String?): List<String> {
         return ArrayList(
             listOf(
-                *input!!.split(",").toTypedArray()
+                *input?.split(",")!!.toTypedArray()
             )
         )
     }
@@ -182,13 +182,13 @@ class Domain {
 
         for (i in getAllIngredientBySelected()) {
             var count = 0
-            if (i.name?.let { input?.contains(it, true) }!!) {
+            if (i.name?.let { input?.contains(it, true) }==true) {
                 nbIngredientInFridge = nbIngredientInFridge.plus(1)
                 count = count.plus(1)
             }
 
             if (count == 0) {
-                if (i.nameEnglish?.let { input?.contains(it, true) }!!) {
+                if (i.nameEnglish?.let { input?.contains(it, true) }==true) {
                     nbIngredientInFridge = nbIngredientInFridge.plus(1)
                 }
             }
@@ -202,18 +202,28 @@ class Domain {
     }
 
     // find wich ingredients are in recipes and not in my fridge and add them to the grocery list
-    fun correspondanceCalculForGrocery(input: String, isFavouriteAdd: Boolean) {
+    fun correspondanceCalculForGrocery(input: String, isFavouriteAdd: Boolean?) {
 
         for (i in getAllIngredientNotSelected()) {
             var count = 0
-            if (i.name?.let { input.contains(it, true) }!!) {
-                updateItemForGroceryList(i.name!!, isFavouriteAdd, i.nameEnglish!!)
+            if (i.name?.let { input.contains(it, true) }==true) {
+                isFavouriteAdd?.let { i.name?.let { it1 -> i.nameEnglish?.let { it2 ->
+                    updateItemForGroceryList(it1, it,
+                        it2
+                    )
+                } } }
                 count = count.plus(1)
             }
 
             if (count == 0) {
-                if (i.nameEnglish?.let { input.contains(it, true) }!!) {
-                    updateItemForGroceryList(i.name!!, isFavouriteAdd, i.nameEnglish!!)
+                if (i.nameEnglish?.let { input.contains(it, true) }==true) {
+                    isFavouriteAdd?.let { i.name?.let { it1 ->
+                        i.nameEnglish?.let { it2 ->
+                            updateItemForGroceryList(
+                                it1, it, it2
+                            )
+                        }
+                    } }
                 }
             }
 
@@ -264,7 +274,6 @@ class Domain {
 
     }
 
-
     // for each recipes in favourite database, check if the given ingredient is contained in, if yes add it in the grocery list
     private fun isIngredientPresentInFavoriteRecipeUpdateGrocery(
         ingredientNameFrench: String,
@@ -273,12 +282,12 @@ class Domain {
 
         for (i in App.ObjectBox.boxStore.boxFor<FavouritesRecipes>().query()
             .order(FavouritesRecipes_.id).build().find()) {
-            if (i.recipeIngredients?.contains(ingredientNameFrench, true)!!) {
+            if (i.recipeIngredients?.contains(ingredientNameFrench, true)==true) {
 
                 updateItemForGroceryList(ingredientNameFrench, true, ingredientNameEnglish)
             }
 
-            if (i.recipeIngredients?.contains(ingredientNameEnglish, true)!!) {
+            if (i.recipeIngredients?.contains(ingredientNameEnglish, true)==true) {
 
                 updateItemForGroceryList(ingredientNameFrench, true, ingredientNameEnglish)
             }

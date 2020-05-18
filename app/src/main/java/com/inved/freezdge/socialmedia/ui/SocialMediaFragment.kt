@@ -92,14 +92,14 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         UserHelper.getUser(FirebaseAuth.getInstance().currentUser?.uid)?.get()
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
-                    if (task.result!!.documents.isNotEmpty()) {
-                        val user: User =
-                            task.result!!.documents[0].toObject(User::class.java)!!
+                    if (task.result?.documents?.isNotEmpty()==true) {
+                        val user: User? =
+                            task.result!!.documents[0].toObject(User::class.java)
                         topDescription.text =
                             App.resource()
-                                .getString(R.string.social_media_description, user.firstname)
+                                .getString(R.string.social_media_description, user?.firstname)
                         //to show photo from Firebase storage or url. If photo is not from google, it's also from firebase
-                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user.photoUrl, photoProfile)
+                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, photoProfile)
                         hideLoader()
                     }
                 }
@@ -141,7 +141,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
             onClickAddTips(0, "")
         }
         photoProfile.setOnClickListener { onClickUpdateProfil() }
-        mSwipeRefreshLayout!!.setOnRefreshListener {
+        mSwipeRefreshLayout?.setOnRefreshListener {
             mSwipeRefreshLayout?.isRefreshing = true
             //4second splash time
             Handler().postDelayed({

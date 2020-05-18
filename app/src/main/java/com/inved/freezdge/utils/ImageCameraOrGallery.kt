@@ -132,14 +132,15 @@ class ImageCameraOrGallery {
         val projection = arrayOf(
             column
         )
-        context.contentResolver.query(
-            uri!!, projection, selection, selectionArgs,
-            null
-        ).use { cursor ->
-            if (cursor != null && cursor.moveToFirst()) {
-                if (DEBUG) DatabaseUtils.dumpCursor(cursor)
-                val columnIndex = cursor.getColumnIndexOrThrow(column)
-                return cursor.getString(columnIndex)
+        uri?.let {
+            context.contentResolver.query(
+                it, projection, selection, selectionArgs,
+                null
+            ).use { cursor ->
+                if (cursor != null && cursor.moveToFirst()) {
+                    val columnIndex = cursor.getColumnIndexOrThrow(column)
+                    return cursor.getString(columnIndex)
+                }
             }
         }
         return null

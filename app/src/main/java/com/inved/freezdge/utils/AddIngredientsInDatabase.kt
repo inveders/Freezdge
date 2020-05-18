@@ -3,7 +3,7 @@ package com.inved.freezdge.utils
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import io.objectbox.Box
 
-class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
+class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>?) {
 
     init {
         addIngredients()
@@ -12,8 +12,8 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
 
     private fun addIngredients() {
 
-        if (ingredientsBox.isEmpty) {
-            ingredientsBox.put(
+        if (ingredientsBox?.isEmpty==true) {
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Beurre",
                     nameEnglish = "Butter",
@@ -22,7 +22,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Blancs d'oeuf",
                     nameEnglish = "Egg whites",
@@ -31,7 +31,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Brie",
                     nameEnglish = "Brie cheese",
@@ -40,7 +40,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Camembert",
                     nameEnglish = "Camembert",
@@ -49,7 +49,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cheddar",
                     nameEnglish = "Cheddar cheese",
@@ -58,7 +58,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chèvre en buche",
                     nameEnglish = "Goat cheese",
@@ -67,7 +67,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chèvre frais",
                     nameEnglish = "Fresh goat",
@@ -76,7 +76,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Crème de soja",
                     nameEnglish = "Soya cream",
@@ -85,7 +85,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Crème fraiche",
                     nameEnglish = "Cream",
@@ -94,7 +94,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Crème liquide",
                     nameEnglish = "Cream",
@@ -103,7 +103,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Curé nantais",
                     nameEnglish = "Cure cheese",
@@ -112,7 +112,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Emmental",
                     nameEnglish = "Emmental",
@@ -121,7 +121,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Faisselle",
                     nameEnglish = "Fiscella",
@@ -130,7 +130,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Feta",
                     nameEnglish = "Feta cheese",
@@ -139,7 +139,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fromage à raclette",
                     nameEnglish = "Raclette cheese",
@@ -148,7 +148,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fromage à tartiner",
                     nameEnglish = "Cheese spread",
@@ -157,7 +157,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fromage blanc",
                     nameEnglish = "White cheese",
@@ -166,7 +166,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Gouda",
                     nameEnglish = "Gouda",
@@ -175,7 +175,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Gruyère",
                     nameEnglish = "Gruyère cheese",
@@ -184,7 +184,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lait",
                     nameEnglish = "Milk",
@@ -193,7 +193,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lait de soja",
                     nameEnglish = "Soya milk",
@@ -202,7 +202,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Margarine",
                     nameEnglish = "Margarine",
@@ -211,7 +211,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mascarpone",
                     nameEnglish = "Mascarpone",
@@ -220,7 +220,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mimolette",
                     nameEnglish = "Mimolette",
@@ -229,7 +229,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mozzarella",
                     nameEnglish = "Mozzarella",
@@ -238,7 +238,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Oeuf",
                     nameEnglish = "Egg",
@@ -247,7 +247,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Oeuf de caille",
                     nameEnglish = "Quail egg",
@@ -256,7 +256,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Parmesan",
                     nameEnglish = "Parmesan",
@@ -265,7 +265,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Petits suisses",
                     nameEnglish = "Little swiss",
@@ -274,7 +274,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pont l'Evêque",
                     nameEnglish = "cheese",
@@ -283,7 +283,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ricotta",
                     nameEnglish = "Ricotta",
@@ -292,7 +292,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Roquefort",
                     nameEnglish = "Roquefort",
@@ -301,7 +301,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tofu",
                     nameEnglish = "Tofu",
@@ -310,7 +310,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Yaourt de brebis",
                     nameEnglish = "Sheep yoghurt",
@@ -319,7 +319,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Yaourt de chèvre",
                     nameEnglish = "Goat yoghurt",
@@ -328,7 +328,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Yaourt de soja",
                     nameEnglish = "Soy yoghurt",
@@ -337,7 +337,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Yaourt nature",
                     nameEnglish = "Plain yoghurt",
@@ -348,7 +348,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
 
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Abricot",
                     nameEnglish = "Apricot",
@@ -357,7 +357,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Algue nori",
                     nameEnglish = "Nori seaweed",
@@ -366,7 +366,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Amandes",
                     nameEnglish = "Almond",
@@ -375,7 +375,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ananas",
                     nameEnglish = "Pineapple",
@@ -384,7 +384,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Artichaut",
                     nameEnglish = "Artichoke",
@@ -393,7 +393,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Asperges blanches",
                     nameEnglish = "White asparagus",
@@ -402,7 +402,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Asperges vertes",
                     nameEnglish = "Green asparagus",
@@ -411,7 +411,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Aubergine",
                     nameEnglish = "Eggplant",
@@ -420,7 +420,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Avocat",
                     nameEnglish = "Avocado",
@@ -429,7 +429,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Banane",
                     nameEnglish = "Banana",
@@ -438,7 +438,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Banane plantain",
                     nameEnglish = "Plantain",
@@ -447,7 +447,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Basilic",
                     nameEnglish = "Basil",
@@ -456,7 +456,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Betterave",
                     nameEnglish = "Beet",
@@ -465,7 +465,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Blettes",
                     nameEnglish = "Swiss chard",
@@ -474,7 +474,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Brocoli",
                     nameEnglish = "Broccoli",
@@ -483,7 +483,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Butternut",
                     nameEnglish = "Butternut",
@@ -492,7 +492,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Carotte",
                     nameEnglish = "Carrot",
@@ -501,7 +501,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Céléri branche",
                     nameEnglish = "Celery",
@@ -510,7 +510,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Céléri rave",
                     nameEnglish = "Celery",
@@ -519,7 +519,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cêpes",
                     nameEnglish = "Cep",
@@ -528,7 +528,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cerfeuil",
                     nameEnglish = "Chervil",
@@ -537,7 +537,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cerises",
                     nameEnglish = "Cherry",
@@ -546,7 +546,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Champignons",
                     nameEnglish = "Mushroom",
@@ -555,7 +555,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Châtaignes",
                     nameEnglish = "Chestnut",
@@ -564,7 +564,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chou chinois",
                     nameEnglish = "Chinese cabbage",
@@ -573,7 +573,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chou kale",
                     nameEnglish = "Kale",
@@ -582,7 +582,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chou rouge",
                     nameEnglish = "Red cabbage",
@@ -591,7 +591,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chou vert",
                     nameEnglish = "Green cabbage",
@@ -600,7 +600,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chou romanesco",
                     nameEnglish = "Romanesco cabbage",
@@ -609,7 +609,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chou-fleur",
                     nameEnglish = "Cauliflower",
@@ -618,7 +618,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Choux de Bruxelles",
                     nameEnglish = "Brussels sprouts",
@@ -627,7 +627,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ciboulette",
                     nameEnglish = "Chives",
@@ -636,7 +636,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Citron",
                     nameEnglish = "Lemon",
@@ -645,7 +645,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Citrouille",
                     nameEnglish = "Pumpkin",
@@ -654,7 +654,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Clémentine",
                     nameEnglish = "Clementine",
@@ -663,7 +663,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Coco de Paimpol",
                     nameEnglish = "Coco beans",
@@ -672,7 +672,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Concombre",
                     nameEnglish = "Cucumber",
@@ -681,7 +681,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Coriandre",
                     nameEnglish = "Coriander",
@@ -690,7 +690,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Courge",
                     nameEnglish = "Squash",
@@ -699,7 +699,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Courgette",
                     nameEnglish = "Zucchini",
@@ -708,7 +708,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Datte",
                     nameEnglish = "Date",
@@ -717,7 +717,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Echalote",
                     nameEnglish = "Shallot",
@@ -726,7 +726,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Endive",
                     nameEnglish = "Endive",
@@ -735,7 +735,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Epinards en branches",
                     nameEnglish = "Spinach",
@@ -744,7 +744,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Epinards hachés",
                     nameEnglish = "Spinach",
@@ -754,7 +754,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                 )
             )
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Estragon",
                     nameEnglish = "Tarragon",
@@ -763,7 +763,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fanes de navet",
                     nameEnglish = "Turnip greens",
@@ -772,7 +772,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fenouil",
                     nameEnglish = "Fennel",
@@ -781,7 +781,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Feuilles de manioc",
                     nameEnglish = "Cassava leaves",
@@ -790,7 +790,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Figues fraiches",
                     nameEnglish = "Figs",
@@ -799,7 +799,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Figues séchées",
                     nameEnglish = "Figs",
@@ -808,7 +808,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Flageolets",
                     nameEnglish = "Flageolet",
@@ -817,7 +817,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fraises",
                     nameEnglish = "Strawberry",
@@ -826,7 +826,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Framboises",
                     nameEnglish = "Raspberries",
@@ -835,7 +835,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fruits de la passion",
                     nameEnglish = "Passion fruit",
@@ -844,7 +844,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Haricots beurre",
                     nameEnglish = "Wax beans",
@@ -853,7 +853,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Haricots blancs",
                     nameEnglish = "White beans",
@@ -862,7 +862,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Haricots rouges",
                     nameEnglish = "Kidney beans",
@@ -871,7 +871,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Haricots verts",
                     nameEnglish = "Green beans",
@@ -880,7 +880,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Herbes de Provence",
                     nameEnglish = "Provencal herbs",
@@ -889,7 +889,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Kiwi",
                     nameEnglish = "Kiwi",
@@ -898,7 +898,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Laitue",
                     nameEnglish = "Lettuce",
@@ -908,7 +908,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                 )
             )
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lentilles",
                     nameEnglish = "Lentil",
@@ -917,7 +917,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lentilles corail",
                     nameEnglish = "Coral lentils",
@@ -926,7 +926,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mache",
                     nameEnglish = "Lamb's lettuce",
@@ -935,7 +935,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mais",
                     nameEnglish = "Corn",
@@ -944,7 +944,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mangue",
                     nameEnglish = "Mango",
@@ -953,7 +953,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Melon",
                     nameEnglish = "Melon",
@@ -962,7 +962,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Menthe",
                     nameEnglish = "Mint",
@@ -971,7 +971,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Navets",
                     nameEnglish = "Turnips",
@@ -980,7 +980,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Nectarine",
                     nameEnglish = "Nectarine",
@@ -989,7 +989,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Noisette",
                     nameEnglish = "Nuts",
@@ -998,7 +998,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Noix",
                     nameEnglish = "Nuts",
@@ -1007,7 +1007,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Oignon",
                     nameEnglish = "Onion",
@@ -1016,7 +1016,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Orange",
                     nameEnglish = "Orange",
@@ -1025,7 +1025,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Origan",
                     nameEnglish = "Oregano",
@@ -1034,7 +1034,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pamplemousse",
                     nameEnglish = "Grapefruit",
@@ -1043,7 +1043,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Panais",
                     nameEnglish = "Parsnip",
@@ -1052,7 +1052,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Papaye",
                     nameEnglish = "Papaya",
@@ -1061,7 +1061,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pastèque",
                     nameEnglish = "Watermelon",
@@ -1070,7 +1070,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Patate douce",
                     nameEnglish = "Sweet potato",
@@ -1079,7 +1079,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pêche",
                     nameEnglish = "Peach",
@@ -1088,7 +1088,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Persil",
                     nameEnglish = "Parsley",
@@ -1097,7 +1097,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Petits pois",
                     nameEnglish = "Green peas",
@@ -1106,7 +1106,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poireau",
                     nameEnglish = "Leeks",
@@ -1115,7 +1115,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poire",
                     nameEnglish = "Pear",
@@ -1124,7 +1124,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pois chiches",
                     nameEnglish = "Chickpeas",
@@ -1133,7 +1133,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poivron",
                     nameEnglish = "Peppers",
@@ -1142,7 +1142,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pomme",
                     nameEnglish = "Apple",
@@ -1151,7 +1151,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pommes de terre",
                     nameEnglish = "potato",
@@ -1160,7 +1160,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Potiron",
                     nameEnglish = "Pumpkin",
@@ -1169,7 +1169,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pruneau",
                     nameEnglish = "Plums",
@@ -1178,7 +1178,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Prune",
                     nameEnglish = "Plums",
@@ -1187,7 +1187,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Radis",
                     nameEnglish = "Radish",
@@ -1196,7 +1196,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Radis noir",
                     nameEnglish = "Black radish",
@@ -1205,7 +1205,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Raisin",
                     nameEnglish = "Grape",
@@ -1214,7 +1214,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Raisins secs",
                     nameEnglish = "Dried grapes",
@@ -1223,7 +1223,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ratatouille",
                     nameEnglish = "Ratatouille",
@@ -1232,7 +1232,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Roquette",
                     nameEnglish = "Butter",
@@ -1241,7 +1241,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Rutabaga",
                     nameEnglish = "Rutabaga",
@@ -1250,7 +1250,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Salade",
                     nameEnglish = "Salad",
@@ -1259,7 +1259,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Salsifi",
                     nameEnglish = "Salsify",
@@ -1268,7 +1268,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tomate",
                     nameEnglish = "Tomato",
@@ -1277,7 +1277,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tomates cerises",
                     nameEnglish = "Cherry tomato",
@@ -1286,7 +1286,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tomates concassées",
                     nameEnglish = "Chopped tomatoes",
@@ -1295,7 +1295,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tomates séchées",
                     nameEnglish = "Dried tomatoes",
@@ -1304,7 +1304,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Topinambours",
                     nameEnglish = "Jerusalem artichokes",
@@ -1316,7 +1316,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
 
 
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "4 épices",
                     nameEnglish = "Spices",
@@ -1325,7 +1325,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Abricots secs",
                     nameEnglish = "Dried apricot",
@@ -1334,7 +1334,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Agar agar",
                     nameEnglish = "Agar",
@@ -1343,7 +1343,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ail",
                     nameEnglish = "Garlic",
@@ -1352,7 +1352,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Amandes effilées",
                     nameEnglish = "Slivered almonds",
@@ -1361,7 +1361,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Amandes en poudre",
                     nameEnglish = "Powdered almonds",
@@ -1370,7 +1370,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Beurre de cacahuètes",
                     nameEnglish = "Peanut butter",
@@ -1379,7 +1379,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bière",
                     nameEnglish = "Beer",
@@ -1388,7 +1388,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Biscottes",
                     nameEnglish = "Rusk",
@@ -1397,7 +1397,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Biscuit",
                     nameEnglish = "Biscuit",
@@ -1406,7 +1406,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Blé",
                     nameEnglish = "Wheat",
@@ -1415,7 +1415,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bonbons",
                     nameEnglish = "Candy",
@@ -1424,7 +1424,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bouillon de boeuf",
                     nameEnglish = "Beef broth",
@@ -1433,7 +1433,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bouillon de légumes",
                     nameEnglish = "Vegetable broth",
@@ -1442,7 +1442,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bouillon de volaille",
                     nameEnglish = "poultry broth",
@@ -1451,7 +1451,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Boulgour",
                     nameEnglish = "Bulgur",
@@ -1460,7 +1460,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Brioche",
                     nameEnglish = "Brioche",
@@ -1469,7 +1469,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cacahuètes",
                     nameEnglish = "Peanut",
@@ -1478,7 +1478,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Câpres",
                     nameEnglish = "Capers",
@@ -1487,7 +1487,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Carambar",
                     nameEnglish = "Candy",
@@ -1496,7 +1496,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chips",
                     nameEnglish = "Crisp",
@@ -1505,7 +1505,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chocolat blanc",
                     nameEnglish = "White chocolate",
@@ -1514,7 +1514,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chocolat en poudre",
                     nameEnglish = "Chocolate powder",
@@ -1523,7 +1523,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chocolat en tablette",
                     nameEnglish = "Bar chocolate",
@@ -1532,7 +1532,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cidre",
                     nameEnglish = "Cider",
@@ -1541,7 +1541,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Compote",
                     nameEnglish = "Compote",
@@ -1550,7 +1550,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Concentré de tomates",
                     nameEnglish = "tomato",
@@ -1559,7 +1559,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Confiture",
                     nameEnglish = "Jam",
@@ -1568,7 +1568,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cookies",
                     nameEnglish = "Cookies",
@@ -1577,7 +1577,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Corn flakes",
                     nameEnglish = "Corn flakes",
@@ -1586,7 +1586,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cornichons",
                     nameEnglish = "Gherkin",
@@ -1595,7 +1595,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Craquelins",
                     nameEnglish = "Crackers",
@@ -1604,7 +1604,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Crêpes",
                     nameEnglish = "Pancakes",
@@ -1613,7 +1613,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Croissant",
                     nameEnglish = "Croissant",
@@ -1622,7 +1622,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Crozet",
                     nameEnglish = "Crozets",
@@ -1631,7 +1631,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cumin",
                     nameEnglish = "Cumin",
@@ -1640,7 +1640,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Curcuma",
                     nameEnglish = "Turmeric",
@@ -1649,7 +1649,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Curry",
                     nameEnglish = "Curry",
@@ -1658,7 +1658,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Daim",
                     nameEnglish = "Daim",
@@ -1667,7 +1667,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine",
                     nameEnglish = "Flour",
@@ -1676,7 +1676,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine d'épeautre",
                     nameEnglish = "Spelt flour",
@@ -1685,7 +1685,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine de blé noir",
                     nameEnglish = "Wheat flour",
@@ -1694,7 +1694,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine de châtaigne",
                     nameEnglish = "Chestnut flour",
@@ -1703,7 +1703,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine de coco",
                     nameEnglish = "Coconut flour",
@@ -1712,7 +1712,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine de lupin",
                     nameEnglish = "Lupin flour",
@@ -1721,7 +1721,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine de pois chiche",
                     nameEnglish = "Chickpea flour",
@@ -1730,7 +1730,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Farine de riz",
                     nameEnglish = "Rice flour",
@@ -1739,7 +1739,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Flocons d'avoine",
                     nameEnglish = "Oat flakes",
@@ -1748,7 +1748,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Fruits secs",
                     nameEnglish = "Dry fruits",
@@ -1757,7 +1757,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Galettes de blé mexicaine",
                     nameEnglish = "Tortilla",
@@ -1766,7 +1766,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Galettes de blé noir",
                     nameEnglish = "Buckwheat Crepe",
@@ -1775,7 +1775,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Galettes de riz",
                     nameEnglish = "Rice cake",
@@ -1784,7 +1784,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Garam massala",
                     nameEnglish = "Garam massala",
@@ -1793,7 +1793,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Gari",
                     nameEnglish = "Gari",
@@ -1802,7 +1802,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Gingembre en poudre",
                     nameEnglish = "ginger",
@@ -1811,7 +1811,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Gingembre frais",
                     nameEnglish = "ginger",
@@ -1820,7 +1820,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines de chia",
                     nameEnglish = "Chia seeds",
@@ -1829,7 +1829,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines de fenouil",
                     nameEnglish = "Fennel seed",
@@ -1838,7 +1838,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines de pavot",
                     nameEnglish = "Poppy seed",
@@ -1847,7 +1847,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines de sarrasin",
                     nameEnglish = "Buckwheat seeds",
@@ -1856,7 +1856,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines de sésame",
                     nameEnglish = "Sesame seeds",
@@ -1865,7 +1865,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines de tournesol",
                     nameEnglish = "Sunflower seeds",
@@ -1874,7 +1874,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Graines germées",
                     nameEnglish = "Germinated seed",
@@ -1883,7 +1883,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Guacamole",
                     nameEnglish = "Guacamole",
@@ -1892,7 +1892,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Harissa",
                     nameEnglish = "Harissa",
@@ -1901,7 +1901,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Huile d'olive",
                     nameEnglish = "Olive oil",
@@ -1910,7 +1910,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Huile de noix",
                     nameEnglish = "Nut oil",
@@ -1919,7 +1919,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Huile de sésame",
                     nameEnglish = "Sesame oil",
@@ -1928,7 +1928,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Jus de fruits",
                     nameEnglish = "Fruit juice",
@@ -1937,7 +1937,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ketchup",
                     nameEnglish = "Ketchup",
@@ -1946,7 +1946,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lait de coco",
                     nameEnglish = "Coconut milk",
@@ -1955,7 +1955,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lasagnes",
                     nameEnglish = "Lasagne",
@@ -1964,7 +1964,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Laurier",
                     nameEnglish = "Bay",
@@ -1973,7 +1973,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Levure",
                     nameEnglish = "Yeast",
@@ -1982,7 +1982,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lillet blanc",
                     nameEnglish = "Lillet",
@@ -1991,7 +1991,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lillet rosé",
                     nameEnglish = "Lillet",
@@ -2000,7 +2000,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Maizena",
                     nameEnglish = "Corn",
@@ -2009,7 +2009,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Mayonnaise",
                     nameEnglish = "Mayonnaise",
@@ -2018,7 +2018,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Miel",
                     nameEnglish = "Honey",
@@ -2027,7 +2027,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Miso",
                     nameEnglish = "Miso",
@@ -2036,7 +2036,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Moutarde",
                     nameEnglish = "Mustard",
@@ -2045,7 +2045,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Muesli",
                     nameEnglish = "Muesli",
@@ -2054,7 +2054,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Noix de cajou",
                     nameEnglish = "Cashew",
@@ -2063,7 +2063,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Noix de coco en poudre",
                     nameEnglish = "Powdered coconut",
@@ -2072,7 +2072,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Nouilles chinoises",
                     nameEnglish = "Chinese noodles",
@@ -2081,7 +2081,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Nouilles de riz",
                     nameEnglish = "Rice noodles",
@@ -2090,7 +2090,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Nuoc mam",
                     nameEnglish = "Nuoc mam",
@@ -2099,7 +2099,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Olive",
                     nameEnglish = "Olive",
@@ -2108,7 +2108,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pain",
                     nameEnglish = "Bread",
@@ -2117,7 +2117,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pain au lait",
                     nameEnglish = "Milk bread",
@@ -2126,7 +2126,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pain de mie",
                     nameEnglish = "Sandwich bread",
@@ -2135,7 +2135,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pain épices",
                     nameEnglish = "Gingerbread",
@@ -2144,7 +2144,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pâte à pizza",
                     nameEnglish = "Pizza dough",
@@ -2153,7 +2153,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pâte à tartiner",
                     nameEnglish = "Spread",
@@ -2162,7 +2162,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pâte brisée",
                     nameEnglish = "Short pastry",
@@ -2172,7 +2172,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                 )
             )
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pâte feuilletée",
                     nameEnglish = "Pastry",
@@ -2181,7 +2181,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pâtes",
                     nameEnglish = "Pasta",
@@ -2190,7 +2190,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pesto",
                     nameEnglish = "Pesto",
@@ -2199,7 +2199,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pignons de pin",
                     nameEnglish = "Pine nuts",
@@ -2208,7 +2208,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Piment en poudre",
                     nameEnglish = "Chili powder",
@@ -2217,7 +2217,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Piment d'espelette",
                     nameEnglish = "Espelette",
@@ -2226,7 +2226,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poivre",
                     nameEnglish = "Pepper",
@@ -2235,7 +2235,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Polenta",
                     nameEnglish = "Polenta",
@@ -2244,7 +2244,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pop corn",
                     nameEnglish = "Popcorn",
@@ -2253,7 +2253,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Proteines de soja",
                     nameEnglish = "Soy protein",
@@ -2262,7 +2262,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Purée",
                     nameEnglish = "Mash",
@@ -2271,7 +2271,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Quinoa",
                     nameEnglish = "Quinoa",
@@ -2280,7 +2280,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Ras el hanout",
                     nameEnglish = "Ras-el-hanout",
@@ -2289,7 +2289,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Raviolis",
                     nameEnglish = "Ravioli",
@@ -2298,7 +2298,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Riz",
                     nameEnglish = "Rice",
@@ -2307,7 +2307,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Riz rond",
                     nameEnglish = "Short grain rice",
@@ -2316,7 +2316,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce aigre douce",
                     nameEnglish = "Sweet and sour sauce",
@@ -2325,7 +2325,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce barbecue",
                     nameEnglish = "Barbecue sauce",
@@ -2334,7 +2334,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce béarnaise",
                     nameEnglish = "Bearnaise sauce",
@@ -2343,7 +2343,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce bolognaise",
                     nameEnglish = "Bolognese sauce",
@@ -2352,7 +2352,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce huitre",
                     nameEnglish = "Oyster sauce",
@@ -2361,7 +2361,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce soja",
                     nameEnglish = "Soy sauce",
@@ -2370,7 +2370,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sauce tomate",
                     nameEnglish = "Tomato sauce",
@@ -2379,7 +2379,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sel",
                     nameEnglish = "Salt",
@@ -2388,7 +2388,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Semoule",
                     nameEnglish = "Semolina",
@@ -2397,7 +2397,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Semoule de manioc",
                     nameEnglish = "Cassava semolina",
@@ -2406,7 +2406,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sirop d'agave",
                     nameEnglish = "Agave syrup",
@@ -2415,7 +2415,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sirop d'érable",
                     nameEnglish = "Maple syrup",
@@ -2424,7 +2424,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Soupe",
                     nameEnglish = "Soup",
@@ -2433,7 +2433,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Spéculoos",
                     nameEnglish = "Speculoos",
@@ -2442,7 +2442,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sucre",
                     nameEnglish = "Sugar",
@@ -2451,7 +2451,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sucre de coco",
                     nameEnglish = "Coconut sugar",
@@ -2460,7 +2460,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sucre glace",
                     nameEnglish = "Icing sugar",
@@ -2469,7 +2469,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tabasco",
                     nameEnglish = "Tabasco",
@@ -2478,7 +2478,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tempeh",
                     nameEnglish = "Tempeh",
@@ -2487,7 +2487,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Thym",
                     nameEnglish = "Thyme",
@@ -2496,7 +2496,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Vin blanc",
                     nameEnglish = "White wine",
@@ -2505,7 +2505,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Vin rosé",
                     nameEnglish = "Rose wine",
@@ -2514,7 +2514,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Vinaigre de cidre",
                     nameEnglish = "Vinegar",
@@ -2523,7 +2523,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Vinaigre balsamique",
                     nameEnglish = "Balsamic vinegar",
@@ -2532,7 +2532,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Vinaigre de riz",
                     nameEnglish = "Rice vinegar",
@@ -2541,7 +2541,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Vinaigre xérès",
                     nameEnglish = "Sherry vinegar",
@@ -2553,7 +2553,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
 
 
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Anchois",
                     nameEnglish = "Anchovy",
@@ -2562,7 +2562,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bar",
                     nameEnglish = "bar",
@@ -2571,7 +2571,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Capitaine",
                     nameEnglish = "Captain fish",
@@ -2580,7 +2580,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Crevette",
                     nameEnglish = "Shrimp",
@@ -2589,7 +2589,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Haddock",
                     nameEnglish = "Haddock",
@@ -2598,7 +2598,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Harengs fummés",
                     nameEnglish = "Smoked herring",
@@ -2607,7 +2607,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Huîtres de Cancale",
                     nameEnglish = "Cancale oysters",
@@ -2616,7 +2616,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Maquereaux",
                     nameEnglish = "Mackerel",
@@ -2625,7 +2625,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Moules",
                     nameEnglish = "Moulds",
@@ -2634,7 +2634,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poisson filet",
                     nameEnglish = "Fish fillet",
@@ -2643,7 +2643,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poisson pané",
                     nameEnglish = "Breaded fish",
@@ -2652,7 +2652,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poisson",
                     nameEnglish = "fish",
@@ -2661,7 +2661,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Sardines",
                     nameEnglish = "Sardines",
@@ -2670,7 +2670,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Saumon",
                     nameEnglish = "Salmon",
@@ -2679,7 +2679,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Saumon fumé",
                     nameEnglish = "Smoked salmon",
@@ -2688,7 +2688,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Surimi",
                     nameEnglish = "Surimi",
@@ -2697,7 +2697,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Tarama",
                     nameEnglish = "Tamara",
@@ -2706,7 +2706,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Thon",
                     nameEnglish = "Tuna",
@@ -2715,7 +2715,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Truite fumée",
                     nameEnglish = "Smoked trout",
@@ -2726,7 +2726,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
             )
 
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Agneau",
                     nameEnglish = "Lamb",
@@ -2735,7 +2735,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Bacon",
                     nameEnglish = "Bacon",
@@ -2744,7 +2744,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Boeuf",
                     nameEnglish = "Beef",
@@ -2753,7 +2753,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Boudin blanc",
                     nameEnglish = "White pudding",
@@ -2762,7 +2762,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Boudin noir",
                     nameEnglish = "Black pudding",
@@ -2771,7 +2771,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Carpaccio de boeuf",
                     nameEnglish = "Carpaccio of beef",
@@ -2780,7 +2780,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chipolatas",
                     nameEnglish = "Sausages",
@@ -2789,7 +2789,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Chorizo",
                     nameEnglish = "Chorizo",
@@ -2798,7 +2798,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Canard",
                     nameEnglish = "Duck",
@@ -2807,7 +2807,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Côtes de porc",
                     nameEnglish = "Pork ribs",
@@ -2816,7 +2816,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Dinde",
                     nameEnglish = "Turkey",
@@ -2825,7 +2825,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Foie gras",
                     nameEnglish = "Foie gras",
@@ -2834,7 +2834,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Jambon blanc",
                     nameEnglish = "Cooked ham",
@@ -2843,7 +2843,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Jambon cru",
                     nameEnglish = "Raw ham",
@@ -2852,7 +2852,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "jambon de dinde",
                     nameEnglish = "Turkey ham",
@@ -2861,7 +2861,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Jarret de porc",
                     nameEnglish = "Knuckle of pork",
@@ -2870,7 +2870,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lard",
                     nameEnglish = "Lard",
@@ -2879,7 +2879,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Lardons",
                     nameEnglish = "Bacon",
@@ -2888,7 +2888,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Magret de canard",
                     nameEnglish = "Breast of duck",
@@ -2897,7 +2897,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Merguez",
                     nameEnglish = "Merguez",
@@ -2906,7 +2906,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Pâté",
                     nameEnglish = "Terrine",
@@ -2915,7 +2915,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Poulet entier",
                     nameEnglish = "Whole chicken",
@@ -2924,7 +2924,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Cuisses de poulet",
                     nameEnglish = "Chicken thighs",
@@ -2933,7 +2933,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Filet de poulet",
                     nameEnglish = "Chicken breast",
@@ -2942,7 +2942,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Rillettes",
                     nameEnglish = "Rillettes",
@@ -2951,7 +2951,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Saucisses de Strasbourg",
                     nameEnglish = "Strasbourg sausages",
@@ -2960,7 +2960,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Saucisson fumé",
                     nameEnglish = "Sausage",
@@ -2970,7 +2970,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                 )
             )
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Saucisson sec",
                     nameEnglish = "Dry sausage",
@@ -2980,7 +2980,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                 )
             )
 
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Steak de soja",
                     nameEnglish = "Steak of soya",
@@ -2989,7 +2989,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Steak haché",
                     nameEnglish = "Hamburger",
@@ -2998,7 +2998,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Viande cuite",
                     nameEnglish = "Cooked meat",
@@ -3007,7 +3007,7 @@ class AddIngredientsInDatabase(var ingredientsBox: Box<Ingredients>) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
-            ingredientsBox.put(
+            ingredientsBox?.put(
                 Ingredients(
                     name = "Viande hachée",
                     nameEnglish = "Beef",
