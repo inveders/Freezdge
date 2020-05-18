@@ -238,19 +238,19 @@ abstract class BaseFragment : Fragment() {
             }
             getForegroundFragment() is MyRecipesFragment -> run {
                 setupFavouriteRecipeRecyclerView()
-                getFavouritesRecipes()
+                    getFavouritesRecipes()
             }
         }
     }
 
     private fun getFavouritesRecipes() {
         favouriteRecipesItemAdapter.clear()
-        setFavouriteList.clear()
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
                 favouriteRecipesItemAdapter.clear()
                 if (result != null) {
                     if (result.size != 0) {
+                        setFavouriteList.clear()
                         notFoundTeextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
                         floatingActionButton.show()
@@ -258,7 +258,6 @@ abstract class BaseFragment : Fragment() {
                             favouriteRecipesItemAdapter.add(myresult)
                             setFavouriteList.add(myresult)
                         }
-                        Log.d("debago","in getfavourite recipes")
                         favouritesRecipesNumber()
                     } else {
                         notFoundTeextView.visibility = View.VISIBLE
@@ -311,9 +310,6 @@ abstract class BaseFragment : Fragment() {
                             floatingActionButton.show()
                             fillAdapterRetrofit(result3)
                         }
-
-
-
                     })
             }else{
                 notFoundTeextView.visibility = View.VISIBLE
@@ -372,36 +368,42 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.dishType?.get(0)
                 )
 
-                val bool: Boolean? =
-                    item.recipe?.uri?.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it) }
+                if(!item.recipe?.uri.isNullOrEmpty()){
+                    val bool: Boolean? = item.recipe?.uri?.let {
+                        favouriteRecipesViewmodel.isRecipeIdIsPresent(
+                            it
+                        )
+                    }
 
-                GlobalScope.launch(Dispatchers.IO) {
-                    delay(500)
-                    domain.correspondanceCalculForGrocery(
-                        item.recipe?.ingredientLines.toString(),
-                        bool!!
-                    )
-                }
+                    GlobalScope.launch(Dispatchers.IO) {
+                        delay(500)
+                        domain.correspondanceCalculForGrocery(
+                            item.recipe?.ingredientLines.toString(),
+                            bool!!
+                        )
+                    }
 
-                if (bool!!) {
-                    view.let { it1 ->
-                        it1?.let {
-                            item.getViewHolder(it).imageFavourite.setImageResource(
-                                R.drawable.ic_favorite_selected_24dp
-                            )
+                    if (bool!!) {
+                        view.let { it1 ->
+                            it1?.let {
+                                item.getViewHolder(it).imageFavourite.setImageResource(
+                                    R.drawable.ic_favorite_selected_24dp
+                                )
+                            }
+                        }
+                    } else {
+                        view.let { it1 ->
+                            it1?.let {
+                                item.getViewHolder(it).imageFavourite.setImageResource(
+                                    R.drawable.ic_favorite_not_selected_24dp
+                                )
+                            }
                         }
                     }
-                } else {
-                    view.let { it1 ->
-                        it1?.let {
-                            item.getViewHolder(it).imageFavourite.setImageResource(
-                                R.drawable.ic_favorite_not_selected_24dp
-                            )
-                        }
-                    }
+
+                    fastAdapter.notifyAdapterDataSetChanged()
                 }
 
-                fastAdapter.notifyAdapterDataSetChanged()
             }
 
         }
@@ -421,7 +423,7 @@ abstract class BaseFragment : Fragment() {
                     item.dishType
                 )
 
-                val bool: Boolean? =
+                val bool: Boolean =
                     item.id.let {
                         it.let { it1 ->
                             favouriteRecipesViewmodel.isRecipeIdIsPresent(
@@ -435,12 +437,12 @@ abstract class BaseFragment : Fragment() {
                     item.recipeIngredients?.let {
                         domain.correspondanceCalculForGrocery(
                             it,
-                            bool!!
+                            bool
                         )
                     }
                 }
 
-                if (bool!!) {
+                if (bool) {
                     view.let { it1 ->
                         it1?.let {
                             item.getViewHolder(it).imageFavourite.setImageResource(
@@ -477,7 +479,7 @@ abstract class BaseFragment : Fragment() {
                 item.cuisineType, item.dishType
             )
 
-            val bool: Boolean? =
+            val bool: Boolean =
                 item.recipeId.let { favouriteRecipesViewmodel.isRecipeIdIsPresent(it!!) }
 
             GlobalScope.launch(Dispatchers.IO) {
@@ -485,7 +487,7 @@ abstract class BaseFragment : Fragment() {
                 item.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, bool!!) }
             }
 
-            if (bool!!) {
+            if (bool) {
                 view.let { it1 ->
                     it1?.let {
                         item.getViewHolder(it).imageFavourite.setImageResource(
@@ -493,7 +495,6 @@ abstract class BaseFragment : Fragment() {
                         )
                     }
                 }
-                Log.d("debago","in add one favourite recipe")
             } else {
                 view.let { it1 ->
                     it1?.let {
@@ -502,7 +503,6 @@ abstract class BaseFragment : Fragment() {
                         )
                     }
                 }
-                Log.d("debago","in remove one favourite recipe")
             }
 
             favouritesFastAdapter.notifyAdapterDataSetChanged()
