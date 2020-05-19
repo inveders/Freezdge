@@ -63,7 +63,7 @@ class MyIngredientsListFragment : BaseFragment() {
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
         if (result?.size != 0) {
-            notFoundTeextView.visibility = View.GONE
+            notFoundTextView.visibility = View.GONE
             notFoundImageView.visibility = View.GONE
             chipGroup.removeAllViews()
             if (result != null) {
@@ -71,9 +71,9 @@ class MyIngredientsListFragment : BaseFragment() {
             }
 
         } else {
-            notFoundTeextView.visibility = View.VISIBLE
+            notFoundTextView.visibility = View.VISIBLE
             notFoundImageView.visibility = View.VISIBLE
-            notFoundTeextView.text = getString(R.string.no_item_found_ingredients)
+            notFoundTextView.text = getString(R.string.no_item_found_ingredients)
         }
 
     }

@@ -12,11 +12,11 @@ import com.mikepenz.fastadapter.FastAdapter
 
 class ViewHolderIngredients(view: View) : FastAdapter.ViewHolder<Ingredients>(view) {
 
-    var label: TextView = view.findViewById(R.id.item_ingredients_list_textview)
+    private var label: TextView = view.findViewById(R.id.item_ingredients_list_textview)
     private var imageFood: ImageView = view.findViewById(R.id.item_ingredients_list_image_ingredient_image)
     var imageSelection: ImageView =
         view.findViewById(R.id.item_ingredients_list_image_favorite_selected_or_not_imageview)
-    var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
+    private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
 
     override fun bindView(item: Ingredients, payloads: MutableList<Any>) {
         label.text = item.name

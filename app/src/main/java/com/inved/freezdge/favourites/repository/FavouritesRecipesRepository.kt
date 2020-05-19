@@ -53,7 +53,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
 
     }
 
-    // insert recipe in favurite database
+    // insert recipe in favourite database
     private fun insertFavouriteRecipe(
         recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
         recipeUrl: String?,
@@ -88,10 +88,5 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
          return ObjectBoxLiveData(
             getFavouritesRecipesBox?.query()?.order(FavouritesRecipes_.id)?.build()
         )
-    }
-
-    // count all favourites recipes
-    fun countAllFavouritesRecipes(): Long? {
-        return getFavouritesRecipesBox?.count()
     }
 }

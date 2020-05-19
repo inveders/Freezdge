@@ -50,7 +50,7 @@ import kotlin.math.roundToInt
 
 abstract class BaseFragment : Fragment() {
 
-    lateinit var notFoundTeextView: TextView
+    lateinit var notFoundTextView: TextView
     lateinit var numberRecipesTextview: TextView
     lateinit var notFoundImageView: ImageView
 
@@ -104,7 +104,7 @@ abstract class BaseFragment : Fragment() {
         val view = inflater.inflate(getLayoutRes(), container, false)
         floatingActionButton = view.findViewById(R.id.floating_button)
         recyclerView = view.findViewById(R.id.recyclerview)
-        notFoundTeextView = view.findViewById(R.id.not_found)
+        notFoundTextView = view.findViewById(R.id.not_found)
         numberRecipesTextview = view.findViewById(R.id.topTextview)
         notFoundImageView = view.findViewById(R.id.image_arrow)
         initViewModel()
@@ -227,8 +227,8 @@ abstract class BaseFragment : Fragment() {
                     }
 
                 } else {
-                    notFoundTeextView.visibility = View.VISIBLE
-                    notFoundTeextView.text = getString(R.string.internet_connexion)
+                    notFoundTextView.visibility = View.VISIBLE
+                    notFoundTextView.text = getString(R.string.internet_connexion)
                     floatingActionButton.hide()
                     numberRecipesTextview.visibility = View.GONE
                 }
@@ -248,7 +248,7 @@ abstract class BaseFragment : Fragment() {
                 if (result != null) {
                     if (result.size != 0) {
                         setFavouriteList.clear()
-                        notFoundTeextView.visibility = View.GONE
+                        notFoundTextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
                         floatingActionButton.show()
                         for (myresult in result) {
@@ -257,11 +257,11 @@ abstract class BaseFragment : Fragment() {
                         }
                         favouritesRecipesNumber()
                     } else {
-                        notFoundTeextView.visibility = View.VISIBLE
+                        notFoundTextView.visibility = View.VISIBLE
                         notFoundImageView.visibility = View.VISIBLE
                         floatingActionButton.hide()
                         numberRecipesTextview.visibility = View.GONE
-                        notFoundTeextView.text = getString(R.string.no_item_found_favourite)
+                        notFoundTextView.text = getString(R.string.no_item_found_favourite)
                     }
                 }
             })
@@ -281,14 +281,14 @@ abstract class BaseFragment : Fragment() {
                 recipeViewModel.getDatabaseRecipes(result)
                     ?.observe(viewLifecycleOwner, Observer { result2 ->
                         if (result2.isNullOrEmpty()) {
-                            notFoundTeextView.visibility = View.VISIBLE
-                            notFoundTeextView.text =
+                            notFoundTextView.visibility = View.VISIBLE
+                            notFoundTextView.text =
                                 getString(R.string.no_recipes_found)
                             numberRecipesTextview.visibility = View.GONE
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
-                            notFoundTeextView.visibility = View.GONE
+                            notFoundTextView.visibility = View.GONE
                             floatingActionButton.show()
                             fillAdapterDatabase(result2)
                         }
@@ -296,21 +296,21 @@ abstract class BaseFragment : Fragment() {
                 recipeViewModel.getRetrofitRecipes(result)
                     ?.observe(viewLifecycleOwner, Observer { result3 ->
                         if (result3.isNullOrEmpty()) {
-                            notFoundTeextView.visibility = View.VISIBLE
-                            notFoundTeextView.text =
+                            notFoundTextView.visibility = View.VISIBLE
+                            notFoundTextView.text =
                                 getString(R.string.no_recipes_found)
                             numberRecipesTextview.visibility = View.GONE
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
-                            notFoundTeextView.visibility = View.GONE
+                            notFoundTextView.visibility = View.GONE
                             floatingActionButton.show()
                             fillAdapterRetrofit(result3)
                         }
                     })
             } else {
-                notFoundTeextView.visibility = View.VISIBLE
-                notFoundTeextView.text =
+                notFoundTextView.visibility = View.VISIBLE
+                notFoundTextView.text =
                     getString(R.string.no_item_found_recipes)
                 numberRecipesTextview.visibility = View.GONE
                 floatingActionButton.hide()

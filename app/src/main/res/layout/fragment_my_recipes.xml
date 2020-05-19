@@ -39,7 +39,8 @@
         android:scaleY="-1"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/description_image"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

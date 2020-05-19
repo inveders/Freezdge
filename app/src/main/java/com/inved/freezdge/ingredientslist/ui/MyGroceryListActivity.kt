@@ -28,14 +28,14 @@ class MyGroceryListActivity: BaseActivity() {
 
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     private lateinit var chipGroup: ChipGroup
-    private lateinit var notFoundTeextView: TextView
+    private lateinit var notFoundTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         BaseFragment.setlistRetrofit.clear()
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
         chipGroup =findViewById(R.id.chipGroup)
-        notFoundTeextView =findViewById(R.id.not_found)
+        notFoundTextView =findViewById(R.id.not_found)
        initViewModel()
         setupChips()
     }
@@ -65,7 +65,7 @@ class MyGroceryListActivity: BaseActivity() {
             .observe(this, Observer { result ->
                 if(result!=null){
                     if(result.size!=0){
-                        notFoundTeextView.visibility = View.GONE
+                        notFoundTextView.visibility = View.GONE
                         chipGroup.removeAllViews()
                         for (myresult in result){
                             val chip= Chip(chipGroup.context)
@@ -89,8 +89,8 @@ class MyGroceryListActivity: BaseActivity() {
                             chipGroup.addView(chip)
                         }
                     }else{
-                        notFoundTeextView.visibility = View.VISIBLE
-                        notFoundTeextView.text = getString(R.string.no_item_found_grocery)
+                        notFoundTextView.visibility = View.VISIBLE
+                        notFoundTextView.text = getString(R.string.no_item_found_grocery)
                     }
                 }
             })

@@ -3,7 +3,7 @@ package com.inved.freezdge.utils
 import com.inved.freezdge.recipes.database.Recipes
 import io.objectbox.Box
 
-class AddRecipesInDatabase(var recipeBox: Box<Recipes>?) {
+class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
     init {
         addRecipes()

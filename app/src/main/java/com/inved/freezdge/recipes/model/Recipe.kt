@@ -2,7 +2,6 @@ package com.inved.freezdge.recipes.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.inved.freezdge.recipes.model.Ingredient
 
 class Recipe {
     @SerializedName("uri")

@@ -25,7 +25,7 @@
     <!--Recipe List item-->
     <string name="recipe_list_number">(%d) recipes found</string>
     <string name="recipe_list_number_one">%d recipe found</string>
-    <string name="recipe_list_item_image">image_recipe</string>
+    <string name="recipe_list_item_image" translatable="false">image_recipe</string>
     <string name="recipe_list_item_label">Recipe label</string>
     <string name="recipe_list_item_matching">100%</string>
     <string name="recipe_list_item_no_time_known">No time indicated</string>
@@ -41,9 +41,7 @@
     <string name="recipe_matching_percent" translatable="false">%d %%</string>
 
     <!--Recipe Detail-->
-    <string name="recipe_detail_item_image">image_recipe</string>
     <string name="recipe_detail_item_label">Recipe title</string>
-    <string name="recipe_detail_item_no_time_known">No time indicated</string>
     <string name="recipe_detail_item_detail_time">Prep : %s\nCook : %s</string>
     <string name="recipe_detail_item_total_time">Total time : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
@@ -59,7 +57,6 @@
     <!--Ingredients type -->
     <string name="ingredient_type_cream" translatable="false">Crèmerie</string>
     <string name="ingredient_type_fruits_vegetables" translatable="false">Fruits &amp; Légumes</string>
-    <string name="ingredient_type_fruits_vegetables_short">Fr &amp; Lég</string>
     <string name="ingredient_type_epicerie" translatable="false">Epicerie</string>
     <string name="ingredient_type_fish" translatable="false">Poisson</string>
     <string name="ingredient_type_meat" translatable="false">Viande</string>
@@ -75,8 +72,6 @@
     <string name="error_no_internet">No internet connection!</string>
     <string name="error_unknown_error">An unknown error occurred&#8230;</string>
     <string name="connection_succeed">Authentication successful!</string>
-    <string name="button_login_text_logged">View profile</string>
-    <string name="button_login_text_not_logged">Login</string>
     <string name="button_logout">Logout</string>
     <string name="button_logout_message_dialog">Do you want to logout?</string>
 
@@ -113,7 +108,6 @@
     <string name="social_media_like_number_photo_one_person">%d people found it great</string>
     <string name="social_media_like_number_tips_one_person_you">You found it useful</string>
     <string name="social_media_like_number_photo_one_person_you">You found it great</string>
-    <string name="social_media_title_post">Tip title</string>
     <string name="social_media_username_post" translatable="false">Alexandra Gnimadi</string>
     <string name="social_media_description_tips_post" translatable="false">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
     <string name="social_media_no_post">No posts found</string>
@@ -171,7 +165,7 @@
 
     <string name="facebook_app_id" translatable="false">605347353660093</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb605347353660093</string>
-
+    <string name="tiret" translatable="false">-</string>
 
 
 </resources>

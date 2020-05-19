@@ -17,7 +17,7 @@ class DomainTest {
     @Test
     fun uppercaseFistCharacter() {
         val myString = "alexandra"
-        assertEquals("Alexandra", domain.uppercaseFirstCaracter(myString))
+        assertEquals("Alexandra", domain.uppercaseFirstCharacter(myString))
     }
 
     @Test

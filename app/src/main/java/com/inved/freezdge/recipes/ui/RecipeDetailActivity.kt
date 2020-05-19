@@ -18,13 +18,13 @@ open class RecipeDetailActivity : BaseActivity() {
 
     var domain=Domain()
     lateinit var recipeTitle: TextView
-    lateinit var recipePrepCookTime: TextView
-    lateinit var recipeTotalTime: TextView
-    lateinit var recipeDetailPhoto: ImageView
-    lateinit var recipeKcal: TextView
-    lateinit var recipeNumberPerson: TextView
-    lateinit var recipeOwnerImage: ImageView
-    lateinit var stepSummaryView: LinearLayout
+    private lateinit var recipePrepCookTime: TextView
+    private lateinit var recipeTotalTime: TextView
+    private lateinit var recipeDetailPhoto: ImageView
+    private lateinit var recipeKcal: TextView
+    private lateinit var recipeNumberPerson: TextView
+    private lateinit var recipeOwnerImage: ImageView
+    private lateinit var stepSummaryView: LinearLayout
 
     private var expandableListView: ExpandableListView? = null
     private var adapter: ExpandableListAdapter? = null
@@ -167,7 +167,7 @@ open class RecipeDetailActivity : BaseActivity() {
     }
 
 
-    fun openWebViewActivity(url: String) {
+    private fun openWebViewActivity(url: String) {
         let {
             val intent = Intent(this, WebviewActivity::class.java)
             intent.putExtra("WEBVIEW_URL", url)

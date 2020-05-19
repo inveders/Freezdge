@@ -43,6 +43,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/description_image"
                 android:scaleType="centerCrop"
+                android:elevation="1dp"
                 app:layout_constraintCircle="@id/activity_recipe_detail_kcal_image"
                 app:layout_constraintCircleAngle="15"
                 app:layout_constraintCircleRadius="120dp"
@@ -74,6 +75,7 @@
                 app:layout_constraintLeft_toLeftOf="@id/activity_recipe_detail_name"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_name" />
 
+            <!-- INFORMATIONS TO CALL -->
             <ImageView
                 android:id="@+id/activity_recipe_detail_time_image"
                 android:layout_width="40dp"
@@ -168,10 +170,13 @@
                 android:layout_marginTop="@dimen/default_large_margin"
                 android:layout_marginEnd="15dp"
                 android:divider="@android:color/darker_gray"
+                android:nestedScrollingEnabled="true"
                 android:dividerHeight="0.5dp"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
                 app:layout_constraintTop_toBottomOf="@id/view"
                 app:layout_constraintBottom_toTopOf="@id/summaryViewConstraintLayout"/>
+
+            <!-- LINEARLAYOUT -->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/summaryViewConstraintLayout"
@@ -180,6 +185,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:background="@color/colorWhite"
+                android:elevation="1dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

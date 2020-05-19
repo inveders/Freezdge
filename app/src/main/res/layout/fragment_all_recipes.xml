@@ -36,7 +36,8 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="bottom"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:contentDescription="@string/description_image"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

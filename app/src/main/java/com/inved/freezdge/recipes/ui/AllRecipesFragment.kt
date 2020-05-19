@@ -61,7 +61,7 @@ class AllRecipesFragment : BaseFragment() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    // hande the text of searchview for recipes from retrofit or database
+    // handle the text of searchview for recipes from retrofit or database
     fun handleTextFilter(
         newText: String,
         recipesRetrofitItemAdapter: ItemAdapter<Hit>,

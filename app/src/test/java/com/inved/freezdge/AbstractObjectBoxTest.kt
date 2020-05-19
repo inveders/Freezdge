@@ -19,7 +19,7 @@ abstract class AbstractObjectBoxTest {
     private var store: BoxStore?=null
     var ingredientsBox: Box<Ingredients>?=null
     lateinit var ingredientsRepository: IngredientsRepository
-    private var recipessBox: Box<Recipes>?=null
+    private var recipesBox: Box<Recipes>?=null
     lateinit var recipesRepository: RecipesRepository
     private var favouritesRecipesBox: Box<FavouritesRecipes>?=null
     lateinit var favouritesRecipesRepository: FavouritesRecipesRepository
@@ -35,10 +35,10 @@ abstract class AbstractObjectBoxTest {
             .debugFlags(DebugFlags.LOG_QUERIES or DebugFlags.LOG_QUERY_PARAMETERS)
             .build()
         ingredientsBox= store?.boxFor(Ingredients::class.java)
-        recipessBox=store?.boxFor(Recipes::class.java)
+        recipesBox=store?.boxFor(Recipes::class.java)
         favouritesRecipesBox=store?.boxFor(FavouritesRecipes::class.java)
         ingredientsRepository = IngredientsRepository(ingredientsBox)
-        recipesRepository = RecipesRepository(recipessBox)
+        recipesRepository = RecipesRepository(recipesBox)
         favouritesRecipesRepository = FavouritesRecipesRepository(favouritesRecipesBox)
         ingredientsRepository.insertIngredients()
         recipesRepository.insertRecipesInDatabase()

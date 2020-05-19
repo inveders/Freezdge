@@ -35,11 +35,11 @@ class ViewHolderRecipesRetrofit(view: View) : FastAdapter.ViewHolder<Hit>(view) 
         label.text = item.recipe?.label
         preparationTime.text=domain.preparationTime(item.recipe?.totalTime)
 
-        cuisineType.text= item.recipe?.cuisineType?.get(0)?.let { domain.uppercaseFirstCaracter(it) }
+        cuisineType.text= item.recipe?.cuisineType?.get(0)?.let { domain.uppercaseFirstCharacter(it) }
         if(item.recipe?.dishType?.get(0).equals("Main course",true)){
             dishType.text=App.resource().getString(R.string.array_filter_plat)
         }else{
-            dishType.text= item.recipe?.dishType?.get(0)?.let { domain.uppercaseFirstCaracter(it) }
+            dishType.text= item.recipe?.dishType?.get(0)?.let { domain.uppercaseFirstCharacter(it) }
         }
 
         kcal.text = item.recipe?.calories?.div(10)?.roundToInt().toString()

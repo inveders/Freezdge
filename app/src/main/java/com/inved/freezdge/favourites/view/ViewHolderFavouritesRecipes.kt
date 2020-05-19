@@ -47,11 +47,11 @@ class ViewHolderFavouritesRecipes(val view: View) :
         val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text=App.resource().getString(R.string.recipe_matching_percent,proportionInPercent)
 
-        cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCaracter(it) }
+        cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCharacter(it) }
         if(item.dishType.equals("Main course")){
             dishType.text=App.resource().getString(R.string.array_filter_plat)
         }else{
-            dishType.text= item.dishType?.let { domain.uppercaseFirstCaracter(it) }
+            dishType.text= item.dishType?.let { domain.uppercaseFirstCharacter(it) }
         }
 
         // We attribute different color according to the matching value

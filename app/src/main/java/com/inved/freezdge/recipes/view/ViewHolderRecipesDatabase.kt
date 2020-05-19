@@ -40,11 +40,11 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
             preparationTime.text = item.preparationTime
         }
 
-        cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCaracter(it) }
+        cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCharacter(it) }
         if(item.dishType.equals("Main course",true)){
             dishType.text=App.resource().getString(R.string.array_filter_plat)
         }else{
-            dishType.text= item.dishType?.let { domain.uppercaseFirstCaracter(it) }
+            dishType.text= item.dishType?.let { domain.uppercaseFirstCharacter(it) }
         }
 
         if(item.recipeCalories.isNullOrEmpty()){

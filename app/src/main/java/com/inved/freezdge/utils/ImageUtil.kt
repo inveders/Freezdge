@@ -67,12 +67,16 @@ class ImageUtil {
             val orientation =
                 exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, 0)
             val matrix = Matrix()
-            if (orientation == 6) {
-                matrix.postRotate(90f)
-            } else if (orientation == 3) {
-                matrix.postRotate(180f)
-            } else if (orientation == 8) {
-                matrix.postRotate(270f)
+            when (orientation) {
+                6 -> {
+                    matrix.postRotate(90f)
+                }
+                3 -> {
+                    matrix.postRotate(180f)
+                }
+                8 -> {
+                    matrix.postRotate(270f)
+                }
             }
             scaledBitmap = Bitmap.createBitmap(
                 scaledBitmap, 0, 0, scaledBitmap.width, scaledBitmap.height,

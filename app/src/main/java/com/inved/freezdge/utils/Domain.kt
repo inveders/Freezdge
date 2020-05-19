@@ -23,7 +23,7 @@ class Domain {
         return AlphaAnimation(1f, 0.8f)
     }
 
-    fun uppercaseFirstCaracter(name: String): String {
+    fun uppercaseFirstCharacter(name: String): String {
         val s1 = name.substring(0, 1).toUpperCase(Locale.getDefault())
         return s1 + name.substring(1)
     }
@@ -88,7 +88,7 @@ class Domain {
     }
 
 
-    //return matching porucent
+    //return matching pourcent
     fun ingredientsFavouriteMatchingMethod(input: String?): Int {
 
         initNumberIngredientsFromString(input)
@@ -177,7 +177,7 @@ class Domain {
         return pourcent
     }
 
-    //calculate matching pourcent bebtween my selected ingredients and ingredients in the recipe
+    //calculate matching pourcent between my selected ingredients and ingredients in the recipe
     private fun correspondanceCalcul(input: String?): Int {
 
         for (i in getAllIngredientBySelected()) {

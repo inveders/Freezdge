@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Freezdge</string>
 
     <string name="menu_bottom_ingredient_at_home">Ingrédients</string>
     <string name="menu_bottom_favourites">Favoris</string>
@@ -23,8 +22,6 @@
     <string name="no_item_found_grocery">Liste de courses vide</string>
 
     <!--Recipe List item-->
-    <string name="recipe_list_item_image" translatable="false">image_recipe</string>
-    <string name="recipe_list_item_label" translatable="false">Recipe</string>
     <string name="recipe_list_item_matching">100%</string>
     <string name="recipe_list_item_no_time_known">Non indiqué</string>
     <string name="recipe_list_item_time_min">%d min</string>
@@ -34,10 +31,10 @@
     <string name="recipe_list_item_kcal">kcal</string>
     <string name="recipe_list_item_kcal_notknow">N.C</string>
     <string name="description_image">Description image</string>
+    <string name="recipe_list_item_label">Titre de la recette</string>
     <!--Recipe Detail-->
-    <string name="recipe_detail_item_image" translatable="false">image_recipe</string>
     <string name="recipe_detail_item_label">Titre de la recette</string>
-    <string name="recipe_detail_item_no_time_known">Non indiqué</string>
+
     <string name="recipe_detail_item_detail_time">Prép. : %s\nCuisson : %s</string>
     <string name="recipe_detail_item_total_time">Temps total : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
@@ -50,12 +47,6 @@
     <string name="Yes">Oui</string>
 
     <!--Ingredients type -->
-    <string name="ingredient_type_cream" translatable="false">Crèmerie</string>
-    <string name="ingredient_type_fruits_vegetables" translatable="false">Fruits &amp; Légumes</string>
-    <string name="ingredient_type_fruits_vegetables_short">Fr &amp; Lég</string>
-    <string name="ingredient_type_epicerie" translatable="false">Epicerie</string>
-    <string name="ingredient_type_fish" translatable="false">Poisson</string>
-    <string name="ingredient_type_meat" translatable="false">Viande</string>
     <string name="we_research_recipes_for_you">We research recipes for you</string>
 
     <!--Login -->
@@ -68,8 +59,6 @@
     <string name="error_no_internet">Aucune connexion internet !</string>
     <string name="error_unknown_error">Une erreur inconnue s\'est produite&#8230;</string>
     <string name="connection_succeed">Authentification réussie!</string>
-    <string name="button_login_text_logged">Vue du profil</string>
-    <string name="button_login_text_not_logged">Connexion</string>
     <string name="button_logout">Déconnection</string>
     <string name="button_logout_message_dialog">Voulez-vous vous déconnecter?</string>
 
@@ -84,8 +73,6 @@
     <string name="dialog_select_image_take_photo">Prendre une photo</string>
     <string name="dialog_select_image_choose_from_library">Choisir dans la galerie</string>
     <string name="dialog_select_image_cancel">Annuler</string>
-    <string name="type_storage_users" translatable="false">users</string>
-    <string name="type_storage_posts" translatable="false">posts</string>
     <string name="toast_updated_profil">Profil modifié</string>
     <string name="toast_updated_tip">Astuce modifiée</string>
     <string name="toast_created_tip">Astuce publiée</string>
@@ -106,12 +93,7 @@
     <string name="social_media_like_number_photo_one_person">%d personne a trouvé cela magnifique</string>
     <string name="social_media_like_number_tips_one_person_you">Vous avez trouvé cela utile</string>
     <string name="social_media_like_number_photo_one_person_you">Vous avez trouvé cela magnifique</string>
-    <string name="social_media_title_post">Titre de l\'astuce</string>
-    <string name="social_media_username_post" translatable="false">Alexandra Gnimadi</string>
-    <string name="social_media_description_tips_post" translatable="false">Les champignons trempés dans de la sauce aigre douce sont super bons</string>
     <string name="social_media_no_post">Aucun post trouvé</string>
-    <string name="social_media_post_type_photo" translatable="false">Photo</string>
-    <string name="social_media_post_type_tips" translatable="false">Tips</string>
     <string name="social_media_post_delete_title_dialog">Supprimer le post</string>
     <string name="social_media_post_delete_message_dialog">Etes-vous sûr(e) de vouloir supprimer votre post</string>
     <string name="social_media_post_delete_confirmation_dialog">Post supprimé</string>

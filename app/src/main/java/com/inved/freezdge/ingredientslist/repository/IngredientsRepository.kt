@@ -88,7 +88,7 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
         return ObjectBoxLiveData(getIngredientsBox?.query()?.order(Ingredients_.id)?.build())
     }
 
-    // get all ingredients by type (cremeary, fruits & vegetables, epicerie, fish, or meat)
+    // get all ingredients by type (creamery, fruits & vegetables, epicerie, fish, or meat)
     fun getAllIngredientsByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
         return ObjectBoxLiveData(getIngredientsBox?.query()?.equal(Ingredients_.typeIngredient,typeIngredient)?.order(
             Ingredients_.name)?.build())

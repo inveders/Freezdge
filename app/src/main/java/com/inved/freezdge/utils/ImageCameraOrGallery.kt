@@ -3,7 +3,6 @@ package com.inved.freezdge.utils
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
-import android.database.DatabaseUtils
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -61,12 +60,6 @@ class ImageCameraOrGallery {
 
 
     /**
-     * TAG for log messages.
-     */
-    private val DEBUG = false // Set to true to enable logging
-
-
-    /**
      * @return Whether the URI is a local one.
      */
     private fun isLocal(url: String?): Boolean {
@@ -81,7 +74,6 @@ class ImageCameraOrGallery {
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
-     * @author paulburke
      */
     private fun isExternalStorageDocument(uri: Uri): Boolean {
         return "com.android.externalstorage.documents" == uri.authority
@@ -90,7 +82,6 @@ class ImageCameraOrGallery {
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
-     * @author paulburke
      */
     private fun isDownloadsDocument(uri: Uri): Boolean {
         return "com.android.providers.downloads.documents" == uri.authority
@@ -99,7 +90,6 @@ class ImageCameraOrGallery {
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
-     * @author paulburke
      */
     private fun isMediaDocument(uri: Uri): Boolean {
         return "com.android.providers.media.documents" == uri.authority
@@ -122,7 +112,6 @@ class ImageCameraOrGallery {
      * @param selection     (Optional) Filter used in the query.
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
-     * @author paulburke
      */
     private fun getDataColumn(
         context: Context, uri: Uri?, selection: String?,
@@ -156,7 +145,6 @@ class ImageCameraOrGallery {
      *
      * @param context The context.
      * @param uri     The Uri to query.
-     * @author paulburke
      * @see .isLocal
      * @see .getFile
      */
