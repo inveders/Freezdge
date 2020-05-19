@@ -138,7 +138,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun insertRecipes() {
-        if (recipeViewModel.countAllRecipesInDatabase().toInt() == 0) {
+        if (recipeViewModel.countAllRecipesInDatabase()?.toInt() == 0) {
             recipeViewModel.insertRecipesInDatabase()
             recipeViewModel.updateSharedPref()
         } else if (recipeViewModel.countAllRecipesInDatabase() != sharedPref.getLong(
@@ -275,9 +275,9 @@ abstract class BaseFragment : Fragment() {
     //DATA
     private suspend fun getAllRecipes() {
         if (setlistRetrofit.isNullOrEmpty()) {
-            val result: MutableList<Ingredients> =
+            val result: MutableList<Ingredients>? =
                 ingredientsViewmodel.getIngredientsForFreezdgeList()
-            if (result.size != 0) {
+            if (result?.size != 0) {
                 recipeViewModel.getDatabaseRecipes(result)
                     ?.observe(viewLifecycleOwner, Observer { result2 ->
                         if (result2.isNullOrEmpty()) {

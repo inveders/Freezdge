@@ -27,8 +27,4 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
          return favouritesRecipesRepository.getAllFavouritesRecipes()
     }
-
-    fun countAllFavouritesRecipes(): Long {
-        return favouritesRecipesRepository.countAllFavouritesRecipes()
-    }
 }

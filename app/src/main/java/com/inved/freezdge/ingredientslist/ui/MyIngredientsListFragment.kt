@@ -60,13 +60,15 @@ class MyIngredientsListFragment : BaseFragment() {
     // if there is no ingredient change UI to show text, if there is ingredient, show chips
     private fun setupChips() {
 
-        val result: MutableList<Ingredients> = ingredientsViewmodel.getIngredientsForFreezdgeList()
+        val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
-        if (result.size != 0) {
+        if (result?.size != 0) {
             notFoundTeextView.visibility = View.GONE
             notFoundImageView.visibility = View.GONE
             chipGroup.removeAllViews()
-            handleChip(result)
+            if (result != null) {
+                handleChip(result)
+            }
 
         } else {
             notFoundTeextView.visibility = View.VISIBLE

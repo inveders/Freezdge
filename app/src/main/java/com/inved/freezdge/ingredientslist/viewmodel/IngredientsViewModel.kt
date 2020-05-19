@@ -16,7 +16,7 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
         return ingredientsRepository.updateIngredient(ingredient)
     }
 
-    fun getIngredientsForFreezdgeList(): MutableList<Ingredients> {
+    fun getIngredientsForFreezdgeList(): MutableList<Ingredients>? {
         return ingredientsRepository.getAllIngredientBySelected()
     }
 

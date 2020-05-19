@@ -6,7 +6,6 @@ import retrofit2.http.Query
 
 
 interface RecipesApi {
-
     @GET("search")
     suspend fun getRecipes(
         @Query("q") q: String?,
@@ -14,5 +13,4 @@ interface RecipesApi {
         @Query("app_key") type: String?
 
     ): Results
-
 }

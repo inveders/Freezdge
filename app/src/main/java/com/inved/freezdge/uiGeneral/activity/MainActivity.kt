@@ -79,21 +79,17 @@ class MainActivity : BaseActivity(), LoaderListener {
         }
     }
 
-    // retrieve user information to show in the naviagtion drawer
+    // retrieve user information to show in the navigation drawer
     private fun initProfil() {
         UserHelper.getUser(FirebaseAuth.getInstance().currentUser?.uid)?.get()
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
                     if (task.result?.documents?.isNotEmpty()==true) {
-
                         val imageHeader: ImageView = navigationView.findViewById(id.nav_header_profile_image)
                         val firstnameHeader:TextView = navigationView.findViewById(id.nav_header_FirstName)
-
                         val user: User? =
                             task.result!!.documents[0].toObject(User::class.java)
-
                         firstnameHeader.text = user?.firstname
-
                         //to show a photo from Firebase storage
                         GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, imageHeader)
                         hideLoader()
