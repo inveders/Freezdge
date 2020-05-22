@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -18,6 +17,8 @@ import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
+import com.like.LikeButton
+import com.like.OnLikeListener
 
 
 class PostsAdapter(
@@ -58,7 +59,7 @@ class PostsAdapter(
         private var postImage: ImageView = view.findViewById(R.id.image)
         private var deleteButton: ImageButton = view.findViewById(R.id.delete_button)
         private var updateButton: ImageButton = view.findViewById(R.id.update_button)
-        private var likeButton: ImageButton = view.findViewById(R.id.like_number_image)
+        private var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
 
         fun updateWithPosts(post: Post, listener: ClickListener) {
@@ -140,25 +141,15 @@ class PostsAdapter(
             }
 
             //like button clicklistener
-            likeButton.setOnClickListener {
+            likeButton.setOnLikeListener(object : OnLikeListener {
+                override fun liked(likeButton: LikeButton) {
+                    handlePostLikeNumberIncrease(post)
+                }
+                override fun unLiked(likeButton: LikeButton) {
+                    handlePostLikeNumberDecrease(post)
+                }
+            })
 
-                likeButton.startAnimation(domain.animation())
-
-                FavoritePostHelper.isThisPostIsFavorite(
-                    FirebaseAuth.getInstance().currentUser?.uid,
-                    post.postId
-                )?.get()
-                    ?.addOnCompleteListener { task ->
-                        if (task.result?.isEmpty==false) {
-                            if (task.result?.documents?.isNotEmpty()==true) {
-                                handlePostLikeNumberDecrease(post)
-                            } else {
-                                handlePostLikeNumberIncrease(post)
-                            }
-                        }
-                    }
-                    ?.addOnFailureListener { }
-            }
 
             //update button clicklistener
             updateButton.setOnClickListener {
@@ -226,7 +217,7 @@ class PostsAdapter(
                         val newValue: Int?
                         newValue = currentPost?.likeNumber?.plus(1)
                         PostHelper.updateLikeNumber(newValue, post.postId)
-                    }
+                       }
                 }
             }
         }?.addOnFailureListener {}
@@ -257,31 +248,29 @@ class PostsAdapter(
                             0
                         }
                         PostHelper.updateLikeNumber(newValue, post.postId)
-                    }
+                      }
                 }
             }
         }?.addOnFailureListener { }
     }
 
-    fun handleLikeButtonColor(currentPost: Post?, likeButton: ImageView) {
+    fun handleLikeButtonColor(currentPost: Post?, likeButton: LikeButton) {
         //Change like button color according to value of like
-        if (currentPost?.likeNumber != 0) {
-            likeButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                    App.applicationContext(),
-                    R.drawable.ic_like_enable
-                )
-            )
-
-        } else {
-            likeButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                    App.applicationContext(),
-                    R.drawable.ic_like_disable
-                )
-            )
-        }
-
+        FavoritePostHelper.isThisPostIsFavorite(
+            FirebaseAuth.getInstance().currentUser?.uid,
+            currentPost?.postId
+        )?.get()
+            ?.addOnCompleteListener { task ->
+                if (task.result?.isEmpty==false) {
+                    if (task.result?.documents?.isNotEmpty()!!) {
+                        //The post is in my favorites
+                        likeButton.isLiked = true
+                    }
+                }else{
+                    likeButton.isLiked = false
+                }
+            }
+            ?.addOnFailureListener { }
     }
 
     // handle the text a person found it great
@@ -302,14 +291,13 @@ class PostsAdapter(
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo_one_person_you
                                 )
-                            } else {
-                                //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
-                                likeText.text = App.resource().getString(
-                                    R.string.social_media_like_number_photo_one_person,
-                                    currentPost.likeNumber
-                                )
-
                             }
+                        }else{
+                            //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.text = App.resource().getString(
+                                R.string.social_media_like_number_photo_one_person,
+                                currentPost.likeNumber
+                            )
                         }
                     }
                     ?.addOnFailureListener { }
@@ -327,14 +315,14 @@ class PostsAdapter(
                                     R.string.social_media_like_number_photo_you_and_other,
                                     currentPost?.likeNumber?.minus(1)
                                 )
-                            } else {
-                                //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
-                                likeText.text = App.resource().getString(
-                                    R.string.social_media_like_number_photo,
-                                    currentPost?.likeNumber
-                                )
-
                             }
+                        }else {
+                            //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.text = App.resource().getString(
+                                R.string.social_media_like_number_photo,
+                                currentPost?.likeNumber
+                            )
+
                         }
                     }
                     ?.addOnFailureListener { }
@@ -361,14 +349,14 @@ class PostsAdapter(
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips_one_person_you
                                 )
-                            } else {
-                                //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
-                                likeText.text = App.resource().getString(
-                                    R.string.social_media_like_number_tips_one_person,
-                                    currentPost.likeNumber
-                                )
-
                             }
+                        }else {
+                            //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.text = App.resource().getString(
+                                R.string.social_media_like_number_tips_one_person,
+                                currentPost.likeNumber
+                            )
+
                         }
                     }
                     ?.addOnFailureListener { }
@@ -388,14 +376,14 @@ class PostsAdapter(
                                     R.string.social_media_like_number_tips_you_and_other,
                                     currentPost?.likeNumber?.minus(1)
                                 )
-                            } else {
-                                //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
-                                likeText.text = App.resource().getString(
-                                    R.string.social_media_like_number_tips,
-                                    currentPost?.likeNumber
-                                )
-
                             }
+                        }else {
+                            //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.text = App.resource().getString(
+                                R.string.social_media_like_number_tips,
+                                currentPost?.likeNumber
+                            )
+
                         }
                     }
                     ?.addOnFailureListener { }

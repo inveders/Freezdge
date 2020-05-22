@@ -47,7 +47,7 @@
     <string name="Yes">Oui</string>
 
     <!--Ingredients type -->
-    <string name="we_research_recipes_for_you">We research recipes for you</string>
+    <string name="we_research_recipes_for_you">Nous recherchons des recettes pour vous</string>
 
     <!--Login -->
     <string name="loginFacebook">Se connecter avec Facebook</string>
@@ -87,8 +87,8 @@
     <string name="social_media_tips_post">Astuce</string>
     <string name="social_media_like_number_tips">%d personnes ont trouvé cela utile</string>
     <string name="social_media_like_number_photo">%d personnes ont trouvé cela magnifique</string>
-    <string name="social_media_like_number_tips_you_and_other">You and %d personnes ont trouvé cela utile</string>
-    <string name="social_media_like_number_photo_you_and_other">You and %d personnes ont trouvé cela magnifique</string>
+    <string name="social_media_like_number_tips_you_and_other">Vous et %d personnes ont trouvé cela utile</string>
+    <string name="social_media_like_number_photo_you_and_other">Vous et %d personnes ont trouvé cela magnifique</string>
     <string name="social_media_like_number_tips_one_person">%d personne a trouvé cela utile</string>
     <string name="social_media_like_number_photo_one_person">%d personne a trouvé cela magnifique</string>
     <string name="social_media_like_number_tips_one_person_you">Vous avez trouvé cela utile</string>
