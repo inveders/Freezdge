@@ -139,4 +139,5 @@ dependencies {
 
     //MULTIDEX
     implementation 'com.android.support:multidex:1.0.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0-beta01'
 }

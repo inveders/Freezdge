@@ -77,6 +77,7 @@ class GlideUtils {
         fun loadPhotoWithGlide(gsReference:StorageReference?,shimmer:ShimmerFrameLayout?,image:ImageView){
             GlideApp.with(App.applicationContext())
                 .load(gsReference)
+                .centerCrop()
                 .listener(object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?,
