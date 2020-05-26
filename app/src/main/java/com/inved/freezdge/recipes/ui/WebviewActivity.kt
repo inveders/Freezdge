@@ -25,6 +25,7 @@ class WebviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_webview)
         webview=findViewById(R.id.webview)
         val url:String? = intent.getStringExtra("WEBVIEW_URL")
-        url?.let { cardViewClick(it) }
+        val url2 = url?.replace("http","https")
+        url2?.let { cardViewClick(it) }
     }
 }
