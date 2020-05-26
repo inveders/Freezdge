@@ -12,14 +12,6 @@
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
-
-    <!-- <com.facebook.shimmer.ShimmerFrameLayout
-         android:id="@+id/shimmer_view_container"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-
-         >-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -195,9 +187,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--  </com.facebook.shimmer.ShimmerFrameLayout>-->
 
 
 </androidx.cardview.widget.CardView>
