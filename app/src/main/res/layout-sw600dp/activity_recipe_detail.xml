@@ -38,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/activity_recipe_detail_photo_owner"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/description_image"
                 android:scaleType="centerCrop"
