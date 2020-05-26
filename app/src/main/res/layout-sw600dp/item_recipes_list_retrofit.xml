@@ -54,6 +54,7 @@
             android:layout_marginTop="@dimen/default_margin"
             android:text="@string/recipe_list_item_label"
             android:textStyle="bold"
+            android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image"
             app:layout_constraintRight_toLeftOf="@id/fragment_recipes_list_item_matching"/>
@@ -83,7 +84,6 @@
             app:layout_constraintTop_toTopOf="@id/favorite_image"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:srcCompat="@drawable/ic_timer_black_24dp" />
-
 
         <View
             android:id="@+id/view"
@@ -116,6 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/recipe_list_item_preparation_time"
+            android:textSize="16sp"
             app:layout_constraintLeft_toRightOf="@id/like_number_image"
             app:layout_constraintTop_toTopOf="@id/like_number_image"
             app:layout_constraintBottom_toBottomOf="@id/like_number_image"/>
@@ -127,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:text="@string/recipe_list_item_cuisine_type"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/like_number_image"
             app:layout_constraintTop_toBottomOf="@id/like_number_image"
             />
@@ -140,7 +141,7 @@
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:text="@string/tiret"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/fragment_recipes_list_cuisine_type"
             app:layout_constraintTop_toBottomOf="@id/like_number_image"
             />
@@ -153,7 +154,7 @@
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:text="@string/recipe_list_item_dish_type"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/fragment_recipes_line"
             app:layout_constraintTop_toBottomOf="@id/like_number_image"
             />
@@ -164,6 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:text="@string/recipe_list_item_kcal"
+            android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -174,6 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/little_margin"
             android:text="@string/recipe_list_item_kcal"
+            android:textSize="16sp"
             app:layout_constraintLeft_toRightOf="@id/description"
             app:layout_constraintTop_toTopOf="@id/description" />
 

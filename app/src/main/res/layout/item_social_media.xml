@@ -77,8 +77,8 @@
 
         <com.like.LikeButton
             android:id="@+id/like_number_image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             app:icon_type="thumb"
             app:circle_start_color="@color/colorPrimary"
             app:like_drawable="@drawable/thumb_on"
