@@ -106,6 +106,37 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = ""
                 )
             )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Pâtes fusilli façon bolognaise",
+                    recipeCalories = "",
+                    totalrecipeTime = "30 min",
+                    preparationTime = "",
+                    cuisineType="Italien",
+                    dishType="Main course",
+                    cookedTime = "",
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/fusili_bolo_mntraiteur.jpg",
+                    recipePhotoUrlOwner="gs://freezdge.appspot.com/Owners_traiteurs/aime_n_traiteur.jpg",
+                    recipeUrlOwnerLink="https://www.facebook.com/Aime-N-Traiteur-489588211127218/",
+                    recipeIngredients = "500g de pâtes fusilli, 800g de viande hachée, 500g de julienne de légumes surgelés, 1 c à s d'huile, Sel, Poivre, Basilic séché, 1 cube de bouillon, 1 oignon, 1 bocal de sauce cuisinée aux légumes (400g environ) ",
+                    numberPersons = 8,
+                    selectedRecipe = false,
+                    numberSteps = 6,
+                    step1 = "Faire cuire les pâtes comme indiqué sur le paquet",
+                    step2 = "Faire revenir la viande hachée avec l'huile et l'oignon, le bouillon, et un peu de sel",
+                    step3 = "Lorsque la viande est égrénée assaisonnez puis ajoutez les légumes. Bien mélanger.",
+                    step4 = "Cuire pendant 5 minutes environ et mettre la sauce tomate",
+                    step5 = "Cuire encore 5 minutes.",
+                    step6 = "C'est prêt !",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = ""
+                )
+            )
         }
     }
 }
