@@ -288,12 +288,14 @@ class PostsAdapter(
                         if (task.result?.isEmpty==false) {
                             if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
+                                likeText.visibility = View.VISIBLE
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo_one_person_you
                                 )
                             }
                         }else{
                             //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.visibility = View.VISIBLE
                             likeText.text = App.resource().getString(
                                 R.string.social_media_like_number_photo_one_person,
                                 currentPost.likeNumber
@@ -311,6 +313,7 @@ class PostsAdapter(
                         if (task.result?.isEmpty==false) {
                             if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
+                                likeText.visibility = View.VISIBLE
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo_you_and_other,
                                     currentPost?.likeNumber?.minus(1)
@@ -318,11 +321,11 @@ class PostsAdapter(
                             }
                         }else {
                             //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.visibility = View.VISIBLE
                             likeText.text = App.resource().getString(
                                 R.string.social_media_like_number_photo,
                                 currentPost?.likeNumber
                             )
-
                         }
                     }
                     ?.addOnFailureListener { }
@@ -346,12 +349,14 @@ class PostsAdapter(
                         if (task.result?.isEmpty==false) {
                             if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
+                                likeText.visibility = View.VISIBLE
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips_one_person_you
                                 )
                             }
                         }else {
                             //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.visibility = View.VISIBLE
                             likeText.text = App.resource().getString(
                                 R.string.social_media_like_number_tips_one_person,
                                 currentPost.likeNumber
@@ -372,6 +377,7 @@ class PostsAdapter(
                         if (task.result?.isEmpty==false) {
                             if (task.result?.documents?.isNotEmpty()==true) {
                                 //The post is in my favorites
+                                likeText.visibility = View.VISIBLE
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips_you_and_other,
                                     currentPost?.likeNumber?.minus(1)
@@ -379,6 +385,7 @@ class PostsAdapter(
                             }
                         }else {
                             //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
+                            likeText.visibility = View.VISIBLE
                             likeText.text = App.resource().getString(
                                 R.string.social_media_like_number_tips,
                                 currentPost?.likeNumber
