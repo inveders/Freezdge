@@ -2,7 +2,6 @@ package com.inved.freezdge.recipes.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
@@ -10,6 +9,7 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.CustomExpandableListAdapter
 import com.inved.freezdge.recipes.view.RecipeStepView
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
+import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 
@@ -17,6 +17,7 @@ import com.inved.freezdge.utils.GlideUtils
 open class RecipeDetailActivity : BaseActivity() {
 
     var domain=Domain()
+    var backpressValue =1
     lateinit var recipeTitle: TextView
     private lateinit var recipePrepCookTime: TextView
     private lateinit var recipeTotalTime: TextView
@@ -48,6 +49,8 @@ open class RecipeDetailActivity : BaseActivity() {
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
 
         val id: Long = intent.getLongExtra("RECIPE_ID", 0)
+        val backpressValueBis: Int = intent.getIntExtra("BACKPRESS_VALUE", 1)
+        backpressValue=backpressValueBis
         getRecipeById(id)
     }
 
@@ -162,10 +165,10 @@ open class RecipeDetailActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        Log.d("debago","on back press recipe detail")
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("BACKPRESS", backpressValue)
+        startActivity(intent)
     }
-
 
     private fun openWebViewActivity(url: String) {
         let {

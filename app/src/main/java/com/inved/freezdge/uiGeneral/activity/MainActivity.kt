@@ -148,6 +148,10 @@ class MainActivity : BaseActivity(), LoaderListener {
             bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
             navController.navigate(R.id.action_to_all_recipes_fragment)
         }
+        if (id == 2) {
+            bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
+            navController.navigate(R.id.my_recipes_fragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

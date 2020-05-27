@@ -166,7 +166,7 @@ abstract class BaseFragment : Fragment() {
                         openWebViewActivity(urlRetrofit)
                     } else if (item is Recipes) {
                         val id: Long = item.id
-                        openRecipeDetailActivity(id)
+                        openRecipeDetailActivity(id,1)
                     }
                 }
                 true
@@ -188,7 +188,7 @@ abstract class BaseFragment : Fragment() {
                     openWebViewActivity(url)
                     if (item.recipePhotoUrl.let { it?.contains("freezdge", true)==true }) {
                         val id: Long? = item.recipeId?.toLong()
-                        openRecipeDetailActivity(id)
+                        openRecipeDetailActivity(id,2)
                     } else {
                         val urlRetrofit: String? = item.recipeUrl
                         openWebViewActivity(urlRetrofit)
@@ -209,10 +209,11 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    private fun openRecipeDetailActivity(id: Long?) {
+    private fun openRecipeDetailActivity(id: Long?,backpressValue:Int) {
         let {
             val intent = Intent(activity, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_ID", id)
+            intent.putExtra("BACKPRESS_VALUE", backpressValue)
             startActivity(intent)
         }
     }
