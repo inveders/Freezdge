@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
+import android.os.Handler
 import android.os.IBinder
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
@@ -97,6 +98,12 @@ class MyUploadService : Service() {
                 }else if(type == App.resource().getString(R.string.type_storage_users)){
                     UserHelper.updatePhotoUrl(downloadUri.toString(), documentId)
                 }
+
+                //10 sec before deleting files
+                Handler().postDelayed({
+                    val imageCameraOrGalery = ImageCameraOrGallery()
+                    imageCameraOrGalery.deleteFile(App.appContext,internalFile)
+                },10000)
             }
             .addOnFailureListener { }
     }

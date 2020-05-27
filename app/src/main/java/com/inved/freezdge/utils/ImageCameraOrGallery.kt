@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
 import java.io.File
 import java.io.IOException
 
@@ -227,5 +228,9 @@ class ImageCameraOrGallery {
             }
         }
         return null
+    }
+
+    fun deleteFile(context: Context, uri: Uri?){
+        getFile(context,uri)?.delete()
     }
 }

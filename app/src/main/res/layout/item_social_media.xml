@@ -91,7 +91,7 @@
             app:anim_scale_factor="2"
             app:is_enabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintLeft_toLeftOf="@id/profile_image"
             app:layout_constraintTop_toBottomOf="@id/image"
             android:layout_marginTop="@dimen/default_large_margin"
             />
