@@ -1,5 +1,6 @@
 package com.inved.freezdge
 
+import android.os.Build
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.ingredientslist.database.Ingredients
@@ -11,8 +12,13 @@ import io.objectbox.BoxStore
 import io.objectbox.DebugFlags
 import org.junit.After
 import org.junit.Before
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import java.io.File
 
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.O_MR1])
 abstract class AbstractObjectBoxTest {
 
     private val testDirectory = File("objectbox-example/test-db")

@@ -27,6 +27,7 @@ allprojects {
         androidX = "3.3.1"
         excludeAppGlideModule = true
         dispatcher="4.7.0"
+        objectboxVersion = "2.5.1"
 
     }
 

@@ -1,17 +1,21 @@
 package com.inved.freezdge
 
+import android.os.Build
 import com.inved.freezdge.recipes.database.Recipes
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
-@RunWith(JUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.O_MR1])
 class ObjectboxTest:AbstractObjectBoxTest() {
 
     @Test
     fun shouldGetAllIngredients() {
-        assertEquals(332, ingredientsBox?.count())
+        assertEquals(332, ingredientsBox?.count()?.toInt())
     }
 
     @Test
@@ -30,19 +34,19 @@ class ObjectboxTest:AbstractObjectBoxTest() {
         ingredientsRepository.updateIngredientSelectedForGroceryByName("Feuilles de manioc",false)
          val trueInGrocery=ingredientsRepository.isIngredientSelectedInGrocery("Tomate")
         val falseInGrocery=ingredientsRepository.isIngredientSelectedInGrocery("Feuilles de manioc")
-        assertTrue(trueInGrocery==true)
-        assertFalse(falseInGrocery==false)
+        trueInGrocery?.let { assertTrue(it) }
+        falseInGrocery?.let { assertFalse(it) }
     }
 
     @Test
     fun shouldGetAllRecipes() {
-        assertEquals(3, recipesRepository.countRecipesInBox())
+        assertEquals(4, recipesRepository.countRecipesInBox()?.toInt())
     }
 
     @Test
     fun shouldDeleteAllRecipesAndAddAll() {
         recipesRepository.deleteAllRecipesInBox()
-        assertEquals(3, recipesRepository.countRecipesInBox())
+        assertEquals(4, recipesRepository.countRecipesInBox()?.toInt())
     }
 
     @Test
