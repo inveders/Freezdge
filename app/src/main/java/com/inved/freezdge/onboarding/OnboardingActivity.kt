@@ -26,6 +26,9 @@ class OnboardingActivity : BaseActivity() {
 
         private var PRIVATE_MODE = 0
         const val PREF_NAME = "ONBOARDING"
+        const val VERSION_APP_NAME = "VERSION_APP_NAME"
+        val sharedPrefVersionName: SharedPreferences =
+            App.applicationContext().getSharedPreferences(VERSION_APP_NAME, PRIVATE_MODE)
         val sharedPref: SharedPreferences =
             App.applicationContext().getSharedPreferences(PREF_NAME, PRIVATE_MODE)
     }

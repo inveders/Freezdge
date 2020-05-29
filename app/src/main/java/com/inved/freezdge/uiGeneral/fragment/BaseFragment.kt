@@ -1,7 +1,6 @@
 package com.inved.freezdge.uiGeneral.fragment
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
@@ -23,6 +23,7 @@ import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
@@ -73,13 +74,6 @@ abstract class BaseFragment : Fragment() {
         val setlistDatabaseFilter: MutableList<Recipes> = mutableListOf()
         val setlistRetrofitFilter: MutableList<Hit> = mutableListOf()
 
-        private var PRIVATE_MODE = 0
-        const val PREF_NAME = "RECIPES_DATABASE"
-        val sharedPref: SharedPreferences =
-            App.applicationContext().getSharedPreferences(
-                PREF_NAME,
-                PRIVATE_MODE
-            )
     }
 
     val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
@@ -138,16 +132,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun insertRecipes() {
+
         if (recipeViewModel.countAllRecipesInDatabase()?.toInt() == 0) {
             recipeViewModel.insertRecipesInDatabase()
-            recipeViewModel.updateSharedPref()
-        } else if (recipeViewModel.countAllRecipesInDatabase() != sharedPref.getLong(
-                PREF_NAME,
-                0
-            )
-        ) {
+        }
+
+        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(OnboardingActivity.VERSION_APP_NAME, "1.0.0")) {
             recipeViewModel.deleteAllRecipesInDatabase()
-            recipeViewModel.updateSharedPref()
+            domain.updateSharedPrefVersionName()
         }
     }
 

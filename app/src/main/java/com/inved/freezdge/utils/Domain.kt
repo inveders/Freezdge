@@ -2,11 +2,13 @@ package com.inved.freezdge.utils
 
 import android.util.DisplayMetrics
 import android.view.animation.AlphaAnimation
+import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.database.Ingredients_
+import com.inved.freezdge.onboarding.OnboardingActivity
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
@@ -30,6 +32,12 @@ class Domain {
 
     fun convertDpToPixel(dp: Int): Int {
         return (dp * (App.resource().displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+    }
+
+    fun updateSharedPrefVersionName(){
+        val editor = OnboardingActivity.sharedPrefVersionName.edit()
+        editor.putString(OnboardingActivity.VERSION_APP_NAME, BuildConfig.VERSION_NAME)
+        editor.apply()
     }
 
     fun createRandomString(): String {

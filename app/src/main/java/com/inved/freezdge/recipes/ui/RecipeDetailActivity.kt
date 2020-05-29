@@ -17,7 +17,7 @@ import com.inved.freezdge.utils.GlideUtils
 open class RecipeDetailActivity : BaseActivity() {
 
     var domain=Domain()
-    var backpressValue =1
+    private var backpressValue =1
     lateinit var recipeTitle: TextView
     private lateinit var recipePrepCookTime: TextView
     private lateinit var recipeTotalTime: TextView

@@ -3,7 +3,10 @@ package com.inved.freezdge.socialmedia.ui
 import android.Manifest
 import android.os.Bundle
 import android.os.Handler
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.NestedScrollView
@@ -22,7 +25,6 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.*
-import kotlinx.android.synthetic.main.fragment_social_media.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
@@ -40,6 +42,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     private lateinit var addPhotoGalleryText: TextView
     private lateinit var addPhotoCameraText: TextView
     private lateinit var addTipText: TextView
+    private lateinit var noPostFound: TextView
     private lateinit var topDescription: TextView
     private var loader: FrameLayout? = null
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
@@ -68,6 +71,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         addPhotoGalleryText = mView.findViewById(R.id.title_photo_post)
         addPhotoCameraText = mView.findViewById(R.id.title_camera_post)
         addTipText = mView.findViewById(R.id.title_tips_post)
+        noPostFound = mView.findViewById(R.id.no_post_found)
         photoProfile = mView.findViewById(R.id.profile_image)
         topDescription = mView.findViewById(R.id.profile_activity_top_description)
         loader = mView.findViewById(R.id.animation_view_container)
@@ -310,14 +314,14 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         // 7 - Show TextView in case RecyclerView is empty
         if (mRecyclerPostsAdapter.itemCount == 0) {
             if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
-                no_post_found.visibility = View.VISIBLE
+                noPostFound.visibility = View.VISIBLE
             } else {
-                no_post_found.visibility = View.VISIBLE
-                no_post_found.text = getString(R.string.internet_connexion)
+                noPostFound.visibility = View.VISIBLE
+                noPostFound.text = getString(R.string.internet_connexion)
             }
 
         } else {
-            no_post_found.visibility = View.GONE
+            noPostFound.visibility = View.GONE
         }
     }
 

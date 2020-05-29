@@ -1,19 +1,17 @@
 package com.inved.freezdge.recipes.repository
 
-import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.database.Recipes_
 import com.inved.freezdge.recipes.retrofit.RecipesApi
 import com.inved.freezdge.recipes.retrofit.RetrofitServiceRecipes
-import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.AddRecipesInDatabase
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
 
 class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
 
-    private val appKEY: String = BuildConfig.APP_KEY_RECIPES
-    private val appID: String = BuildConfig.APP_ID_RECIPES
+    private val appKEY: String = com.inved.freezdge.BuildConfig.APP_KEY_RECIPES
+    private val appID: String = com.inved.freezdge.BuildConfig.APP_ID_RECIPES
 
     private var client: RecipesApi = RetrofitServiceRecipes.webservice
 
@@ -48,12 +46,6 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
         return getRecipesBox?.count()
     }
 
-    // put in the sharedPreferences the number of recipes in the database
-    fun updateSharedPref(){
-        val editor = BaseFragment.sharedPref.edit()
-        getRecipesBox?.count()?.let { editor.putLong(BaseFragment.PREF_NAME, it) }
-        editor.apply()
-    }
 
 }
 
