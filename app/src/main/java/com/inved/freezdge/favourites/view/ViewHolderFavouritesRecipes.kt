@@ -26,6 +26,8 @@ class ViewHolderFavouritesRecipes(val view: View) :
     private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
+    private var imageOwner: ImageView =
+        view.findViewById(R.id.owner_image)
     var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
@@ -41,6 +43,15 @@ class ViewHolderFavouritesRecipes(val view: View) :
             kcal.text = App.resource().getString(R.string.recipe_list_item_kcal_notknow)
         }else{
             kcal.text = item.recipeCalories
+        }
+
+        val storage = FirebaseStorage.getInstance()
+        if(item.recipePhotoUrlOwner!=null){
+            imageOwner.visibility=View.VISIBLE
+            val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+            GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
+        }else{
+            imageOwner.visibility=View.GONE
         }
 
         // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.

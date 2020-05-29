@@ -13,7 +13,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
-                              recipeIngredients: String?,cuisineType:String?,dishType:String?) {
+                              recipeIngredients: String?,cuisineType:String?,dishType:String?,recipePhotoUrlOwner:String?) {
 
         if(!recipeId.isNullOrEmpty()){
             val favouritesRecipes: FavouritesRecipes? =
@@ -22,7 +22,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
             if (favouritesRecipes != null) {
                 removeFavouriteRecipe(favouritesRecipes)
             } else {
-                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType)
+                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType,recipePhotoUrlOwner)
             }
         }
 
@@ -60,7 +60,8 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         recipePhotoUrl: String?,
         recipeIngredients: String?,
         cuisineType: String?,
-        dishType: String?
+        dishType: String?,
+        recipePhotoUrlOwner:String?
     ) {
         getFavouritesRecipesBox?.put(
             FavouritesRecipes(
@@ -72,7 +73,8 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
                 recipePhotoUrl =recipePhotoUrl,
                 recipeIngredients =recipeIngredients,
                 cuisineType = cuisineType,
-                dishType = dishType
+                dishType = dishType,
+                recipePhotoUrlOwner=recipePhotoUrlOwner
             )
         )
     }

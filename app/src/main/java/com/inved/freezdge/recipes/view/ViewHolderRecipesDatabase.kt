@@ -37,7 +37,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         if(item.totalrecipeTime.isNullOrEmpty()){
             preparationTime.text = App.resource().getString(R.string.recipe_list_item_no_time_known)
         }else{
-            preparationTime.text = item.preparationTime
+            preparationTime.text = item.totalrecipeTime
         }
 
         cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCharacter(it) }

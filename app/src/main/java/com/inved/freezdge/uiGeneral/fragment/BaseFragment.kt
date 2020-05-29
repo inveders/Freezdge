@@ -372,7 +372,8 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.image,
                     item.recipe?.ingredientLines.toString(),
                     item.recipe?.cuisineType?.get(0),
-                    item.recipe?.dishType?.get(0)
+                    item.recipe?.dishType?.get(0),
+                    null
                 )
 
                 if (!item.recipe?.uri.isNullOrEmpty()) {
@@ -433,7 +434,8 @@ abstract class BaseFragment : Fragment() {
                     item.recipePhotoUrl,
                     item.recipeIngredients,
                     item.cuisineType,
-                    item.dishType
+                    item.dishType,
+                    item.recipePhotoUrlOwner
                 )
 
                 val bool: Boolean? =
@@ -489,7 +491,7 @@ abstract class BaseFragment : Fragment() {
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients,
-                item.cuisineType, item.dishType
+                item.cuisineType, item.dishType,item.recipePhotoUrlOwner
             )
 
             val bool: Boolean? = item.recipeId.let {
