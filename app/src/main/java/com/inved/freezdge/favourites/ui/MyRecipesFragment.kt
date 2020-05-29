@@ -26,7 +26,7 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
     }
 
     private lateinit var floatingActionButton: FloatingActionButton
-    lateinit var searchItem: MenuItem
+    var searchItem: MenuItem?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -40,10 +40,10 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
     // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
         searchItem = menu.findItem(R.id.search_menu)
-        searchItem.isVisible = isFavouriteSearchButtonShowed
+        searchItem?.isVisible = isFavouriteSearchButtonShowed
         val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
         clearIngredientItem.isVisible = false
-        val searchView = searchItem.actionView as SearchView
+        val searchView = searchItem?.actionView as SearchView
         val edittext =
             searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         edittext.hint = getString(R.string.search_recipe_searchview_label)
@@ -139,12 +139,13 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
     override fun showSearchButton() {
         isFavouriteSearchButtonShowed =true
-        searchItem.isVisible = true
+
+        searchItem?.isVisible = true
     }
 
     override fun hideSearchButton() {
         isFavouriteSearchButtonShowed =false
-        searchItem.isVisible = false
+        searchItem?.isVisible = false
     }
 
 }

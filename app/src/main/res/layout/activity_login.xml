@@ -65,6 +65,7 @@
                 android:padding="@dimen/default_large_margin"
                 android:text="@string/loginFacebook"
                 style="@style/ButtonFacebook"
+                android:visibility="gone"
                 />
 
             <!-- BUTTON LOGIN GOOGLE -->

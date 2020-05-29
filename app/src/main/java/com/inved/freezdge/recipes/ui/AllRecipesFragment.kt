@@ -1,7 +1,6 @@
 package com.inved.freezdge.recipes.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +24,7 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
     }
 
     private lateinit var floatingActionButton: FloatingActionButton
-    lateinit var searchItem: MenuItem
+    private lateinit var searchItem: MenuItem
     companion object{
         var isSearchButtonShowed:Boolean=true
     }
@@ -41,7 +40,6 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
     // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
         searchItem = menu.findItem(R.id.search_menu)
-        Log.d("debago","is buton to show? "+isSearchButtonShowed)
         searchItem.isVisible = isSearchButtonShowed
         val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
         clearIngredientItem.isVisible = false
