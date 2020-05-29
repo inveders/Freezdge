@@ -26,7 +26,7 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
     }
 
     private lateinit var floatingActionButton: FloatingActionButton
-    var searchItem: MenuItem?=null
+    private var searchItem: MenuItem?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
