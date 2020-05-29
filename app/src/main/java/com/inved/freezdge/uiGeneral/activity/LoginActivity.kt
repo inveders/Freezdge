@@ -168,7 +168,7 @@ class LoginActivity : BaseActivity() {
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    loginUtils.isUserExistInFirebase()
+                    getCurrentUser()?.uid?.let { loginUtils.isUserExistInFirebase(it,getCurrentUser()) }
                     handleStartActivityOrOnboarding()
                     loginUtils.showSnackBar(
                         this.coordinatorLayout,
@@ -207,7 +207,7 @@ class LoginActivity : BaseActivity() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         getFirebaseAuth()?.signInWithCredential(credential)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                loginUtils.isUserExistInFirebase()
+                getCurrentUser()?.uid?.let { it1 -> loginUtils.isUserExistInFirebase(it1,getCurrentUser()) }
                 handleStartActivityOrOnboarding()
             } else {
                 loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))

@@ -29,6 +29,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/colorGrey" />
 
+            <ImageView
+                android:id="@+id/owner_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/default_margin"
+                app:layout_constraintRight_toRightOf="@id/view"
+                app:layout_constraintTop_toTopOf="@id/view"
+                android:contentDescription="@string/description_image"/>
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"

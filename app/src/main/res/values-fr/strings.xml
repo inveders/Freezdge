@@ -7,6 +7,7 @@
     <string name="menu_grocery_list">Liste de courses</string>
     <string name="menu_logout">Déconnection</string>
     <string name="menu_info">Comment utiliser l\'appli?</string>
+    <string name="menu_clear_ingredients_list">Vider la liste d\'ingredients</string>
 
     <!--Toolbar-->
     <string name="toolbar_grocery_list">Ma liste de courses</string>
@@ -35,6 +36,11 @@
     <!--Recipe Detail-->
     <string name="recipe_detail_item_label">Titre de la recette</string>
 
+    <string name="recipe_green_matching">Entre 80 et 100%</string>
+    <string name="recipe_orange_matching">Entre 50 et 79%</string>
+    <string name="recipe_red_matching">Entre 0 et 49%</string>
+
+    <string name="recipe_matching_definition">La correspondance en % nous donne la proportion d\'ingrédients dans mon Freezdge par rapport au nombre d\'ingrédients de la recette</string>
     <string name="recipe_detail_item_detail_time">Prép. : %s\nCuisson : %s</string>
     <string name="recipe_detail_item_total_time">Temps total : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
@@ -48,6 +54,7 @@
 
     <!--Ingredients type -->
     <string name="we_research_recipes_for_you">Nous recherchons des recettes pour vous</string>
+    <string name="dialog_question_clear_ingredients">Etes-vous sûr(e) de vouloir vider votre liste d\'ingrédients?</string>
 
     <!--Login -->
     <string name="loginFacebook">Se connecter avec Facebook</string>
@@ -118,6 +125,7 @@
     <string name="step_recipe">Etape %d : %s</string>
     <string name="internet_connexion">Pas de connexion internet</string>
     <string name="search_recipe_searchview_label">Recherche sur le nom d\'une recette…</string>
+    <string name="general_close">Fermer</string>
 
     <!--Array string -->
     <string name="array_filter_dessert">Dessert</string>
@@ -143,6 +151,7 @@
     <string name="facebook_sign_in">La connexion avec Facebook a échoué :(</string>
     <string name="recipe_list_number">%d recettes trouvées</string>
     <string name="recipe_list_number_one">%d recette trouvée</string>
+    <string name="ingredient_list_clear">Liste d\'ingrédient vidée</string>
 
 
 </resources>

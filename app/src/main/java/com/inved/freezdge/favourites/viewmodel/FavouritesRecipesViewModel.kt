@@ -12,8 +12,8 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
                               recipeIngredients: String?,cuisineType:String?,
-                              dishType:String?) {
-        favouritesRecipesRepository.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType)
+                              dishType:String?,recipePhotoUrlOwner:String?) {
+        favouritesRecipesRepository.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType,recipePhotoUrlOwner)
     }
 
     fun isRecipeIdIsPresent(recipeId:String):Boolean? {

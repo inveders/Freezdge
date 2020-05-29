@@ -32,10 +32,7 @@ import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.LoaderListener
-import com.inved.freezdge.utils.NetworkUtils
+import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -63,6 +60,15 @@ abstract class BaseFragment : Fragment() {
         internal var listener: LoaderListener? = null
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
+        }
+        internal var listenerSearch: SearchButtonListener? = null
+        fun setSearchButtonListener(callback: SearchButtonListener) {
+            this.listenerSearch = callback
+        }
+
+        internal var listenerSearchFavourite: SearchFavouriteButtonListener? = null
+        fun setSearchFavouriteButtonListener(callback: SearchFavouriteButtonListener) {
+            this.listenerSearchFavourite = callback
         }
 
         var setlistDatabase: MutableList<Recipes> = mutableListOf()
@@ -137,7 +143,11 @@ abstract class BaseFragment : Fragment() {
             recipeViewModel.insertRecipesInDatabase()
         }
 
-        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(OnboardingActivity.VERSION_APP_NAME, "1.0.0")) {
+        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
+                OnboardingActivity.VERSION_APP_NAME,
+                "1.0.0"
+            )
+        ) {
             recipeViewModel.deleteAllRecipesInDatabase()
             domain.updateSharedPrefVersionName()
         }
@@ -158,13 +168,13 @@ abstract class BaseFragment : Fragment() {
                         openWebViewActivity(urlRetrofit)
                     } else if (item is Recipes) {
                         val id: Long = item.id
-                        openRecipeDetailActivity(id,1)
+                        openRecipeDetailActivity(id, 1)
                     }
                 }
                 true
             }
 
-        handleFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
+        handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
     }
 
     private fun setupFavouriteRecipeRecyclerView() {
@@ -178,9 +188,9 @@ abstract class BaseFragment : Fragment() {
                 v?.let {
                     val url: String? = item.recipeUrl
                     openWebViewActivity(url)
-                    if (item.recipePhotoUrl.let { it?.contains("freezdge", true)==true }) {
+                    if (item.recipePhotoUrl.let { it?.contains("freezdge", true) == true }) {
                         val id: Long? = item.recipeId?.toLong()
-                        openRecipeDetailActivity(id,2)
+                        openRecipeDetailActivity(id, 2)
                     } else {
                         val urlRetrofit: String? = item.recipeUrl
                         openWebViewActivity(urlRetrofit)
@@ -201,7 +211,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    private fun openRecipeDetailActivity(id: Long?,backpressValue:Int) {
+    private fun openRecipeDetailActivity(id: Long?, backpressValue: Int) {
         let {
             val intent = Intent(activity, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_ID", id)
@@ -244,6 +254,7 @@ abstract class BaseFragment : Fragment() {
                         notFoundTextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
                         floatingActionButton.show()
+                        listenerSearchFavourite?.showSearchButton()
                         for (myresult in result) {
                             favouriteRecipesItemAdapter.add(myresult)
                             setFavouriteList.add(myresult)
@@ -253,6 +264,7 @@ abstract class BaseFragment : Fragment() {
                         notFoundTextView.visibility = View.VISIBLE
                         notFoundImageView.visibility = View.VISIBLE
                         floatingActionButton.hide()
+                        listenerSearchFavourite?.hideSearchButton()
                         numberRecipesTextview.visibility = View.GONE
                         notFoundTextView.text = getString(R.string.no_item_found_favourite)
                     }
@@ -278,11 +290,13 @@ abstract class BaseFragment : Fragment() {
                             notFoundTextView.text =
                                 getString(R.string.no_recipes_found)
                             numberRecipesTextview.visibility = View.GONE
+                            listenerSearch?.hideSearchButton()
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             notFoundTextView.visibility = View.GONE
                             floatingActionButton.show()
+                            listenerSearch?.showSearchButton()
                             fillAdapterDatabase(result2)
                         }
                     })
@@ -292,12 +306,14 @@ abstract class BaseFragment : Fragment() {
                             notFoundTextView.visibility = View.VISIBLE
                             notFoundTextView.text =
                                 getString(R.string.no_recipes_found)
+                            listenerSearch?.hideSearchButton()
                             numberRecipesTextview.visibility = View.GONE
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             notFoundTextView.visibility = View.GONE
                             floatingActionButton.show()
+                            listenerSearch?.showSearchButton()
                             fillAdapterRetrofit(result3)
                         }
                     })
@@ -305,6 +321,7 @@ abstract class BaseFragment : Fragment() {
                 notFoundTextView.visibility = View.VISIBLE
                 notFoundTextView.text =
                     getString(R.string.no_item_found_recipes)
+                listenerSearch?.hideSearchButton()
                 numberRecipesTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()
@@ -339,7 +356,7 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-    private fun handleFastAdapterClick(
+    private fun handleFastAdapterClickImageFavourite(
         fastAdapter: GenericFastAdapter,
         favouriteRecipesViewmodel: FavouritesRecipesViewModel
     ) {
@@ -355,7 +372,8 @@ abstract class BaseFragment : Fragment() {
                     item.recipe?.image,
                     item.recipe?.ingredientLines.toString(),
                     item.recipe?.cuisineType?.get(0),
-                    item.recipe?.dishType?.get(0)
+                    item.recipe?.dishType?.get(0),
+                    null
                 )
 
                 if (!item.recipe?.uri.isNullOrEmpty()) {
@@ -398,6 +416,12 @@ abstract class BaseFragment : Fragment() {
 
         }
 
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.proportionText }) { _, _, _: FastAdapter<GenericItem>, _: GenericItem ->
+            //react on the click event
+            domain.showMatchingDialog(activity)
+
+        }
+
         fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, _, _: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is Recipes) {
@@ -410,7 +434,8 @@ abstract class BaseFragment : Fragment() {
                     item.recipePhotoUrl,
                     item.recipeIngredients,
                     item.cuisineType,
-                    item.dishType
+                    item.dishType,
+                    item.recipePhotoUrlOwner
                 )
 
                 val bool: Boolean? =
@@ -466,7 +491,7 @@ abstract class BaseFragment : Fragment() {
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients,
-                item.cuisineType, item.dishType
+                item.cuisineType, item.dishType,item.recipePhotoUrlOwner
             )
 
             val bool: Boolean? = item.recipeId.let {
@@ -501,6 +526,12 @@ abstract class BaseFragment : Fragment() {
             }
 
             favouritesFastAdapter.notifyAdapterDataSetChanged()
+
+        }
+
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.proportionText }) { _, _, _: FastAdapter<FavouritesRecipes>, _: GenericItem ->
+            //react on the click event
+            domain.showMatchingDialog(activity)
 
         }
     }

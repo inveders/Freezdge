@@ -26,7 +26,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
     private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
-    private var proportionText: TextView =
+    private var imageOwner: ImageView =
+        view.findViewById(R.id.owner_image)
+    var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
         label.text = item.recipeTitle
@@ -43,6 +45,15 @@ class ViewHolderFavouritesRecipes(val view: View) :
             kcal.text = item.recipeCalories
         }
 
+        val storage = FirebaseStorage.getInstance()
+        if(item.recipePhotoUrlOwner!=null){
+            imageOwner.visibility=View.VISIBLE
+            val gsReferenceOwner = item.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+            GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
+        }else{
+            imageOwner.visibility=View.GONE
+        }
+
         // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
         val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.recipeIngredients)
         proportionText.text=App.resource().getString(R.string.recipe_matching_percent,proportionInPercent)
@@ -56,10 +67,10 @@ class ViewHolderFavouritesRecipes(val view: View) :
 
         // We attribute different color according to the matching value
         when (proportionInPercent) {
-            in 80..99 -> {
+            in 80..100 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
             }
-            in 50..70 -> {
+            in 50..79 -> {
                 proportionText.setBackgroundResource(R.drawable.border_orange)
             }
             in 0..49 -> {
@@ -68,9 +79,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }
 
         if(item.recipePhotoUrl?.contains("freezdge",true)==true){
-            val storage = FirebaseStorage.getInstance()
+            val storageRef = FirebaseStorage.getInstance()
             // Create a reference to a file from a Google Cloud Storage URI
-            val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
+            val gsReference = item.recipePhotoUrl?.let { storageRef.getReferenceFromUrl(it) }
             GlideUtils.loadPhotoWithGlide(gsReference,null,imageItem)
         }else{
             GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipePhotoUrl,imageItem)

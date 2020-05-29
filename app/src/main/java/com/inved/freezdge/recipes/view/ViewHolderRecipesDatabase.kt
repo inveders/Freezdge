@@ -37,7 +37,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         if(item.totalrecipeTime.isNullOrEmpty()){
             preparationTime.text = App.resource().getString(R.string.recipe_list_item_no_time_known)
         }else{
-            preparationTime.text = item.preparationTime
+            preparationTime.text = item.totalrecipeTime
         }
 
         cuisineType.text= item.cuisineType?.let { domain.uppercaseFirstCharacter(it) }
@@ -60,10 +60,10 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
 
         // We attribute different color according to the matching value
         when (proportionInPercent) {
-            in 80..99 -> {
+            in 80..100 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
             }
-            in 50..70 -> {
+            in 50..79 -> {
                 proportionText.setBackgroundResource(R.drawable.border_orange)
             }
             in 0..49 -> {

@@ -68,7 +68,8 @@ class ObjectboxTest:AbstractObjectBoxTest() {
             myrecipe?.recipePhotoUrl,
             myrecipe?.recipeIngredients,
             myrecipe?.cuisineType,
-            myrecipe?.dishType
+            myrecipe?.dishType,
+            myrecipe?.recipePhotoUrlOwner
         )
         favouritesRecipesRepository.isRecipeIdIsPresent(myrecipe?.id.toString())?.let {
             assertTrue(

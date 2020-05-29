@@ -1,7 +1,9 @@
 package com.inved.freezdge.recipes.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
@@ -13,51 +15,59 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.SearchButtonListener
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
-class AllRecipesFragment : BaseFragment() {
+class AllRecipesFragment : BaseFragment(),SearchButtonListener {
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_all_recipes
     }
 
     private lateinit var floatingActionButton: FloatingActionButton
+    lateinit var searchItem: MenuItem
+    companion object{
+        var isSearchButtonShowed:Boolean=true
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        setSearchButtonListener(this)
         floatingActionButton = view.findViewById(R.id.floating_button)
         floatingActionButton.setOnClickListener { launchFilterDialog() }
     }
 
     // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchItem = menu.findItem(R.id.search_menu)
-        if (searchItem != null) {
-            val searchView = searchItem.actionView as SearchView
+        searchItem = menu.findItem(R.id.search_menu)
+        Log.d("debago","is buton to show? "+isSearchButtonShowed)
+        searchItem.isVisible = isSearchButtonShowed
+        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        clearIngredientItem.isVisible = false
+        val searchView = searchItem.actionView as SearchView
 
-            val edittext =
-                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-            edittext.hint = getString(R.string.search_recipe_searchview_label)
-            val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
-            edittext.typeface = tf
+        val edittext =
+            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        edittext.hint = getString(R.string.search_recipe_searchview_label)
+        val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
+        edittext.typeface = tf
 
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
 
-                override fun onQueryTextChange(newText: String): Boolean {
-                    handleTextFilter(
-                        newText,
-                        recipesRetrofitItemAdapter,
-                        recipesDatabaseItemAdapter
-                    )
-                    return true
-                }
-            })
-        }
+            override fun onQueryTextChange(newText: String): Boolean {
+                handleTextFilter(
+                    newText,
+                    recipesRetrofitItemAdapter,
+                    recipesDatabaseItemAdapter
+                )
+                return true
+            }
+        })
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -157,6 +167,16 @@ class AllRecipesFragment : BaseFragment() {
         }else{
             numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesNumberSize)
         }
+    }
+
+    override fun showSearchButton() {
+        isSearchButtonShowed=true
+        searchItem.isVisible = true
+    }
+
+    override fun hideSearchButton() {
+        isSearchButtonShowed=false
+        searchItem.isVisible = false
     }
 
 
