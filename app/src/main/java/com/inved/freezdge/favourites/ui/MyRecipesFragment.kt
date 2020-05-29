@@ -2,6 +2,7 @@ package com.inved.freezdge.favourites.ui
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
@@ -12,18 +13,24 @@ import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.SearchFavouriteButtonListener
 
-class MyRecipesFragment : BaseFragment() {
+class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_my_recipes
     }
 
-    private lateinit var floatingActionButton: FloatingActionButton
+    companion object{
+        var isFavouriteSearchButtonShowed:Boolean=true
+    }
 
+    private lateinit var floatingActionButton: FloatingActionButton
+    lateinit var searchItem: MenuItem
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        setSearchFavouriteButtonListener(this)
         floatingActionButton = view.findViewById(R.id.floating_button)
         floatingActionButton.setOnClickListener {
             launchFilterDialog()
@@ -32,39 +39,38 @@ class MyRecipesFragment : BaseFragment() {
 
     // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchItem = menu.findItem(R.id.search_menu)
+        searchItem = menu.findItem(R.id.search_menu)
+        searchItem.isVisible = isFavouriteSearchButtonShowed
         val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
         clearIngredientItem.isVisible = false
-        if (searchItem != null) {
-            val searchView = searchItem.actionView as SearchView
-            val edittext =
-                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-            edittext.hint = getString(R.string.search_recipe_searchview_label)
-            val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
-            edittext.typeface = tf
+        val searchView = searchItem.actionView as SearchView
+        val edittext =
+            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        edittext.hint = getString(R.string.search_recipe_searchview_label)
+        val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
+        edittext.typeface = tf
 
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
 
-                override fun onQueryTextChange(newText: String): Boolean {
-                    favouriteRecipesItemAdapter.filter(newText)
-                    favouriteRecipesItemAdapter.itemFilter.filterPredicate =
-                        { item: FavouritesRecipes, constraint: CharSequence? ->
-                            item.recipeTitle?.contains(
-                                constraint.toString(),
-                                ignoreCase = true
-                            )
-                            item.cuisineType?.contains(
-                                constraint.toString(),
-                                ignoreCase = true
-                            )==true
-                        }
-                    return true
-                }
-            })
-        }
+            override fun onQueryTextChange(newText: String): Boolean {
+                favouriteRecipesItemAdapter.filter(newText)
+                favouriteRecipesItemAdapter.itemFilter.filterPredicate =
+                    { item: FavouritesRecipes, constraint: CharSequence? ->
+                        item.recipeTitle?.contains(
+                            constraint.toString(),
+                            ignoreCase = true
+                        )
+                        item.cuisineType?.contains(
+                            constraint.toString(),
+                            ignoreCase = true
+                        )==true
+                    }
+                return true
+            }
+        })
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -129,6 +135,16 @@ class MyRecipesFragment : BaseFragment() {
         }else{
             numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
         }
+    }
+
+    override fun showSearchButton() {
+        isFavouriteSearchButtonShowed =true
+        searchItem.isVisible = true
+    }
+
+    override fun hideSearchButton() {
+        isFavouriteSearchButtonShowed =false
+        searchItem.isVisible = false
     }
 
 }

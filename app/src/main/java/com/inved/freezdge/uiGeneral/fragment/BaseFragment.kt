@@ -32,10 +32,7 @@ import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.LoaderListener
-import com.inved.freezdge.utils.NetworkUtils
+import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -63,6 +60,15 @@ abstract class BaseFragment : Fragment() {
         internal var listener: LoaderListener? = null
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
+        }
+        internal var listenerSearch: SearchButtonListener? = null
+        fun setSearchButtonListener(callback: SearchButtonListener) {
+            this.listenerSearch = callback
+        }
+
+        internal var listenerSearchFavourite: SearchFavouriteButtonListener? = null
+        fun setSearchFavouriteButtonListener(callback: SearchFavouriteButtonListener) {
+            this.listenerSearchFavourite = callback
         }
 
         var setlistDatabase: MutableList<Recipes> = mutableListOf()
@@ -248,6 +254,7 @@ abstract class BaseFragment : Fragment() {
                         notFoundTextView.visibility = View.GONE
                         notFoundImageView.visibility = View.INVISIBLE
                         floatingActionButton.show()
+                        listenerSearchFavourite?.showSearchButton()
                         for (myresult in result) {
                             favouriteRecipesItemAdapter.add(myresult)
                             setFavouriteList.add(myresult)
@@ -257,6 +264,7 @@ abstract class BaseFragment : Fragment() {
                         notFoundTextView.visibility = View.VISIBLE
                         notFoundImageView.visibility = View.VISIBLE
                         floatingActionButton.hide()
+                        listenerSearchFavourite?.hideSearchButton()
                         numberRecipesTextview.visibility = View.GONE
                         notFoundTextView.text = getString(R.string.no_item_found_favourite)
                     }
@@ -282,11 +290,13 @@ abstract class BaseFragment : Fragment() {
                             notFoundTextView.text =
                                 getString(R.string.no_recipes_found)
                             numberRecipesTextview.visibility = View.GONE
+                            listenerSearch?.hideSearchButton()
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             notFoundTextView.visibility = View.GONE
                             floatingActionButton.show()
+                            listenerSearch?.showSearchButton()
                             fillAdapterDatabase(result2)
                         }
                     })
@@ -296,12 +306,14 @@ abstract class BaseFragment : Fragment() {
                             notFoundTextView.visibility = View.VISIBLE
                             notFoundTextView.text =
                                 getString(R.string.no_recipes_found)
+                            listenerSearch?.hideSearchButton()
                             numberRecipesTextview.visibility = View.GONE
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             notFoundTextView.visibility = View.GONE
                             floatingActionButton.show()
+                            listenerSearch?.showSearchButton()
                             fillAdapterRetrofit(result3)
                         }
                     })
@@ -309,6 +321,7 @@ abstract class BaseFragment : Fragment() {
                 notFoundTextView.visibility = View.VISIBLE
                 notFoundTextView.text =
                     getString(R.string.no_item_found_recipes)
+                listenerSearch?.hideSearchButton()
                 numberRecipesTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()
