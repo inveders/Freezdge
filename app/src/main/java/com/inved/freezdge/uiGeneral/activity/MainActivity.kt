@@ -107,7 +107,6 @@ class MainActivity : BaseActivity(), LoaderListener {
 
     override fun onAttachFragment(fragment: Fragment) {
         BaseFragment.setLoaderListener(this)
-
     }
 
     override fun getLayoutContentViewID(): Int {
@@ -156,7 +155,6 @@ class MainActivity : BaseActivity(), LoaderListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.search_menu, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -195,15 +193,16 @@ class MainActivity : BaseActivity(), LoaderListener {
 
     }
 
-
-
-
     override fun showLoader() {
         loader?.visibility = View.VISIBLE
+        bottomNavigationView.isClickable=false
+        bottomNavigationView.isEnabled=false
     }
 
     override fun hideLoader() {
         loader?.visibility = View.GONE
+        bottomNavigationView.isClickable=true
+        bottomNavigationView.isEnabled=true
     }
 
     inner class CustomDrawer : DrawerLayout.DrawerListener{
@@ -224,5 +223,7 @@ class MainActivity : BaseActivity(), LoaderListener {
             initProfil()
         }
     }
+
+
 
 }
