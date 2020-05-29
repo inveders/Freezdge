@@ -3,14 +3,12 @@ package com.inved.freezdge.utils
 import android.util.Log
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.inved.freezdge.R
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 
-class LoginUtils {
 
-    private var getCurrentUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+class LoginUtils {
 
     //handle Snackbar messages
     fun showSnackBar(
@@ -36,22 +34,21 @@ class LoginUtils {
     }
 
     //check if user exist in firebase before to create a new user
-    fun isUserExistInFirebase() {
+    fun isUserExistInFirebase(uid:String,currentUser:FirebaseUser?) {
 
-        UserHelper.getUser(getCurrentUser?.uid)?.get()
+        UserHelper.getUser(uid)?.get()
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (task.result != null) {
                         if (task.result?.documents?.size == 0) {
-                            getCurrentUser?.uid?.let {
+                            currentUser?.uid?.let {
                                 UserHelper.createUser(
                                     it,
-                                    getCurrentUser?.displayName,
+                                    currentUser.displayName,
                                     "",
-                                    getCurrentUser?.photoUrl.toString()
+                                    currentUser.photoUrl.toString()
                                 )
                             }
-
                         }
                     }
                 }
@@ -61,6 +58,7 @@ class LoginUtils {
                     "Problem during the user creation"
                 )
             }
+
     }
 
 
