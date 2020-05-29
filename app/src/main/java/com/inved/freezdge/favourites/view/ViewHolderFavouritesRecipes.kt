@@ -79,9 +79,9 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }
 
         if(item.recipePhotoUrl?.contains("freezdge",true)==true){
-            val storage = FirebaseStorage.getInstance()
+            val storageRef = FirebaseStorage.getInstance()
             // Create a reference to a file from a Google Cloud Storage URI
-            val gsReference = item.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
+            val gsReference = item.recipePhotoUrl?.let { storageRef.getReferenceFromUrl(it) }
             GlideUtils.loadPhotoWithGlide(gsReference,null,imageItem)
         }else{
             GlideUtils.loadPhotoWithGlideCenterCropUrl(item.recipePhotoUrl,imageItem)
