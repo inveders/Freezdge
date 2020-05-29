@@ -7,6 +7,7 @@
     <string name="menu_grocery_list">Liste de courses</string>
     <string name="menu_logout">Déconnection</string>
     <string name="menu_info">Comment utiliser l\'appli?</string>
+    <string name="menu_clear_ingredients_list">Vider la liste d\'ingredients</string>
 
     <!--Toolbar-->
     <string name="toolbar_grocery_list">Ma liste de courses</string>
@@ -48,6 +49,7 @@
 
     <!--Ingredients type -->
     <string name="we_research_recipes_for_you">Nous recherchons des recettes pour vous</string>
+    <string name="dialog_question_clear_ingredients">Etes-vous sûr(e) de vouloir vider votre liste d\'ingrédients?</string>
 
     <!--Login -->
     <string name="loginFacebook">Se connecter avec Facebook</string>
@@ -143,6 +145,7 @@
     <string name="facebook_sign_in">La connexion avec Facebook a échoué :(</string>
     <string name="recipe_list_number">%d recettes trouvées</string>
     <string name="recipe_list_number_one">%d recette trouvée</string>
+    <string name="ingredient_list_clear">Liste d\'ingrédient vidée</string>
 
 
 </resources>

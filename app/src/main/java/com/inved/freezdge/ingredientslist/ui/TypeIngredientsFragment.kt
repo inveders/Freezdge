@@ -64,6 +64,8 @@ class TypeIngredientsFragment : Fragment() {
     // handle searchview on ingredient name
     override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.search_menu)
+        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        clearIngredientItem.isVisible = false
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
             val edittext =

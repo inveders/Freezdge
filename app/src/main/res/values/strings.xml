@@ -8,6 +8,7 @@
     <string name="menu_grocery_list">Grocery List</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_info">How to use app?</string>
+    <string name="menu_clear_ingredients_list">Clear ingredients list</string>
 
     <!--Toolbar-->
     <string name="toolbar_grocery_list">My grocery list</string>
@@ -52,6 +53,7 @@
     <string name="search_recipe_searchview_label">Search on recipe name…</string>
     <string name="dialog_cancel_action">Cancelled action</string>
     <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
+    <string name="dialog_question_clear_ingredients">Do you want to clear your ingredient list?</string>
     <string name="Yes">Yes</string>
 
     <!--Ingredients type -->
@@ -137,6 +139,7 @@
     <string name="step_recipe">Step %d : %s</string>
     <string name="internet_connexion">No internet connection</string>
     <string name="grocery_list_removed">%s has been remove from grocery list</string>
+    <string name="ingredient_list_clear">Ingredient list cleared !</string>
     <!--Array string -->
     <string name="array_filter_dessert">Dessert</string>
     <string name="array_filter_entry">Starter</string>

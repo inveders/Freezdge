@@ -306,6 +306,8 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.search_menu)
         searchItem.isVisible = false
+        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        clearIngredientItem.isVisible = false
         super.onPrepareOptionsMenu(menu)
     }
 

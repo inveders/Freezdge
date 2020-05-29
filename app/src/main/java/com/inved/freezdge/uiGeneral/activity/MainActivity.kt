@@ -46,7 +46,6 @@ class MainActivity : BaseActivity(), LoaderListener {
     private lateinit var toolbar: Toolbar
     private var loader: FrameLayout? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
-
     //NavigationDrawer
     private val drawerLayout by lazy { findViewById<DrawerLayout>(id.activity_main_drawer_layout)}
     private lateinit var navigationView: NavigationView
