@@ -137,7 +137,11 @@ abstract class BaseFragment : Fragment() {
             recipeViewModel.insertRecipesInDatabase()
         }
 
-        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(OnboardingActivity.VERSION_APP_NAME, "1.0.0")) {
+        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
+                OnboardingActivity.VERSION_APP_NAME,
+                "1.0.0"
+            )
+        ) {
             recipeViewModel.deleteAllRecipesInDatabase()
             domain.updateSharedPrefVersionName()
         }
@@ -158,13 +162,13 @@ abstract class BaseFragment : Fragment() {
                         openWebViewActivity(urlRetrofit)
                     } else if (item is Recipes) {
                         val id: Long = item.id
-                        openRecipeDetailActivity(id,1)
+                        openRecipeDetailActivity(id, 1)
                     }
                 }
                 true
             }
 
-        handleFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
+        handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
     }
 
     private fun setupFavouriteRecipeRecyclerView() {
@@ -178,9 +182,9 @@ abstract class BaseFragment : Fragment() {
                 v?.let {
                     val url: String? = item.recipeUrl
                     openWebViewActivity(url)
-                    if (item.recipePhotoUrl.let { it?.contains("freezdge", true)==true }) {
+                    if (item.recipePhotoUrl.let { it?.contains("freezdge", true) == true }) {
                         val id: Long? = item.recipeId?.toLong()
-                        openRecipeDetailActivity(id,2)
+                        openRecipeDetailActivity(id, 2)
                     } else {
                         val urlRetrofit: String? = item.recipeUrl
                         openWebViewActivity(urlRetrofit)
@@ -201,7 +205,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    private fun openRecipeDetailActivity(id: Long?,backpressValue:Int) {
+    private fun openRecipeDetailActivity(id: Long?, backpressValue: Int) {
         let {
             val intent = Intent(activity, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_ID", id)
@@ -339,7 +343,7 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-    private fun handleFastAdapterClick(
+    private fun handleFastAdapterClickImageFavourite(
         fastAdapter: GenericFastAdapter,
         favouriteRecipesViewmodel: FavouritesRecipesViewModel
     ) {
@@ -395,6 +399,12 @@ abstract class BaseFragment : Fragment() {
                 }
 
             }
+
+        }
+
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.proportionText }) { _, _, _: FastAdapter<GenericItem>, _: GenericItem ->
+            //react on the click event
+            domain.showMatchingDialog(activity)
 
         }
 
@@ -501,6 +511,12 @@ abstract class BaseFragment : Fragment() {
             }
 
             favouritesFastAdapter.notifyAdapterDataSetChanged()
+
+        }
+
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.proportionText }) { _, _, _: FastAdapter<FavouritesRecipes>, _: GenericItem ->
+            //react on the click event
+            domain.showMatchingDialog(activity)
 
         }
     }

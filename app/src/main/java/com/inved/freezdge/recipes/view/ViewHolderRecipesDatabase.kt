@@ -60,10 +60,10 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
 
         // We attribute different color according to the matching value
         when (proportionInPercent) {
-            in 80..99 -> {
+            in 80..100 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
             }
-            in 50..70 -> {
+            in 50..79 -> {
                 proportionText.setBackgroundResource(R.drawable.border_orange)
             }
             in 0..49 -> {

@@ -26,7 +26,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
     private var imageItem: ImageView = view.findViewById(R.id.image)
     var imageFavourite: ImageView =
         view.findViewById(R.id.favorite_image)
-    private var proportionText: TextView =
+    var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: FavouritesRecipes, payloads: MutableList<Any>) {
         label.text = item.recipeTitle
@@ -56,10 +56,10 @@ class ViewHolderFavouritesRecipes(val view: View) :
 
         // We attribute different color according to the matching value
         when (proportionInPercent) {
-            in 80..99 -> {
+            in 80..100 -> {
                 proportionText.setBackgroundResource(R.drawable.border_green)
             }
-            in 50..70 -> {
+            in 50..79 -> {
                 proportionText.setBackgroundResource(R.drawable.border_orange)
             }
             in 0..49 -> {

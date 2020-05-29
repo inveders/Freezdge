@@ -1,6 +1,9 @@
 package com.inved.freezdge.utils
 
+import android.app.Dialog
+import android.content.Context
 import android.util.DisplayMetrics
+import android.view.View
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
@@ -105,6 +108,13 @@ class Domain {
 
     }
 
+    fun showMatchingDialog(context: Context?) {
+        val infoDialog = Dialog(context!!, R.style.AlertDialogTheme)
+        infoDialog.setContentView(R.layout.dialog_matching)
+        infoDialog.findViewById<View>(R.id.ok_button)
+            .setOnClickListener { infoDialog.dismiss() }
+        infoDialog.show()
+    }
 
     fun ingredientsMatchingMethod(input: List<String?>?): Int {
 

@@ -29,6 +29,12 @@
     <string name="recipe_list_item_image" translatable="false">image_recipe</string>
     <string name="recipe_list_item_label">Recipe label</string>
     <string name="recipe_list_item_matching">100%</string>
+    <string name="recipe_item_red_matching" translatable="false">15%</string>
+    <string name="recipe_item_orange_matching" translatable="false">65%</string>
+    <string name="recipe_green_matching">Between 80 and 100%</string>
+    <string name="recipe_orange_matching">Between 50 and 79%</string>
+    <string name="recipe_red_matching">Between 0 and 49%</string>
+    <string name="recipe_matching_definition">The matching in % give us the proportion of ingredients in my Freezdge comparing to the number of ingredients of the recipe</string>
     <string name="recipe_list_item_no_time_known">No time indicated</string>
     <string name="recipe_list_item_time_min">%d min</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
@@ -140,6 +146,8 @@
     <string name="internet_connexion">No internet connection</string>
     <string name="grocery_list_removed">%s has been remove from grocery list</string>
     <string name="ingredient_list_clear">Ingredient list cleared !</string>
+    <string name="general_close">Close</string>
+
     <!--Array string -->
     <string name="array_filter_dessert">Dessert</string>
     <string name="array_filter_entry">Starter</string>
