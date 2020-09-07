@@ -15,6 +15,7 @@ import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchFavouriteButtonListener
 
+
 class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
     override fun getLayoutRes(): Int {
@@ -66,7 +67,7 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
                         item.cuisineType?.contains(
                             constraint.toString(),
                             ignoreCase = true
-                        )==true
+                        ) == true
                     }
                 return true
             }
@@ -79,7 +80,7 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
         val builder = MaterialAlertDialogBuilder(activity)
         builder.setTitle(getString(R.string.array_dialog_title))
             .setItems(
-                R.array.filter_recipe_array
+                getFilterTextItems().toArray(arrayOfNulls<String>(0))
             ) { _, which ->
                 // The 'which' argument contains the index position of selected item
                 when (which) {
@@ -97,12 +98,35 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
     }
 
+    //get programmatically text for filter with number of them
+    private fun getFilterTextItems():ArrayList<String?> {
+        val filterTextItems: ArrayList<String?> = ArrayList()
+        filterTextItems.add(activity?.getString(R.string.array_filter_entry_title,getNumberItemForFilterText(activity?.getString(R.string.array_filter_entry_search))))
+        filterTextItems.add(activity?.getString(R.string.array_filter_plat_title,getNumberItemForFilterText(activity?.getString(R.string.array_filter_plat_search))))
+        filterTextItems.add(activity?.getString(R.string.array_filter_dessert_title,getNumberItemForFilterText(activity?.getString(R.string.array_filter_dessert_search))))
+        filterTextItems.add(activity?.getString(R.string.array_filter_cocktail_title,getNumberItemForFilterText(activity?.getString(R.string.array_filter_cocktail_search))))
+        filterTextItems.add(activity?.getString(R.string.array_filter_all_title, setFavouriteList.size))
+        return filterTextItems
+    }
+
+    //get the number or favourites recipe who are for example entry, or cocktail etc
+    private fun getNumberItemForFilterText(text:String?):Int?{
+        val numberCount:ArrayList<String?> = ArrayList()
+        for(recipes in setFavouriteList){
+            if(recipes.dishType?.contains(text.toString(), true)==true){
+                numberCount.add(text)
+            }
+        }
+        return numberCount.size
+    }
+
+
     // the given text only filter on dishType for recipes from retrofit or database
     private fun filterDishType(filterText: String?) {
         setFavouriteListFilter.clear()
 
         for(recipes in setFavouriteList){
-            if(recipes.dishType?.contains(filterText.toString(),true)==true){
+            if(recipes.dishType?.contains(filterText.toString(), true)==true){
                 setFavouriteListFilter.add(recipes)
             }
         }
@@ -131,9 +155,15 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
         recipesFavouritesNumberSize= setFavouriteListFilter.size
         if(recipesFavouritesNumberSize!=1){
-            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesFavouritesNumberSize)
+            numberRecipesTextview.text = getString(
+                R.string.recipe_list_number,
+                recipesFavouritesNumberSize
+            )
         }else{
-            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
+            numberRecipesTextview.text = getString(
+                R.string.recipe_list_number_one,
+                recipesFavouritesNumberSize
+            )
         }
     }
 
