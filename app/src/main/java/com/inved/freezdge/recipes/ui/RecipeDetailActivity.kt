@@ -2,35 +2,36 @@ package com.inved.freezdge.recipes.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
-import com.google.firebase.storage.FirebaseStorage
+import android.view.View
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.database.Recipes
-import com.inved.freezdge.recipes.view.CustomExpandableListAdapter
-import com.inved.freezdge.recipes.view.RecipeStepView
+import com.inved.freezdge.recipes.view.DetailRecipeExpandableSubItem
+import com.inved.freezdge.recipes.view.DetailRecipeItem
+import com.inved.freezdge.recipes.view.DetailSummaryExpandableItem
+import com.inved.freezdge.recipes.view.DetailSummaryExpandableSubItem
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.Domain
-import com.inved.freezdge.utils.GlideUtils
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.GenericItem
+import com.mikepenz.fastadapter.adapters.GenericItemAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.expandable.getExpandableExtension
+import com.mikepenz.fastadapter.listeners.addClickListener
 
 
 open class RecipeDetailActivity : BaseActivity() {
 
-    var domain=Domain()
-    private var backpressValue =1
+    var domain = Domain()
+    private var backpressValue = 1
     lateinit var recipeTitle: TextView
-    private lateinit var recipePrepCookTime: TextView
-    private lateinit var recipeTotalTime: TextView
-    private lateinit var recipeDetailPhoto: ImageView
-    private lateinit var recipeKcal: TextView
-    private lateinit var recipeNumberPerson: TextView
-    private lateinit var recipeOwnerImage: ImageView
-    private lateinit var stepSummaryView: LinearLayout
 
-    private var expandableListView: ExpandableListView? = null
-    private var adapter: ExpandableListAdapter? = null
-    private lateinit var listParent:ArrayList<String>
-    private lateinit var listDataChild:HashMap<String,List<String>>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var itemAdapter: ItemAdapter<GenericItem>
+    private lateinit var fastAdapter: FastAdapter<GenericItem>
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_recipe_detail
@@ -38,130 +39,158 @@ open class RecipeDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recipeOwnerImage = findViewById(R.id.activity_recipe_detail_photo_owner)
-        recipeNumberPerson = findViewById(R.id.activity_recipe_detail_number_person_image_text)
-        recipeKcal = findViewById(R.id.activity_recipe_detail_kcal_image_text)
-        recipeDetailPhoto = findViewById(R.id.activity_recipe_detail_photo)
-        recipeTotalTime = findViewById(R.id.activity_recipe_total_time)
-        recipePrepCookTime = findViewById(R.id.activity_recipe_detail_time_image_text)
-        recipeTitle = findViewById(R.id.activity_recipe_detail_name)
-        stepSummaryView = findViewById(R.id.summaryItemLinearLayout)
+
+        recyclerView = findViewById(R.id.recyclerview)
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
 
         val id: Long = intent.getLongExtra("RECIPE_ID", 0)
         val backpressValueBis: Int = intent.getIntExtra("BACKPRESS_VALUE", 1)
-        backpressValue=backpressValueBis
+        backpressValue = backpressValueBis
         getRecipeById(id)
     }
 
-    private fun setupExpandableView() {
-        expandableListView = findViewById(R.id.expandableListView)
-        if (expandableListView != null) {
-            adapter = CustomExpandableListAdapter(this, listParent, listDataChild)
-            expandableListView?.setAdapter(adapter)
-        }
+    private fun setupRecyclerView() {
 
-        expandableListView?.setOnGroupExpandListener {
-            var height = 0
-            for (i in 0 until expandableListView?.childCount!!) {
-                height += expandableListView?.getChildAt(i)?.measuredHeight!!
-                height += expandableListView?.dividerHeight!!
-            }
-            expandableListView?.layoutParams?.height = (height + 6) * 10
-        }
+        recyclerView.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recyclerView.isNestedScrollingEnabled = false
+        //   fastAdapter?.onClickListener = this
+        itemAdapter = GenericItemAdapter()
+        fastAdapter= FastAdapter.with(itemAdapter)
+        fastAdapter.getExpandableExtension().isOnlyOneExpandedItem =true
+        recyclerView.adapter = fastAdapter
 
-        // Listview Group collapsed listener
-        expandableListView?.setOnGroupCollapseListener {
-            expandableListView?.layoutParams?.height = domain.convertDpToPixel(61)
-        }
+        fastAdapter.addClickListener({ vh: DetailRecipeItem.ViewHolder -> vh.recipeOwnerImage }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
 
-    }
-
-    private fun getRecipeById(id: Long) {
-        val recipe: Recipes? = recipeViewModel.getRecipeLiveDataById(id)
-        if (recipe != null) {
-            fillRecipePage(recipe)
-            fillRecipeSteps(recipe)
-
-            recipeOwnerImage.setOnClickListener {
-                recipe.recipeUrlOwnerLink?.let {
-                    recipeOwnerImage.startAnimation(domain.animation())
+            if (item is DetailRecipeItem) {
+                v.startAnimation(domain.animation())
+                item.recipe?.recipeUrlOwnerLink?.let {
                     openWebViewActivity(
                         it
                     )
                 }
             }
         }
+
+    }
+
+    private fun fetchData(recipeIngredientsList: List<String>,recipeStepList: MutableList<String>,recipe: Recipes){
+        val items = mutableListOf<GenericItem>()
+
+        items.add(DetailRecipeItem().apply {
+            this.recipe = recipe
+        })
+
+        //add ingredients
+        val ingredientsList = DetailSummaryExpandableItem().apply {
+            this.title = getString(
+                R.string.menu_bottom_ingredient_at_home
+            )
+        }
+        recipeIngredientsList.forEach {
+            ingredientsList.subItems.add(DetailSummaryExpandableSubItem().apply {
+                this.ingredient = it
+            })
+        }
+        items.add(ingredientsList)
+
+
+        //add recipes step
+        val recipeStep = DetailSummaryExpandableItem().apply {
+            this.title = getString(
+                R.string.recipe_detail_item_recipe_view
+            )
+        }
+        recipeStepList.forEachIndexed { index, step ->
+            recipeStep.subItems.add(DetailRecipeExpandableSubItem().apply {
+                this.numberStep = index+1
+                this.recipeStep = step
+            })
+        }
+        items.add(recipeStep)
+
+        fillRecyclerView(items)
+    }
+
+    private fun fillRecyclerView(data: MutableList<GenericItem>) {
+        itemAdapter?.clear()
+        itemAdapter?.add(data)
+
+    }
+
+    private fun getRecipeById(id: Long) {
+        setupRecyclerView()
+        val recipe: Recipes? = recipeViewModel.getRecipeLiveDataById(id)
+        if (recipe != null) {
+            fetchData(domain.retrieveListFromString(recipe.recipeIngredients), fillRecipeSteps(recipe),recipe)
+        }
     }
 
 
-    private fun fillRecipePage(recipe: Recipes) {
-        recipeTitle.text = recipe.recipeTitle
-        recipePrepCookTime.text = getString(
-            R.string.recipe_detail_item_detail_time,
-            recipe.preparationTime,
-            recipe.cookedTime
-        )
-        recipeTotalTime.text =
-            getString(R.string.recipe_detail_item_total_time, recipe.totalrecipeTime)
-        val kcal: String? = if (recipe.recipeCalories?.isEmpty()==true) {
-            getString(R.string.recipe_list_item_kcal_notknow)
-        } else {
-            recipe.recipeCalories
-        }
-        recipeKcal.text = getString(R.string.recipe_detail_item_kcal, kcal)
-        recipeNumberPerson.text =
-            getString(R.string.recipe_detail_item_number_person, recipe.numberPersons)
+    private fun fillRecipeSteps(recipe: Recipes):MutableList<String> {
+        val listRecipeStep: MutableList<String> = mutableListOf()
+        recipe.step1.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
 
-        val storage = FirebaseStorage.getInstance()
-        // Create a reference to a file from a Google Cloud Storage URI
-        val gsReference = recipe.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
-        GlideUtils.loadPhotoWithGlide(gsReference,null,recipeDetailPhoto)
-
-        val gsReferenceOwner = recipe.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
-        GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,recipeOwnerImage)
-
-        addDataInExpandable(domain.retrieveListFromString(recipe.recipeIngredients))
-        setupExpandableView()
-    }
-
-    private fun fillRecipeSteps(recipe: Recipes) {
-        if (!recipe.step1.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 1, recipe.step1))
         }
-        if (!recipe.step2.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 2, recipe.step2))
+        recipe.step2.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step3.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 3, recipe.step3))
+        recipe.step3.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step4.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 4, recipe.step4))
+        recipe.step4.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step5.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 5, recipe.step5))
+        recipe.step5.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step6.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 6, recipe.step6))
+        recipe.step6.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step7.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 7, recipe.step7))
+        recipe.step7.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step8.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 8, recipe.step8))
+        recipe.step8.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step9.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 9, recipe.step9))
+        recipe.step9.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step10.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 10, recipe.step10))
+        recipe.step10.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step11.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 11, recipe.step11))
+        recipe.step11.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
-        if (!recipe.step12.isNullOrEmpty()) {
-            addSummaryRecipeItems(getString(R.string.step_recipe, 12, recipe.step12))
+        recipe.step12.let {
+            if(!it.isNullOrEmpty()){
+                listRecipeStep.add(it)
+            }
         }
+        return listRecipeStep
     }
 
     override fun onBackPressed() {
@@ -178,30 +207,9 @@ open class RecipeDetailActivity : BaseActivity() {
         }
     }
 
-    private fun addDataInExpandable(listFromString: List<String>) {
 
-        val ingredientsList = ArrayList<String>()
 
-        for(i in listFromString){
-            ingredientsList.add(i)
-        }
 
-        listParent= ArrayList()
-        listDataChild= HashMap()
-        // Adding child data
-        listParent.add("Ingrédients")
-        listDataChild[listParent[0]] = ingredientsList // Header, Child data
 
-    }
-
-    private fun addSummaryRecipeItems(
-        stepRecipe: String
-    ) {
-        val stepRecipeSummaryView =
-            RecipeStepView(this)
-        stepRecipeSummaryView.init()
-        stepRecipeSummaryView.setText(stepRecipe)
-        stepSummaryView.addView(stepRecipeSummaryView)
-    }
 
 }

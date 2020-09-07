@@ -5,7 +5,7 @@
     <string name="menu_bottom_my_recipes">Rettes</string>
     <string name="menu_bottom_social_media">Communauté</string>
     <string name="menu_grocery_list">Liste de courses</string>
-    <string name="menu_logout">Déconnection</string>
+    <string name="menu_logout">Déconnexion</string>
     <string name="menu_info">Comment utiliser l\'appli?</string>
     <string name="menu_clear_ingredients_list">Vider la liste d\'ingredients</string>
 

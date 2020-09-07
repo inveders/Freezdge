@@ -159,63 +159,13 @@
                 android:background="@color/colorAccent"
                 app:layout_constraintTop_toBottomOf="@id/activity_recipe_detail_time_image_text" />
 
-            <ExpandableListView
-                android:id="@+id/expandableListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/default_large_margin"
-                android:layout_marginEnd="15dp"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="0.5dp"
-                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-                app:layout_constraintTop_toBottomOf="@id/view"
-                app:layout_constraintBottom_toTopOf="@id/summaryViewConstraintLayout"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/summaryViewConstraintLayout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@color/colorWhite"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/expandableListView">
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@id/view" />
 
-
-                <TextView
-                    android:id="@+id/summaryTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/recipe_detail_item_recipe_view"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/summaryItemLinearLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/summaryItemLinearLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
