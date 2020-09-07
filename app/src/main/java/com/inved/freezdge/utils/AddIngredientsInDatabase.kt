@@ -2652,6 +2652,18 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
+
+            //TODO add photo
+            ingredientsBox?.put(
+                Ingredients(
+                    name = "Poisson salé",
+                    nameEnglish = "Salted fish",
+                    typeIngredient = "Poisson",
+                    photoUrl = "",
+                    selectedIngredient = false, grocerySelectedIngredient = false
+                )
+            )
+
             ingredientsBox?.put(
                 Ingredients(
                     name = "Poisson",
@@ -2813,6 +2825,17 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pork ribs",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/cotes_de_porc.jpg",
+                    selectedIngredient = false, grocerySelectedIngredient = false
+                )
+            )
+
+            //TODO add photo
+            ingredientsBox?.put(
+                Ingredients(
+                    name = "Rouelle de porc",
+                    nameEnglish = "Pork roll",
+                    typeIngredient = "Viande",
+                    photoUrl = "",
                     selectedIngredient = false, grocerySelectedIngredient = false
                 )
             )
