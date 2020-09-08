@@ -105,6 +105,8 @@
     <string name="social_media_post_delete_message_dialog">Etes-vous sûr(e) de vouloir supprimer votre post</string>
     <string name="social_media_post_delete_confirmation_dialog">Post supprimé</string>
     <string name="social_media_community">Une communauté s\'ouvre à vous</string>
+    <string name="popup_menu_update">Modifier</string>
+    <string name="popup_menu_delete">Supprimer</string>
 
     <!--Add post -->
     <string name="title_tips">Titre de l\'astuce</string>

@@ -1,11 +1,13 @@
 package com.inved.freezdge.socialmedia.view
 
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -57,8 +59,7 @@ class PostsAdapter(
         private var likeText: TextView = view.findViewById(R.id.like_number)
         private var profileImage: ImageView = view.findViewById(R.id.profile_image)
         private var postImage: ImageView = view.findViewById(R.id.image)
-        private var deleteButton: ImageButton = view.findViewById(R.id.delete_button)
-        private var updateButton: ImageButton = view.findViewById(R.id.update_button)
+        private var moreButton: ImageButton = view.findViewById(R.id.more_button)
         private var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
 
@@ -66,11 +67,9 @@ class PostsAdapter(
 
             //post and user ui
             if (post.userUid.equals(FirebaseAuth.getInstance().currentUser?.uid)) {
-                deleteButton.visibility = View.VISIBLE
-                updateButton.visibility = View.VISIBLE
+                moreButton.visibility = View.VISIBLE
             } else {
-                deleteButton.visibility = View.INVISIBLE
-                updateButton.visibility = View.INVISIBLE
+                moreButton.visibility = View.INVISIBLE
             }
 
             //post and user information
@@ -145,48 +144,38 @@ class PostsAdapter(
                 override fun liked(likeButton: LikeButton) {
                     handlePostLikeNumberIncrease(post)
                 }
+
                 override fun unLiked(likeButton: LikeButton) {
                     handlePostLikeNumberDecrease(post)
                 }
             })
 
 
-            //update button clicklistener
-            updateButton.setOnClickListener {
-
-                updateButton.startAnimation(domain.animation())
-                if (post.postType.equals(
-                        App.resource().getString(R.string.social_media_post_type_photo)
-                    )
-                ) {
-                    post.postId?.let { it1 ->
-                        listener.onClickListener(
-                            3,
-                            it1
-                        )
-                    }
-                } else if (post.postType.equals(
-                        App.resource().getString(R.string.social_media_post_type_tips)
-                    )
-                ) {
-                    post.postId?.let { it1 ->
-                        listener.onClickListener(
-                            2,
-                            it1
-                        )
-                    }
-                }
-            }
-
             //delete button clicklistener
-            deleteButton.setOnClickListener {
-                deleteButton.startAnimation(domain.animation())
-                post.postId?.let { it1 ->
-                    listener.onClickListener(
-                        1,
-                        it1
-                    )
+            moreButton.setOnClickListener {
+                moreButton.startAnimation(domain.animation())
+
+                val popup = PopupMenu(App.appContext, moreButton)
+                //inflating menu from xml resource
+                popup.inflate(R.menu.popup_menu_social_media)
+                //adding click listener
+                popup.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.popupMenuUpdate -> {
+                            updatePost(post)
+                            true
+                        }
+                        R.id.popupMenuDelete -> {
+                            deletePost(post)
+                            true
+                        }
+                        else -> {
+                           false
+                        }
+                    }
                 }
+                //displaying the popup
+                popup.show()
             }
 
         }
@@ -196,6 +185,41 @@ class PostsAdapter(
     override fun onDataChanged() {
         super.onDataChanged()
         this.listener.onDataChanged()
+    }
+
+    //update post from popup menu
+    fun updatePost(post: Post){
+        if (post.postType.equals(
+                App.resource().getString(R.string.social_media_post_type_photo)
+            )
+        ) {
+            post.postId?.let { it1 ->
+                listener.onClickListener(
+                    3,
+                    it1
+                )
+            }
+        } else if (post.postType.equals(
+                App.resource().getString(R.string.social_media_post_type_tips)
+            )
+        ) {
+            post.postId?.let { it1 ->
+                listener.onClickListener(
+                    2,
+                    it1
+                )
+            }
+        }
+    }
+
+    //delete post from popup menu
+    fun deletePost(post: Post){
+        post.postId?.let { it1 ->
+            listener.onClickListener(
+                1,
+                it1
+            )
+        }
     }
 
     fun handlePostLikeNumberIncrease(post: Post) {
@@ -285,15 +309,15 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result?.isEmpty==false) {
-                            if (task.result?.documents?.isNotEmpty()==true) {
+                        if (task.result?.isEmpty == false) {
+                            if (task.result?.documents?.isNotEmpty() == true) {
                                 //The post is in my favorites
                                 likeText.visibility = View.VISIBLE
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_photo_one_person_you
                                 )
                             }
-                        }else{
+                        } else {
                             //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
                             likeText.visibility = View.VISIBLE
                             likeText.text = App.resource().getString(
@@ -346,15 +370,15 @@ class PostsAdapter(
                     post.postId
                 )?.get()
                     ?.addOnCompleteListener { task ->
-                        if (task.result?.isEmpty==false) {
-                            if (task.result?.documents?.isNotEmpty()==true) {
+                        if (task.result?.isEmpty == false) {
+                            if (task.result?.documents?.isNotEmpty() == true) {
                                 //The post is in my favorites
                                 likeText.visibility = View.VISIBLE
                                 likeText.text = App.resource().getString(
                                     R.string.social_media_like_number_tips_one_person_you
                                 )
                             }
-                        }else {
+                        } else {
                             //the post is not in my favorites, I increase the value in PostHelper, I add the post in my favorites
                             likeText.visibility = View.VISIBLE
                             likeText.text = App.resource().getString(
