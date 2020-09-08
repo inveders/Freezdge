@@ -57,7 +57,9 @@ class MyIngredientsListFragment : BaseFragment() {
         val searchItem = menu.findItem(R.id.search_menu)
         searchItem.isVisible = false
         val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
-        clearIngredientItem.isVisible = true
+        val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
+        clearIngredientItem.isVisible = result?.size != 0
+
         clearIngredientItem.setOnMenuItemClickListener {
             launchAlertDialog()
             true
