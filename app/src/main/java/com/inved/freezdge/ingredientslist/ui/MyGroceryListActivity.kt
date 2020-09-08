@@ -32,7 +32,6 @@ class MyGroceryListActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BaseFragment.setlistRetrofit.clear()
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
         chipGroup =findViewById(R.id.chipGroup)
         notFoundTextView =findViewById(R.id.not_found)

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.recipes.database.Recipes
-import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.recipes.model.Results
 import com.inved.freezdge.recipes.repository.RecipesRepository
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
@@ -43,50 +42,29 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.countRecipesInBox()
     }
 
-    // Make retrofit call here to search all recipes matching with given ingredient, and add these recipes in a Mutable Hashset list to avoid duplication
-    suspend fun getRetrofitRecipes(result: MutableList<Ingredients>?): MutableLiveData<MutableList<Hit>>? {
-        val setListRetrofitViewModel: MutableLiveData<MutableList<Hit>>? = MutableLiveData()
-        val setRetrofitSetListRecipes:MutableSet<Hit>? = mutableSetOf()
-        if (result?.size != 0) {
-            BaseFragment.listener?.showLoader()
-
-            // We make a loop for each ingredient selected
-            if (result != null) {
-                for (myresult in result) {
-                    getRecipes(myresult.name).observeForever {
-
-                        for(i in it.hits.indices){
-                            setRetrofitSetListRecipes?.add(it.hits[i])
-                        }
-                        setListRetrofitViewModel?.postValue(setRetrofitSetListRecipes?.toMutableList())
-                    }
-
-                }
-            }
-
-            return setListRetrofitViewModel
-        }
-        return null
-    }
-
     // Search in our database all recipes wich match with given ingredients, and add these recipes in a Mutable Hashset list to avoid duplication
-    fun getDatabaseRecipes(result: MutableList<Ingredients>?): MutableLiveData<MutableList<Recipes>>? {
+    fun getDatabaseRecipes(ingredientsList: MutableList<Ingredients>?): MutableLiveData<MutableList<Recipes>>? {
 
-        val setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
+        var setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
             MutableLiveData()
-        val setDatabaseSetListRecipes:MutableSet<Recipes>? = mutableSetOf()
+        var setDatabaseSetListRecipes:MutableSet<Recipes>? = mutableSetOf()
 
-            if (result?.size != 0) {
                 BaseFragment.listener?.showLoader()
-                if (result != null) {
-                    for (myresult in result) {
-                        myresult.name?.let { it ->
+                if (ingredientsList != null) {
+                    for (myIngredient in ingredientsList) {
+                        myIngredient.name?.let { it ->
                             getRecipeIfContainIngredient(it)
                                 .observeForever {
-                                    for(i in it.indices){
-                                        setDatabaseSetListRecipes?.add(it[i])
+                                    if(it.size==0){
                                         setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
+                                    }else{
+                                        for(i in it.indices){
+                                            setDatabaseSetListRecipes?.add(it[i])
+                                             setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
+                                           // setListDatabaseViewModel?.value=setDatabaseSetListRecipes?.toMutableList()
+                                        }
                                     }
+
 
                                 }
                         }
@@ -94,9 +72,6 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
                     }
                 }
                 return setListDatabaseViewModel
-            }
-
-        return null
     }
 
 }

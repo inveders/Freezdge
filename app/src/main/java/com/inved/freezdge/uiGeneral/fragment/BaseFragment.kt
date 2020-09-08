@@ -25,16 +25,13 @@ import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.recipes.database.Recipes
-import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
-import com.inved.freezdge.recipes.view.ViewHolderRecipesRetrofit
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -43,7 +40,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 
 abstract class BaseFragment : Fragment() {
@@ -61,6 +57,7 @@ abstract class BaseFragment : Fragment() {
         fun setLoaderListener(callback: LoaderListener) {
             this.listener = callback
         }
+
         internal var listenerSearch: SearchButtonListener? = null
         fun setSearchButtonListener(callback: SearchButtonListener) {
             this.listenerSearch = callback
@@ -74,18 +71,15 @@ abstract class BaseFragment : Fragment() {
         var setlistDatabase: MutableList<Recipes> = mutableListOf()
         var setFavouriteList: MutableList<FavouritesRecipes> = mutableListOf()
         var setFavouriteListFilter: MutableList<FavouritesRecipes> = mutableListOf()
-        var setlistRetrofit: MutableList<Hit> = mutableListOf()
         var recipesNumberSize: Int? = 0
         var recipesFavouritesNumberSize: Int? = 0
         val setlistDatabaseFilter: MutableList<Recipes> = mutableListOf()
-        val setlistRetrofitFilter: MutableList<Hit> = mutableListOf()
 
     }
 
-    val recipesRetrofitItemAdapter = ItemAdapter<Hit>()
     val recipesDatabaseItemAdapter = ItemAdapter<Recipes>()
-    private var fastAdapter: GenericFastAdapter =
-        FastAdapter.with(listOf(recipesDatabaseItemAdapter, recipesRetrofitItemAdapter))
+    private var fastAdapter =
+        FastAdapter.with(recipesDatabaseItemAdapter)
 
     val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
     private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
@@ -160,13 +154,10 @@ abstract class BaseFragment : Fragment() {
 
         //configure our fastAdapter
         fastAdapter.onClickListener =
-            { v: View?, _: IAdapter<GenericItem>, item: GenericItem, _: Int ->
+            { v: View?, _: IAdapter<Recipes>, item: GenericItem, _: Int ->
                 v?.let {
                     // When we click, we retrieve here the clicked element and sen list of benefits in the method
-                    if (item is Hit) {
-                        val urlRetrofit: String = item.recipe?.url.toString()
-                        openWebViewActivity(urlRetrofit)
-                    } else if (item is Recipes) {
+                    if (item is Recipes) {
                         val id: Long = item.id
                         openRecipeDetailActivity(id, 1)
                     }
@@ -191,9 +182,6 @@ abstract class BaseFragment : Fragment() {
                     if (item.recipePhotoUrl.let { it?.contains("freezdge", true) == true }) {
                         val id: Long? = item.recipeId?.toLong()
                         openRecipeDetailActivity(id, 2)
-                    } else {
-                        val urlRetrofit: String? = item.recipeUrl
-                        openWebViewActivity(urlRetrofit)
                     }
                 }
                 true
@@ -278,12 +266,13 @@ abstract class BaseFragment : Fragment() {
     }
 
     //DATA
-    private suspend fun getAllRecipes() {
-        if (setlistRetrofit.isNullOrEmpty()) {
-            val result: MutableList<Ingredients>? =
+    private fun getAllRecipes() {
+
+        if (setlistDatabase.isNullOrEmpty()) {
+            val nbIngredients: MutableList<Ingredients>? =
                 ingredientsViewmodel.getIngredientsForFreezdgeList()
-            if (result?.size != 0) {
-                recipeViewModel.getDatabaseRecipes(result)
+            if (nbIngredients?.size != 0) {
+                recipeViewModel.getDatabaseRecipes(nbIngredients)
                     ?.observe(viewLifecycleOwner, Observer { result2 ->
                         if (result2.isNullOrEmpty()) {
                             notFoundTextView.visibility = View.VISIBLE
@@ -300,23 +289,6 @@ abstract class BaseFragment : Fragment() {
                             fillAdapterDatabase(result2)
                         }
                     })
-                recipeViewModel.getRetrofitRecipes(result)
-                    ?.observe(viewLifecycleOwner, Observer { result3 ->
-                        if (result3.isNullOrEmpty()) {
-                            notFoundTextView.visibility = View.VISIBLE
-                            notFoundTextView.text =
-                                getString(R.string.no_recipes_found)
-                            listenerSearch?.hideSearchButton()
-                            numberRecipesTextview.visibility = View.GONE
-                            floatingActionButton.hide()
-                            listener?.hideLoader()
-                        } else {
-                            notFoundTextView.visibility = View.GONE
-                            floatingActionButton.show()
-                            listenerSearch?.showSearchButton()
-                            fillAdapterRetrofit(result3)
-                        }
-                    })
             } else {
                 notFoundTextView.visibility = View.VISIBLE
                 notFoundTextView.text =
@@ -326,23 +298,11 @@ abstract class BaseFragment : Fragment() {
                 floatingActionButton.hide()
                 listener?.hideLoader()
             }
-
         } else {
-            fillAdapterRetrofit(setlistRetrofit)
             fillAdapterDatabase(setlistDatabase)
         }
 
-    }
 
-
-    private fun fillAdapterRetrofit(setlistRetrofit: MutableList<Hit>) {
-        recipesRetrofitItemAdapter.clear()
-        for (hits in setlistRetrofit) {
-            recipesRetrofitItemAdapter.add(hits)
-        }
-        BaseFragment.setlistRetrofit = setlistRetrofit
-        recipesNumber()
-        listener?.hideLoader()
     }
 
     private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>) {
@@ -357,72 +317,11 @@ abstract class BaseFragment : Fragment() {
 
 
     private fun handleFastAdapterClickImageFavourite(
-        fastAdapter: GenericFastAdapter,
+        fastAdapter: FastAdapter<Recipes>,
         favouriteRecipesViewmodel: FavouritesRecipesViewModel
     ) {
-        fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.imageFavourite }) { _, _, _: FastAdapter<GenericItem>, item: GenericItem ->
-            //react on the click event
-            if (item is Hit) {
-                favouriteRecipesViewmodel.detectFavouriteRecipe(
-                    item.recipe?.uri,
-                    item.recipe?.label,
-                    item.recipe?.calories?.div(10)?.roundToInt().toString(),
-                    domain.preparationTime(item.recipe?.totalTime),
-                    item.recipe?.url,
-                    item.recipe?.image,
-                    item.recipe?.ingredientLines.toString(),
-                    item.recipe?.cuisineType?.get(0),
-                    item.recipe?.dishType?.get(0),
-                    null
-                )
 
-                if (!item.recipe?.uri.isNullOrEmpty()) {
-                    val bool: Boolean? = item.recipe?.uri?.let {
-                        favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                            it
-                        )
-                    }
-
-                    GlobalScope.launch(Dispatchers.IO) {
-                        delay(500)
-                        domain.correspondanceCalculForGrocery(
-                            item.recipe?.ingredientLines.toString(),
-                            bool
-                        )
-                    }
-
-                    if (bool == true) {
-                        view.let { it1 ->
-                            it1?.let {
-                                item.getViewHolder(it).imageFavourite.setImageResource(
-                                    R.drawable.ic_favorite_selected_24dp
-                                )
-                            }
-                        }
-                    } else {
-                        view.let { it1 ->
-                            it1?.let {
-                                item.getViewHolder(it).imageFavourite.setImageResource(
-                                    R.drawable.ic_favorite_not_selected_24dp
-                                )
-                            }
-                        }
-                    }
-
-                    fastAdapter.notifyAdapterDataSetChanged()
-                }
-
-            }
-
-        }
-
-        fastAdapter.addClickListener({ vh: ViewHolderRecipesRetrofit -> vh.proportionText }) { _, _, _: FastAdapter<GenericItem>, _: GenericItem ->
-            //react on the click event
-            domain.showMatchingDialog(activity)
-
-        }
-
-        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, _, _: FastAdapter<GenericItem>, item: GenericItem ->
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, _, _: FastAdapter<Recipes>, item: GenericItem ->
             //react on the click event
             if (item is Recipes) {
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
@@ -491,7 +390,7 @@ abstract class BaseFragment : Fragment() {
             favouriteRecipesViewmodel.detectFavouriteRecipe(
                 item.recipeId, item.recipeTitle, item.recipeCalories,
                 item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients,
-                item.cuisineType, item.dishType,item.recipePhotoUrlOwner
+                item.cuisineType, item.dishType, item.recipePhotoUrlOwner
             )
 
             val bool: Boolean? = item.recipeId.let {
@@ -539,7 +438,7 @@ abstract class BaseFragment : Fragment() {
     // show number of recipes found
     private fun recipesNumber() {
         numberRecipesTextview.visibility = View.VISIBLE
-        recipesNumberSize = setlistDatabase.size + setlistRetrofit.size
+        recipesNumberSize = setlistDatabase.size
         if (recipesNumberSize != 1) {
             numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
         } else {

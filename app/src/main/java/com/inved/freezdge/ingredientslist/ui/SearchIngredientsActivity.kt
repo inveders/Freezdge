@@ -40,7 +40,6 @@ class SearchIngredientsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_ingredients)
-        BaseFragment.setlistRetrofit.clear()
         initToolbarBaseActivity(R.string.toolbar_search_ingredients)
         initViews()
         setStatePageAdapter()

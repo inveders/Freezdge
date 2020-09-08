@@ -60,7 +60,6 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 handleTextFilter(
                     newText,
-                    recipesRetrofitItemAdapter,
                     recipesDatabaseItemAdapter
                 )
                 return true
@@ -72,18 +71,8 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
     // handle the text of searchview for recipes from retrofit or database
     fun handleTextFilter(
         newText: String,
-        recipesRetrofitItemAdapter: ItemAdapter<Hit>,
         recipesDatabaseItemAdapter: ItemAdapter<Recipes>
     ) {
-
-        recipesRetrofitItemAdapter.filter(newText)
-        recipesRetrofitItemAdapter.itemFilter.filterPredicate =
-            { item: Hit, constraint: CharSequence? ->
-                item.recipe?.label?.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )==true
-            }
 
         recipesDatabaseItemAdapter.filter(newText)
         recipesDatabaseItemAdapter.itemFilter.filterPredicate =
@@ -142,16 +131,7 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
 
     // the given text only filter on dishType for recipes from retrofit or database
     private fun filterDishType(filterText: String?) {
-        setlistRetrofitFilter.clear()
         setlistDatabaseFilter.clear()
-
-        for(recipes in setlistRetrofit){
-            if(!recipes.recipe?.dishType?.get(0).isNullOrEmpty()){
-                if(recipes.recipe?.dishType?.get(0)?.contains(filterText.toString(),true)==true){
-                    setlistRetrofitFilter.add(recipes)
-                }
-            }
-        }
 
         for(recipes in setlistDatabase){
             if(recipes.dishType?.contains(filterText.toString(),true)==true){
@@ -160,28 +140,24 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
         }
 
         if(filterText.equals("")){
-            fillAdapterFilter(setlistDatabase, setlistRetrofit)
+            fillAdapterFilter(setlistDatabase)
         }else{
-            fillAdapterFilter(setlistDatabaseFilter, setlistRetrofitFilter)
+            fillAdapterFilter(setlistDatabaseFilter)
         }
     }
 
     // clear adapter and fill it with the filter recipes
-    private fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>, setlistRetrofit: MutableList<Hit>) {
-        recipesRetrofitItemAdapter.clear()
+    private fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>) {
         recipesDatabaseItemAdapter.clear()
         for (recipes in setlistDatabase) {
             recipesDatabaseItemAdapter.add(recipes)
-        }
-        for (hits in setlistRetrofit) {
-            recipesRetrofitItemAdapter.add(hits)
         }
         recipesNumberFilter()
     }
 
     // determines the recipes filter number to show
     private fun recipesNumberFilter(){
-        recipesNumberSize= setlistDatabaseFilter.size+ setlistRetrofitFilter.size
+        recipesNumberSize= setlistDatabaseFilter.size
         if(recipesNumberSize!=1){
             numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
         }else{

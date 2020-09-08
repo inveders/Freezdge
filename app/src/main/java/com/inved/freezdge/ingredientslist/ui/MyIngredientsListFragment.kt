@@ -119,8 +119,9 @@ class MyIngredientsListFragment : BaseFragment() {
                     }
                 }
                 chipGroup.removeView(chip)
-                setlistRetrofit.clear()
+                setlistDatabase.clear()
             }
+            setlistDatabase.clear()
             chipGroup.addView(chip)
         }
     }
@@ -160,7 +161,6 @@ class MyIngredientsListFragment : BaseFragment() {
     //clear all ingredients in the list and put ingredient not selected in the objectbox database
     private fun unselectAllIngredients(){
         chipGroup.removeAllViews()
-        setlistRetrofit.clear()
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
         if (result != null) {
             for (myresult in result) {
