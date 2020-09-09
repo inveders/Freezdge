@@ -69,7 +69,7 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
         return super.onPrepareOptionsMenu(menu)
     }
 
-    // handle the text of searchview for recipes from retrofit or database
+    // handle the text of searchview for recipes from database
     fun handleTextFilter(
         newText: String,
         recipesDatabaseItemAdapter: ItemAdapter<Recipes>
@@ -83,6 +83,15 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
                     ignoreCase = true
                 )==true
             }
+
+        if(newText.isNullOrEmpty()){
+            topTextview.visibility=View.VISIBLE
+
+        }else{
+            topTextview.visibility=View.GONE
+            topTextview.height=0
+        }
+
     }
 
     // launch dialog to choose dish type and filter recipes

@@ -64,14 +64,29 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
                         item.recipeTitle?.contains(
                             constraint.toString(),
                             ignoreCase = true
-                        )
-                        item.cuisineType?.contains(
-                            constraint.toString(),
-                            ignoreCase = true
-                        ) == true
+                        )==true
+
                     }
+                if(favouriteRecipesItemAdapter.adapterItems.size==0){
+                    if(newText.isNullOrEmpty()){
+                        topTextview.text = getString(R.string.recipe_list_number, 0)
+                    }else{
+                        if(setFavouriteList.size!=1){
+                            topTextview.text = getString(R.string.recipe_list_number, setFavouriteList.size)
+                        }else{
+                            topTextview.text = getString(R.string.recipe_list_number_one, setFavouriteList.size)
+                        }
+                    }
+                }else if(favouriteRecipesItemAdapter.adapterItems.size!=1){
+                    topTextview.text = getString(R.string.recipe_list_number, favouriteRecipesItemAdapter.adapterItems.size)
+                }else{
+                    topTextview.text = getString(R.string.recipe_list_number_one, favouriteRecipesItemAdapter.adapterItems.size)
+                }
                 return true
+
             }
+
+
         })
         return super.onPrepareOptionsMenu(menu)
     }
