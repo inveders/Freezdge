@@ -5,12 +5,12 @@
 
     <item
         android:title="@string/toolbar_search_ingredients"
-        android:id="@+id/search_menu"
+        android:id="@+id/searchItem"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item
-        android:id="@+id/menu_ingredientss_clear"
+        android:id="@+id/clearIngredientItem"
         android:icon="@drawable/ic_clear_all"
         android:title="@string/menu_clear_ingredients_list"
         app:showAsAction="ifRoom"

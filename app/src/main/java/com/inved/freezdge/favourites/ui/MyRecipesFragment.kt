@@ -1,38 +1,39 @@
 package com.inved.freezdge.favourites.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
+import com.inved.freezdge.databinding.ActivityMainBinding
+import com.inved.freezdge.databinding.FragmentMyRecipesBinding
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchFavouriteButtonListener
+import kotlinx.android.synthetic.main.fragment_my_recipes.*
 
 
-class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
+class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBinding>(),SearchFavouriteButtonListener {
 
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_my_recipes
+    override fun setBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentMyRecipesBinding {
+        return FragmentMyRecipesBinding.inflate(inflater, container, false)
     }
 
     companion object{
         var isFavouriteSearchButtonShowed:Boolean=true
     }
 
-    private lateinit var floatingActionButton: FloatingActionButton
     private var searchItem: MenuItem?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         setSearchFavouriteButtonListener(this)
-        floatingActionButton = view.findViewById(R.id.floating_button)
         floatingActionButton.setOnClickListener {
             launchFilterDialog()
         }
@@ -40,9 +41,9 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
     // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
-        searchItem = menu.findItem(R.id.search_menu)
+        searchItem = menu.findItem(R.id.searchItem)
         searchItem?.isVisible = isFavouriteSearchButtonShowed
-        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
         clearIngredientItem.isVisible = false
         val searchView = searchItem?.actionView as SearchView
         val edittext =
@@ -155,12 +156,12 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
 
         recipesFavouritesNumberSize= setFavouriteListFilter.size
         if(recipesFavouritesNumberSize!=1){
-            numberRecipesTextview.text = getString(
+            topTextview.text = getString(
                 R.string.recipe_list_number,
                 recipesFavouritesNumberSize
             )
         }else{
-            numberRecipesTextview.text = getString(
+            topTextview.text = getString(
                 R.string.recipe_list_number_one,
                 recipesFavouritesNumberSize
             )
@@ -177,5 +178,7 @@ class MyRecipesFragment : BaseFragment(),SearchFavouriteButtonListener {
         isFavouriteSearchButtonShowed =false
         searchItem?.isVisible = false
     }
+
+
 
 }

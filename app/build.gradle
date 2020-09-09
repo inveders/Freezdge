@@ -36,6 +36,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    viewBinding {
+        enabled = true
+    }
     testOptions {
         unitTests {
             includeAndroidResources = true

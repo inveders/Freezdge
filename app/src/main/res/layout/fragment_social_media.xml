@@ -9,7 +9,7 @@
 
 
     <FrameLayout
-        android:id="@+id/animation_view_container"
+        android:id="@+id/loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
@@ -42,7 +42,7 @@
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/mSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
@@ -111,7 +111,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/profile_image"
+                        android:id="@+id/photoProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -121,7 +121,7 @@
                         app:srcCompat="@drawable/ic_anon_user_48dp" />
 
                     <TextView
-                        android:id="@+id/profile_activity_top_description"
+                        android:id="@+id/topDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -214,7 +214,7 @@
 
 
                         <ImageButton
-                            android:id="@+id/image_camera_post"
+                            android:id="@+id/addPhotoCamera"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:contentDescription="@string/description_image"
@@ -223,7 +223,7 @@
                             app:srcCompat="@drawable/ic_camera" />
 
                         <TextView
-                            android:id="@+id/title_camera_post"
+                            android:id="@+id/addPhotoCameraText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -232,9 +232,9 @@
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/default_text_size"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/image_camera_post"
-                            app:layout_constraintStart_toEndOf="@id/image_camera_post"
-                            app:layout_constraintTop_toTopOf="@id/image_camera_post" />
+                            app:layout_constraintBottom_toBottomOf="@id/addPhotoCamera"
+                            app:layout_constraintStart_toEndOf="@id/addPhotoCamera"
+                            app:layout_constraintTop_toTopOf="@id/addPhotoCamera" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -251,7 +251,7 @@
 
 
                         <ImageButton
-                            android:id="@+id/image_photo_post"
+                            android:id="@+id/addPhotoGallery"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:contentDescription="@string/description_image"
@@ -260,7 +260,7 @@
                             app:srcCompat="@drawable/ic_photo_post" />
 
                         <TextView
-                            android:id="@+id/title_photo_post"
+                            android:id="@+id/addPhotoGalleryText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -269,9 +269,9 @@
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/default_text_size"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/image_photo_post"
-                            app:layout_constraintStart_toEndOf="@id/image_photo_post"
-                            app:layout_constraintTop_toTopOf="@id/image_photo_post" />
+                            app:layout_constraintBottom_toBottomOf="@id/addPhotoGallery"
+                            app:layout_constraintStart_toEndOf="@id/addPhotoGallery"
+                            app:layout_constraintTop_toTopOf="@id/addPhotoGallery" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -286,7 +286,7 @@
                         app:layout_constraintVertical_chainStyle="spread_inside">
 
                         <ImageButton
-                            android:id="@+id/image_tips_post"
+                            android:id="@+id/addTipImage"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:contentDescription="@string/description_image"
@@ -296,7 +296,7 @@
                             app:srcCompat="@drawable/ic_tip_post" />
 
                         <TextView
-                            android:id="@+id/title_tips_post"
+                            android:id="@+id/addTipText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -305,9 +305,9 @@
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/default_text_size"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/image_tips_post"
-                            app:layout_constraintStart_toEndOf="@id/image_tips_post"
-                            app:layout_constraintTop_toTopOf="@id/image_tips_post" />
+                            app:layout_constraintBottom_toBottomOf="@id/addTipImage"
+                            app:layout_constraintStart_toEndOf="@id/addTipImage"
+                            app:layout_constraintTop_toTopOf="@id/addTipImage" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -323,7 +323,7 @@
                     app:layout_constraintTop_toBottomOf="@id/constraint" />
 
                 <TextView
-                    android:id="@+id/no_post_found"
+                    android:id="@+id/noPostFound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/social_media_no_post"

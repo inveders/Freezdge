@@ -1,18 +1,18 @@
 package com.inved.freezdge.uiGeneral.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
@@ -36,20 +36,45 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
+import kotlinx.android.synthetic.main.fragment_my_recipes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
-    lateinit var notFoundTextView: TextView
-    lateinit var numberRecipesTextview: TextView
-    lateinit var notFoundImageView: ImageView
+    protected var handler: A? = null //It's base activity
+    protected open var binding: T? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        @Suppress("UNCHECKED_CAST")
+        this.handler = this.activity as? A
+    }
 
-    private lateinit var floatingActionButton: FloatingActionButton
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        this.binding = this.setBinding(inflater,container)
+        return binding!!.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+    abstract fun setBinding(inflater: LayoutInflater, container: ViewGroup?): T
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModel()
+        insertFood()
+        insertRecipes()
+        detectWichFragmentIsOpen()
+    }
+
     var domain = Domain()
 
     companion object {
@@ -85,30 +110,15 @@ abstract class BaseFragment : Fragment() {
     private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var recyclerView: RecyclerView
 
     //Viewmodel
     private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(getLayoutRes(), container, false)
-        floatingActionButton = view.findViewById(R.id.floating_button)
-        recyclerView = view.findViewById(R.id.recyclerview)
-        notFoundTextView = view.findViewById(R.id.not_found)
-        numberRecipesTextview = view.findViewById(R.id.topTextview)
-        notFoundImageView = view.findViewById(R.id.image_arrow)
-        initViewModel()
-        insertFood()
-        insertRecipes()
-        detectWichFragmentIsOpen()
-        return view
-    }
 
-    abstract fun getLayoutRes(): Int
+
+
 
     //INITIALIZATION
     private fun initViewModel() {
@@ -149,8 +159,8 @@ abstract class BaseFragment : Fragment() {
 
     private fun setupRecipeRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = fastAdapter
+        recyclerview.layoutManager = linearLayoutManager
+        recyclerview.adapter = fastAdapter
 
         //configure our fastAdapter
         fastAdapter.onClickListener =
@@ -170,8 +180,8 @@ abstract class BaseFragment : Fragment() {
 
     private fun setupFavouriteRecipeRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = favouritesFastAdapter
+        recyclerview.layoutManager = linearLayoutManager
+        recyclerview.adapter = favouritesFastAdapter
 
         //configure our fastAdapter
         favouritesFastAdapter.onClickListener =
@@ -218,10 +228,10 @@ abstract class BaseFragment : Fragment() {
                     }
 
                 } else {
-                    notFoundTextView.visibility = View.VISIBLE
-                    notFoundTextView.text = getString(R.string.internet_connexion)
+                    not_found.visibility = View.VISIBLE
+                    not_found.text = getString(R.string.internet_connexion)
                     floatingActionButton.hide()
-                    numberRecipesTextview.visibility = View.GONE
+                    topTextview.visibility = View.GONE
                 }
             }
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -239,8 +249,8 @@ abstract class BaseFragment : Fragment() {
                 if (result != null) {
                     if (result.size != 0) {
                         setFavouriteList.clear()
-                        notFoundTextView.visibility = View.GONE
-                        notFoundImageView.visibility = View.INVISIBLE
+                        not_found.visibility = View.GONE
+                        imageArrow.visibility = View.INVISIBLE
                         floatingActionButton.show()
                         listenerSearchFavourite?.showSearchButton()
                         for (myresult in result) {
@@ -249,12 +259,12 @@ abstract class BaseFragment : Fragment() {
                         }
                         favouritesRecipesNumber()
                     } else {
-                        notFoundTextView.visibility = View.VISIBLE
-                        notFoundImageView.visibility = View.VISIBLE
+                        not_found.visibility = View.VISIBLE
+                        imageArrow.visibility = View.VISIBLE
                         floatingActionButton.hide()
                         listenerSearchFavourite?.hideSearchButton()
-                        numberRecipesTextview.visibility = View.GONE
-                        notFoundTextView.text = getString(R.string.no_item_found_favourite)
+                        topTextview.visibility = View.GONE
+                        not_found.text = getString(R.string.no_item_found_favourite)
                     }
                 }
             })
@@ -275,26 +285,26 @@ abstract class BaseFragment : Fragment() {
                 recipeViewModel.getDatabaseRecipes(nbIngredients)
                     ?.observe(viewLifecycleOwner, Observer { result2 ->
                         if (result2.isNullOrEmpty()) {
-                            notFoundTextView.visibility = View.VISIBLE
-                            notFoundTextView.text =
+                            not_found.visibility = View.VISIBLE
+                            not_found.text =
                                 getString(R.string.no_recipes_found)
-                            numberRecipesTextview.visibility = View.GONE
+                            topTextview.visibility = View.GONE
                             listenerSearch?.hideSearchButton()
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
-                            notFoundTextView.visibility = View.GONE
+                            not_found.visibility = View.GONE
                             floatingActionButton.show()
                             listenerSearch?.showSearchButton()
                             fillAdapterDatabase(result2)
                         }
                     })
             } else {
-                notFoundTextView.visibility = View.VISIBLE
-                notFoundTextView.text =
+                not_found.visibility = View.VISIBLE
+                not_found.text =
                     getString(R.string.no_item_found_recipes)
                 listenerSearch?.hideSearchButton()
-                numberRecipesTextview.visibility = View.GONE
+                topTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()
             }
@@ -437,25 +447,25 @@ abstract class BaseFragment : Fragment() {
 
     // show number of recipes found
     private fun recipesNumber() {
-        numberRecipesTextview.visibility = View.VISIBLE
+        topTextview.visibility = View.VISIBLE
         recipesNumberSize = setlistDatabase.size
         if (recipesNumberSize != 1) {
-            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+            topTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
         } else {
-            numberRecipesTextview.text =
+            topTextview.text =
                 getString(R.string.recipe_list_number_one, recipesNumberSize)
         }
     }
 
     // show number of favourites recipes found
     private fun favouritesRecipesNumber() {
-        numberRecipesTextview.visibility = View.VISIBLE
+        topTextview.visibility = View.VISIBLE
         recipesFavouritesNumberSize = setFavouriteList.size
         if (recipesFavouritesNumberSize != 1) {
-            numberRecipesTextview.text =
+            topTextview.text =
                 getString(R.string.recipe_list_number, recipesFavouritesNumberSize)
         } else {
-            numberRecipesTextview.text =
+            topTextview.text =
                 getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
         }
     }

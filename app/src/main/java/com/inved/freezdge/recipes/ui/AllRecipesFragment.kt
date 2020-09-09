@@ -1,29 +1,31 @@
 package com.inved.freezdge.recipes.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
+import com.inved.freezdge.databinding.ActivityMainBinding
+import com.inved.freezdge.databinding.FragmentAllRecipesBinding
 import com.inved.freezdge.recipes.database.Recipes
-import com.inved.freezdge.recipes.model.Hit
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchButtonListener
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.android.synthetic.main.fragment_my_recipes.*
 
-class AllRecipesFragment : BaseFragment(),SearchButtonListener {
+class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainBinding>(),SearchButtonListener {
 
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_all_recipes
+    override fun setBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentAllRecipesBinding {
+        return FragmentAllRecipesBinding.inflate(inflater, container, false)
     }
 
-    private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var searchItem: MenuItem
     companion object{
         var isSearchButtonShowed:Boolean=true
@@ -33,15 +35,14 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         setSearchButtonListener(this)
-        floatingActionButton = view.findViewById(R.id.floating_button)
         floatingActionButton.setOnClickListener { launchFilterDialog() }
     }
 
     // manage searchview to find recipe on name
     override fun onPrepareOptionsMenu(menu: Menu) {
-        searchItem = menu.findItem(R.id.search_menu)
+        searchItem = menu.findItem(R.id.searchItem)
         searchItem.isVisible = isSearchButtonShowed
-        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
         clearIngredientItem.isVisible = false
         val searchView = searchItem.actionView as SearchView
 
@@ -159,9 +160,9 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
     private fun recipesNumberFilter(){
         recipesNumberSize= setlistDatabaseFilter.size
         if(recipesNumberSize!=1){
-            numberRecipesTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
+            topTextview.text = getString(R.string.recipe_list_number, recipesNumberSize)
         }else{
-            numberRecipesTextview.text = getString(R.string.recipe_list_number_one, recipesNumberSize)
+            topTextview.text = getString(R.string.recipe_list_number_one, recipesNumberSize)
         }
     }
 

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
+import com.inved.freezdge.databinding.FragmentTypeIngredientsBinding
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
@@ -21,6 +22,7 @@ import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.android.synthetic.main.fragment_type_ingredients.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,7 +30,7 @@ import java.util.*
 
 class TypeIngredientsFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding : FragmentTypeIngredientsBinding
     lateinit var ingredientViewmodel: IngredientsViewModel
     val foodSearchItemAdapter = ItemAdapter<Ingredients>()
     private val fastAdapterFoodSearch = FastAdapter.with(foodSearchItemAdapter)
@@ -37,15 +39,16 @@ class TypeIngredientsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_type_ingredients, container, false)
-        recyclerView = view.findViewById(R.id.recyclerview)
-        setHasOptionsMenu(true)
-        initViewModel()
-        setupRecyclerView()
-        return view
+        if (!::binding.isInitialized) {
+            binding = FragmentTypeIngredientsBinding.inflate(inflater, container, false)
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        initViewModel()
+        setupRecyclerView()
         arguments?.takeIf { it.containsKey("PositionViewpager") }?.apply {
             val position: Int = getInt("PositionViewpager")
             getForegroundFragment(position)
@@ -63,8 +66,8 @@ class TypeIngredientsFragment : Fragment() {
 
     // handle searchview on ingredient name
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchItem = menu.findItem(R.id.search_menu)
-        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        val searchItem = menu.findItem(R.id.searchItem)
+        val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
         clearIngredientItem.isVisible = false
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
@@ -149,8 +152,8 @@ class TypeIngredientsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = fastAdapterFoodSearch
+        recyclerview.layoutManager = linearLayoutManager
+        recyclerview.adapter = fastAdapterFoodSearch
         fastAdapterFoodSearch.onClickListener =
             { v: View?, _: IAdapter<Ingredients>, item: Ingredients, _: Int ->
                 v?.let {

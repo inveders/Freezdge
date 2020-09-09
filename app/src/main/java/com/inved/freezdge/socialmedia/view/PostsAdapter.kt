@@ -1,7 +1,6 @@
 package com.inved.freezdge.socialmedia.view
 
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +56,7 @@ class PostsAdapter(
         private var username: TextView = view.findViewById(R.id.username)
         private var postContent: TextView = view.findViewById(R.id.description)
         private var likeText: TextView = view.findViewById(R.id.like_number)
-        private var profileImage: ImageView = view.findViewById(R.id.profile_image)
+        private var profileImage: ImageView = view.findViewById(R.id.photoProfile)
         private var postImage: ImageView = view.findViewById(R.id.image)
         private var moreButton: ImageButton = view.findViewById(R.id.more_button)
         private var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)

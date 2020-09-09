@@ -5,36 +5,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
+import com.inved.freezdge.databinding.ActivityMyGroceryListBinding
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
-import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
 import io.objectbox.BoxStore.context
+import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
 
 class MyGroceryListActivity: BaseActivity() {
 
+    private lateinit var binding: ActivityMyGroceryListBinding
     private lateinit var ingredientsViewmodel: IngredientsViewModel
-    private lateinit var chipGroup: ChipGroup
-    private lateinit var notFoundTextView: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
-        chipGroup =findViewById(R.id.chipGroup)
-        notFoundTextView =findViewById(R.id.not_found)
        initViewModel()
         setupChips()
     }
@@ -64,7 +61,7 @@ class MyGroceryListActivity: BaseActivity() {
             .observe(this, Observer { result ->
                 if(result!=null){
                     if(result.size!=0){
-                        notFoundTextView.visibility = View.GONE
+                        not_found.visibility = View.GONE
                         chipGroup.removeAllViews()
                         for (myresult in result){
                             val chip= Chip(chipGroup.context)
@@ -88,8 +85,8 @@ class MyGroceryListActivity: BaseActivity() {
                             chipGroup.addView(chip)
                         }
                     }else{
-                        notFoundTextView.visibility = View.VISIBLE
-                        notFoundTextView.text = getString(R.string.no_item_found_grocery)
+                        not_found.visibility = View.VISIBLE
+                        not_found.text = getString(R.string.no_item_found_grocery)
                     }
                 }
             })

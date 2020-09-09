@@ -7,45 +7,34 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.inved.freezdge.R
+import com.inved.freezdge.databinding.FragmentSocialMediaBinding
 import com.inved.freezdge.socialmedia.firebase.Post
 import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.*
+import kotlinx.android.synthetic.main.fragment_social_media.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
 class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListener,ProfileDialog.ChangePhotoListener {
 
+    private lateinit var binding : FragmentSocialMediaBinding
     var domain=Domain()
     private lateinit var mRecyclerPostsAdapter: PostsAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var nestedScrollView: NestedScrollView
-    private lateinit var addPhotoGallery: ImageButton
-    private lateinit var addPhotoCamera: ImageButton
-    private lateinit var addTipImage: ImageButton
-    private lateinit var photoProfile: ImageView
-    private lateinit var addPhotoGalleryText: TextView
-    private lateinit var addPhotoCameraText: TextView
-    private lateinit var addTipText: TextView
-    private lateinit var noPostFound: TextView
-    private lateinit var topDescription: TextView
-    private var loader: FrameLayout? = null
-    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -58,30 +47,21 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val mView: View = inflater.inflate(R.layout.fragment_social_media, container, false)
-        recyclerView = mView.findViewById(R.id.recyclerview)
-        addPhotoGallery = mView.findViewById(R.id.image_photo_post)
-        addPhotoCamera = mView.findViewById(R.id.image_camera_post)
-        addTipImage = mView.findViewById(R.id.image_tips_post)
-        nestedScrollView = mView.findViewById(R.id.nested_scroll_view)
-        addPhotoGalleryText = mView.findViewById(R.id.title_photo_post)
-        addPhotoCameraText = mView.findViewById(R.id.title_camera_post)
-        addTipText = mView.findViewById(R.id.title_tips_post)
-        noPostFound = mView.findViewById(R.id.no_post_found)
-        photoProfile = mView.findViewById(R.id.profile_image)
-        topDescription = mView.findViewById(R.id.profile_activity_top_description)
-        loader = mView.findViewById(R.id.animation_view_container)
-        mSwipeRefreshLayout = mView.findViewById(R.id.swipeRefreshLayout)
+        if (!::binding.isInitialized) {
+            binding = FragmentSocialMediaBinding.inflate(inflater, container, false)
+        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         showLoader()
         initButtons()
         initProfil()
         displayAllPosts()
-        return mView
     }
 
     override fun onResume() {
@@ -163,12 +143,12 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         )
         mRecyclerPostsAdapter.startListening()
         //Choose how to display the list in the RecyclerView (vertical or horizontal)
-        recyclerView.layoutManager = LinearLayoutManager(
+        recyclerview.layoutManager = LinearLayoutManager(
             context,
             RecyclerView.VERTICAL,
             false
         )
-        recyclerView.adapter = mRecyclerPostsAdapter
+        recyclerview.adapter = mRecyclerPostsAdapter
     }
 
     override fun onStart() {
@@ -304,9 +284,9 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchItem = menu.findItem(R.id.search_menu)
+        val searchItem = menu.findItem(R.id.searchItem)
         searchItem.isVisible = false
-        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
         clearIngredientItem.isVisible = false
         super.onPrepareOptionsMenu(menu)
     }

@@ -2,43 +2,47 @@ package com.inved.freezdge.ingredientslist.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
+import com.inved.freezdge.databinding.ActivityMainBinding
+import com.inved.freezdge.databinding.FragmentMyIngredientsListBinding
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
+import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
+import kotlinx.android.synthetic.main.fragment_my_recipes.*
+import kotlinx.android.synthetic.main.fragment_my_recipes.floatingActionButton
+import kotlinx.android.synthetic.main.fragment_my_recipes.not_found
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class MyIngredientsListFragment : BaseFragment() {
+class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding, ActivityMainBinding>() {
 
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     private lateinit var favouritesRecipesViewmodel: FavouritesRecipesViewModel
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_my_ingredients_list
+    override fun setBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentMyIngredientsListBinding {
+        return FragmentMyIngredientsListBinding.inflate(inflater, container, false)
     }
-
-    private lateinit var floatingActionButton: FloatingActionButton
-    private lateinit var chipGroup: ChipGroup
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        floatingActionButton = view.findViewById(R.id.floating_button)
-        chipGroup = view.findViewById(R.id.chipGroup)
         floatingActionButton.setOnClickListener { openSearchIngredientActivity() }
         ingredientsViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
@@ -54,9 +58,9 @@ class MyIngredientsListFragment : BaseFragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val searchItem = menu.findItem(R.id.search_menu)
+        val searchItem = menu.findItem(R.id.searchItem)
         searchItem.isVisible = false
-        val clearIngredientItem = menu.findItem(R.id.menu_ingredientss_clear)
+        val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
         clearIngredientItem.isVisible = result?.size != 0
 
@@ -73,17 +77,17 @@ class MyIngredientsListFragment : BaseFragment() {
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
         if (result?.size != 0) {
-            notFoundTextView.visibility = View.GONE
-            notFoundImageView.visibility = View.GONE
+            not_found.visibility = View.GONE
+            imageArrowIng.visibility = View.GONE
             chipGroup.removeAllViews()
             if (result != null) {
                 handleChip(result)
             }
 
         } else {
-            notFoundTextView.visibility = View.VISIBLE
-            notFoundImageView.visibility = View.VISIBLE
-            notFoundTextView.text = getString(R.string.no_item_found_ingredients)
+            not_found.visibility = View.VISIBLE
+            imageArrowIng.visibility = View.VISIBLE
+            not_found.text = getString(R.string.no_item_found_ingredients)
         }
 
     }

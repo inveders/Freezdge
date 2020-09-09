@@ -58,7 +58,7 @@ class MainActivity : BaseActivity(), LoaderListener {
         initNavigationView()
         initProfil()
         initToolbar(navController)
-        loader=findViewById(R.id.animation_view_container)
+        loader=findViewById(R.id.loader)
         setUpNavigationBottom(navController, id)
         val drawerListener = CustomDrawer()
         drawerLayout?.addDrawerListener(drawerListener)

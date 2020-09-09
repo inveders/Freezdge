@@ -39,7 +39,6 @@ open class RecipeDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         recyclerView = findViewById(R.id.recyclerview)
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
 
