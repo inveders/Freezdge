@@ -189,8 +189,8 @@ class ProfileDialog : DialogFragment() {
             App.resource().getString(R.string.dialog_select_image_cancel)
         )
         val builder =
-            MaterialAlertDialogBuilder(activity)
-        builder.setItems(
+            context?.let { MaterialAlertDialogBuilder(it) }
+        builder?.setItems(
             items
         ) { dialog: DialogInterface, item: Int ->
             when {
@@ -207,7 +207,7 @@ class ProfileDialog : DialogFragment() {
                 }
             }
         }
-        builder.show()
+        builder?.show()
     }
 
     // Capture image from camera
