@@ -122,8 +122,8 @@ class MainActivity : BaseActivity(), LoaderListener {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 id.my_ingredients_list_fragment,
-                id.my_recipes_fragment,
                 id.all_recipes_fragment,
+                id.my_recipes_fragment,
                 id.social_media_fragment
             ),drawerLayout
 
