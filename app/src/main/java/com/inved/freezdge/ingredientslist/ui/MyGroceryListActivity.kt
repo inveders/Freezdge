@@ -22,7 +22,6 @@ import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
-import io.objectbox.BoxStore.context
 
 class MyGroceryListActivity: BaseActivity() {
 
@@ -79,8 +78,8 @@ class MyGroceryListActivity: BaseActivity() {
                             chip.text=myresult.name
                             val chipUtil= ChipUtil()
                             chipUtil.handleChipColor(myresult, chip, App.applicationContext())
-                            chip.closeIcon=context?.let {
-                                ContextCompat.getDrawable(context as Context,R.drawable.ic_clear_grey_24dp) }
+                            chip.closeIcon=applicationContext?.let {
+                                ContextCompat.getDrawable(applicationContext as Context,R.drawable.ic_clear_grey_24dp) }
                             // Set chip close icon click listener
                             chip.setOnCloseIconClickListener{
                                 launchAlertDialog(chip)

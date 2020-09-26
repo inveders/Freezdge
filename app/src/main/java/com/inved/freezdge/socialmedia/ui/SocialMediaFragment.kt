@@ -264,15 +264,15 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     // dialog before to delete a post
     private fun launchAlertDialog(postId: String) {
-        val builder = MaterialAlertDialogBuilder(activity)
-        builder.setTitle(
+        val builder = context?.let { MaterialAlertDialogBuilder(it) }
+        builder?.setTitle(
             App.resource().getString(R.string.social_media_post_delete_title_dialog)
         )
-        builder.setMessage(
+        builder?.setMessage(
             App.resource().getString(R.string.social_media_post_delete_message_dialog)
         )
 
-        builder.setPositiveButton(App.resource().getString(R.string.Yes)) { _, _ ->
+        builder?.setPositiveButton(App.resource().getString(R.string.Yes)) { _, _ ->
             PostHelper.deletePost(postId)
             Toast.makeText(
                 App.applicationContext(),
@@ -281,11 +281,11 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
             ).show()
         }
 
-        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+        builder?.setNegativeButton(android.R.string.no) { dialog, _ ->
             dialog.dismiss()
         }
 
-        builder.show()
+        builder?.show()
     }
 
     // click listener on update or delete button inside post item in recycler view

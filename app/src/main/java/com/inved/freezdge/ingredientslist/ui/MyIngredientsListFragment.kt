@@ -135,11 +135,11 @@ class MyIngredientsListFragment : BaseFragment() {
 
     //launch dialog to choose if we really want to clear our ingredient list
     private fun launchAlertDialog() {
-        val builder = MaterialAlertDialogBuilder(activity)
-        builder.setTitle(getString(R.string.menu_bottom_ingredient_at_home))
-        builder.setMessage(getString(R.string.dialog_question_clear_ingredients))
+        val builder = context?.let { MaterialAlertDialogBuilder(it) }
+        builder?.setTitle(getString(R.string.menu_bottom_ingredient_at_home))
+        builder?.setMessage(getString(R.string.dialog_question_clear_ingredients))
 
-        builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
+        builder?.setPositiveButton(getString(R.string.Yes)) { _, _ ->
             Toast.makeText(
                 activity,
                 getString(R.string.ingredient_list_clear), Toast.LENGTH_SHORT
@@ -147,14 +147,14 @@ class MyIngredientsListFragment : BaseFragment() {
             unselectAllIngredients()
         }
 
-        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+        builder?.setNegativeButton(android.R.string.no) { dialog, _ ->
             Toast.makeText(
                 activity,
                 getString(R.string.dialog_cancel_action), Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
         }
-        builder.show()
+        builder?.show()
     }
 
     //clear all ingredients in the list and put ingredient not selected in the objectbox database

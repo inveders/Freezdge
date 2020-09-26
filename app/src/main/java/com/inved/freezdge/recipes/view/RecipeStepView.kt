@@ -5,8 +5,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.inved.freezdge.R
+import com.inved.freezdge.utils.App
 
-class RecipeStepView(context: Context?) : ConstraintLayout(context) {
+class RecipeStepView(context: Context?) : ConstraintLayout(App.appContext) {
 
     private lateinit var itemNameTextView: TextView
 

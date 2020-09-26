@@ -97,9 +97,9 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
 
     // launch dialog to choose dish type and filter recipes
     private fun launchFilterDialog() {
-        val builder = MaterialAlertDialogBuilder(activity)
-        builder.setTitle(getString(R.string.array_dialog_title))
-            .setItems(
+        val builder = context?.let { MaterialAlertDialogBuilder(it) }
+        builder?.setTitle(getString(R.string.array_dialog_title))
+            ?.setItems(
                 R.array.filter_recipe_array
             ) { _, which ->
                 // The 'which' argument contains the index position of selected item
@@ -113,8 +113,8 @@ class AllRecipesFragment : BaseFragment(),SearchButtonListener {
                     }
                 }
             }
-        builder.create()
-        builder.show()
+        builder?.create()
+        builder?.show()
 
     }
 
