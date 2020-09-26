@@ -22,7 +22,6 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
 import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
 
-
 class MyGroceryListActivity: BaseActivity() {
 
     private lateinit var binding: ActivityMyGroceryListBinding

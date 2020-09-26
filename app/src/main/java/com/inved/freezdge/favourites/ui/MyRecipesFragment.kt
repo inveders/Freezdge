@@ -97,7 +97,6 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
         builder?.setTitle(getString(R.string.array_dialog_title))
             ?.setItems(
                 R.array.filter_recipe_array
-
             ) { _, which ->
                 // The 'which' argument contains the index position of selected item
                 when (which) {
