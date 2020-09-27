@@ -266,7 +266,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 )
             )
 
-
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "Poulet fumé aux courges (M'bika)",
