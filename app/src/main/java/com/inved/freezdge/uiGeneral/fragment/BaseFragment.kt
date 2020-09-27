@@ -30,6 +30,9 @@ import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.socialmedia.ui.PreviewPhotoDialog
+import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
+import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -386,6 +389,15 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
                 fastAdapter.notifyAdapterDataSetChanged()
             }
+
+        }
+
+        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.proportionText }) { _, _, i: FastAdapter<Recipes>, item: GenericItem ->
+            //react on the click event
+            if (item is Recipes) {
+                onClickMatching(item.recipeIngredients)
+            }
+
         }
     }
 
@@ -438,12 +450,35 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
         }
 
-        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.proportionText }) { _, _, _: FastAdapter<FavouritesRecipes>, _: GenericItem ->
+        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.proportionText }) { _, _, i: FastAdapter<FavouritesRecipes>, item: GenericItem ->
             //react on the click event
-            domain.showMatchingDialog(activity)
+            if (item is FavouritesRecipes) {
+                onClickMatching(item.recipeIngredients)
+            }
 
         }
+
+
     }
+
+
+    // click on post image to open preview dialog
+    private fun onClickMatching(ingredients: String?) {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        val previous = activity?.supportFragmentManager?.findFragmentByTag(GroceryListDialog.TAG)
+        if (previous != null) {
+            transaction?.remove(previous)
+        }
+        transaction?.addToBackStack(null)
+
+        val ingredientsList:ArrayList<String> = domain.missingIngredients(ingredients)
+
+        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it) }
+        if (transaction != null) {
+            dialogFragment?.show(transaction, GroceryListDialog.TAG)
+        }
+    }
+
 
     // show number of recipes found
     private fun recipesNumber() {

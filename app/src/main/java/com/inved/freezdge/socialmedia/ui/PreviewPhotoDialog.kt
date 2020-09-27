@@ -34,6 +34,8 @@ class PreviewPhotoDialog : DialogFragment() {
     private var profilPhoto: ImageView? = null
     private lateinit var mContext: Context
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

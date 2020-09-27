@@ -28,7 +28,7 @@ class ViewHolderRecipesDatabase (view: View) : FastAdapter.ViewHolder<Recipes>(v
         view.findViewById(R.id.favorite_image)
     private var imageOwner: ImageView =
         view.findViewById(R.id.owner_image)
-    private var proportionText: TextView =
+    var proportionText: TextView =
         view.findViewById(R.id.fragment_recipes_list_item_matching)
     override fun bindView(item: Recipes, payloads: MutableList<Any>) {
 

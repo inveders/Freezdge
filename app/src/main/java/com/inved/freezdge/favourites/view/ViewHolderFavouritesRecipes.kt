@@ -7,6 +7,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
+import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
@@ -93,6 +94,7 @@ class ViewHolderFavouritesRecipes(val view: View) :
         }else{
             imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
         }
+
     }
 
     override fun unbindView(item: FavouritesRecipes) {

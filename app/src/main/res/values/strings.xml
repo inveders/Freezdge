@@ -35,6 +35,8 @@
     <string name="recipe_orange_matching">Between 50 and 79%</string>
     <string name="recipe_red_matching">Between 0 and 49%</string>
     <string name="recipe_matching_definition">The matching in % give us the proportion of ingredients in my Freezdge comparing to the number of ingredients of the recipe</string>
+    <string name="recipe_grocery_list_dialog_title">The missing ingredients for this recipe</string>
+    <string name="recipe_grocery_list_dialog_all_matching">You have all ingredients to realize this recipe !</string>
     <string name="recipe_list_item_no_time_known">No time indicated</string>
     <string name="recipe_list_item_time_min">%d min</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>

@@ -136,7 +136,6 @@
         android:name="com.inved.freezdge.onboarding.OnboardingActivity"
         android:label="Onboarding"
         tools:layout="@layout/activity_onboarding">
-
     </activity>
 
     <activity android:id="@+id/my_detail_recipe_activity"
@@ -152,7 +151,9 @@
         tools:layout="@layout/activity_search_ingredients">
 
     </activity>
-
-
+    <dialog
+        android:id="@+id/dialog_grocery_list"
+        android:name="com.inved.freezdge.uiGeneral.dialog.GroceryListDialog"
+        tools:layout="@layout/dialog_grocery_list" />
 
 </navigation>

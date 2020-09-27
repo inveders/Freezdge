@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.DetailRecipeExpandableSubItem
-import com.inved.freezdge.recipes.view.DetailRecipeItem
+import com.inved.freezdge.recipes.adapter.DetailRecipeItem
 import com.inved.freezdge.recipes.view.DetailSummaryExpandableItem
 import com.inved.freezdge.recipes.view.DetailSummaryExpandableSubItem
 import com.inved.freezdge.uiGeneral.activity.BaseActivity

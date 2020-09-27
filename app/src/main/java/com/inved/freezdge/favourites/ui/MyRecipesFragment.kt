@@ -96,7 +96,7 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
         val builder = context?.let { MaterialAlertDialogBuilder(it) }
         builder?.setTitle(getString(R.string.array_dialog_title))
             ?.setItems(
-                R.array.filter_recipe_array
+                getFilterTextItems().toArray(arrayOfNulls<String>(0))
             ) { _, which ->
                 // The 'which' argument contains the index position of selected item
                 when (which) {

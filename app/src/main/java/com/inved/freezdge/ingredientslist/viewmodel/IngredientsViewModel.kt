@@ -2,6 +2,7 @@ package com.inved.freezdge.ingredientslist.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.database.Ingredients_
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import io.objectbox.android.ObjectBoxLiveData
 

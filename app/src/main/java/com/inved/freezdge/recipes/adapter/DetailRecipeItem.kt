@@ -1,14 +1,11 @@
-package com.inved.freezdge.recipes.view
+package com.inved.freezdge.recipes.adapter
 
-import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.recipes.database.Recipes
-import com.inved.freezdge.recipes.model.Recipe
-import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils

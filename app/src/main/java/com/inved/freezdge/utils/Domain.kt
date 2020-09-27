@@ -17,6 +17,7 @@ import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
 import java.security.SecureRandom
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class Domain {
@@ -161,6 +162,28 @@ class Domain {
                 *input?.split(",")!!.toTypedArray()
             )
         )
+    }
+
+    // find wich ingredients are in recipes and not in my fridge and add them to the grocery list
+    fun missingIngredients(input: String?): ArrayList<String>{
+
+        val missingIngredientsList:ArrayList<String> = arrayListOf()
+        for (i in getAllIngredientNotSelected()) {
+            var count = 0
+            if (i.name?.let { input?.contains(it, true) }==true) {
+                i.name?.let { missingIngredientsList.add(it)}
+                count = count.plus(1)
+            }
+
+            if (count == 0) {
+                if (i.nameEnglish?.let { input?.contains(it, true) }==true) {
+                    i.nameEnglish?.let { missingIngredientsList.add(it)}
+                }
+            }
+
+        }
+        return missingIngredientsList
+
     }
 
 
