@@ -27,6 +27,7 @@ import com.inved.freezdge.R.id
 import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
+import com.inved.freezdge.socialmedia.ui.ProfileDialog
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
@@ -34,7 +35,7 @@ import com.inved.freezdge.utils.LoaderListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseActivity(), LoaderListener {
+class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoListener {
 
     companion object {
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
@@ -81,6 +82,22 @@ class MainActivity : BaseActivity(), LoaderListener {
         }
     }
 
+    // click on photo profil to launch update profile dialog
+    private fun onClickUpdateProfil() {
+        val transaction = supportFragmentManager?.beginTransaction()
+        val previous = supportFragmentManager?.findFragmentByTag(ProfileDialog.TAG)
+        if (previous != null) {
+            transaction?.remove(previous)
+        }
+        transaction?.addToBackStack(null)
+
+        val dialogFragment = ProfileDialog.newInstance("profil")
+        ProfileDialog.setChangePhotoListener(this)
+        if (transaction != null) {
+            dialogFragment.show(transaction, ProfileDialog.TAG)
+        }
+    }
+
     // retrieve user information to show in the navigation drawer
     private fun initProfil() {
         UserHelper.getUser(FirebaseAuth.getInstance().currentUser?.uid)?.get()
@@ -93,6 +110,9 @@ class MainActivity : BaseActivity(), LoaderListener {
                             task.result!!.documents[0].toObject(User::class.java)
                         firstnameHeader.text = user?.firstname
                         //to show a photo from Firebase storage
+                        imageHeader.setOnClickListener {
+                            onClickUpdateProfil()
+                        }
                         GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, imageHeader)
                         hideLoader()
                     }
@@ -227,6 +247,9 @@ class MainActivity : BaseActivity(), LoaderListener {
         }
     }
 
+    override fun onPhotoChanged() {
+        initProfil()
+    }
 
 
 }
