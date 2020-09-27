@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
 import com.inved.freezdge.onboarding.OnboardingActivity
@@ -30,6 +31,7 @@ import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity(), LoaderListener {
@@ -68,6 +70,7 @@ class MainActivity : BaseActivity(), LoaderListener {
     //link in the navigation drawer
     private fun initNavigationView(){
         navigationView = findViewById(id.activity_main_nav_view)
+        appVersion.text = getString(R.string.app_version,BuildConfig.VERSION_NAME)
         navigationView.menu.findItem(id.menu_logout).setOnMenuItemClickListener {
             signOut()
             true
