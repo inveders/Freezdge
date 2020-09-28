@@ -123,6 +123,17 @@
             android:id="@+id/menu_info"
             app:destination="@id/onboarding_activity" />
 
+        <action
+            android:id="@+id/social_liked_post_fragment"
+            app:destination="@id/social_liked_post_fragment" />
+
+    </fragment>
+
+    <fragment android:id="@+id/social_liked_post_fragment"
+        android:name="com.inved.freezdge.socialmedia.ui.SocialLikedPostFragment"
+        android:label="Liked Post"
+        tools:layout="@layout/fragment_social_liked_post">
+
     </fragment>
 
     <activity android:id="@+id/my_grocery_list_activity"
