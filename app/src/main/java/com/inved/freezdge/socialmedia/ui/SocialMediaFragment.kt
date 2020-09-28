@@ -287,7 +287,14 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         val searchItem = menu.findItem(R.id.searchItem)
         searchItem.isVisible = false
         val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
+        val likeItem = menu.findItem(R.id.likeItem)
+        likeItem.isVisible = true
         clearIngredientItem.isVisible = false
+        likeItem.setOnMenuItemClickListener {
+            //launchAlertDialog()
+            //Todo debago
+            true
+        }
         super.onPrepareOptionsMenu(menu)
     }
 

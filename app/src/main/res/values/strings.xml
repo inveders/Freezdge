@@ -9,6 +9,7 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_info">How to use app?</string>
     <string name="menu_clear_ingredients_list">Clear ingredients list</string>
+    <string name="menu_like_social_media">Like</string>
 
     <!--Toolbar-->
     <string name="toolbar_grocery_list">My grocery list</string>

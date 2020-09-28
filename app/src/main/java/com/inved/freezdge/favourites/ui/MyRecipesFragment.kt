@@ -44,7 +44,9 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
         searchItem = menu.findItem(R.id.searchItem)
         searchItem?.isVisible = isFavouriteSearchButtonShowed
         val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
+        val likeItem = menu.findItem(R.id.likeItem)
         clearIngredientItem.isVisible = false
+        likeItem.isVisible = false
         val searchView = searchItem?.actionView as SearchView
         val edittext =
             searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
