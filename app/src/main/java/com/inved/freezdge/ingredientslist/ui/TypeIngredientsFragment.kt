@@ -68,6 +68,8 @@ class TypeIngredientsFragment : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.searchItem)
         val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
+        val likeItem = menu.findItem(R.id.likeItem)
+        likeItem.isVisible = false
         clearIngredientItem.isVisible = false
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView

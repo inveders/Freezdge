@@ -21,7 +21,6 @@ import com.inved.freezdge.utils.GlideUtils
 import com.like.LikeButton
 import com.like.OnLikeListener
 
-
 class PostsAdapter(
     options: FirestoreRecyclerOptions<Post>,
     private val listener: ClickListener

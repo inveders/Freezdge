@@ -8,7 +8,7 @@
     <string name="menu_logout">Déconnexion</string>
     <string name="menu_info">Comment utiliser l\'appli?</string>
     <string name="menu_clear_ingredients_list">Vider la liste d\'ingredients</string>
-
+    <string name="menu_like_social_media">Like</string>
     <!--Toolbar-->
     <string name="toolbar_grocery_list">Ma liste de courses</string>
     <string name="toolbar_search_ingredients">Recherche d\'ingrédients</string>

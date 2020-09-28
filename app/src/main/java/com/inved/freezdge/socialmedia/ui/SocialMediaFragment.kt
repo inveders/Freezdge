@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -24,7 +26,9 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.*
+import com.inved.freezdge.utils.eventbus.HandleBottomNavEvent
 import kotlinx.android.synthetic.main.fragment_social_media.*
+import org.greenrobot.eventbus.EventBus
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
@@ -57,6 +61,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().post(HandleBottomNavEvent(true))
         setHasOptionsMenu(true)
         showLoader()
         initButtons()
@@ -287,7 +292,17 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         val searchItem = menu.findItem(R.id.searchItem)
         searchItem.isVisible = false
         val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
+        val likeItem = menu.findItem(R.id.likeItem)
+        likeItem.isVisible = true
         clearIngredientItem.isVisible = false
+        likeItem.setOnMenuItemClickListener {
+            val direction:NavDirections = SocialMediaFragmentDirections.socialLikedPostFragment()
+            direction?.let { direction ->
+                findNavController().navigate(direction)
+            }
+            //Todo debago
+            true
+        }
         super.onPrepareOptionsMenu(menu)
     }
 

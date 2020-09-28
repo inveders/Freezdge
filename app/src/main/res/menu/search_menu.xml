@@ -15,5 +15,11 @@
         android:title="@string/menu_clear_ingredients_list"
         app:showAsAction="ifRoom"
         />
+    <item
+        android:id="@+id/likeItem"
+        android:icon="@drawable/ic_like_disable"
+        android:title="@string/menu_like_social_media"
+        app:showAsAction="ifRoom"
+        />
 
 </menu>
