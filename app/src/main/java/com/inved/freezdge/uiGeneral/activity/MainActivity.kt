@@ -31,7 +31,11 @@ import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
+import com.inved.freezdge.utils.eventbus.HandleBottomNavEvent
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : BaseActivity(), LoaderListener {
@@ -65,6 +69,16 @@ class MainActivity : BaseActivity(), LoaderListener {
         val drawerListener = CustomDrawer()
         drawerLayout?.addDrawerListener(drawerListener)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
+        super.onPause()
     }
 
     //link in the navigation drawer
@@ -227,6 +241,14 @@ class MainActivity : BaseActivity(), LoaderListener {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: HandleBottomNavEvent) {
+        if(event.isBottomNavVisible){
+            bottomNavigationView.visibility=View.VISIBLE
+        }else{
+            bottomNavigationView.visibility=View.GONE
+        }
+    }
 
 
 }

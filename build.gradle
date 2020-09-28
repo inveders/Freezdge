@@ -28,6 +28,8 @@ allprojects {
         excludeAppGlideModule = true
         dispatcher="4.7.0"
         objectboxVersion = "2.7.1"
+        rxAndroidVersion = "2.1.1"
+        eventbusVersion = "3.1.1"
 
     }
 
