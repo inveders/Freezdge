@@ -10,9 +10,11 @@ import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentMyRecipesBinding
 import com.inved.freezdge.favourites.database.FavouritesRecipes
+import com.inved.freezdge.recipes.adapter.ListRecipeItem
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchFavouriteButtonListener
+import com.mikepenz.fastadapter.GenericItem
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 
 
@@ -60,16 +62,19 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                favouriteRecipesItemAdapter.filter(newText)
-                favouriteRecipesItemAdapter.itemFilter.filterPredicate =
-                    { item: FavouritesRecipes, constraint: CharSequence? ->
-                        item.recipeTitle?.contains(
-                            constraint.toString(),
-                            ignoreCase = true
-                        )==true
-
+                itemAdapter.filter(newText)
+                itemAdapter.itemFilter.filterPredicate =
+                    { item: GenericItem, constraint: CharSequence? ->
+                        if(item is ListRecipeItem){
+                            item.model?.recipeTitle?.contains(
+                                constraint.toString(),
+                                ignoreCase = true
+                            )?:false
+                        }else{
+                            false
+                        }
                     }
-                if(favouriteRecipesItemAdapter.adapterItems.size==0){
+                if(itemAdapter.adapterItems.size==0){
                     if(newText.isNullOrEmpty()){
                         topTextview.text = getString(R.string.recipe_list_number, 0)
                     }else{
@@ -79,10 +84,10 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
                             topTextview.text = getString(R.string.recipe_list_number_one, setFavouriteList.size)
                         }
                     }
-                }else if(favouriteRecipesItemAdapter.adapterItems.size!=1){
-                    topTextview.text = getString(R.string.recipe_list_number, favouriteRecipesItemAdapter.adapterItems.size)
+                }else if(itemAdapter.adapterItems.size!=1){
+                    topTextview.text = getString(R.string.recipe_list_number, itemAdapter.adapterItems.size)
                 }else{
-                    topTextview.text = getString(R.string.recipe_list_number_one, favouriteRecipesItemAdapter.adapterItems.size)
+                    topTextview.text = getString(R.string.recipe_list_number_one, itemAdapter.adapterItems.size)
                 }
                 return true
 
@@ -159,12 +164,14 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
     }
 
     // clear adapter and fill it with the filter recipes
-    private fun fillFavouriteAdapterFilter(setfavouritelist: MutableList<FavouritesRecipes>) {
-        favouriteRecipesItemAdapter.clear()
-
-        for (recipes in setfavouritelist) {
-            favouriteRecipesItemAdapter.add(recipes)
+    private fun fillFavouriteAdapterFilter(setList: MutableList<FavouritesRecipes>) {
+        val items = mutableListOf<GenericItem>()
+        setList.forEach {favouriteRecipe->
+            items.add(ListRecipeItem().apply {
+                this.model = fillModelListFavouriteRecipes(favouriteRecipe)
+            })
         }
+        itemAdapter.add(items)
         favouritesRecipesNumberFilter()
     }
 
