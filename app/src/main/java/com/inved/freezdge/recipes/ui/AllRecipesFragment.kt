@@ -11,6 +11,7 @@ import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentAllRecipesBinding
 import com.inved.freezdge.recipes.adapter.ListRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchButtonListener
@@ -167,11 +168,17 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
 
     // clear adapter and fill it with the filter recipes
     private fun fillAdapterFilter(setList: MutableList<Recipes>) {
-        val items = mutableListOf<GenericItem>()
         itemAdapter.clear()
+        val items = mutableListOf<GenericItem>()
+        val myList : MutableList<ShowedRecipes>?= mutableListOf()
         setList.forEach {recipe->
+            fillModelListRecipes(recipe)?.let { myList?.add(it) }
+        }
+        myList?.sortByDescending { it.matchingValue }
+
+        myList?.forEach {
             items.add(ListRecipeItem().apply {
-                this.model = fillModelListRecipes(recipe)
+                this.model = it
             })
         }
         itemAdapter.add(items)

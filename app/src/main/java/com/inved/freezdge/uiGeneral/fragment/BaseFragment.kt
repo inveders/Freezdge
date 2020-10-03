@@ -300,8 +300,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
         setlistDatabase.forEach {recipe->
             fillModelListRecipes(recipe)?.let { myList?.add(it) }
         }
-        myList?.sortBy { it.matchingValue }
-        myList?.reversed()
+        myList?.sortByDescending { it.matchingValue }
 
         myList?.forEach {
             items.add(ListRecipeItem().apply {
@@ -315,10 +314,17 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     }
 
     private fun fillFavouriteAdapterDatabase(setlistDatabase: MutableList<FavouritesRecipes>) {
+        itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
+        val myList : MutableList<ShowedRecipes>?= mutableListOf()
         setlistDatabase.forEach {favouriteRecipe->
+            fillModelListFavouriteRecipes(favouriteRecipe)?.let { myList?.add(it) }
+        }
+        myList?.sortByDescending { it.matchingValue }
+
+        myList?.forEach {
             items.add(ListRecipeItem().apply {
-                this.model = fillModelListFavouriteRecipes(favouriteRecipe)
+                this.model = it
             })
         }
         itemAdapter.add(items)
@@ -327,40 +333,46 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     }
 
    fun fillModelListRecipes(recipes:Recipes):ShowedRecipes?{
-        val model:ShowedRecipes?=null
-        model?.id=recipes.id
-        model?.recipeTitle=recipes.recipeTitle
-        model?.recipeCalories=recipes.recipeCalories
-        model?.totalrecipeTime=recipes.totalrecipeTime
-        model?.cuisineType=recipes.cuisineType
-        model?.dishType=recipes.dishType
-        model?.recipePhotoUrl=recipes.recipePhotoUrl
-        model?.recipePhotoUrlOwner=recipes.recipePhotoUrlOwner
-        model?.recipeUrlOwnerLink=recipes.recipeUrlOwnerLink
-        model?.recipeIngredients=recipes.recipeIngredients
-        model?.matchingValue=domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
-        model?.isFavouriteRecipe=recipes.id.toString()?.let { isRecipeIdIsPresent(it) }
-        model?.isAllRecipeFragment=true
-        return model
+        val model = ShowedRecipes()
+       model.apply {
+           model.id=recipes.id
+           model.recipeTitle=recipes.recipeTitle
+           model.recipeCalories=recipes.recipeCalories
+           model.totalrecipeTime=recipes.totalrecipeTime
+           model.cuisineType=recipes.cuisineType
+           model.dishType=recipes.dishType
+           model.recipePhotoUrl=recipes.recipePhotoUrl
+           model.recipePhotoUrlOwner=recipes.recipePhotoUrlOwner
+           model.recipeUrlOwnerLink=recipes.recipeUrlOwnerLink
+           model.recipeIngredients=recipes.recipeIngredients
+           model.matchingValue=domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
+           model.isFavouriteRecipe=recipes.id.toString().let { isRecipeIdIsPresent(it) }
+           model.isAllRecipeFragment=true
+           return model
+       }
+
     }
 
 
     fun fillModelListFavouriteRecipes(recipes:FavouritesRecipes):ShowedRecipes?{
-        val model:ShowedRecipes?=null
-        model?.id=recipes.id
-        model?.recipeTitle=recipes.recipeTitle
-        model?.recipeCalories=recipes.recipeCalories
-        model?.totalrecipeTime=recipes.recipeTime
-        model?.cuisineType=recipes.cuisineType
-        model?.dishType=recipes.dishType
-        model?.recipePhotoUrl=recipes.recipePhotoUrl
-        model?.recipePhotoUrlOwner=recipes.recipePhotoUrlOwner
-        model?.recipeUrlOwnerLink=recipes.recipeUrl
-        model?.recipeIngredients=recipes.recipeIngredients
-        model?.matchingValue=domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
-        model?.isFavouriteRecipe= recipes.recipeId?.let { isRecipeIdIsPresent(it) }
-        model?.isAllRecipeFragment=false
-        return model
+        val model = ShowedRecipes()
+        model.apply {
+            model.id=recipes.id
+            model.recipeTitle=recipes.recipeTitle
+            model.recipeCalories=recipes.recipeCalories
+            model.totalrecipeTime=recipes.recipeTime
+            model.cuisineType=recipes.cuisineType
+            model.dishType=recipes.dishType
+            model.recipePhotoUrl=recipes.recipePhotoUrl
+            model.recipePhotoUrlOwner=recipes.recipePhotoUrlOwner
+            model.recipeUrlOwnerLink=recipes.recipeUrl
+            model.recipeIngredients=recipes.recipeIngredients
+            model.matchingValue=domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
+            model.isFavouriteRecipe= recipes.recipeId?.let { isRecipeIdIsPresent(it) }
+            model.isAllRecipeFragment=false
+            return model
+        }
+
     }
 
 
