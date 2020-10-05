@@ -32,5 +32,6 @@ data class Recipes (
     var step9: String? = null,
     var step10: String? = null,
     var step11: String? = null,
-    var step12: String? = null
+    var step12: String? = null,
+    var urlVideo: String? = null
 )
