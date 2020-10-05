@@ -365,8 +365,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     fun fillModelListFavouriteRecipes(recipes:FavouritesRecipes):ShowedRecipes?{
         val model = ShowedRecipes()
         model.apply {
-            model.id= recipes.id
-            model.recipeId= recipes.recipeId
+            model.id= recipes.recipeId?.toLong()
             model.recipeTitle=recipes.recipeTitle
             model.recipeCalories=recipes.recipeCalories
             model.totalrecipeTime=recipes.recipeTime
@@ -478,28 +477,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                     item.model?.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, item.model?.isFavouriteRecipe) }
                 }
 
-             /*   if (item.model?.isFavouriteRecipe == false) {
-                    item.model?.isFavouriteRecipe = true
-                    view.let { it1 ->
-                        it1?.let {
-                            item.getViewHolder(it).imageFavourite.setImageResource(
-                                R.drawable.ic_favorite_selected_24dp
-                            )
-                        }
-                    }
-                } else {
-                    item.model?.isFavouriteRecipe = false
-                    view.let { it1 ->
-                        it1?.let {
-                            item.getViewHolder(it).imageFavourite.setImageResource(
-                                R.drawable.ic_favorite_not_selected_24dp
-                            )
-                        }
-                    }
-                }*/
-                getFavouritesRecipes()
-
-              //  favouritesFastAdapter.notifyAdapterDataSetChanged()
+                favouritesFastAdapter.notifyAdapterDataSetChanged()
             }
 
         }

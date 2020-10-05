@@ -4,8 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class ShowedRecipes() :Parcelable {
-    var id: Long = 0
-    var recipeId: String? = null
+    var id: Long? = 0
     var recipeTitle: String? = null
     var recipeCalories: String? = null
     var totalrecipeTime: String? = null
@@ -20,8 +19,7 @@ class ShowedRecipes() :Parcelable {
     var isAllRecipeFragment:Boolean?=false
 
     constructor(parcel: Parcel) : this() {
-        id = parcel.readLong()
-        recipeId = parcel.readString()
+        id = parcel.readValue(Long::class.java.classLoader) as? Long
         recipeTitle = parcel.readString()
         recipeCalories = parcel.readString()
         totalrecipeTime = parcel.readString()
@@ -37,8 +35,7 @@ class ShowedRecipes() :Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
-        parcel.writeString(recipeId)
+        parcel.writeValue(id)
         parcel.writeString(recipeTitle)
         parcel.writeString(recipeCalories)
         parcel.writeString(totalrecipeTime)
