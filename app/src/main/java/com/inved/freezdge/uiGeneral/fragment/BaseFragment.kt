@@ -44,6 +44,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+enum class FragmentDetected(val number:Int){
+    ALL_RECIPES_FRAGMENT(1),
+    FAVOURITE_FRAGMENT(2)
+}
 
 abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
@@ -151,7 +155,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
         }
     }
 
-    private fun setupRecipeRecyclerView() {
+    private fun setupRecipeRecyclerView(wichFragment:Int) {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerview.layoutManager = linearLayoutManager
         recyclerview.adapter = fastAdapter
@@ -179,8 +183,12 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                 true
             }
 
-        handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
-        handleFavouriteFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
+        if(wichFragment==FragmentDetected.ALL_RECIPES_FRAGMENT.number){
+            handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
+        }else if (wichFragment==FragmentDetected.FAVOURITE_FRAGMENT.number){
+            handleFavouriteFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
+        }
+
     }
 
     private fun openWebViewActivity(url: String?) {
@@ -203,7 +211,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     private fun detectWichFragmentIsOpen() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
-                setupRecipeRecyclerView()
+                setupRecipeRecyclerView(FragmentDetected.ALL_RECIPES_FRAGMENT.number)
                 if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                     lifecycleScope.launch {
                         getAllRecipes()
@@ -217,7 +225,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                 }
             }
             getForegroundFragment() is MyRecipesFragment -> run {
-                setupRecipeRecyclerView()
+                setupRecipeRecyclerView(FragmentDetected.FAVOURITE_FRAGMENT.number)
                 getFavouritesRecipes()
             }
         }
@@ -357,7 +365,8 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     fun fillModelListFavouriteRecipes(recipes:FavouritesRecipes):ShowedRecipes?{
         val model = ShowedRecipes()
         model.apply {
-            model.id=recipes.id
+            model.id= recipes.id
+            model.recipeId= recipes.recipeId
             model.recipeTitle=recipes.recipeTitle
             model.recipeCalories=recipes.recipeCalories
             model.totalrecipeTime=recipes.recipeTime
@@ -405,26 +414,17 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                     item.model?.recipePhotoUrlOwner
                 )
 
-                val bool: Boolean? =
-                    item.model?.id.let {
-                        it.let { it1 ->
-                            favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                                it1.toString()
-                            )
-                        }
-                    }
-
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(500)
                     item.model?.recipeIngredients?.let {
                         domain.correspondanceCalculForGrocery(
                             it,
-                            bool
+                            item.model?.isFavouriteRecipe
                         )
                     }
                 }
 
-                if (bool == true) {
+                if (item.model?.isFavouriteRecipe == false) {
                     view.let { it1 ->
                         it1?.let {
                             item.getViewHolder(it).imageFavourite.setImageResource(
@@ -432,6 +432,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                             )
                         }
                     }
+                    item.model?.isFavouriteRecipe = true
                 } else {
                     view.let { it1 ->
                         it1?.let {
@@ -440,6 +441,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                             )
                         }
                     }
+                    item.model?.isFavouriteRecipe = false
                 }
 
                 fastAdapter.notifyAdapterDataSetChanged()
@@ -471,20 +473,13 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                     item.model?.cuisineType, item.model?.dishType, item.model?.recipePhotoUrlOwner
                 )
 
-                val bool: Boolean? = item.model?.id.let {
-                    it?.let { it1 ->
-                        favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                            it1.toString()
-                        )
-                    }
-                }
-
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(500)
-                    item.model?.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, bool) }
+                    item.model?.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, item.model?.isFavouriteRecipe) }
                 }
 
-                if (bool == true) {
+             /*   if (item.model?.isFavouriteRecipe == false) {
+                    item.model?.isFavouriteRecipe = true
                     view.let { it1 ->
                         it1?.let {
                             item.getViewHolder(it).imageFavourite.setImageResource(
@@ -493,6 +488,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                         }
                     }
                 } else {
+                    item.model?.isFavouriteRecipe = false
                     view.let { it1 ->
                         it1?.let {
                             item.getViewHolder(it).imageFavourite.setImageResource(
@@ -500,12 +496,11 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                             )
                         }
                     }
-                }
+                }*/
+                getFavouritesRecipes()
 
-                favouritesFastAdapter.notifyAdapterDataSetChanged()
+              //  favouritesFastAdapter.notifyAdapterDataSetChanged()
             }
-
-
 
         }
 
@@ -514,9 +509,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
             if (item is ListRecipeItem) {
                 onClickMatching(item.model?.recipeIngredients)
             }
-
         }
-
 
     }
 

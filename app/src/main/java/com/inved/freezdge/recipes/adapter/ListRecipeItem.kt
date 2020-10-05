@@ -99,7 +99,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
             GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
 
             // We detect if the recipe is in our favourite and update UI according to
-            if(item.model?.id.toString().let {isRecipeIdIsPresent(it)}){
+            if(item.model?.isFavouriteRecipe==true){
                 imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
             }else{
                 imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
