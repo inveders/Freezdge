@@ -13,38 +13,41 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
+import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
-import com.inved.freezdge.favourites.view.ViewHolderFavouritesRecipes
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.onboarding.OnboardingActivity
+import com.inved.freezdge.recipes.adapter.ListRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
-import com.inved.freezdge.recipes.view.ViewHolderRecipesDatabase
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.socialmedia.ui.PreviewPhotoDialog
-import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
+import io.objectbox.kotlin.boxFor
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+enum class FragmentDetected(val number:Int){
+    ALL_RECIPES_FRAGMENT(1),
+    FAVOURITE_FRAGMENT(2)
+}
 
 abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
@@ -105,12 +108,8 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
     }
 
-    val recipesDatabaseItemAdapter = ItemAdapter<Recipes>()
-    private var fastAdapter =
-        FastAdapter.with(recipesDatabaseItemAdapter)
-
-    val favouriteRecipesItemAdapter = ItemAdapter<FavouritesRecipes>()
-    private val favouritesFastAdapter = FastAdapter.with(favouriteRecipesItemAdapter)
+    var itemAdapter = GenericItemAdapter()
+    var fastAdapter = FastAdapter.with(itemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -118,10 +117,6 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
-
-
-
-
 
     //INITIALIZATION
     private fun initViewModel() {
@@ -160,47 +155,39 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
         }
     }
 
-    private fun setupRecipeRecyclerView() {
+    private fun setupRecipeRecyclerView(wichFragment:Int) {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerview.layoutManager = linearLayoutManager
         recyclerview.adapter = fastAdapter
 
         //configure our fastAdapter
         fastAdapter.onClickListener =
-            { v: View?, _: IAdapter<Recipes>, item: GenericItem, _: Int ->
+            { v: View?, _: IAdapter<GenericItem>, item: GenericItem, _: Int ->
                 v?.let {
                     // When we click, we retrieve here the clicked element and sen list of benefits in the method
-                    if (item is Recipes) {
-                        val id: Long = item.id
-                        openRecipeDetailActivity(id, 1)
+                    if (item is ListRecipeItem) {
+                        if(item.model?.isFavouriteRecipe==true){
+                            val url: String? = item.model?.recipeUrlOwnerLink
+                            openWebViewActivity(url)
+                            if (item.model?.recipePhotoUrl.let { it?.contains("freezdge", true) == true }) {
+                                val id: Long? = item.model?.id
+                                openRecipeDetailActivity(id, 2)
+                            }
+                        }else{
+                            val id: Long? = item.model?.id
+                            openRecipeDetailActivity(id, 1)
+                        }
+
                     }
                 }
                 true
             }
 
-        handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
-    }
-
-    private fun setupFavouriteRecipeRecyclerView() {
-        linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerview.layoutManager = linearLayoutManager
-        recyclerview.adapter = favouritesFastAdapter
-
-        //configure our fastAdapter
-        favouritesFastAdapter.onClickListener =
-            { v: View?, _: IAdapter<FavouritesRecipes>, item: FavouritesRecipes, _: Int ->
-                v?.let {
-                    val url: String? = item.recipeUrl
-                    openWebViewActivity(url)
-                    if (item.recipePhotoUrl.let { it?.contains("freezdge", true) == true }) {
-                        val id: Long? = item.recipeId?.toLong()
-                        openRecipeDetailActivity(id, 2)
-                    }
-                }
-                true
-            }
-
-        handleFavouriteFastAdapterClick(favouritesFastAdapter, favouriteRecipesViewmodel)
+        if(wichFragment==FragmentDetected.ALL_RECIPES_FRAGMENT.number){
+            handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
+        }else if (wichFragment==FragmentDetected.FAVOURITE_FRAGMENT.number){
+            handleFavouriteFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
+        }
 
     }
 
@@ -224,7 +211,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     private fun detectWichFragmentIsOpen() {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
-                setupRecipeRecyclerView()
+                setupRecipeRecyclerView(FragmentDetected.ALL_RECIPES_FRAGMENT.number)
                 if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                     lifecycleScope.launch {
                         getAllRecipes()
@@ -238,17 +225,17 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                 }
             }
             getForegroundFragment() is MyRecipesFragment -> run {
-                setupFavouriteRecipeRecyclerView()
+                setupRecipeRecyclerView(FragmentDetected.FAVOURITE_FRAGMENT.number)
                 getFavouritesRecipes()
             }
         }
     }
 
     private fun getFavouritesRecipes() {
-        favouriteRecipesItemAdapter.clear()
+        itemAdapter.clear()
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
-                favouriteRecipesItemAdapter.clear()
+                itemAdapter.clear()
                 if (result != null) {
                     if (result.size != 0) {
                         setFavouriteList.clear()
@@ -256,11 +243,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                         imageArrow.visibility = View.INVISIBLE
                         floatingActionButton.show()
                         listenerSearchFavourite?.showSearchButton()
-                        for (myresult in result) {
-                            favouriteRecipesItemAdapter.add(myresult)
-                            setFavouriteList.add(myresult)
-                        }
-                        favouritesRecipesNumber()
+                        fillFavouriteAdapterDatabase(result)
                     } else {
                         not_found.visibility = View.VISIBLE
                         imageArrow.visibility = View.VISIBLE
@@ -319,57 +302,128 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
     }
 
     private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>) {
-        recipesDatabaseItemAdapter.clear()
-        for (recipes in setlistDatabase) {
-            recipesDatabaseItemAdapter.add(recipes)
+        itemAdapter.clear()
+        val items = mutableListOf<GenericItem>()
+        val myList : MutableList<ShowedRecipes>?= mutableListOf()
+        setlistDatabase.forEach {recipe->
+            fillModelListRecipes(recipe)?.let { myList?.add(it) }
         }
+        myList?.sortByDescending { it.matchingValue }
+
+        myList?.forEach {
+            items.add(ListRecipeItem().apply {
+                this.model = it
+            })
+        }
+        itemAdapter.add(items)
         BaseFragment.setlistDatabase = setlistDatabase
         recipesNumber()
         listener?.hideLoader()
     }
 
+    private fun fillFavouriteAdapterDatabase(setlistDatabase: MutableList<FavouritesRecipes>) {
+        itemAdapter.clear()
+        val items = mutableListOf<GenericItem>()
+        val myList : MutableList<ShowedRecipes>?= mutableListOf()
+        setlistDatabase.forEach {favouriteRecipe->
+            fillModelListFavouriteRecipes(favouriteRecipe)?.let { myList?.add(it) }
+        }
+        myList?.sortByDescending { it.matchingValue }
+
+        myList?.forEach {
+            items.add(ListRecipeItem().apply {
+                this.model = it
+            })
+        }
+        itemAdapter.add(items)
+        setFavouriteList = setlistDatabase
+        favouritesRecipesNumber()
+    }
+
+   fun fillModelListRecipes(recipes:Recipes):ShowedRecipes?{
+        val model = ShowedRecipes()
+       model.apply {
+           model.id=recipes.id
+           model.recipeTitle=recipes.recipeTitle
+           model.recipeCalories=recipes.recipeCalories
+           model.totalrecipeTime=recipes.totalrecipeTime
+           model.cuisineType=recipes.cuisineType
+           model.dishType=recipes.dishType
+           model.recipePhotoUrl=recipes.recipePhotoUrl
+           model.recipePhotoUrlOwner=recipes.recipePhotoUrlOwner
+           model.recipeUrlOwnerLink=recipes.recipeUrlOwnerLink
+           model.recipeIngredients=recipes.recipeIngredients
+           model.matchingValue=domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
+           model.isFavouriteRecipe=recipes.id.toString().let { isRecipeIdIsPresent(it) }
+           model.isAllRecipeFragment=true
+           return model
+       }
+
+    }
+
+
+    fun fillModelListFavouriteRecipes(recipes:FavouritesRecipes):ShowedRecipes?{
+        val model = ShowedRecipes()
+        model.apply {
+            model.id= recipes.recipeId?.toLong()
+            model.recipeTitle=recipes.recipeTitle
+            model.recipeCalories=recipes.recipeCalories
+            model.totalrecipeTime=recipes.recipeTime
+            model.cuisineType=recipes.cuisineType
+            model.dishType=recipes.dishType
+            model.recipePhotoUrl=recipes.recipePhotoUrl
+            model.recipePhotoUrlOwner=recipes.recipePhotoUrlOwner
+            model.recipeUrlOwnerLink=recipes.recipeUrl
+            model.recipeIngredients=recipes.recipeIngredients
+            model.matchingValue=domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
+            model.isFavouriteRecipe= recipes.recipeId?.let { isRecipeIdIsPresent(it) }
+            model.isAllRecipeFragment=false
+            return model
+        }
+
+    }
+
+
+    private fun isRecipeIdIsPresent(recipeId:String):Boolean {
+        val favouritesRecipes: FavouritesRecipes? =
+            App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
+                .query().equal(FavouritesRecipes_.recipeId, recipeId)
+                .build().findUnique()
+        return favouritesRecipes!=null
+    }
 
     private fun handleFastAdapterClickImageFavourite(
-        fastAdapter: FastAdapter<Recipes>,
+        fastAdapter: FastAdapter<GenericItem>,
         favouriteRecipesViewmodel: FavouritesRecipesViewModel
     ) {
 
-        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.imageFavourite }) { _, _, _: FastAdapter<Recipes>, item: GenericItem ->
+        fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.imageFavourite }) { _, _, _: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
-            if (item is Recipes) {
+            if (item is ListRecipeItem) {
                 favouriteRecipesViewmodel.detectFavouriteRecipe(
-                    item.id.toString(),
-                    item.recipeTitle,
-                    item.recipeCalories,
-                    item.totalrecipeTime,
-                    item.recipeUrlOwnerLink,
-                    item.recipePhotoUrl,
-                    item.recipeIngredients,
-                    item.cuisineType,
-                    item.dishType,
-                    item.recipePhotoUrlOwner
+                    item.model?.id.toString(),
+                    item.model?.recipeTitle,
+                    item.model?.recipeCalories,
+                    item.model?.totalrecipeTime,
+                    item.model?.recipeUrlOwnerLink,
+                    item.model?.recipePhotoUrl,
+                    item.model?.recipeIngredients,
+                    item.model?.cuisineType,
+                    item.model?.dishType,
+                    item.model?.recipePhotoUrlOwner
                 )
-
-                val bool: Boolean? =
-                    item.id.let {
-                        it.let { it1 ->
-                            favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                                it1.toString()
-                            )
-                        }
-                    }
 
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(500)
-                    item.recipeIngredients?.let {
+                    item.model?.recipeIngredients?.let {
                         domain.correspondanceCalculForGrocery(
                             it,
-                            bool
+                            item.model?.isFavouriteRecipe
                         )
                     }
                 }
 
-                if (bool == true) {
+                if (item.model?.isFavouriteRecipe == false) {
                     view.let { it1 ->
                         it1?.let {
                             item.getViewHolder(it).imageFavourite.setImageResource(
@@ -377,6 +431,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                             )
                         }
                     }
+                    item.model?.isFavouriteRecipe = true
                 } else {
                     view.let { it1 ->
                         it1?.let {
@@ -385,6 +440,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
                             )
                         }
                     }
+                    item.model?.isFavouriteRecipe = false
                 }
 
                 fastAdapter.notifyAdapterDataSetChanged()
@@ -392,10 +448,10 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
         }
 
-        fastAdapter.addClickListener({ vh: ViewHolderRecipesDatabase -> vh.proportionText }) { _, _, i: FastAdapter<Recipes>, item: GenericItem ->
+        fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, _, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
-            if (item is Recipes) {
-                onClickMatching(item.recipeIngredients)
+            if (item is ListRecipeItem) {
+                onClickMatching(item.model?.recipeIngredients)
             }
 
         }
@@ -403,61 +459,35 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
 
     //click on a favourite recipe, manage favourite image enable or not
     private fun handleFavouriteFastAdapterClick(
-        favouritesFastAdapter: FastAdapter<FavouritesRecipes>,
+        favouritesFastAdapter: FastAdapter<GenericItem>,
         favouriteRecipesViewmodel: FavouritesRecipesViewModel
     ) {
-        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.imageFavourite }) { _, _: Int, _: FastAdapter<FavouritesRecipes>, item: FavouritesRecipes ->
+        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.imageFavourite }) { _, _: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
 
-            favouriteRecipesViewmodel.detectFavouriteRecipe(
-                item.recipeId, item.recipeTitle, item.recipeCalories,
-                item.recipeTime, item.recipeUrl, item.recipePhotoUrl, item.recipeIngredients,
-                item.cuisineType, item.dishType, item.recipePhotoUrlOwner
-            )
+            if(item is ListRecipeItem){
+                favouriteRecipesViewmodel.detectFavouriteRecipe(
+                    item.model?.id.toString(), item.model?.recipeTitle, item.model?.recipeCalories,
+                    item.model?.totalrecipeTime, item.model?.recipeUrlOwnerLink, item.model?.recipePhotoUrl, item.model?.recipeIngredients,
+                    item.model?.cuisineType, item.model?.dishType, item.model?.recipePhotoUrlOwner
+                )
 
-            val bool: Boolean? = item.recipeId.let {
-                it?.let { it1 ->
-                    favouriteRecipesViewmodel.isRecipeIdIsPresent(
-                        it1
-                    )
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(500)
+                    item.model?.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, item.model?.isFavouriteRecipe) }
                 }
-            }
 
-            GlobalScope.launch(Dispatchers.IO) {
-                delay(500)
-                item.recipeIngredients?.let { domain.correspondanceCalculForGrocery(it, bool) }
-            }
-
-            if (bool == true) {
-                view.let { it1 ->
-                    it1?.let {
-                        item.getViewHolder(it).imageFavourite.setImageResource(
-                            R.drawable.ic_favorite_selected_24dp
-                        )
-                    }
-                }
-            } else {
-                view.let { it1 ->
-                    it1?.let {
-                        item.getViewHolder(it).imageFavourite.setImageResource(
-                            R.drawable.ic_favorite_not_selected_24dp
-                        )
-                    }
-                }
-            }
-
-            favouritesFastAdapter.notifyAdapterDataSetChanged()
-
-        }
-
-        favouritesFastAdapter.addClickListener({ vh: ViewHolderFavouritesRecipes -> vh.proportionText }) { _, _, i: FastAdapter<FavouritesRecipes>, item: GenericItem ->
-            //react on the click event
-            if (item is FavouritesRecipes) {
-                onClickMatching(item.recipeIngredients)
+                favouritesFastAdapter.notifyAdapterDataSetChanged()
             }
 
         }
 
+        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, _, i: FastAdapter<GenericItem>, item: GenericItem ->
+            //react on the click event
+            if (item is ListRecipeItem) {
+                onClickMatching(item.model?.recipeIngredients)
+            }
+        }
 
     }
 

@@ -6,14 +6,16 @@ import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentAllRecipesBinding
+import com.inved.freezdge.recipes.adapter.ListRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchButtonListener
+import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 
@@ -63,7 +65,7 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
             override fun onQueryTextChange(newText: String): Boolean {
                 handleTextFilter(
                     newText,
-                    recipesDatabaseItemAdapter
+                    itemAdapter
                 )
                 return true
             }
@@ -74,16 +76,22 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
     // handle the text of searchview for recipes from database
     fun handleTextFilter(
         newText: String,
-        recipesDatabaseItemAdapter: ItemAdapter<Recipes>
+        recipesDatabaseItemAdapter: ItemAdapter<GenericItem>
     ) {
 
         recipesDatabaseItemAdapter.filter(newText)
         recipesDatabaseItemAdapter.itemFilter.filterPredicate =
-            { item: Recipes, constraint: CharSequence? ->
-                item.recipeTitle?.contains(
-                    constraint.toString(),
-                    ignoreCase = true
-                )==true
+            { item: GenericItem, constraint: CharSequence? ->
+                if(item is ListRecipeItem){
+                    item.model?.recipeTitle?.contains(
+                        constraint.toString(),
+                        ignoreCase = true
+                    )==true
+                }else{
+                    false
+                }
+
+
             }
 
         if(newText.isNullOrEmpty()){
@@ -159,11 +167,21 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
     }
 
     // clear adapter and fill it with the filter recipes
-    private fun fillAdapterFilter(setlistDatabase: MutableList<Recipes>) {
-        recipesDatabaseItemAdapter.clear()
-        for (recipes in setlistDatabase) {
-            recipesDatabaseItemAdapter.add(recipes)
+    private fun fillAdapterFilter(setList: MutableList<Recipes>) {
+        itemAdapter.clear()
+        val items = mutableListOf<GenericItem>()
+        val myList : MutableList<ShowedRecipes>?= mutableListOf()
+        setList.forEach {recipe->
+            fillModelListRecipes(recipe)?.let { myList?.add(it) }
         }
+        myList?.sortByDescending { it.matchingValue }
+
+        myList?.forEach {
+            items.add(ListRecipeItem().apply {
+                this.model = it
+            })
+        }
+        itemAdapter.add(items)
         recipesNumberFilter()
     }
 
