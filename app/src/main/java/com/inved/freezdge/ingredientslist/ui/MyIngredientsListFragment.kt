@@ -2,6 +2,7 @@ package com.inved.freezdge.ingredientslist.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -21,6 +22,7 @@ import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
+import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 import kotlinx.android.synthetic.main.fragment_my_recipes.floatingActionButton
@@ -113,20 +115,29 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
             }
             // Set chip close icon click listener
             chip.setOnCloseIconClickListener {
-                GlobalScope.launch(Dispatchers.IO) {
-                    ingredientsViewmodel.updateIngredientSelectedByName(
-                        myresult.name,
-                        false
-                    )
-                    myresult.name?.let { it1 ->
-                        myresult.nameEnglish?.let { it2 ->
-                            favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
-                                it1, it2
-                            )
+
+
+                val ids = chipGroup.checkedChipIds
+                for (id in ids) {
+                    val chip: Chip = chipGroup.findViewById(id)
+
+                    GlobalScope.launch(Dispatchers.IO) {
+                        ingredientsViewmodel.updateIngredientSelectedByName(
+                            chip.text.toString(),
+                            false
+                        )
+                        chip.text.toString()?.let { it1 ->
+                            chip.text.toString()?.let { it2 ->
+                                favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
+                                    it1, it2
+                                )
+                            }
                         }
                     }
+                    chipGroup.removeView(chip)
+
                 }
-                chipGroup.removeView(chip)
+
                 setlistDatabase.clear()
             }
             setlistDatabase.clear()
@@ -165,6 +176,8 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
         }
         builder?.show()
     }
+
+
 
     //clear all ingredients in the list and put ingredient not selected in the objectbox database
     private fun unselectAllIngredients(){
