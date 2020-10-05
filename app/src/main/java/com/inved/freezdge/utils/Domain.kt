@@ -164,6 +164,11 @@ class Domain {
         )
     }
 
+    // split ingredient line in list of String to manipulate
+    fun retrieveStringFromString(listString : ArrayList<String>?): String? {
+        return listString?.joinToString(", ")
+    }
+
     // find wich ingredients are in recipes and not in my fridge and add them to the grocery list
     fun missingIngredients(input: String?): ArrayList<String>{
 

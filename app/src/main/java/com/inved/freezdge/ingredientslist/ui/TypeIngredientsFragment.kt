@@ -122,7 +122,7 @@ class TypeIngredientsFragment : Fragment() {
         }
     }
 
-    // detect on wich ingredient type page we are (Creamery, Fruit & vegetables, epicerie, fish, or meat)
+    // detect on wich ingredient type page we are (Creamery, Fruit & vegetables, fish, meat or epicerie)
     fun getForegroundFragment(value: Int) {
         when (value) {
             0 -> run {
@@ -132,13 +132,13 @@ class TypeIngredientsFragment : Fragment() {
                 getAllFoodByType(getString(R.string.ingredient_type_fruits_vegetables))
             }
             2 -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_epicerie))
-            }
-            3 -> run {
                 getAllFoodByType(getString(R.string.ingredient_type_fish))
             }
-            4 -> run {
+            3 -> run {
                 getAllFoodByType(getString(R.string.ingredient_type_meat))
+            }
+            4 -> run {
+                getAllFoodByType(getString(R.string.ingredient_type_epicerie))
             }
         }
     }
