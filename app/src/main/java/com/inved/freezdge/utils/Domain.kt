@@ -29,11 +29,6 @@ class Domain {
         return AlphaAnimation(1f, 0.8f)
     }
 
-    fun uppercaseFirstCharacter(name: String): String {
-        val s1 = name.substring(0, 1).toUpperCase(Locale.getDefault())
-        return s1 + name.substring(1)
-    }
-
     fun convertDpToPixel(dp: Int): Int {
         return (dp * (App.resource().displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
     }
@@ -68,21 +63,20 @@ class Domain {
     }
 
     // convert preparation time from double to string with % min or % h % min
-    fun preparationTime(time: Double?): String? {
+    fun preparationTime(time: Int?): String? {
         if (time != null) {
             when {
-                time == 0.0 -> {
+                time == 0 -> {
                     return App.resource().getString(R.string.recipe_list_item_no_time_known)
                 }
-                time <= 60.0 -> {
+                time < 60 -> {
                     return App.resource()
-                        .getString(R.string.recipe_list_item_time_min, time.roundToInt())
+                        .getString(R.string.recipe_list_item_time_min, time)
                 }
                 else -> {
-                    val timeInt = time.toInt()
-                    val hours: Int = timeInt / 60 //since both are ints, you get an int
+                    val hours: Int = time / 60 //since both are ints, you get an int
 
-                    val minutes: Int = timeInt % 60
+                    val minutes: Int = time % 60
                     return if (minutes == 0) {
                         App.resource()
                             .getString(R.string.recipe_list_item_time_hours, hours)
@@ -97,6 +91,25 @@ class Domain {
             return App.resource().getString(R.string.recipe_list_item_no_time_known)
         }
 
+    }
+
+    fun handleDishType(dishType:String?):String{
+        when (dishType) {
+            DishType.MAIN_COURSE.dishName -> {
+                return App.resource().getString(R.string.array_filter_plat)
+            }
+            DishType.STARTER.dishName -> {
+                return App.resource().getString(R.string.array_filter_entry)
+            }
+            DishType.COCKTAIL.dishName -> {
+                return App.resource().getString(R.string.array_filter_cocktail)
+            }
+            DishType.DESSERT.dishName -> {
+                return App.resource().getString(R.string.array_filter_dessert)
+            }
+            else -> return App.resource().getString(R.string.array_filter_plat)
+
+        }
     }
 
 

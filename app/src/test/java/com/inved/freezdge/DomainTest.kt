@@ -15,12 +15,6 @@ class DomainTest {
     private var domain = Domain()
 
     @Test
-    fun uppercaseFistCharacter() {
-        val myString = "alexandra"
-        assertEquals("Alexandra", domain.uppercaseFirstCharacter(myString))
-    }
-
-    @Test
     fun randomStringLenght() {
         val myLenght = 20
         assertEquals(myLenght, domain.createRandomString().length)

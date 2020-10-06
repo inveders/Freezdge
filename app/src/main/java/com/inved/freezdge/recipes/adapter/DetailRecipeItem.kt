@@ -16,8 +16,6 @@ import com.mikepenz.fastadapter.items.AbstractItem
 open class DetailRecipeItem: AbstractItem<DetailRecipeItem.ViewHolder>() {
     var recipe: Recipes?=null
 
-
-
     override val layoutRes: Int
         get() = R.layout.item_detail_recipe
 
@@ -44,11 +42,11 @@ open class DetailRecipeItem: AbstractItem<DetailRecipeItem.ViewHolder>() {
             recipeTitle.text = item.recipe?.recipeTitle
             recipePrepCookTime.text = App.applicationContext().getString(
                 R.string.recipe_detail_item_detail_time,
-                item.recipe?.preparationTime,
-                item.recipe?.cookedTime
+                domain.preparationTime(item.recipe?.preparationTime),
+                domain.preparationTime(item.recipe?.cookedTime)
             )
             recipeTotalTime.text =
-                App.applicationContext().getString(R.string.recipe_detail_item_total_time, item.recipe?.totalrecipeTime)
+                App.applicationContext().getString(R.string.recipe_detail_item_total_time, domain.preparationTime(item.recipe?.totalrecipeTime))
             val kcal: String? = if (item.recipe?.recipeCalories?.isEmpty() == true) {
                 App.applicationContext().getString(R.string.recipe_list_item_kcal_notknow)
             } else {
@@ -65,10 +63,6 @@ open class DetailRecipeItem: AbstractItem<DetailRecipeItem.ViewHolder>() {
 
             val gsReferenceOwner = item.recipe?.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
             GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner, recipeOwnerImage)
-
-
-
-
 
         }
 

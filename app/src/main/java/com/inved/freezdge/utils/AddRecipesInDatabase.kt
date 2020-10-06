@@ -17,11 +17,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Burger et frites de patate douce",
                     recipeCalories = "",
-                    totalrecipeTime = "45 min",
-                    preparationTime = "10 min",
+                    totalrecipeTime = 45,
+                    preparationTime = 10,
                     cuisineType = "Americain",
                     dishType = "Main course",
-                    cookedTime = "35 min",
+                    cookedTime = 35,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/frite_patate_douce_burger.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
@@ -49,11 +49,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Poulet yassa",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 100,
+                    preparationTime = 40,
                     cuisineType = "Africain",
                     dishType = "Main course",
-                    cookedTime = "",
+                    cookedTime = 60,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/poulet_yassa_tresor_afrique.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/trésor_afrique_logo.jpg",
                     recipeUrlOwnerLink = "https://www.facebook.com/tresordafriktraiteur",
@@ -82,11 +82,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Bar à l’africaine",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 35,
+                    preparationTime = 15,
                     cuisineType = "Africain",
                     dishType = "Main course",
-                    cookedTime = "",
+                    cookedTime = 20,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/bar_tresor_afrique.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/trésor_afrique_logo.jpg",
                     recipeUrlOwnerLink = "https://www.facebook.com/tresordafriktraiteur",
@@ -114,11 +114,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Pâtes fusilli façon bolognaise",
                     recipeCalories = "",
-                    totalrecipeTime = "30 min",
-                    preparationTime = "",
+                    totalrecipeTime = 30,
+                    preparationTime = 10,
                     cuisineType = "Italien",
                     dishType = "Main course",
-                    cookedTime = "",
+                    cookedTime = 20,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/fusili_bolo_mntraiteur.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/aime_n_traiteur.jpg",
                     recipeUrlOwnerLink = "https://www.facebook.com/Aime-N-Traiteur-489588211127218/",
@@ -147,11 +147,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Saka saka (Brazaville)",
                     recipeCalories = "",
-                    totalrecipeTime = "2h30",
-                    preparationTime = "30min",
+                    totalrecipeTime = 150,
+                    preparationTime = 30,
                     cuisineType = "Congolais",
                     dishType = "Main course",
-                    cookedTime = "2h",
+                    cookedTime = 120,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/saka-saka_brazaville.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
@@ -180,11 +180,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Poisson salé",
                     recipeCalories = "",
-                    totalrecipeTime = "25min",
-                    preparationTime = "5min",
+                    totalrecipeTime = 25,
+                    preparationTime = 5,
                     cuisineType = "Congolais",
                     dishType = "Main course",
-                    cookedTime = "20min",
+                    cookedTime = 20,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/poisson_salé.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
@@ -213,11 +213,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Bouillon de porc aux plantains (Ngoulou Mu Mako)",
                     recipeCalories = "",
-                    totalrecipeTime = "1h15",
-                    preparationTime = "55min",
+                    totalrecipeTime = 75,
+                    preparationTime = 55,
                     cuisineType = "Congolais",
                     dishType = "Main course",
-                    cookedTime = "20min",
+                    cookedTime = 20,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/ngoulou_mu_mako.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
@@ -246,25 +246,25 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Haricots blancs au poisson salé",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 35,
+                    preparationTime = 5,
                     cuisineType = "Congolais",
                     dishType = "Main course",
-                    cookedTime = "",
+                    cookedTime = 30,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/haricots_blancs_poisson_salé.png",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
-                    recipeIngredients = "250g de poisson salé coupés en petits morceaux dessalé,500g d'haricots blancs,1 boite de 250g de purée de tomate,4 cuillières à soupe d'huile,1 oignon",
+                    recipeIngredients = "250g de poisson salé coupés en petits morceaux dessalé,500g d'haricots blancs en boite,1 boite de 250g de purée de tomate,4 cuillières à soupe d'huile,1 oignon",
                     numberPersons = 6,
                     selectedRecipe = false,
-                    numberSteps = 7,
-                    step1 = "Faire cuire les haricots 40min à la cocotte minute en les trempant (l'eau doit être au-dessus des haricots) ",
-                    step2 = "Une fois les haricots cuits, bien les égoutter et les rincer, réserver",
-                    step3 = "Prendre le poisson salé préalablement dessalé (12h pour le dessalement en changeant régulièrement l'eau) et le frire, réserver",
-                    step4 = "Dans une casserole, faire revenir l'huile, les oignons coupés en dés, la purée de tomate",
-                    step5 = "Incorporer le poisson salé et les haricots, couvrir d'eau jusqu'au au niveau des haricots, laisser mijoter pendant 15min",
-                    step6 = "Saler et poivrer à votre convenance, c'est prêt !",
-                    step7 = "Variante : Remplacer les haricots secs par une boite de 500g d'haricots blancs en boite, en rinçant préalablement à l'eau froide et en égouttant, réserver. Puis reprendre à l'étape 3",
+                    numberSteps = 6,
+                    step1 = "Egoutter les haricots blancs, les rincer et les réserver",
+                    step2 = "Prendre le poisson salé préalablement dessalé (12h pour le dessalement en changeant régulièrement l'eau) et le frire, réserver",
+                    step3 = "Dans une casserole, faire revenir l'huile, les oignons coupés en dés, la purée de tomate",
+                    step4 = "Incorporer le poisson salé et les haricots, couvrir d'eau jusqu'au au niveau des haricots, laisser mijoter pendant 15min",
+                    step5 = "Saler et poivrer à votre convenance, c'est prêt !",
+                    step6 = "Variante : avec des haricots blans secs -> Faire cuire les haricots 40min à la cocotte minute en les trempant (l'eau doit être au-dessus des haricots). Rincer, réserver, puis reprendre à l'étape 2",
+                    step7 = "",
                     step8 = "",
                     step9 = "",
                     step10 = "",
@@ -311,11 +311,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Tartine avocat saumon",
                     recipeCalories = "",
-                    totalrecipeTime = "10min",
-                    preparationTime = "10min",
+                    totalrecipeTime = 10,
+                    preparationTime = 10,
                     cuisineType = "Européen",
                     dishType = "Starter",
-                    cookedTime = "/",
+                    cookedTime = 0,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/tartine_avocat_saumon.jpeg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
@@ -344,11 +344,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Wok saumon sauté au brocolis et au quinoa",
                     recipeCalories = "",
-                    totalrecipeTime = "1h15",
-                    preparationTime = "40min",
+                    totalrecipeTime = 75,
+                    preparationTime = 40,
                     cuisineType = "Asiatique, chinoise",
                     dishType = "Main course",
-                    cookedTime = "35min",
+                    cookedTime = 35,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/wok_saumon_sauté_brocolis_audrey_le_goff.jpg",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/audrey_le_goff.jpg",
                     recipeUrlOwnerLink = "https://cuisine-test.com/2019/04/11/saumon-saute-au-brocoli-et-au-quinoa-recette-du-livre-wok-de-audrey-le-goff/",
@@ -410,11 +410,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Quiche brocolis épinards feta tomates séchées",
                     recipeCalories = "",
-                    totalrecipeTime = "55min",
-                    preparationTime = "25min",
+                    totalrecipeTime = 55,
+                    preparationTime = 25,
                     cuisineType = "Française",
                     dishType = "Main course",
-                    cookedTime = "30min",
+                    cookedTime = 30,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/quiche_brocolis_epinards_feta_tomate_sechees_cuisine_monica.png",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/la_cuisine_de_monica.png",
                     recipeUrlOwnerLink = "https://www.youtube.com/watch?v=1-CNtEnP530&feature=youtu.be",
@@ -443,11 +443,11 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -470,17 +470,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -503,17 +502,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -536,17 +534,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -569,18 +566,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -603,17 +598,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -636,17 +630,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -669,17 +662,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -702,17 +694,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -735,17 +726,16 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = ""
                 )
             )
-
 
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "",
                     recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
                     cuisineType = "",
                     dishType = "",
-                    cookedTime = "",
+                    cookedTime = 0,
                     recipePhotoUrl = "",
                     recipePhotoUrlOwner = "",
                     recipeUrlOwnerLink = "",
@@ -769,71 +759,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 )
             )
 
-
-            recipeBox?.put(
-                Recipes(
-                    recipeTitle = "",
-                    recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
-                    cuisineType = "",
-                    dishType = "",
-                    cookedTime = "",
-                    recipePhotoUrl = "",
-                    recipePhotoUrlOwner = "",
-                    recipeUrlOwnerLink = "",
-                    recipeIngredients = "",
-                    numberPersons = 0,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "",
-                    step2 = "",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = ""
-                )
-            )
-
-
-            recipeBox?.put(
-                Recipes(
-                    recipeTitle = "",
-                    recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
-                    cuisineType = "",
-                    dishType = "",
-                    cookedTime = "",
-                    recipePhotoUrl = "",
-                    recipePhotoUrlOwner = "",
-                    recipeUrlOwnerLink = "",
-                    recipeIngredients = "",
-                    numberPersons = 0,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "",
-                    step2 = "",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = ""
-                )
-            )
 
         }
     }

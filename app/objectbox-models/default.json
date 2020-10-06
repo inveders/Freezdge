@@ -115,7 +115,7 @@
     },
     {
       "id": "3:5942598635681225889",
-      "lastPropertyId": "27:4876369579246649020",
+      "lastPropertyId": "28:5501622097774946813",
       "name": "Recipes",
       "properties": [
         {
@@ -137,17 +137,20 @@
         {
           "id": "4:4220818117269702246",
           "name": "totalrecipeTime",
-          "type": 9
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "5:7895804552718578475",
           "name": "preparationTime",
-          "type": 9
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "6:5378448172849675147",
           "name": "cookedTime",
-          "type": 9
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "7:7203381486687791467",
@@ -255,6 +258,11 @@
         {
           "id": "27:4876369579246649020",
           "name": "dishType",
+          "type": 9
+        },
+        {
+          "id": "28:5501622097774946813",
+          "name": "urlVideo",
           "type": 9
         }
       ],

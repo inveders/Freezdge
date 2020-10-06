@@ -346,7 +346,7 @@ abstract class BaseFragment <T : ViewBinding, A : Any> : Fragment() {
            model.id=recipes.id
            model.recipeTitle=recipes.recipeTitle
            model.recipeCalories=recipes.recipeCalories
-           model.totalrecipeTime=recipes.totalrecipeTime
+           model.totalrecipeTime=domain.preparationTime(recipes.totalrecipeTime)
            model.cuisineType=recipes.cuisineType
            model.dishType=recipes.dishType
            model.recipePhotoUrl=recipes.recipePhotoUrl

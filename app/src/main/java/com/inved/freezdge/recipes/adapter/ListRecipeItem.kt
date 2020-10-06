@@ -58,12 +58,8 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
                 preparationTime.text = item.model?.totalrecipeTime
             }
 
-            cuisineType.text= item.model?.cuisineType?.let { domain.uppercaseFirstCharacter(it) }
-            if(item.model?.dishType.equals("Main course",true)){
-                dishType.text= App.resource().getString(R.string.array_filter_plat)
-            }else{
-                dishType.text= item.model?.dishType?.let { domain.uppercaseFirstCharacter(it) }
-            }
+            cuisineType.text= item.model?.cuisineType?.capitalize()
+            dishType.text= domain.handleDishType(item.model?.dishType)
 
             if(item.model?.recipeCalories.isNullOrEmpty()){
                 kcal.text = App.resource().getString(R.string.recipe_list_item_kcal_notknow)
