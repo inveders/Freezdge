@@ -2,6 +2,7 @@ package com.inved.freezdge.recipes.database
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import io.objectbox.annotation.Uid
 
 @Entity
 data class Recipes (

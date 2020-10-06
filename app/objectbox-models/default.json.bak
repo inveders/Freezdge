@@ -115,7 +115,7 @@
     },
     {
       "id": "3:5942598635681225889",
-      "lastPropertyId": "28:5501622097774946813",
+      "lastPropertyId": "30:6302882710263590488",
       "name": "Recipes",
       "properties": [
         {
@@ -135,19 +135,10 @@
           "type": 9
         },
         {
-          "id": "4:4220818117269702246",
-          "name": "totalrecipeTime",
-          "type": 9
-        },
-        {
-          "id": "5:7895804552718578475",
-          "name": "preparationTime",
-          "type": 9
-        },
-        {
           "id": "6:5378448172849675147",
           "name": "cookedTime",
-          "type": 9
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "7:7203381486687791467",
@@ -261,6 +252,18 @@
           "id": "28:5501622097774946813",
           "name": "urlVideo",
           "type": 9
+        },
+        {
+          "id": "29:8649071506059768222",
+          "name": "totalrecipeTime",
+          "type": 5,
+          "flags": 2
+        },
+        {
+          "id": "30:6302882710263590488",
+          "name": "preparationTime",
+          "type": 5,
+          "flags": 2
         }
       ],
       "relations": []
@@ -272,12 +275,17 @@
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
+  "newUidPool": [
+    9209488745232222260
+  ],
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
     2177675941115484684,
     4299774562600055904,
-    5914971238881294485
+    5914971238881294485,
+    4220818117269702246,
+    7895804552718578475
   ],
   "retiredRelationUids": [],
   "version": 1

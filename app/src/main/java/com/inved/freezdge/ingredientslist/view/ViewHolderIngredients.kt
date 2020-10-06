@@ -7,7 +7,9 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
+import com.inved.freezdge.utils.NetworkUtils
 import com.mikepenz.fastadapter.FastAdapter
 
 class ViewHolderIngredients(view: View) : FastAdapter.ViewHolder<Ingredients>(view) {
@@ -21,11 +23,13 @@ class ViewHolderIngredients(view: View) : FastAdapter.ViewHolder<Ingredients>(vi
     override fun bindView(item: Ingredients, payloads: MutableList<Any>) {
         label.text = item.name
 
-        val storage = FirebaseStorage.getInstance()
-        // Create a reference to a file from a Google Cloud Storage URI
-        val gsReference = item.photoUrl?.let { storage.getReferenceFromUrl(it) }
-        // we show an image from our own database in firebase storage
-        GlideUtils.loadPhotoWithGlide(gsReference,shimmer,imageFood)
+        if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
+            val storage = FirebaseStorage.getInstance()
+            // Create a reference to a file from a Google Cloud Storage URI
+            val gsReference = item.photoUrl?.let { storage.getReferenceFromUrl(it) }
+            // we show an image from our own database in firebase storage
+            GlideUtils.loadPhotoWithGlide(gsReference,shimmer,imageFood)
+        }
 
         // if item is selected, we show a +, if not we show a minus
         if (!item.selectedIngredient) {

@@ -13,6 +13,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : BaseActivity() {

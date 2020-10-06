@@ -26,7 +26,7 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.*
-import com.inved.freezdge.utils.eventbus.HandleBottomNavEvent
+import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import kotlinx.android.synthetic.main.fragment_social_media.*
 import org.greenrobot.eventbus.EventBus
 import permissions.dispatcher.NeedsPermission
@@ -61,7 +61,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        EventBus.getDefault().post(HandleBottomNavEvent(true))
+        EventBus.getDefault().post(HandleBottomNavVisibilityEvent(true))
         setHasOptionsMenu(true)
         showLoader()
         initButtons()

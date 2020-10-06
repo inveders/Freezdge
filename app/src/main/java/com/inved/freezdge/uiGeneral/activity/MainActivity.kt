@@ -24,7 +24,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
+import com.inved.freezdge.favourites.ui.MyRecipesFragment
+import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.onboarding.OnboardingActivity
+import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.ui.ProfileDialog
@@ -32,7 +35,9 @@ import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
-import com.inved.freezdge.utils.eventbus.HandleBottomNavEvent
+import com.inved.freezdge.utils.NetworkUtils
+import com.inved.freezdge.utils.eventbus.BottomNavDirectionEvent
+import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -118,16 +123,19 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
                     if (task.result?.documents?.isNotEmpty()==true) {
-                        val imageHeader: ImageView = navigationView.findViewById(id.nav_header_profile_image)
-                        val firstnameHeader:TextView = navigationView.findViewById(id.nav_header_FirstName)
-                        val user: User? =
-                            task.result!!.documents[0].toObject(User::class.java)
-                        firstnameHeader.text = user?.firstname
-                        //to show a photo from Firebase storage
-                        imageHeader.setOnClickListener {
-                            onClickUpdateProfil()
+                        if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
+                            val imageHeader: ImageView = navigationView.findViewById(id.nav_header_profile_image)
+                            val firstnameHeader:TextView = navigationView.findViewById(id.nav_header_FirstName)
+                            val user: User? =
+                                task.result!!.documents[0].toObject(User::class.java)
+                            firstnameHeader.text = user?.firstname
+                            //to show a photo from Firebase storage
+                            imageHeader.setOnClickListener {
+                                onClickUpdateProfil()
+                            }
+                            GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, imageHeader)
                         }
-                        GlideUtils.loadPhotoWithGlideCircleCropUrl(user?.photoUrl, imageHeader)
+
                         hideLoader()
                     }
                 }
@@ -179,14 +187,20 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
 
     private fun setUpNavigationBottom(navController: NavController, id: Int) {
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
+        navController.currentDestination
         if (id == 1) {
             bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
-            navController.navigate(R.id.action_to_all_recipes_fragment)
+            if(R.id.action_to_my_recipes_fragment!=0){
+                navController.navigate(R.id.action_to_all_recipes_fragment)
+            }
         }
         if (id == 2) {
             bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
-            navController.navigate(R.id.my_recipes_fragment)
+            if(R.id.action_to_my_recipes_fragment!=0){
+                navController.navigate(R.id.action_to_my_recipes_fragment)
+            }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -266,7 +280,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: HandleBottomNavEvent) {
+    fun onMessageEvent(event: HandleBottomNavVisibilityEvent) {
         if(event.isBottomNavVisible){
             bottomNavigationView.visibility=View.VISIBLE
         }else{

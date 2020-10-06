@@ -22,7 +22,7 @@ import com.inved.freezdge.socialmedia.view.LikedPostItem
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.NetworkUtils
-import com.inved.freezdge.utils.eventbus.HandleBottomNavEvent
+import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import com.inved.freezdge.utils.eventbus.SocialLikedPostDeleteEvent
 import com.inved.freezdge.utils.eventbus.SocialLikedPostUpdateEvent
 import com.mikepenz.fastadapter.FastAdapter
@@ -55,7 +55,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        EventBus.getDefault().post(HandleBottomNavEvent(false))
+        EventBus.getDefault().post(HandleBottomNavVisibilityEvent(false))
         setHasOptionsMenu(true)
         initRecyclerView()
         retrieveAllLikedPost()
