@@ -3,6 +3,7 @@ package com.inved.freezdge.utils
 import android.app.Dialog
 import android.content.Context
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.BuildConfig
@@ -265,13 +266,19 @@ class Domain {
 
         for (i in getAllIngredientNotSelected()) {
             var count = 0
-            if (i.name?.let { input.contains(it, true) }==true) {
-                isFavouriteAdd?.let { i.name?.let { it1 -> i.nameEnglish?.let { it2 ->
-                    updateItemForGroceryList(it1, it,
-                        it2
-                    )
-                } } }
-                count = count.plus(1)
+
+            if (i.name?.let {nameIngredient-> input.contains(nameIngredient, true) }==true) {
+
+                if (input.indexOf(i.name.toString(),0,false) >= 0) {
+                    isFavouriteAdd?.let { i.name?.let { it1 -> i.nameEnglish?.let { it2 ->
+                        updateItemForGroceryList(it1, it,
+                            it2
+                        )
+                    } } }
+                    count = count.plus(1)
+                }
+
+
             }
 
             if (count == 0) {

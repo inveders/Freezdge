@@ -116,26 +116,14 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
             // Set chip close icon click listener
             chip.setOnCloseIconClickListener {
 
-
                 val ids = chipGroup.checkedChipIds
-                for (id in ids) {
-                    val chip: Chip = chipGroup.findViewById(id)
-
-                    GlobalScope.launch(Dispatchers.IO) {
-                        ingredientsViewmodel.updateIngredientSelectedByName(
-                            chip.text.toString(),
-                            false
-                        )
-                        chip.text.toString()?.let { it1 ->
-                            chip.text.toString()?.let { it2 ->
-                                favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
-                                    it1, it2
-                                )
-                            }
-                        }
+                if(ids.size==0){
+                    removeChip(chip)
+                }else{
+                    for (id in ids) {
+                        val chipFromGroup: Chip = chipGroup.findViewById(id)
+                        removeChip(chipFromGroup)
                     }
-                    chipGroup.removeView(chip)
-
                 }
 
                 setlistDatabase.clear()
@@ -143,6 +131,23 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
             setlistDatabase.clear()
             chipGroup.addView(chip)
         }
+    }
+
+    fun removeChip(chip:Chip){
+        GlobalScope.launch(Dispatchers.IO) {
+            ingredientsViewmodel.updateIngredientSelectedByName(
+                chip.text.toString(),
+                false
+            )
+            chip.text.toString()?.let { it1 ->
+                chip.text.toString()?.let { it2 ->
+                    favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
+                        it1, it2
+                    )
+                }
+            }
+        }
+        chipGroup.removeView(chip)
     }
 
     // Open Search Ingredient Activity on floating button click

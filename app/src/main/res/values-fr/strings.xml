@@ -50,6 +50,7 @@
     <string name="search_ingredient_searchview_label">Recherchez un ingrédient ici…</string>
     <string name="dialog_cancel_action">Action annulée</string>
     <string name="dialog_question_grocery">Avez-vous cet ingrédient à la maison à présent?</string>
+    <string name="dialog_question_grocery_multiple_ingredients">Avez-vous ces ingrédients à la maison à présent?</string>
     <string name="Yes">Oui</string>
 
     <!--Ingredients type -->

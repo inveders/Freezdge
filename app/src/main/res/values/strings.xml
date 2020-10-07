@@ -62,6 +62,7 @@
     <string name="search_recipe_searchview_label">Search on recipe name…</string>
     <string name="dialog_cancel_action">Cancelled action</string>
     <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
+    <string name="dialog_question_grocery_multiple_ingredients">Have you theses ingredients at home now?</string>
     <string name="dialog_question_clear_ingredients">Do you want to clear your ingredient list?</string>
     <string name="Yes">Yes</string>
 

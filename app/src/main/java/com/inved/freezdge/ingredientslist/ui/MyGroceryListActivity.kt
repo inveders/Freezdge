@@ -84,7 +84,7 @@ class MyGroceryListActivity: BaseActivity() {
                             }
                             // Set chip close icon click listener
                             chip.setOnCloseIconClickListener {
-                                launchAlertDialog(chipGroup)
+                                launchAlertDialog(chipGroup,chip)
                             }
                             chip.isClickable = true
                             chipGroup.addView(chip)
@@ -99,20 +99,29 @@ class MyGroceryListActivity: BaseActivity() {
 
     // when we want to delete a ingredient from grocery list, a dialog is launch before delete,and
     // if yes the ingredient is added in ingredient list and delete from grocery list
-    private fun launchAlertDialog(chip: ChipGroup) {
+    private fun launchAlertDialog(chipFromGroup: ChipGroup,chip:Chip) {
         val builder = MaterialAlertDialogBuilder(this)
         builder.setTitle(getString(R.string.menu_grocery_list))
-        builder.setMessage(getString(R.string.dialog_question_grocery))
-
-        var chipgroupText :ArrayList<String> = arrayListOf()
-
-
-        val ids = chip.checkedChipIds
-        for (id in ids) {
-            val chip: Chip = chipGroup.findViewById(id)
-            chipgroupText.add(chip.text.toString())
+        if(chipFromGroup.checkedChipIds.size==0){
+            builder.setMessage(getString(R.string.dialog_question_grocery))
+        }else{
+            builder.setMessage(getString(R.string.dialog_question_grocery_multiple_ingredients))
         }
-        val removedIngredients : String? = Domain().retrieveStringFromString(chipgroupText)
+
+        val chipgroupText :ArrayList<String> = arrayListOf()
+
+        val ids = chipFromGroup.checkedChipIds
+        for (id in ids) {
+            val chipFromGroup: Chip = chipGroup.findViewById(id)
+            chipgroupText.add(chipFromGroup.text.toString())
+        }
+        var removedIngredients : String?=null
+        removedIngredients = if(chipgroupText.isNullOrEmpty()){
+            chip.text.toString()
+        }else{
+            Domain().retrieveStringFromString(chipgroupText)
+        }
+
 
         builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
             Toast.makeText(
@@ -128,18 +137,18 @@ class MyGroceryListActivity: BaseActivity() {
                 )
             }
             TransitionManager.beginDelayedTransition(chipGroup)
-            for (id in ids) {
-                val chip: Chip = chipGroup.findViewById(id)
-                chipGroup.removeView(chip)
+            if(ids.size==0){
+                chipGroup.removeView(chipFromGroup)
+            }else{
+                for (id in ids) {
+                    val chip: Chip = chipGroup.findViewById(id)
+                    chipGroup.removeView(chip)
+                }
             }
 
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, _ ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.dialog_cancel_action), Toast.LENGTH_SHORT
-            ).show()
             dialog.dismiss()
         }
         builder.show()
