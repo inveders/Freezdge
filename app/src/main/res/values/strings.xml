@@ -158,16 +158,19 @@
     <string name="array_filter_entry">Starter</string>
     <string name="array_filter_plat">Principal dish</string>
     <string name="array_filter_cocktail">Cocktail</string>
+    <string name="array_filter_other">Other</string>
     <string name="array_filter_all">All</string>
     <string name="array_filter_dessert_title">Dessert (%d)</string>
     <string name="array_filter_entry_title">Starter (%d)</string>
     <string name="array_filter_plat_title">Principal dish (%d)</string>
     <string name="array_filter_cocktail_title">Cocktail (%d)</string>
+    <string name="array_filter_other_title">Other (%d)</string>
     <string name="array_filter_all_title">All (%d)</string>
     <string name="array_dialog_title">Filter</string>
     <string name="array_filter_dessert_search" translatable="false">Desserts</string>
     <string name="array_filter_entry_search" translatable="false">Starter</string>
     <string name="array_filter_plat_search" translatable="false">Main course</string>
+    <string name="array_filter_other_search" translatable="false">Other</string>
     <string name="array_filter_cocktail_search" translatable="false">Drinks</string>
     <string name="google_sign_in">Google sign in failed:(</string>
     <string name="facebook_sign_in">Facebook sign in failed:(</string>

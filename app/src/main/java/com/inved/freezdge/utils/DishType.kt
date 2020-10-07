@@ -4,5 +4,5 @@ enum class DishType(val dishName:String){
     MAIN_COURSE("Main course"),
     STARTER("Starter"),
     COCKTAIL("Cocktail"),
-    DESSERT("Dessert"),
+    DESSERT("Desserts"),
 }

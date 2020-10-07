@@ -24,10 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
-import com.inved.freezdge.favourites.ui.MyRecipesFragment
-import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.onboarding.OnboardingActivity
-import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.ui.ProfileDialog
@@ -36,7 +33,6 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.LoaderListener
 import com.inved.freezdge.utils.NetworkUtils
-import com.inved.freezdge.utils.eventbus.BottomNavDirectionEvent
 import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -90,7 +86,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     //link in the navigation drawer
     private fun initNavigationView(){
         navigationView = findViewById(id.activity_main_nav_view)
-        appVersion.text = getString(R.string.app_version,BuildConfig.VERSION_NAME)
+        appVersion.text = getString(R.string.app_version, BuildConfig.VERSION_NAME)
         navigationView.menu.findItem(id.menu_logout).setOnMenuItemClickListener {
             signOut()
             true
@@ -124,8 +120,8 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
                 if (task.result != null) {
                     if (task.result?.documents?.isNotEmpty()==true) {
                         if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
-                            val imageHeader: ImageView = navigationView.findViewById(id.nav_header_profile_image)
-                            val firstnameHeader:TextView = navigationView.findViewById(id.nav_header_FirstName)
+                            val imageHeader: ImageView = navigationView.getHeaderView(0).findViewById(id.nav_header_profile_image)
+                            val firstnameHeader:TextView = navigationView.getHeaderView(0).findViewById(id.nav_header_FirstName)
                             val user: User? =
                                 task.result!!.documents[0].toObject(User::class.java)
                             firstnameHeader.text = user?.firstname
@@ -170,7 +166,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
                 id.all_recipes_fragment,
                 id.my_recipes_fragment,
                 id.social_media_fragment
-            ),drawerLayout
+            ), drawerLayout
 
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

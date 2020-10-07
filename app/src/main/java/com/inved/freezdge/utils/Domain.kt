@@ -107,7 +107,7 @@ class Domain {
             DishType.DESSERT.dishName -> {
                 return App.resource().getString(R.string.array_filter_dessert)
             }
-            else -> return App.resource().getString(R.string.array_filter_plat)
+            else -> return App.resource().getString(R.string.array_filter_other)
 
         }
     }

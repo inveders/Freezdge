@@ -134,11 +134,13 @@
     <string name="array_filter_entry">Entrée</string>
     <string name="array_filter_plat">Plat principal</string>
     <string name="array_filter_cocktail">Cocktail</string>
+    <string name="array_filter_other">Autre</string>
     <string name="array_filter_all">Tous</string>
     <string name="array_filter_dessert_title">Dessert (%d)</string>
     <string name="array_filter_entry_title">Entrée (%d)</string>
     <string name="array_filter_plat_title">Plat principal (%d)</string>
     <string name="array_filter_cocktail_title">Cocktail (%d)</string>
+    <string name="array_filter_other_title">Autre (%d)</string>
     <string name="array_filter_all_title">Tous (%d)</string>
     <string name="array_dialog_title">Filtre</string>
     <string name="grocery_list_removed">%s a été supprimé de la liste de course</string>
