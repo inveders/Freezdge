@@ -531,7 +531,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Nouilles instantanées maison",
                     recipeCalories = "",
-                    totalrecipeTime = 0,
+                    totalrecipeTime = 16,
                     preparationTime = 6,
                     cuisineType = "Asiatique",
                     dishType = "Main course",
@@ -567,7 +567,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     totalrecipeTime = 5,
                     preparationTime = 3 ,
                     cuisineType = "Européen",
-                    dishType = "Main course ",
+                    dishType = "Main course",
                     cookedTime = 2,
                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/Nadya_Roulés_aux oeufs_champignons.png",
                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/nadya_hussain.jpg",

@@ -2,7 +2,6 @@ package com.inved.freezdge.ingredientslist.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -22,9 +21,7 @@ import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
-import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
-import kotlinx.android.synthetic.main.fragment_my_recipes.*
 import kotlinx.android.synthetic.main.fragment_my_recipes.floatingActionButton
 import kotlinx.android.synthetic.main.fragment_my_recipes.not_found
 import kotlinx.coroutines.Dispatchers
