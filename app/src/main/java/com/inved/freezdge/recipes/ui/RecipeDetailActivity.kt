@@ -1,15 +1,17 @@
 package com.inved.freezdge.recipes.ui
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
+import com.inved.freezdge.recipes.adapter.DetailRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.DetailRecipeExpandableSubItem
-import com.inved.freezdge.recipes.adapter.DetailRecipeItem
 import com.inved.freezdge.recipes.view.DetailSummaryExpandableItem
 import com.inved.freezdge.recipes.view.DetailSummaryExpandableSubItem
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
@@ -64,16 +66,26 @@ open class RecipeDetailActivity : BaseActivity() {
             if (item is DetailRecipeItem) {
                 v.startAnimation(domain.animation())
                 item.recipe?.recipeUrlOwnerLink?.let {
-                    openWebViewActivity(
-                        it
-                    )
+                    if (it.contains("facebook",ignoreCase = true) && isFbAppInstalled()) {
+                        val uri:String = it
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                        startActivity(intent);
+                    }else{
+                        openWebViewActivity(
+                            it
+                        )
+                    }
                 }
             }
         }
 
     }
 
-    private fun fetchData(recipeIngredientsList: List<String>,recipeStepList: MutableList<String>,recipe: Recipes){
+    private fun fetchData(
+        recipeIngredientsList: List<String>,
+        recipeStepList: MutableList<String>,
+        recipe: Recipes
+    ){
         val items = mutableListOf<GenericItem>()
 
         items.add(DetailRecipeItem().apply {
@@ -102,7 +114,7 @@ open class RecipeDetailActivity : BaseActivity() {
         }
         recipeStepList.forEachIndexed { index, step ->
             recipeStep.subItems.add(DetailRecipeExpandableSubItem().apply {
-                this.numberStep = index+1
+                this.numberStep = index + 1
                 this.recipeStep = step
             })
         }
@@ -121,7 +133,11 @@ open class RecipeDetailActivity : BaseActivity() {
         setupRecyclerView()
         val recipe: Recipes? = recipeViewModel.getRecipeLiveDataById(id)
         if (recipe != null) {
-            fetchData(domain.retrieveListFromString(recipe.recipeIngredients), fillRecipeSteps(recipe),recipe)
+            fetchData(
+                domain.retrieveListFromString(recipe.recipeIngredients), fillRecipeSteps(
+                    recipe
+                ), recipe
+            )
         }
     }
 
@@ -205,6 +221,18 @@ open class RecipeDetailActivity : BaseActivity() {
             startActivity(intent)
         }
     }
+
+    private fun isFbAppInstalled():Boolean{
+        return try {
+            val info = packageManager.getApplicationInfo("com.facebook.katana", 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+
+    }
+
+
 
 
 
