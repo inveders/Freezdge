@@ -269,7 +269,7 @@ class Domain {
 
             if (i.name?.let {nameIngredient-> input.contains(nameIngredient, true) }==true) {
 
-                if (input.indexOf(i.name.toString(),0,false) >= 0) {
+                if (input.indexOf(i.name.toString(),0,true) >= 0) {
                     isFavouriteAdd?.let { i.name?.let { it1 -> i.nameEnglish?.let { it2 ->
                         updateItemForGroceryList(it1, it,
                             it2
