@@ -19,6 +19,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
+import com.inved.freezdge.favourites.ui.SelectDayDialog
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
@@ -31,6 +32,7 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.socialmedia.ui.PhotoDialog
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
@@ -525,12 +527,27 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
         favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos:Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.recipeIngredients)
-                favouritesFastAdapter.notifyItemChanged(pos)
+                openSelectDateDialog(item.model?.selectedDay)
+                //favouritesFastAdapter.notifyItemChanged(pos)
             }
         }
 
 
+    }
+
+
+    private fun openSelectDateDialog(selectedDay:String?){
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        val previous = activity?.supportFragmentManager?.findFragmentByTag(SelectDayDialog.TAG)
+        if (previous != null) {
+            transaction?.remove(previous)
+        }
+        transaction?.addToBackStack(null)
+
+        val dialogFragment = SelectDayDialog.newInstance(selectedDay)
+        if (transaction != null) {
+            dialogFragment.show(transaction, SelectDayDialog.TAG)
+        }
     }
 
 

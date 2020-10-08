@@ -62,6 +62,19 @@
     <string name="loginGoogle">Se connecter avec Google</string>
     <string name="appNameDescription">Mon frigo, mon réfrigérateur, mon Freezdge</string>
 
+    <!--Select day -->
+    <string name="monday">Lundi</string>
+    <string name="tuesday">Mardi</string>
+    <string name="wednesday">Mercredi</string>
+    <string name="thursday">Jeudi</string>
+    <string name="friday">Vendredi</string>
+    <string name="saturday">Samedi</string>
+    <string name="sunday">Dimanche</string>
+    <string name="lunch">Déjeuner</string>
+    <string name="dinner">Diner</string>
+    <string name="snack">Snack</string>
+    <string name="day_dialog">CHOISIS UN JOUR</string>
+    <string name="day_ok_dialog">OK</string>
     <!-- LOGIN ACTIVITY -->
     <string name="error_authentication_canceled">Authentification annulée&#8230;</string>
     <string name="error_no_internet">Aucune connexion internet !</string>

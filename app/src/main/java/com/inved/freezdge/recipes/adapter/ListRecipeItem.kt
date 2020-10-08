@@ -6,16 +6,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
-import com.inved.freezdge.favourites.database.FavouritesRecipes
-import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
-import io.objectbox.kotlin.boxFor
-import org.w3c.dom.Text
 
 class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
@@ -39,7 +35,6 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
         var label: TextView = view.findViewById(R.id.title)
         var preparationTime: TextView =
             view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
-        private var kcal: TextView = view.findViewById(R.id.description)
         var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
         var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
         private var imageItem: ImageView = view.findViewById(R.id.image)
@@ -78,12 +73,6 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
             cuisineType.text= item.model?.cuisineType?.capitalize()
             dishType.text= domain.handleDishType(item.model?.dishType)
-
-            if(item.model?.recipeCalories.isNullOrEmpty()){
-                kcal.text = App.resource().getString(R.string.recipe_list_item_kcal_notknow)
-            }else{
-                kcal.text = item.model?.recipeCalories
-            }
 
             // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
             val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.model?.recipeIngredients)
@@ -124,16 +113,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
             label.text = null
             preparationTime.text = null
             proportionText.text = null
-            kcal.text = null
             imageItem.setImageDrawable(null)
-        }
-
-        private fun isRecipeIdIsPresent(recipeId:String):Boolean {
-            val favouritesRecipes: FavouritesRecipes? =
-                App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
-                    .query().equal(FavouritesRecipes_.recipeId, recipeId)
-                    .build().findUnique()
-            return favouritesRecipes!=null
         }
     }
 }

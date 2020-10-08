@@ -51,7 +51,7 @@
     },
     {
       "id": "2:4637892699730040142",
-      "lastPropertyId": "12:752880874578332003",
+      "lastPropertyId": "13:1984347659265603482",
       "name": "FavouritesRecipes",
       "properties": [
         {
@@ -108,6 +108,11 @@
         {
           "id": "12:752880874578332003",
           "name": "recipePhotoUrlOwner",
+          "type": 9
+        },
+        {
+          "id": "13:1984347659265603482",
+          "name": "daySelected",
           "type": 9
         }
       ],

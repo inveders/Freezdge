@@ -115,7 +115,7 @@
     },
     {
       "id": "3:5942598635681225889",
-      "lastPropertyId": "31:9209488745232222260",
+      "lastPropertyId": "32:60274578636260688",
       "name": "Recipes",
       "properties": [
         {
@@ -264,6 +264,11 @@
           "name": "cookedTime",
           "type": 5,
           "flags": 2
+        },
+        {
+          "id": "32:60274578636260688",
+          "name": "ustensilesList",
+          "type": 9
         }
       ],
       "relations": []

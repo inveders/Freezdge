@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_dialog_select_day"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/titleChipDate"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/monday" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/day_chips_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:checkable="true"
+            android:drawable="@drawable/chip_day_selector"
+            android:text="@string/lunch"
+            android:textAlignment="center"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:theme="@style/Theme.MaterialComponents.Light"/>
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:checkable="true"
+            android:drawable="@drawable/chip_day_selector"
+            android:text="@string/snack"
+            android:textAlignment="center"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:theme="@style/Theme.MaterialComponents.Light"/>
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:drawable="@drawable/chip_day_selector"
+            android:checkable="true"
+            android:text="@string/dinner"
+            android:textAlignment="center"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:theme="@style/Theme.MaterialComponents.Light"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+
+</LinearLayout>
