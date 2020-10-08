@@ -518,6 +518,15 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
             }
         }
 
+        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos:Int, i: FastAdapter<GenericItem>, item: GenericItem ->
+            //react on the click event
+            if (item is ListRecipeItem) {
+                onClickMatching(item.model?.recipeIngredients)
+                favouritesFastAdapter.notifyItemChanged(pos)
+            }
+        }
+
+
     }
 
 

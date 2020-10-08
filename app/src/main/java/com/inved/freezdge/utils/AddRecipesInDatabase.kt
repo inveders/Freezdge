@@ -44,6 +44,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -77,6 +78,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -111,6 +113,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -145,6 +148,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -179,6 +183,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -212,6 +217,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )*/
@@ -246,6 +252,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -281,6 +288,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Arrosez avec 3 cuillères à soupe de sauce soja. Mélangez délicatement et laissez cuire encore 3 minutes,",
                     step12 = "Servez aussitôt après la cuisson et parsemez avec les amandes grillées,",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -315,6 +323,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )*/
@@ -350,6 +359,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -384,6 +394,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -419,6 +430,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -454,6 +466,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -490,6 +503,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -523,6 +537,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -556,6 +571,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Insérer également du jus de citron, et un oeuf qu'on casse dans le bocal",
                     step12 = "Les bocaux peuvent être préparés la veille, on met juste de l'eau bouillante dedans qui recouvre le tout, lorsqu'on veut manger, mélanger et c'est prêt en 10 min",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -589,6 +605,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Astuce: On peut les fairee d'avance pour le déjeuner du lendemain",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -622,6 +639,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Servez c'est prêt !",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -655,6 +673,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -688,6 +707,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -721,6 +741,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -754,6 +775,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -787,6 +809,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
+                    daySelected = "",
                     ustensilesList = ""
                 )
             )

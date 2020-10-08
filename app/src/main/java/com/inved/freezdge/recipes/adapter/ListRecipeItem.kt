@@ -1,6 +1,7 @@
 package com.inved.freezdge.recipes.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.storage.FirebaseStorage
@@ -14,6 +15,7 @@ import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import io.objectbox.kotlin.boxFor
+import org.w3c.dom.Text
 
 class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
@@ -41,6 +43,8 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
         var cuisineType: TextView = view.findViewById(R.id.fragment_recipes_list_cuisine_type)
         var dishType: TextView = view.findViewById(R.id.fragment_recipes_list_dish_type)
         private var imageItem: ImageView = view.findViewById(R.id.image)
+        private var dateSelectedText: TextView = view.findViewById(R.id.recipe_day_selected)
+        var selectDateButton: ImageButton = view.findViewById(R.id.select_date_button)
         var imageFavourite: ImageView =
             view.findViewById(R.id.favorite_image)
         private var imageOwner: ImageView =
@@ -49,6 +53,20 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
             view.findViewById(R.id.fragment_recipes_list_item_matching)
 
         override fun bindView(item: ListRecipeItem, payloads: MutableList<Any>) {
+
+            //handle selected day visibility and select date button visibility
+            if(item.model?.isFavouriteRecipe==true){
+                selectDateButton.visibility=View.VISIBLE
+                if(item.model?.selectedDay.isNullOrEmpty()){
+                    dateSelectedText.visibility=View.INVISIBLE
+                }else{
+                    dateSelectedText.visibility=View.VISIBLE
+                    dateSelectedText.text=item.model?.selectedDay
+                }
+            }else{
+                dateSelectedText.visibility=View.INVISIBLE
+                selectDateButton.visibility=View.INVISIBLE
+            }
 
             label.text = item.model?.recipeTitle
 
