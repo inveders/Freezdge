@@ -13,7 +13,8 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
     fun detectFavouriteRecipe(recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
                               recipeUrl: String?,
                               recipePhotoUrl: String?,
-                              recipeIngredients: String?,cuisineType:String?,dishType:String?,recipePhotoUrlOwner:String?) {
+                              recipeIngredients: String?,cuisineType:String?,dishType:String?,recipePhotoUrlOwner:String?,
+                              daySelected:String?) {
 
         if(!recipeId.isNullOrEmpty()){
             val favouritesRecipes: FavouritesRecipes? =
@@ -22,7 +23,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
             if (favouritesRecipes != null) {
                 removeFavouriteRecipe(favouritesRecipes)
             } else {
-                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType,recipePhotoUrlOwner)
+                insertFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType,recipePhotoUrlOwner,daySelected)
             }
         }
 
@@ -61,7 +62,8 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         recipeIngredients: String?,
         cuisineType: String?,
         dishType: String?,
-        recipePhotoUrlOwner:String?
+        recipePhotoUrlOwner:String?,
+        daySelected:String?
     ) {
         getFavouritesRecipesBox?.put(
             FavouritesRecipes(
@@ -74,7 +76,8 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
                 recipeIngredients =recipeIngredients,
                 cuisineType = cuisineType,
                 dishType = dishType,
-                recipePhotoUrlOwner=recipePhotoUrlOwner
+                recipePhotoUrlOwner=recipePhotoUrlOwner,
+                daySelected= daySelected
             )
         )
     }

@@ -44,7 +44,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -78,7 +77,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -113,7 +111,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -148,7 +145,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -183,44 +179,42 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
 
-           /* recipeBox?.put(
-                Recipes(
-                    recipeTitle = "Poulet fumé aux courges (M'bika)",
-                    recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
-                    cuisineType = "",
-                    dishType = "Main course",
-                    cookedTime = "",
-                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/no_image.jpg",
-                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
-                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
-                    recipeIngredients = "1 poulet fumé coupé en morceaux,",
-                    numberPersons = 6,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "Retirer la peau du poulet, assaisoner selon votre convenance avec du sel et du poivre. Mettre dans un récipient, entourer de papier film; laisser reposer 1h",
-                    step2 = "Pendant",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = "",
-                    daySelected = "",
-                    ustensilesList = ""
-                )
-            )*/
+            /* recipeBox?.put(
+                 Recipes(
+                     recipeTitle = "Poulet fumé aux courges (M'bika)",
+                     recipeCalories = "",
+                     totalrecipeTime = "",
+                     preparationTime = "",
+                     cuisineType = "",
+                     dishType = "Main course",
+                     cookedTime = "",
+                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/no_image.jpg",
+                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                     recipeIngredients = "1 poulet fumé coupé en morceaux,",
+                     numberPersons = 6,
+                     selectedRecipe = false,
+                     numberSteps = 0,
+                     step1 = "Retirer la peau du poulet, assaisoner selon votre convenance avec du sel et du poivre. Mettre dans un récipient, entourer de papier film; laisser reposer 1h",
+                     step2 = "Pendant",
+                     step3 = "",
+                     step4 = "",
+                     step5 = "",
+                     step6 = "",
+                     step7 = "",
+                     step8 = "",
+                     step9 = "",
+                     step10 = "",
+                     step11 = "",
+                     step12 = "",
+                     urlVideo = "",
+ ustensilesList = ""
+                 )
+             )*/
 
 
             recipeBox?.put(
@@ -252,7 +246,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -288,45 +281,43 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Arrosez avec 3 cuillères à soupe de sauce soja. Mélangez délicatement et laissez cuire encore 3 minutes,",
                     step12 = "Servez aussitôt après la cuisson et parsemez avec les amandes grillées,",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
 
 
-          /*  recipeBox?.put(
-                Recipes(
-                    recipeTitle = "Tartine guacamole et sa salade d'épinards",
-                    recipeCalories = "",
-                    totalrecipeTime = "",
-                    preparationTime = "",
-                    cuisineType = "",
-                    dishType = "",
-                    cookedTime = "",
-                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/salade_epinard_tartine_guacamole.jpeg",
-                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
-                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
-                    recipeIngredients = "",
-                    numberPersons = 0,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "",
-                    step2 = "",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = "",
-                    daySelected = "",
-                    ustensilesList = ""
-                )
-            )*/
+            /*  recipeBox?.put(
+                  Recipes(
+                      recipeTitle = "Tartine guacamole et sa salade d'épinards",
+                      recipeCalories = "",
+                      totalrecipeTime = "",
+                      preparationTime = "",
+                      cuisineType = "",
+                      dishType = "",
+                      cookedTime = "",
+                      recipePhotoUrl = "gs://freezdge.appspot.com/recipes/salade_epinard_tartine_guacamole.jpeg",
+                      recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                      recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                      recipeIngredients = "",
+                      numberPersons = 0,
+                      selectedRecipe = false,
+                      numberSteps = 0,
+                      step1 = "",
+                      step2 = "",
+                      step3 = "",
+                      step4 = "",
+                      step5 = "",
+                      step6 = "",
+                      step7 = "",
+                      step8 = "",
+                      step9 = "",
+                      step10 = "",
+                      step11 = "",
+                      step12 = "",
+                      urlVideo = "",
+  ustensilesList = ""
+                  )
+              )*/
 
             //TRESOR D'AFRIQUE RECIPES
 
@@ -359,7 +350,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -394,7 +384,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -430,7 +419,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -466,7 +454,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -503,7 +490,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -512,7 +498,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 Recipes(
                     recipeTitle = "Cookie aux pépites de chocolat à la poêle",
                     recipeCalories = "",
-                    totalrecipeTime =30,
+                    totalrecipeTime = 30,
                     preparationTime = 10,
                     cuisineType = "Américain",
                     dishType = "Desserts",
@@ -537,7 +523,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -571,7 +556,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Insérer également du jus de citron, et un oeuf qu'on casse dans le bocal",
                     step12 = "Les bocaux peuvent être préparés la veille, on met juste de l'eau bouillante dedans qui recouvre le tout, lorsqu'on veut manger, mélanger et c'est prêt en 10 min",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -581,7 +565,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     recipeTitle = "Roulés aux oeufs et aux champignons",
                     recipeCalories = "",
                     totalrecipeTime = 5,
-                    preparationTime = 3 ,
+                    preparationTime = 3,
                     cuisineType = "Européen",
                     dishType = "Main course",
                     cookedTime = 2,
@@ -605,7 +589,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Astuce: On peut les fairee d'avance pour le déjeuner du lendemain",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -615,7 +598,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     recipeTitle = "Cabillaud pané à la marmelade",
                     recipeCalories = "",
                     totalrecipeTime = 25,
-                    preparationTime = 15 ,
+                    preparationTime = 15,
                     cuisineType = "Européen",
                     dishType = "Main course",
                     cookedTime = 10,
@@ -639,7 +622,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Servez c'est prêt !",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -673,7 +655,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -707,7 +688,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -741,7 +721,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -775,7 +754,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )
@@ -809,7 +787,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    daySelected = "",
                     ustensilesList = ""
                 )
             )

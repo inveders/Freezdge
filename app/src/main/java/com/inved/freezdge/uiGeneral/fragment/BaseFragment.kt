@@ -372,6 +372,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.id.toString().let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = true
+            model.selectedDay=null
             return model
         }
 
@@ -395,6 +396,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.recipeId?.let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = false
+            model.selectedDay=recipes.daySelected
             return model
         }
 
@@ -427,7 +429,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
                     item.model?.recipeIngredients,
                     item.model?.cuisineType,
                     item.model?.dishType,
-                    item.model?.recipePhotoUrlOwner
+                    item.model?.recipePhotoUrlOwner,
+                    item.model?.selectedDay
                 )
 
                 GlobalScope.launch(Dispatchers.IO) {
@@ -493,7 +496,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
                     item.model?.recipeIngredients,
                     item.model?.cuisineType,
                     item.model?.dishType,
-                    item.model?.recipePhotoUrlOwner
+                    item.model?.recipePhotoUrlOwner,
+                    item.model?.selectedDay
                 )
 
                 GlobalScope.launch(Dispatchers.IO) {

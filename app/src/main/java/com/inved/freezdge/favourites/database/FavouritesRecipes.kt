@@ -16,5 +16,7 @@ class FavouritesRecipes(
     var recipeIngredients: String? = null,
     var cuisineType: String? = null,
     var dishType: String? = null,
-    var recipePhotoUrlOwner: String? = null
+    var recipePhotoUrlOwner: String? = null,
+    var daySelected: String? = null
+
 )

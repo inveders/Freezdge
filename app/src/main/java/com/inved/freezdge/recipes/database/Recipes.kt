@@ -2,7 +2,6 @@ package com.inved.freezdge.recipes.database
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
-import io.objectbox.annotation.Uid
 
 @Entity
 data class Recipes (
@@ -35,6 +34,5 @@ data class Recipes (
     var step11: String? = null,
     var step12: String? = null,
     var urlVideo: String? = null,
-    var ustensilesList: String? = null,
-    var daySelected: String? = null
+    var ustensilesList: String? = null
 )
