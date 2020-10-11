@@ -119,7 +119,7 @@ class MyGroceryListActivity: BaseActivity() {
         removedIngredients = if(chipgroupText.isNullOrEmpty()){
             chip.text.toString()
         }else{
-            Domain().retrieveStringFromString(chipgroupText)
+            Domain().retrieveStringFromListString(chipgroupText)
         }
 
 

@@ -179,8 +179,13 @@ class Domain {
     }
 
     // split ingredient line in list of String to manipulate
-    fun retrieveStringFromString(listString : ArrayList<String>?): String? {
+    fun retrieveStringFromListString(listString : ArrayList<String>?): String? {
         return listString?.joinToString(", ")
+    }
+
+    // split ingredient line in list of String to manipulate without space
+    fun retrieveStringFromListStringWithoutSpace(listString : ArrayList<String>?): String? {
+        return listString?.joinToString(",")
     }
 
     // find wich ingredients are in recipes and not in my fridge and add them to the grocery list

@@ -3,7 +3,6 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.socialmedia.ui.PhotoDialog
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.mikepenz.fastadapter.FastAdapter
@@ -52,7 +50,7 @@ enum class FragmentDetected(val number: Int) {
     FAVOURITE_FRAGMENT(2)
 }
 
-abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
+abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDialog.SelectDateListener {
 
     protected var handler: A? = null //It's base activity
     protected open var binding: T? = null
@@ -527,8 +525,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
         favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos:Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                openSelectDateDialog(item.model?.selectedDay)
-                //favouritesFastAdapter.notifyItemChanged(pos)
+                openSelectDateDialog(item.model?.selectedDay,pos,item.model?.id.toString())
             }
         }
 
@@ -536,15 +533,15 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
     }
 
 
-    private fun openSelectDateDialog(selectedDay:String?){
+    private fun openSelectDateDialog(selectedDay:String?,itemPosition: Int?,recipeId:String?){
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(SelectDayDialog.TAG)
         if (previous != null) {
             transaction?.remove(previous)
         }
         transaction?.addToBackStack(null)
-
-        val dialogFragment = SelectDayDialog.newInstance(selectedDay)
+        SelectDayDialog.setSelectDateListener(this)
+        val dialogFragment = SelectDayDialog.newInstance(selectedDay,itemPosition,recipeId)
         if (transaction != null) {
             dialogFragment.show(transaction, SelectDayDialog.TAG)
         }
@@ -592,6 +589,19 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment() {
             topTextview.text =
                 getString(R.string.recipe_list_number_one, recipesFavouritesNumberSize)
         }
+    }
+
+
+    override fun onDateSelected(selectedDayList: ArrayList<String>?,itemPosition:Int?,recipeId: String?) {
+
+        if (recipeId != null) {
+            favouriteRecipesViewmodel.updateDaySelected(recipeId,domain.retrieveStringFromListStringWithoutSpace(selectedDayList))
+        }
+        getFavouritesRecipes()
+        if (itemPosition != null) {
+            recyclerview.scrollToPosition(itemPosition)
+        }
+
     }
 
 }

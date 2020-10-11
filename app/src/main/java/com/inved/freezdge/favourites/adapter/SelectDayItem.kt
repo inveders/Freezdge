@@ -2,8 +2,10 @@ package com.inved.freezdge.favourites.adapter
 
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.inved.freezdge.R
+import com.inved.freezdge.utils.ChipsDayType
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
@@ -24,13 +26,24 @@ class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
 
     class ViewHolder(val view: View) : FastAdapter.ViewHolder<SelectDayItem>(view) {
 
-        var textDay : TextView = view.findViewById(R.id.titleChipDate)
-        var chipGroup: ChipGroup = view.findViewById(R.id.day_chips_group)
-
+        private var textDay : TextView = view.findViewById(R.id.titleChipDate)
+        var lunchChip: Chip = view.findViewById(R.id.lunch_chips)
+        var snackChip: Chip = view.findViewById(R.id.snack_chips)
+        var dinnerChip: Chip = view.findViewById(R.id.dinner_chips)
         override fun bindView(item: SelectDayItem, payloads: MutableList<Any>) {
             textDay.text=item.day
             if(item.isChecked==true){
-                item.selectedPosition?.let { chipGroup.check(it) }
+                when (item.selectedPosition) {
+                    ChipsDayType.LUNCH.chipPosition -> {
+                        lunchChip.isChecked=true
+                    }
+                    ChipsDayType.SNACK.chipPosition -> {
+                        snackChip.isChecked=true
+                    }
+                    ChipsDayType.DINNER.chipPosition -> {
+                        dinnerChip.isChecked=true
+                    }
+                }
             }
         }
 

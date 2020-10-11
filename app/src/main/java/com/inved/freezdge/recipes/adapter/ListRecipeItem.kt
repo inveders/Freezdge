@@ -51,7 +51,11 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
             //handle selected day visibility and select date button visibility
             if(item.model?.isFavouriteRecipe==true){
-                selectDateButton.visibility=View.VISIBLE
+                if(item.model?.isAllRecipeFragment==true){
+                    selectDateButton.visibility=View.INVISIBLE
+                }else{
+                    selectDateButton.visibility=View.VISIBLE
+                }
                 if(item.model?.selectedDay.isNullOrEmpty()){
                     dateSelectedText.visibility=View.INVISIBLE
                 }else{
