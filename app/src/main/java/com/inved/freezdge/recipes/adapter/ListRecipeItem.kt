@@ -60,7 +60,8 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
                     dateSelectedText.visibility=View.INVISIBLE
                 }else{
                     dateSelectedText.visibility=View.VISIBLE
-                    dateSelectedText.text=item.model?.selectedDay
+                    val listToInsert = domain.retrieveListFromString(item.model?.selectedDay)
+                    dateSelectedText.text=domain.retrieveStringFromListString(ArrayList(listToInsert))
                 }
             }else{
                 dateSelectedText.visibility=View.INVISIBLE
