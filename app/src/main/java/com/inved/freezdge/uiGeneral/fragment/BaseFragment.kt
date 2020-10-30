@@ -3,6 +3,7 @@ package com.inved.freezdge.uiGeneral.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,10 @@ import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
+import com.inved.freezdge.favourites.model.DaySelectionModel
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
 import com.inved.freezdge.favourites.ui.SelectDayDialog
+import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
@@ -52,7 +55,7 @@ enum class FragmentDetected(val number: Int) {
 
 abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDialog.SelectDateListener {
 
-    protected var handler: A? = null //It's base activity
+    private var handler: A? = null //It's base activity
     protected open var binding: T? = null
 
     override fun onAttach(context: Context) {
@@ -80,6 +83,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
         initViewModel()
         insertFood()
         insertRecipes()
+        insertDays()
         detectWichFragmentIsOpen()
     }
 
@@ -107,7 +111,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
         var recipesNumberSize: Int? = 0
         var recipesFavouritesNumberSize: Int? = 0
         val setlistDatabaseFilter: MutableList<Recipes> = mutableListOf()
-
     }
 
     var itemAdapter = GenericItemAdapter()
@@ -119,6 +122,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
+    private lateinit var daySelectedViewModel: DaySelectedViewModel
 
     //INITIALIZATION
     private fun initViewModel() {
@@ -135,10 +139,47 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
             this,
             viewModelFactory
         ).get(IngredientsViewModel::class.java)
+        daySelectedViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(DaySelectedViewModel::class.java)
+    }
+
+    private fun insertDays() {
+
+        if (daySelectedViewModel.countDays()?.toInt() == 0) {
+            Log.d("debago","count day are "+daySelectedViewModel.countDays())
+            daySelectedViewModel.insertDays()
+        }
+
+        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
+                OnboardingActivity.VERSION_APP_NAME,
+                BuildConfig.VERSION_NAME
+            )
+        ) {
+            daySelectedViewModel.deleteAllDays()
+            domain.updateSharedPrefVersionName()
+        } else {
+            domain.updateSharedPrefVersionName()
+        }
     }
 
     private fun insertFood() {
-        ingredientsViewmodel.insertIngredients()
+
+        if (ingredientsViewmodel.countIngredients()?.toInt() == 0) {
+            ingredientsViewmodel.insertIngredients()
+        }
+
+        if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
+                OnboardingActivity.VERSION_APP_NAME,
+                BuildConfig.VERSION_NAME
+            )
+        ) {
+            ingredientsViewmodel.deleteAllIngredients()
+            domain.updateSharedPrefVersionName()
+        } else {
+            domain.updateSharedPrefVersionName()
+        }
     }
 
     private fun insertRecipes() {
@@ -402,7 +443,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
 
     }
 
-
     private fun isRecipeIdIsPresent(recipeId: String): Boolean {
         val favouritesRecipes: FavouritesRecipes? =
             App.ObjectBox.boxStore.boxFor<FavouritesRecipes>()
@@ -592,11 +632,22 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     }
 
 
-    override fun onDateSelected(selectedDayList: ArrayList<String>?,itemPosition:Int?,recipeId: String?) {
+    override fun onDateSelected(selectedDayList: MutableList<DaySelectionModel?>?,itemPosition:Int?,recipeId: String?) {
 
         if (recipeId != null) {
-            favouriteRecipesViewmodel.updateDaySelected(recipeId,domain.retrieveStringFromListStringWithoutSpace(selectedDayList))
-        }
+            selectedDayList?.forEach { s->
+                if (s != null) {
+                    s.day?.let { s.lunch?.let { it1 ->
+                        s.dinner?.let { it2 ->
+                            daySelectedViewModel.updateSelectedDayValues(it,
+                                it1, it2
+                            )
+                        }
+                    } }
+                }
+
+            }
+          }
         getFavouritesRecipes()
         if (itemPosition != null) {
             recyclerview.scrollToPosition(itemPosition)

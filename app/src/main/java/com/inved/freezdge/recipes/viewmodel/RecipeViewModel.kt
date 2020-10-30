@@ -45,9 +45,9 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
     // Search in our database all recipes wich match with given ingredients, and add these recipes in a Mutable Hashset list to avoid duplication
     fun getDatabaseRecipes(ingredientsList: MutableList<Ingredients>?): MutableLiveData<MutableList<Recipes>>? {
 
-        var setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
+        val setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
             MutableLiveData()
-        var setDatabaseSetListRecipes:MutableSet<Recipes>? = mutableSetOf()
+        val setDatabaseSetListRecipes:MutableSet<Recipes>? = mutableSetOf()
 
                 BaseFragment.listener?.showLoader()
                 if (ingredientsList != null) {

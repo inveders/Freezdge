@@ -2,7 +2,6 @@ package com.inved.freezdge.ingredientslist.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.database.Ingredients_
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import io.objectbox.android.ObjectBoxLiveData
 
@@ -11,6 +10,10 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
 
     fun insertIngredients() {
         ingredientsRepository.insertIngredients()
+    }
+
+    fun countIngredients():Long? {
+        return ingredientsRepository.countIngredients()
     }
 
     fun updateIngredient(ingredient: Ingredients) {
@@ -36,6 +39,11 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
     fun getAllIngredients(): ObjectBoxLiveData<Ingredients> {
         return ingredientsRepository.getAllIngredientsById()
     }
+
+    fun deleteAllIngredients() {
+        return ingredientsRepository.deleteAllIngredientsInBox()
+    }
+
 
     fun getAllIngredientsByType(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
         return ingredientsRepository.getAllIngredientsByTypeId(typeIngredient)

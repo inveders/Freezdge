@@ -46,6 +46,5 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
         return getRecipesBox?.count()
     }
 
-
 }
 

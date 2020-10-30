@@ -1,6 +1,7 @@
 package com.inved.freezdge.favourites.ui
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,26 +9,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.adapter.SelectDayItem
+import com.inved.freezdge.favourites.model.DaySelectionModel
+import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
+import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipsDayType
+import com.inved.freezdge.utils.DayType
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
-import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
 
 class SelectDayDialog : DialogFragment() {
 
     interface SelectDateListener {
         fun onDateSelected(
-            selectedDayList: ArrayList<String>?,
+            selectedDayList: MutableList<DaySelectionModel?>?,
             itemPosition: Int?,
             recipeId: String?
         )
@@ -39,10 +45,14 @@ class SelectDayDialog : DialogFragment() {
         private const val KEY_DAY = "dayParam"
         private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
         private const val KEY_DAY_RECIPE_ID = "recipeId"
+        var selectedDayList: MutableList<DaySelectionModel?>? = mutableListOf()
         private var dateSelectedListener: SelectDateListener? = null
         fun setSelectDateListener(callback: SelectDateListener) {
             this.dateSelectedListener = callback
         }
+
+        //Viewmodel
+        private lateinit var daySelectedViewModel: DaySelectedViewModel
 
         //To pass args to our dialog
         @JvmStatic
@@ -58,10 +68,9 @@ class SelectDayDialog : DialogFragment() {
             }
     }
 
-    private val selectedDayList: ArrayList<String>? = arrayListOf()
     val domain = Domain()
     private var itemPositionInRecyclerView: Int? = 0
-    var recipeId: String?=null
+    var recipeId: String? = null
 
     //UI
     private var validateButton: TextView? = null
@@ -75,6 +84,16 @@ class SelectDayDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullscreenDialogTheme)
+        initViewModel()
+    }
+
+    //INITIALIZATION
+    private fun initViewModel() {
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore)
+        daySelectedViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(DaySelectedViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -90,18 +109,10 @@ class SelectDayDialog : DialogFragment() {
         cancelButton = view.findViewById(R.id.close_button)
         recyclerView = view.findViewById(R.id.recyclerview)
 
-        val selectedDay: String? = arguments?.getString(KEY_DAY)
         itemPositionInRecyclerView = arguments?.getInt(KEY_DAY_POS_RECYCLERVIEW)
 
-        if(!selectedDay.isNullOrEmpty()){
-            val listToInsert = domain.retrieveListFromString(selectedDay)
-            listToInsert.forEach {
-                selectedDayList?.add(it)
-            }
-        }
-
         recipeId = arguments?.getString(KEY_DAY_RECIPE_ID)
-        setupRecyclerView(selectedDay)
+        setupRecyclerView()
 
         cancelButton?.setOnClickListener {
             cancelButton?.startAnimation(domain.animation())
@@ -120,68 +131,77 @@ class SelectDayDialog : DialogFragment() {
         return view
     }
 
-    private fun handleSelectedDay(selectedDay: String?):Int {
+    private fun handleSelectedDay(day: String?): Long {
         when {
-            selectedDay?.contains(App.appContext.getString(R.string.lunch), true) == true -> {
-                return ChipsDayType.LUNCH.chipPosition
+            day?.equals(DayType.MONDAY.dayName, true) == true -> {
+                return DayType.MONDAY.day
             }
-            selectedDay?.contains(ChipsDayType.SNACK.name, true) == true -> {
-                return ChipsDayType.SNACK.chipPosition
+            day?.equals(DayType.TUESDAY.dayName, true) == true -> {
+                return DayType.TUESDAY.day
             }
-            selectedDay?.contains(ChipsDayType.DINNER.name, true) == true -> {
-                return ChipsDayType.DINNER.chipPosition
+            day?.equals(DayType.WEDNESDAY.dayName, true) == true -> {
+                return DayType.WEDNESDAY.day
             }
+            day?.equals(DayType.THURSDAY.dayName, true) == true -> {
+                return DayType.THURSDAY.day
+            }
+            day?.equals(DayType.FRIDAY.dayName, true) == true -> {
+                return DayType.FRIDAY.day
+            }
+            day?.equals(DayType.SATURDAY.dayName, true) == true -> {
+                return DayType.SATURDAY.day
+            }
+            day?.equals(DayType.SUNDAY.dayName, true) == true -> {
+                return DayType.SUNDAY.day
+            }
+            else -> return 0
         }
-        return 4
+
     }
 
-    private fun setupRecyclerView(selectedDay: String?) {
+    private fun setupRecyclerView() {
 
         itemAdapter.clear()
         recyclerView?.layoutManager =
             LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
         recyclerView?.isNestedScrollingEnabled = false
         recyclerView?.adapter = fastAdapter
-
+        fillDialog()
         fastAdapter.addClickListener({ vh: SelectDayItem.ViewHolder -> vh.lunchChip }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is SelectDayItem) {
-                val chipText = view?.let { item.getViewHolder(it).lunchChip.text.toString() }
-                if (selectedDayList?.contains("${item.day} $chipText") == true) {
-                    selectedDayList.remove("${item.day} $chipText")
-                } else {
-                    selectedDayList?.add("${item.day} $chipText")
+                val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
+                    this.day = handleSelectedDay(item.day)+1
+                    this.lunch = recipeId?.toLong()
+                    if(item.isOccuped==true){
+                        //todo show dialog and if true
+                        this.dinner = item.dinnerId
+                    }else{
+                        this.dinner = 0L
+                    }
                 }
-            }
-        }
+                isUpdateNecesary(clickedDay)
 
-        fastAdapter.addClickListener({ vh: SelectDayItem.ViewHolder -> vh.snackChip }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
-            if (item is SelectDayItem) {
-                val chipText = view?.let { item.getViewHolder(it).snackChip.text.toString() }
-                if (selectedDayList?.contains("${item.day} $chipText") == true) {
-                    selectedDayList.remove("${item.day} $chipText")
-                } else {
-                    selectedDayList?.add("${item.day} $chipText")
-                }
             }
         }
 
         fastAdapter.addClickListener({ vh: SelectDayItem.ViewHolder -> vh.dinnerChip }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is SelectDayItem) {
-                val chipText = view?.let { item.getViewHolder(it).dinnerChip.text.toString() }
-                if (selectedDayList?.contains("${item.day} $chipText") == true) {
-                    selectedDayList.remove("${item.day} $chipText")
-                } else {
-                    selectedDayList?.add("${item.day} $chipText")
+                val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
+                    this.day = handleSelectedDay(item.day)+1
+                    if(item.isOccuped==true){
+                        //todo show dialog and if true
+                        this.lunch = item.lunchId
+                    }else{
+                        this.lunch = 0L
+                    }
+                    this.dinner = recipeId?.toLong()
                 }
+                isUpdateNecesary(clickedDay)
             }
         }
-
-        fillDialog(selectedDay)
     }
 
-
-    //Check photo before create (after click on publish button)
-    private fun fillDialog(selectedDay: String?) {
+    private fun fillDialog() {
         val daysOfWeek: ArrayList<String> = arrayListOf(
             App.appContext.getString(R.string.monday),
             App.appContext.getString(R.string.tuesday),
@@ -191,35 +211,125 @@ class SelectDayDialog : DialogFragment() {
             App.appContext.getString(R.string.saturday),
             App.appContext.getString(R.string.sunday)
         )
+        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
+            val items = mutableListOf<GenericItem>()
 
-        val items = mutableListOf<GenericItem>()
-        daysOfWeek.forEach {
-            if (selectedDay.isNullOrEmpty()) {
-                items.add(SelectDayItem().apply {
-                    this.day = it
-                    this.isChecked = false
-                })
-            } else {
-                if (selectedDay.contains(it, true)) {
-                    selectedDayList?.forEach {day->
-                        if (day.contains(it, true)) {
-                            items.add(SelectDayItem().apply {
-                                this.day = it
-                                this.isChecked = true
-                                this.selectedPosition = handleSelectedDay(day)
-                            })
-                        }
+            //fill selectedDayList with
+            result.forEach { res ->
+
+                if(selectedDayList?.size?.compareTo(7)==-1){
+                    Log.d("debago","result size is ${result.size}")
+                    selectedDayList?.add(DaySelectionModel().apply {
+                        this.day = res.id
+                        this.lunch = res.lunch
+                        this.dinner = res.dinner
+                    })
+                }
+
+            }
+
+            daysOfWeek.forEachIndexed { index, it ->
+
+                if(recipeId?.toLong() == selectedDayList?.get(index)?.lunch){
+                    if(selectedDayList?.get(index)?.dinner != 0L){
+                        items.add(SelectDayItem().apply {
+                            this.day = it
+                            this.isChecked = true
+                            this.isOccuped = true
+                            this.lunchId = selectedDayList?.get(index)?.lunch
+                            this.dinnerId = selectedDayList?.get(index)?.dinner
+                            this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                        })
+                    }else{
+                        items.add(SelectDayItem().apply {
+                            this.day = it
+                            this.isChecked = true
+                            this.lunchId = selectedDayList?.get(index)?.lunch
+                            this.dinnerId = selectedDayList?.get(index)?.dinner
+                            this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                        })
                     }
+                }else if(recipeId?.toLong() == selectedDayList?.get(index)?.dinner){
+                    if(selectedDayList?.get(index)?.lunch != 0L){
+                        items.add(SelectDayItem().apply {
+                            this.day = it
+                            this.isChecked = true
+                            this.isOccuped = true
+                            this.lunchId = selectedDayList?.get(index)?.lunch
+                            this.dinnerId = selectedDayList?.get(index)?.dinner
+                            this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                        })
+                    }else{
+                        items.add(SelectDayItem().apply {
+                            this.day = it
+                            this.isChecked = true
+                            this.lunchId = selectedDayList?.get(index)?.lunch
+                            this.dinnerId = selectedDayList?.get(index)?.dinner
+                            this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                        })
+                    }
+                }else if(selectedDayList?.get(index)?.lunch != 0L){
+                    items.add(SelectDayItem().apply {
+                        this.day = it
+                        this.isChecked = false
+                        this.isOccuped = true
+                        this.lunchId = selectedDayList?.get(index)?.lunch
+                        this.dinnerId = selectedDayList?.get(index)?.dinner
+                        this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                    })
+                }else if(selectedDayList?.get(index)?.dinner != 0L){
+                    items.add(SelectDayItem().apply {
+                        this.day = it
+                        this.isChecked = false
+                        this.isOccuped = true
+                        this.lunchId = selectedDayList?.get(index)?.lunch
+                        this.dinnerId = selectedDayList?.get(index)?.dinner
+                        this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                    })
                 }else{
                     items.add(SelectDayItem().apply {
                         this.day = it
                         this.isChecked = false
-                        this.selectedPosition = 4
+                        this.lunchId = selectedDayList?.get(index)?.lunch
+                        this.dinnerId = selectedDayList?.get(index)?.dinner
+                        this.selectedPosition = ChipsDayType.NONE.chipPosition
                     })
                 }
             }
+            itemAdapter.add(items)
+        })
+    }
+
+    private fun isUpdateNecesary(clickedDay: DaySelectionModel?){
+        Log.d("debago","selectedday list size is ${selectedDayList?.size}")
+        selectedDayList?.forEach {
+            if (it == clickedDay) {
+                it.apply {
+                    this?.day=0
+                    this?.lunch=0L
+                    this?.dinner=0L
+                }
+            } else {
+                if(it?.day==clickedDay?.day){
+                    if(it?.lunch==0L && it?.dinner==0L){
+                        it.apply {
+                            this?.lunch=clickedDay?.lunch
+                            this?.dinner=clickedDay?.dinner
+                        }
+                    }else if (it?.lunch!=0L && clickedDay?.lunch!=0L || it?.dinner!=0L && clickedDay?.dinner!=0L){
+                        it.apply {
+                            this?.lunch=clickedDay?.lunch
+                            this?.dinner=clickedDay?.dinner
+                        }
+                    }else {
+                        it.apply {
+                            this?.lunch=clickedDay?.lunch
+                            this?.dinner=clickedDay?.dinner
+                        }
+                    }
+                }
+            }
         }
-        itemAdapter.add(items)
     }
 
 

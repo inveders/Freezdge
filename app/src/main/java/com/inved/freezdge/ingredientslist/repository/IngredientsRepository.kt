@@ -71,6 +71,11 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
         AddIngredientsInDatabase(getIngredientsBox)
     }
 
+    // insert all ingredients from my own file in the database
+    fun countIngredients():Long? {
+        return getIngredientsBox?.count()
+    }
+
     // get all selected ingredients (in the fridge)
     fun getAllIngredientBySelected(): MutableList<Ingredients>? {
         return getIngredientsBox?.query()?.equal(Ingredients_.selectedIngredient,true)?.order(
@@ -92,6 +97,11 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
     fun getAllIngredientsByTypeId(typeIngredient:String): ObjectBoxLiveData<Ingredients> {
         return ObjectBoxLiveData(getIngredientsBox?.query()?.equal(Ingredients_.typeIngredient,typeIngredient)?.order(
             Ingredients_.name)?.build())
+    }
+
+    fun deleteAllIngredientsInBox() {
+        getIngredientsBox?.removeAll()
+        insertIngredients()
     }
 
 }

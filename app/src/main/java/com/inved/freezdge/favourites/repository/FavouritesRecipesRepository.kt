@@ -2,7 +2,6 @@ package com.inved.freezdge.favourites.repository
 
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
-import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import io.objectbox.Box

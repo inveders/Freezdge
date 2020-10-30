@@ -10,9 +10,9 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.3' //firebase
+        classpath 'com.google.gms:google-services:4.3.4' //firebase
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"//navigationUI
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0' //crashlytics
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"//objectbox
@@ -29,8 +29,7 @@ allprojects {
         dispatcher="4.7.0"
         objectboxVersion = "2.7.1"
         rxAndroidVersion = "2.1.1"
-        eventbusVersion = "3.1.1"
-
+        eventbusVersion = "3.2.0"
     }
 
     repositories {
@@ -38,7 +37,6 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        
     }
 }
 

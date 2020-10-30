@@ -1,10 +1,13 @@
 package com.inved.freezdge.favourites.adapter
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.inved.freezdge.R
+import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipsDayType
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
@@ -12,6 +15,9 @@ import com.mikepenz.fastadapter.items.AbstractItem
 class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
     var day: String?=null
     var isChecked:Boolean?=false
+    var isOccuped:Boolean?=false
+    var lunchId:Long?=0
+    var dinnerId:Long?=0
     var selectedPosition:Int?=0
 
     override val layoutRes: Int
@@ -28,23 +34,43 @@ class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
 
         private var textDay : TextView = view.findViewById(R.id.titleChipDate)
         var lunchChip: Chip = view.findViewById(R.id.lunch_chips)
-        var snackChip: Chip = view.findViewById(R.id.snack_chips)
         var dinnerChip: Chip = view.findViewById(R.id.dinner_chips)
         override fun bindView(item: SelectDayItem, payloads: MutableList<Any>) {
             textDay.text=item.day
-            if(item.isChecked==true){
-                when (item.selectedPosition) {
-                    ChipsDayType.LUNCH.chipPosition -> {
+
+            when (item.selectedPosition) {
+                ChipsDayType.LUNCH.chipPosition -> {
+
+                    if(item.isChecked==true && item.isOccuped==true){
                         lunchChip.isChecked=true
+                        dinnerChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
+                            App.appContext, R.color.colorPrimaryLight))
+                    }else if(item.isChecked==true){
+                        lunchChip.isChecked=true
+                    } else if (item.isOccuped==true){
+                        lunchChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
+                            App.appContext, R.color.colorPrimaryLight))
                     }
-                    ChipsDayType.SNACK.chipPosition -> {
-                        snackChip.isChecked=true
-                    }
-                    ChipsDayType.DINNER.chipPosition -> {
+
+
+                }
+                ChipsDayType.DINNER.chipPosition -> {
+
+                    if(item.isChecked==true && item.isOccuped==true){
                         dinnerChip.isChecked=true
+                        lunchChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
+                            App.appContext, R.color.colorPrimaryLight))
+                    }else if(item.isChecked==true){
+                        dinnerChip.isChecked=true
+                    }else if(item.isOccuped==true){
+                        dinnerChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
+                            App.appContext, R.color.colorPrimaryLight))
                     }
+
                 }
             }
+
+
         }
 
         override fun unbindView(item: SelectDayItem) {

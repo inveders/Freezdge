@@ -47,22 +47,10 @@
             android:theme="@style/Theme.MaterialComponents.Light"/>
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/snack_chips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:checkable="true"
-            android:drawable="@drawable/chip_day_selector"
-            android:text="@string/snack"
-            android:textAlignment="center"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
-
-        <com.google.android.material.chip.Chip
             android:id="@+id/dinner_chips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:drawable="@drawable/chip_day_selector"
             android:checkable="true"
             android:text="@string/dinner"
