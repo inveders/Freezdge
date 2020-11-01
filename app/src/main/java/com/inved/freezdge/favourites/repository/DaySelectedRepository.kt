@@ -2,8 +2,6 @@ package com.inved.freezdge.favourites.repository
 
 import com.inved.freezdge.favourites.database.DaySelected
 import com.inved.freezdge.favourites.database.DaySelected_
-import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.database.Ingredients_
 import com.inved.freezdge.utils.eventbus.AddSelectedDay
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
@@ -43,5 +41,37 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
             getDaySelectedBox?.put(daySelected)
 
     }
+
+    // update daySelected lunch
+    fun reinitLunchValue(lunchValue: Long) {
+
+        val daySelected: MutableList<DaySelected>? =
+            getDaySelectedBox?.query()?.equal(DaySelected_.lunch, lunchValue)?.build()?.find()
+
+        daySelected?.forEach {
+            it.apply {
+                this?.lunch=0
+            }
+            getDaySelectedBox?.put(it)
+        }
+
+    }
+
+    // update daySelected dinner
+    fun reinitDinnerValue(dinnerValue: Long) {
+
+        val daySelected: MutableList<DaySelected>? =
+            getDaySelectedBox?.query()?.equal(DaySelected_.dinner, dinnerValue)?.build()?.find()
+
+        daySelected?.forEach {
+            it.apply {
+                this?.lunch=0
+            }
+            getDaySelectedBox?.put(it)
+        }
+
+    }
+
+
 
 }

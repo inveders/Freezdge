@@ -20,6 +20,12 @@
         android:title="@string/menu_bottom_favourites"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_to_calendar_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/menu_bottom_calendar"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_to_social_media_fragment"
         android:enabled="true"
         android:icon="@drawable/ic_social_media"

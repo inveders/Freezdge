@@ -1,21 +1,31 @@
 package com.inved.freezdge.recipes.adapter
 
+import android.content.Context
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.database.DaySelected
 import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.ChipsDayType
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
+import kotlin.math.roundToInt
 
 class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
     var model:ShowedRecipes?=null
+    var isReducedWidth: Boolean = false
+    var selectedDay:DaySelected?=null
+    var selectedPosition:Int?=0
+
 
     // defines the type defining this item. must be unique. preferably an id
     override val type: Int
@@ -23,13 +33,21 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
     // defines the layout which will be used for this item in the list
     override val layoutRes: Int
-        get() = R.layout.item_recipes_list_database
+        get() = if(isReducedWidth) R.layout.item_recipe_list_database_reduced_width else R.layout.item_recipes_list_database
 
     override fun getViewHolder(v: View): ViewHolder {
         return ViewHolder(v)
     }
 
     class ViewHolder(val view: View) : FastAdapter.ViewHolder<ListRecipeItem>(view) {
+
+        private var metrics = DisplayMetrics()
+
+        private fun getDisplayMetrics() {
+            val windowManager: WindowManager =
+                view.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            windowManager.defaultDisplay.getMetrics(metrics)
+        }
 
         var domain= Domain()
         var label: TextView = view.findViewById(R.id.title)
@@ -49,6 +67,12 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
         override fun bindView(item: ListRecipeItem, payloads: MutableList<Any>) {
 
+            if(item.isReducedWidth){
+                getDisplayMetrics().also {
+                    view.layoutParams.width =(metrics.widthPixels * 0.4).roundToInt()
+                }
+            }
+
             //handle selected day visibility and select date button visibility
             if(item.model?.isFavouriteRecipe==true){
                 if(item.model?.isAllRecipeFragment==true){
@@ -56,13 +80,21 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
                 }else{
                     selectDateButton.visibility=View.VISIBLE
                 }
-                if(item.model?.selectedDay.isNullOrEmpty()){
-                    dateSelectedText.visibility=View.INVISIBLE
-                }else{
+                if(item.selectedDay!=null){
+                    var isDinnerOrLunch:String?=""
+                    if(item.selectedPosition == ChipsDayType.LUNCH.chipPosition){
+                        isDinnerOrLunch = App.appContext.getString(R.string.lunch).decapitalize()
+                    }else if (item.selectedPosition == ChipsDayType.DINNER.chipPosition){
+                        isDinnerOrLunch = App.appContext.getString(R.string.dinner).decapitalize()
+                    }
+                    dateSelectedText.text = App.appContext.getString(R.string.recipe_list_item_day_scheduled,domain.handleSelectedDay(item.selectedDay?.id),isDinnerOrLunch)
+                }
+
+               /* else{
                     dateSelectedText.visibility=View.VISIBLE
                     val listToInsert = domain.retrieveListFromString(item.model?.selectedDay)
                     dateSelectedText.text=domain.retrieveStringFromListString(ArrayList(listToInsert))
-                }
+                }*/
             }else{
                 dateSelectedText.visibility=View.INVISIBLE
                 selectDateButton.visibility=View.INVISIBLE

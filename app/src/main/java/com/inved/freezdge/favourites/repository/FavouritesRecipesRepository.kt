@@ -59,6 +59,12 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         return favouritesRecipes != null
     }
 
+    // get day by recipeId in favourite
+    fun getFavouriteRecipeById(recipeId: String): FavouritesRecipes? {
+        return getFavouritesRecipesBox?.query()?.equal(FavouritesRecipes_.recipeId, recipeId)
+            ?.build()?.findUnique()
+    }
+
     // for each recipes in favourite database, check if the given ingredient is contained in, if yes add it in the grocery list
     fun isIngredientPresentInFavoriteRecipeUpdateGrocery(
         ingredientNameFrench: String,

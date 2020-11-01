@@ -1,7 +1,6 @@
 package com.inved.freezdge.favourites.ui
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -311,10 +309,10 @@ class SelectDayDialog : DialogFragment() {
                 }
             } else {
                 if(it?.day==clickedDay?.day){
-                    if(it?.lunch==0L && it?.dinner==0L){
+                    if(it?.lunch==0L && it.dinner==0L){
                         it.apply {
-                            this?.lunch=clickedDay?.lunch
-                            this?.dinner=clickedDay?.dinner
+                            this.lunch=clickedDay?.lunch
+                            this.dinner=clickedDay?.dinner
                         }
                     }else if (it?.lunch!=0L && clickedDay?.lunch!=0L || it?.dinner!=0L && clickedDay?.dinner!=0L){
                         it.apply {

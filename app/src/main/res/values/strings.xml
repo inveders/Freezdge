@@ -3,6 +3,7 @@
     <string name="app_version" translatable="false">v%s</string>
     <string name="menu_bottom_ingredient_at_home">Ingredients</string>
     <string name="menu_bottom_favourites">Favourites</string>
+    <string name="menu_bottom_calendar">Calendar</string>
     <string name="menu_bottom_my_recipes">Recipes</string>
     <string name="menu_bottom_social_media">Community</string>
     <string name="menu_grocery_list">Grocery List</string>
@@ -20,6 +21,7 @@
     <!--No item found-->
     <string name="no_item_found_favourite">No favourite recipes for the moment</string>
     <string name="no_item_found_recipes">Choose at least one ingredient to see recipes</string>
+    <string name="no_item_found_calendar">No recipe Scheduled for the moment</string>
     <string name="no_recipes_found">No recipes found</string>
     <string name="no_item_found_ingredients">Choose your first ingredient</string>
     <string name="no_item_found_grocery">Empty grocery list</string>
@@ -40,6 +42,7 @@
     <string name="recipe_grocery_list_dialog_all_matching">You have all ingredients to realize this recipe !</string>
     <string name="recipe_list_item_no_time_known">No time indicated</string>
     <string name="recipe_list_item_time_min">%d min</string>
+    <string name="recipe_list_item_day_scheduled" translatable="false">%s\n%s</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
     <string name="recipe_list_item_time_hours">%dh</string>
     <string name="recipe_list_item_preparation_time">Preparation time</string>

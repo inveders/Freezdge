@@ -52,7 +52,7 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
         likeItem.isVisible = false
         val searchView = searchItem?.actionView as SearchView
         val edittext =
-            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            searchView.findViewById<EditText>(R.id.search_src_text)
         edittext.hint = getString(R.string.search_recipe_searchview_label)
         val tf = ResourcesCompat.getFont(App.applicationContext(), R.font.bebasneue_regular)
         edittext.typeface = tf
@@ -210,7 +210,5 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
         isFavouriteSearchButtonShowed =false
         searchItem?.isVisible = false
     }
-
-
 
 }

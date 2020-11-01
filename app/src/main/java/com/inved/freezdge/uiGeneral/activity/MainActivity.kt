@@ -165,6 +165,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
                 id.my_ingredients_list_fragment,
                 id.all_recipes_fragment,
                 id.my_recipes_fragment,
+                id.fragment_calendar,
                 id.social_media_fragment
             ), drawerLayout
 

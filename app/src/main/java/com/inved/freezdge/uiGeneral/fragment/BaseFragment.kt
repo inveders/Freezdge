@@ -11,14 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.adapter.SelectDayItem
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.model.DaySelectionModel
+import com.inved.freezdge.favourites.ui.CalendarFragment
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
 import com.inved.freezdge.favourites.ui.SelectDayDialog
 import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
@@ -50,10 +53,12 @@ import kotlinx.coroutines.launch
 
 enum class FragmentDetected(val number: Int) {
     ALL_RECIPES_FRAGMENT(1),
-    FAVOURITE_FRAGMENT(2)
+    FAVOURITE_FRAGMENT(2),
+    CALENDAR_FRAGMENT(3)
 }
 
-abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDialog.SelectDateListener {
+abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
+    SelectDayDialog.SelectDateListener {
 
     private var handler: A? = null //It's base activity
     protected open var binding: T? = null
@@ -117,6 +122,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     var fastAdapter = FastAdapter.with(itemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var gridLayoutManager: GridLayoutManager
 
     //Viewmodel
     private lateinit var recipeViewModel: RecipeViewModel
@@ -148,7 +154,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     private fun insertDays() {
 
         if (daySelectedViewModel.countDays()?.toInt() == 0) {
-            Log.d("debago","count day are "+daySelectedViewModel.countDays())
+            Log.d("debago", "count day are " + daySelectedViewModel.countDays())
             daySelectedViewModel.insertDays()
         }
 
@@ -201,8 +207,14 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     }
 
     private fun setupRecipeRecyclerView(wichFragment: Int) {
+        gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerview.layoutManager = linearLayoutManager
+
+        if (wichFragment == FragmentDetected.CALENDAR_FRAGMENT.number) {
+            recyclerview.layoutManager = gridLayoutManager
+        } else {
+            recyclerview.layoutManager = linearLayoutManager
+        }
         recyclerview.adapter = fastAdapter
 
         //configure our fastAdapter
@@ -241,7 +253,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
 
         if (wichFragment == FragmentDetected.ALL_RECIPES_FRAGMENT.number) {
             handleFastAdapterClickImageFavourite(fastAdapter, favouriteRecipesViewmodel)
-        } else if (wichFragment == FragmentDetected.FAVOURITE_FRAGMENT.number) {
+        } else if (wichFragment == FragmentDetected.FAVOURITE_FRAGMENT.number || wichFragment == FragmentDetected.CALENDAR_FRAGMENT.number) {
             handleFavouriteFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
         }
 
@@ -284,6 +296,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
                 setupRecipeRecyclerView(FragmentDetected.FAVOURITE_FRAGMENT.number)
                 getFavouritesRecipes()
             }
+            getForegroundFragment() is CalendarFragment -> run {
+                setupRecipeRecyclerView(FragmentDetected.CALENDAR_FRAGMENT.number)
+                getCalendarRecipes()
+            }
         }
     }
 
@@ -310,6 +326,46 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
                     }
                 }
             })
+    }
+
+
+    private fun getCalendarRecipes() {
+
+
+        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
+            itemAdapter.clear()
+            val items = mutableListOf<GenericItem>()
+
+            result?.forEach { res ->
+
+                favouriteRecipesViewmodel.getFavouriteRecipeById(res.lunch.toString())?.let {
+                    items.add(ListRecipeItem().apply {
+                        this.model = fillModelListFavouriteRecipes(it)
+                        this.isReducedWidth = true
+                        this.selectedDay = res
+                        this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                    })
+                }
+
+                favouriteRecipesViewmodel.getFavouriteRecipeById(res.dinner.toString())?.let {
+                    items.add(ListRecipeItem().apply {
+                        this.model = fillModelListFavouriteRecipes(it)
+                        this.isReducedWidth = true
+                        this.selectedDay = res
+                        this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                    })
+                }
+
+            }
+
+            if(items.isNullOrEmpty()){
+                not_found.visibility = View.VISIBLE
+                not_found.text = getString(R.string.no_item_found_calendar)
+            }else{
+                not_found.visibility = View.GONE
+            }
+            itemAdapter.add(items)
+        })
     }
 
     private fun getForegroundFragment(): Fragment? {
@@ -413,7 +469,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.id.toString().let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = true
-            model.selectedDay=null
+            model.selectedDay = null
             return model
         }
 
@@ -437,7 +493,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.recipeId?.let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = false
-            model.selectedDay=recipes.daySelected
+            model.selectedDay = recipes.daySelected
             return model
         }
 
@@ -500,6 +556,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
                             )
                         }
                     }
+                    item.model?.id?.let { daySelectedViewModel.reinitLunchValues(it) }
+                    item.model?.id?.let { daySelectedViewModel.reinitDinnerValues(it) }
                     item.model?.isFavouriteRecipe = false
                 }
 
@@ -562,10 +620,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
             }
         }
 
-        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos:Int, i: FastAdapter<GenericItem>, item: GenericItem ->
+        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                openSelectDateDialog(item.model?.selectedDay,pos,item.model?.id.toString())
+                openSelectDateDialog(item.model?.selectedDay, pos, item.model?.id.toString())
             }
         }
 
@@ -573,7 +631,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     }
 
 
-    private fun openSelectDateDialog(selectedDay:String?,itemPosition: Int?,recipeId:String?){
+    private fun openSelectDateDialog(selectedDay: String?, itemPosition: Int?, recipeId: String?) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(SelectDayDialog.TAG)
         if (previous != null) {
@@ -581,7 +639,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
         }
         transaction?.addToBackStack(null)
         SelectDayDialog.setSelectDateListener(this)
-        val dialogFragment = SelectDayDialog.newInstance(selectedDay,itemPosition,recipeId)
+        val dialogFragment = SelectDayDialog.newInstance(selectedDay, itemPosition, recipeId)
         if (transaction != null) {
             dialogFragment.show(transaction, SelectDayDialog.TAG)
         }
@@ -632,22 +690,29 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),SelectDayDial
     }
 
 
-    override fun onDateSelected(selectedDayList: MutableList<DaySelectionModel?>?,itemPosition:Int?,recipeId: String?) {
+    override fun onDateSelected(
+        selectedDayList: MutableList<DaySelectionModel?>?,
+        itemPosition: Int?,
+        recipeId: String?
+    ) {
 
         if (recipeId != null) {
-            selectedDayList?.forEach { s->
+            selectedDayList?.forEach { s ->
                 if (s != null) {
-                    s.day?.let { s.lunch?.let { it1 ->
-                        s.dinner?.let { it2 ->
-                            daySelectedViewModel.updateSelectedDayValues(it,
-                                it1, it2
-                            )
+                    s.day?.let {
+                        s.lunch?.let { it1 ->
+                            s.dinner?.let { it2 ->
+                                daySelectedViewModel.updateSelectedDayValues(
+                                    it,
+                                    it1, it2
+                                )
+                            }
                         }
-                    } }
+                    }
                 }
 
             }
-          }
+        }
         getFavouritesRecipes()
         if (itemPosition != null) {
             recyclerview.scrollToPosition(itemPosition)

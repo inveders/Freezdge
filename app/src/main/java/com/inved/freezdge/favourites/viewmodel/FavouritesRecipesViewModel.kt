@@ -2,6 +2,7 @@ package com.inved.freezdge.favourites.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.inved.freezdge.favourites.database.FavouritesRecipes
+import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.utils.App
@@ -36,6 +37,9 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
         return favouritesRecipesRepository.updateDaySelected(recipeId,daySelected)
     }
 
+    fun getFavouriteRecipeById(recipeId: String): FavouritesRecipes? {
+        return favouritesRecipesRepository.getFavouriteRecipeById(recipeId)
+    }
 
 
 }
