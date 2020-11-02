@@ -5,10 +5,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.inved.freezdge.R
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.ChipsDayType
+import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 

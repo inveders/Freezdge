@@ -1,4 +1,4 @@
-package com.inved.freezdge.utils.eventbus
+package com.inved.freezdge.utils
 
 import com.inved.freezdge.favourites.database.DaySelected
 import io.objectbox.Box

@@ -3,7 +3,6 @@ package com.inved.freezdge.utils
 import android.app.Dialog
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.BuildConfig
@@ -13,6 +12,8 @@ import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.database.Ingredients_
 import com.inved.freezdge.onboarding.OnboardingActivity
+import com.inved.freezdge.utils.enumtype.DayType
+import com.inved.freezdge.utils.enumtype.DishType
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
@@ -368,25 +369,25 @@ class Domain {
 
     fun handleSelectedDay(day: Long?): String? {
         when {
-            day==DayType.MONDAY.day+1 -> {
+            day== DayType.MONDAY.day+1 -> {
                 return DayType.MONDAY.dayName
             }
-            day==DayType.TUESDAY.day+1 -> {
+            day== DayType.TUESDAY.day+1 -> {
                 return DayType.TUESDAY.dayName
             }
-            day==DayType.WEDNESDAY.day+1 -> {
+            day== DayType.WEDNESDAY.day+1 -> {
                 return DayType.WEDNESDAY.dayName
             }
-            day==DayType.THURSDAY.day+1 -> {
+            day== DayType.THURSDAY.day+1 -> {
                 return DayType.THURSDAY.dayName
             }
-            day==DayType.FRIDAY.day+1 -> {
+            day== DayType.FRIDAY.day+1 -> {
                 return DayType.FRIDAY.dayName
             }
-            day==DayType.SATURDAY.day+1 -> {
+            day== DayType.SATURDAY.day+1 -> {
                 return DayType.SATURDAY.dayName
             }
-            day==DayType.SUNDAY.day+1 -> {
+            day== DayType.SUNDAY.day+1 -> {
                 return DayType.SUNDAY.dayName
             }
             else -> return null

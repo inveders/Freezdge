@@ -19,7 +19,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Butter",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/butter-1449453_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -28,7 +29,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Egg whites",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/blanc_oeufs.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -37,7 +39,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Brie cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/brie.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -46,7 +49,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Camembert",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/camembert.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -55,7 +59,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cheddar cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cheddar-1398767_960_720.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -64,7 +69,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Goat cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chèvre_buche.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -73,7 +79,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Fresh goat",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chèvre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -82,7 +89,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Soya cream",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/crème_de_soja_autre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -91,7 +99,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cream",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/crème_fraiche.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Beurre & crème"
                 )
             )
             ingredientsBox?.put(
@@ -100,7 +109,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cream",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/crème_liquide.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Beurre & crème"
                 )
             )
             ingredientsBox?.put(
@@ -109,7 +119,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cure cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/le-cure-nantais.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -118,7 +129,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Emmental",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/emmental.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -127,7 +139,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Fiscella",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Faisselle.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -136,7 +149,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Feta cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/feta.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -145,7 +159,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Raclette cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/raclette.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -154,7 +169,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cheese spread",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/fromage-tartiner.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -163,7 +179,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "White cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Le-fromage-blanc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Beurre & crème"
                 )
             )
             ingredientsBox?.put(
@@ -172,7 +189,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Gouda",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Smoked-Gouda-Feat-500x500.png",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -181,7 +199,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Gruyère cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/gruyère.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -190,7 +209,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Milk",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/milk-2474993_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -199,7 +219,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Soya milk",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lait_soja.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -208,7 +229,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Margarine",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/margarine.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Beurre & crème"
                 )
             )
             ingredientsBox?.put(
@@ -217,7 +239,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mascarpone",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mascarpone.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Beurre & crème"
                 )
             )
             ingredientsBox?.put(
@@ -226,7 +249,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mimolette",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mimoletteextravielle.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -235,7 +259,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mozzarella",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mozzarella.png",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -244,7 +269,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Egg",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/nest-1050964_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -253,7 +279,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Quail egg",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ouef de caille.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -262,7 +289,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Parmesan",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Parmesan-ou-gruyere-rape_exact240x240.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -271,7 +299,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Little swiss",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Petits-suisses-glaces.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Yaourts & Produits laitiers"
                 )
             )
             ingredientsBox?.put(
@@ -280,7 +309,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "cheese",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pont l'eveque fromage.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -289,7 +319,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Ricotta",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ricotta-75.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -298,7 +329,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Roquefort",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Roquefort.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -307,7 +339,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tofu",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tofusoyeux.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fromages"
                 )
             )
             ingredientsBox?.put(
@@ -316,7 +349,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sheep yoghurt",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/yaourt_brebis.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Yaourts & Produits laitiers"
                 )
             )
             ingredientsBox?.put(
@@ -325,7 +359,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Goat yoghurt",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/yahourt_chevre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Yaourts & Produits laitiers"
                 )
             )
             ingredientsBox?.put(
@@ -334,7 +369,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Soy yoghurt",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/yaourt_soja.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Yaourts & Produits laitiers"
                 )
             )
             ingredientsBox?.put(
@@ -343,7 +379,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Plain yoghurt",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/yaourt_nature.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Yaourts & Produits laitiers"
                 )
             )
 
@@ -354,7 +391,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Apricot",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/apricots-1522680_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -363,7 +401,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Nori seaweed",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/algue_nori.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -372,7 +411,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Almond",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/amandes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -381,7 +421,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pineapple",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pineapple-636562_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -390,7 +431,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Artichoke",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/artichokes-3594246_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -399,7 +441,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "White asparagus",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/asparagus-5038254_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -408,7 +451,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Green asparagus",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/asparagus-2178164_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -417,7 +461,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Eggplant",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/aubergine-89044_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -426,7 +471,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Avocado",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/avocat.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -435,7 +481,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Banana",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/banana-2449019_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -444,7 +491,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Plantain",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/banane_plantain.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -453,7 +501,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Basil",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/basilic.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -462,7 +511,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Beet",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/betterave.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -471,7 +521,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Swiss chard",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/blettes.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -480,7 +531,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Broccoli",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/broccoli-1238250_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -489,7 +541,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Butternut",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/butternut-squash-109131_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -498,7 +551,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Carrot",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/carrots-2387394_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -507,7 +561,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Celery",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/celeri_branche.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -516,7 +571,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Celery",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/celeri_rave.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -525,7 +581,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cep",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cep-4443920_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -534,7 +591,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chervil",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cerfeuil.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -543,7 +601,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cherry",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cherry-2554364_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -552,7 +611,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mushroom",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mushrooms-756406_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -561,7 +621,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chestnut",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chataignes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -570,7 +631,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chinese cabbage",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chou_chinois.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -579,7 +641,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Kale",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chou_kale.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -588,7 +651,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Red cabbage",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chou_rouge.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -597,7 +661,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Green cabbage",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chou_vert.png",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -606,7 +671,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Romanesco cabbage",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chou_romanesco.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -615,7 +681,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cauliflower",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chou_fleur.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -624,7 +691,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Brussels sprouts",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/brussels-sprouts-22009_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -633,7 +701,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chives",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ciboulette.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -642,7 +711,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lemon",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lemons-2039830_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -651,7 +721,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pumpkin",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/citrouille.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -660,7 +731,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Clementine",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/clémentine.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -669,7 +741,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Coco beans",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/coco-de-Paimpol_flickr_4044122852_ea9f6d5fa3_b.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -678,7 +751,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cucumber",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cucumber-5089995_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -687,7 +761,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Coriander",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/coriandre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -696,7 +771,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Squash",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/courge.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -705,7 +781,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Zucchini",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/courgette.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -714,7 +791,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Date",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/dates-1067265_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -723,7 +801,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Shallot",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/echalotes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -732,7 +811,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Endive",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/endives.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -741,7 +821,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Spinach",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/spinach-2216967_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -750,7 +831,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Spinach",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/epinars_hachés.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
 
@@ -760,7 +842,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tarragon",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tarragon-74234_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -769,7 +852,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Turnip greens",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/fanes_navets.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -778,7 +862,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Fennel",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/fennel-214680_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -787,7 +872,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cassava leaves",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/saka_saka.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -796,7 +882,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Figs",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/figues_fraiches.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -805,7 +892,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Figs",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/figue_sechees.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -814,7 +902,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Flageolet",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/flageolet1-1280x720.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -823,7 +912,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Strawberry",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/strawberry-5079237_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -832,7 +922,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Raspberries",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/raspberries-2268901_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -841,7 +932,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Passion fruit",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/passion-fruit-3759351_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -850,7 +942,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Wax beans",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_beurre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -859,7 +952,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "White beans",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_blancs.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -868,7 +962,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Kidney beans",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_rouges.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -877,7 +972,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Green beans",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_vert.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -886,7 +982,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Provencal herbs",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/herbes-provence1.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -895,7 +992,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Kiwi",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/kiwi.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -904,7 +1002,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lettuce",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/laitue.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
 
@@ -914,7 +1013,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lentil",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lentilles.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -923,7 +1023,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Coral lentils",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lentilles-corail.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -932,7 +1033,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lamb's lettuce",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mache.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -941,7 +1043,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Corn",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pop-corn-785074_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -950,7 +1053,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mango",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mangue.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -959,7 +1063,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Melon",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/melon.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -968,7 +1073,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mint",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/peppermint-2496361_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -977,7 +1083,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Turnips",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/navet.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -986,7 +1093,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Nectarine",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/nectarine.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -995,7 +1103,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Nuts",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/noisette.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1004,7 +1113,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Nuts",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/nuts-1213036_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1013,7 +1123,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Onion",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/onion-276590_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1022,7 +1133,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Orange",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/orange-1995056_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1031,7 +1143,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Oregano",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/oregano-2662890_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1040,7 +1153,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Grapefruit",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pamplemousse.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1049,7 +1163,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Parsnip",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/parsnip-20320_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1058,7 +1173,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Papaya",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/fruit-2123166_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1067,7 +1183,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Watermelon",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/watermelon-815072_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1076,7 +1193,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sweet potato",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/sweetpotato-1975990_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1085,7 +1203,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Peach",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/peach-2632182_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1094,7 +1213,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Parsley",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/parsley-1665402_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1103,7 +1223,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Green peas",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/petits_pois.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1112,7 +1233,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Leeks",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/poireau.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1121,7 +1243,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pear",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/poire.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1130,7 +1253,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chickpeas",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chickpea-316594_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1139,7 +1263,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Peppers",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/poivron.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1148,7 +1273,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Apple",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/apple.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1157,7 +1283,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "potato",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/potatoes-1585060_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1166,7 +1293,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pumpkin",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/potiron.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1175,7 +1303,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Plums",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pruneau.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1184,7 +1313,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Plums",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/plums-1649602_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1193,7 +1323,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Radish",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/radish-1537141_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1202,7 +1333,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Black radish",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/radis_noir.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1211,7 +1343,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Grape",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/raisins.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1220,7 +1353,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Dried grapes",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/raisins_secs.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1229,7 +1363,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Ratatouille",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ratatouille.JPG",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1238,7 +1373,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Butter",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/roquette_670.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1247,7 +1383,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rutabaga",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/rutabaga.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1256,7 +1393,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Salad",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/salade.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1265,7 +1403,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Salsify",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/salsifi.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
             ingredientsBox?.put(
@@ -1274,7 +1413,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tomato",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tomatoes-320860_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1283,7 +1423,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cherry tomato",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tomates_cerises.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Fruits"
                 )
             )
             ingredientsBox?.put(
@@ -1292,7 +1433,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chopped tomatoes",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tomates_concassees.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1301,7 +1443,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Dried tomatoes",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tomates_sechees.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1310,7 +1453,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Jerusalem artichokes",
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/jerusalem-artichoke-2192048_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Légumes"
                 )
             )
 
@@ -1322,7 +1466,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Spices",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/4_epices.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1331,7 +1476,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Dried apricot",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/dried-apricots-3338362_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1340,7 +1486,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Agar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/agar_agar.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1349,7 +1496,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Garlic",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/garlic-1238337_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1358,7 +1506,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Slivered almonds",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/amande-effilee.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1367,7 +1516,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Powdered almonds",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/amandes_poudre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1376,7 +1526,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Peanut butter",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/beurre_cacahuète.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1385,7 +1536,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Beer",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/beer-414914_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -1394,7 +1546,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rusk",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Biscottes-facile-au-thermomix.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains de mie et pains grillés"
                 )
             )
             ingredientsBox?.put(
@@ -1403,7 +1556,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Biscuit",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/biscuit.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1412,7 +1566,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Wheat",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/blé.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1421,7 +1576,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Candy",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/bonbons.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1430,7 +1586,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Beef broth",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/bouillon_boeuf.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1439,7 +1596,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Vegetable broth",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/bouillon_legume.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1448,7 +1606,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "poultry broth",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/bouillon_volaille.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1457,7 +1616,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bulgur",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/boulgour.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1466,7 +1626,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Brioche",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/brioche.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains & Pâtisseries"
                 )
             )
             ingredientsBox?.put(
@@ -1475,7 +1636,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Peanut",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cacahuetes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1484,7 +1646,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Capers",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/capres.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1493,7 +1656,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Candy",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/carambar-caranougat.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1502,7 +1666,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Crisp",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chips.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -1511,7 +1676,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "White chocolate",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chocolat_blanc.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1520,7 +1686,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chocolate powder",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chocolat_poudre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1529,7 +1696,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bar chocolate",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chocolat_tablette.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1538,7 +1706,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cider",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cidre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -1547,7 +1716,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Compote",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/coco-de-Paimpol_flickr_4044122852_ea9f6d5fa3_b.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Beurre & crème"
                 )
             )
             ingredientsBox?.put(
@@ -1556,7 +1726,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "tomato",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/concentre-de-tomate.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1565,7 +1736,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Jam",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/confiture-de-fraises-thermomix-800x600.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1574,7 +1746,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cookies",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cookies.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1583,7 +1756,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Corn flakes",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/corn-flakes-sans-sucre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1592,7 +1766,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Gherkin",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cornichon.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1601,7 +1776,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Crackers",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/craquelins.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1610,7 +1786,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pancakes",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pancakes-4410605_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains & Pâtisseries"
                 )
             )
             ingredientsBox?.put(
@@ -1619,7 +1796,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Croissant",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/croissant.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains & Pâtisseries"
                 )
             )
             ingredientsBox?.put(
@@ -1628,7 +1806,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Crozets",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/crozets_macro_1.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1637,7 +1816,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cumin",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/cumin.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1646,7 +1826,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Turmeric",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/curcuma.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1655,7 +1836,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Curry",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/curry-13282_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1664,7 +1846,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Daim",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/daim.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1673,7 +1856,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/flour-1581967_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1682,7 +1866,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Spelt flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Farine-épeautre-1-1280x720.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1691,7 +1876,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Wheat flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/farine_ble_noir.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1700,7 +1886,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chestnut flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/farine_chataigne.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1709,7 +1896,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Coconut flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/farine-de-noix-de-coco-la-loge-beaute.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1718,7 +1906,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lupin flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/farine_lupin__012338000_0933_28012013.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1727,7 +1916,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chickpea flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/farines-pois-chiches.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1736,7 +1926,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rice flour",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/farine_riz.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1745,7 +1936,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Oat flakes",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/flocons_davoine.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1754,7 +1946,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Dry fruits",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/fruits secs.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -1763,7 +1956,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tortilla",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/galette_mexicaine.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1772,7 +1966,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Buckwheat Crepe",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/galette_ble_noir.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1781,7 +1976,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rice cake",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Galette-de-riz-souffle.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1790,7 +1986,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Garam massala",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/garam_massala_2.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1799,7 +1996,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Gari",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Gari.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1808,7 +2006,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "ginger",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/gingembre en poudre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1817,7 +2016,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "ginger",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ginger-5108742_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1826,7 +2026,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chia seeds",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graine_chia.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1835,7 +2036,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Fennel seed",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graines de fenouil.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1844,7 +2046,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Poppy seed",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graines_pavot.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1853,7 +2056,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Buckwheat seeds",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graines_sarrasin.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1862,7 +2066,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sesame seeds",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graines_sesame.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1871,7 +2076,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sunflower seeds",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graines_tournesol.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1880,7 +2086,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Germinated seed",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/graines_germées.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1889,7 +2096,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Guacamole",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/guacamole-415358_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1898,7 +2106,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Harissa",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/harissa-4075853_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1907,7 +2116,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Olive oil",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/olive_oil.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1916,7 +2126,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Nut oil",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/huile-de-noix-100-vierge.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1925,7 +2136,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sesame oil",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/huile-de-sesame.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1934,7 +2146,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Fruit juice",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/jus_fruit.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -1943,7 +2156,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Ketchup",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ketchup.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1952,7 +2166,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Coconut milk",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lait_coco.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Lait & oeufs"
                 )
             )
             ingredientsBox?.put(
@@ -1961,7 +2176,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lasagne",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lasagnes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -1970,7 +2186,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bay",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/laurier.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1979,7 +2196,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Yeast",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/levure.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -1988,7 +2206,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lillet",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lillet_blanc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -1997,7 +2216,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lillet",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lillet_rosé.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -2006,7 +2226,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Corn",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Maizena.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2015,7 +2236,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mayonnaise",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mayonnaise.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2024,7 +2246,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Honey",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/honey-1958464_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2033,7 +2256,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Miso",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/miso.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2042,7 +2266,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mustard",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/mustard-415119_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2051,7 +2276,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Muesli",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/muesli-3154035_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2060,7 +2286,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cashew",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/noix_cajoux.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2069,7 +2296,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Powdered coconut",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/Poudre-de-noix-de-coco-©-Moving-Moment-shutterstock.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2078,7 +2306,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chinese noodles",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/nouilles_chinoises.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2087,7 +2316,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rice noodles",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/nouilles_riz.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2096,7 +2326,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Nuoc mam",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/nuoc-mam-psp-200ml.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2105,7 +2336,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Olive",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/olive.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2114,7 +2346,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bread",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pain.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains & Pâtisseries"
                 )
             )
             ingredientsBox?.put(
@@ -2123,7 +2356,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Milk bread",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pains-au-lait.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains & Pâtisseries"
                 )
             )
             ingredientsBox?.put(
@@ -2132,7 +2366,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sandwich bread",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pain-de-mie.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains de mie et pains grillés"
                 )
             )
             ingredientsBox?.put(
@@ -2141,7 +2376,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Gingerbread",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pain-d'épices.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pains de mie et pains grillés"
                 )
             )
             ingredientsBox?.put(
@@ -2150,7 +2386,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pizza dough",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pate à-pizza.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2159,7 +2396,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Spread",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/Pate-a-tartiner.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2168,7 +2406,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Short pastry",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pate brisée.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
 
@@ -2178,7 +2417,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pastry",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pate-feuilletee.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2187,7 +2427,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pasta",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/pates.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2196,7 +2437,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pesto",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pesto.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2205,7 +2447,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pine nuts",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pignons-de-pin.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2214,7 +2457,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chili powder",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/piment en poudre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2223,7 +2467,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Espelette",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/piment-d-espelette.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2232,7 +2477,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pepper",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/Poivre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2241,7 +2487,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Polenta",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/Polenta.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2250,7 +2497,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Popcorn",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/popcorn.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2259,7 +2507,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Soy protein",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/proteine-de-soja.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2268,7 +2517,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mash",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/purée.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2277,7 +2527,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Quinoa",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/quinoa.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2286,7 +2537,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Ras-el-hanout",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/ras el hanout.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2295,7 +2547,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Ravioli",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/raviolis.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2304,7 +2557,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rice",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/riz.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2313,7 +2567,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Short grain rice",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/riz rond.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2322,7 +2577,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sweet and sour sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce-aigre-douce.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2331,7 +2587,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Barbecue sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce-barbecue.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2340,7 +2597,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bearnaise sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce-bearnaise.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2349,7 +2607,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bolognese sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce-bolognaise_ss.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2358,7 +2617,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Oyster sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce-huitre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2367,7 +2627,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Soy sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce_soja.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2376,7 +2637,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tomato sauce",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sauce_tomate.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2385,7 +2647,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Salt",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/salt-273105_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2394,7 +2657,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Semolina",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/SEMOULE.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2403,7 +2667,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cassava semolina",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/semoule de manioc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Pâtes, riz, féculents, sauces"
                 )
             )
             ingredientsBox?.put(
@@ -2412,7 +2677,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Agave syrup",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sirop d'agave.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2421,7 +2687,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Maple syrup",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sirop d'érable.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2430,7 +2697,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Soup",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/soupe.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = ""
                 )
             )
             ingredientsBox?.put(
@@ -2439,7 +2707,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Speculoos",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/spéculoos.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2448,7 +2717,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sugar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/sucre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2457,7 +2727,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Coconut sugar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/sucre-de-coco.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2466,7 +2737,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Icing sugar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/sucre_glace.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Epicerie sucrée"
                 )
             )
             ingredientsBox?.put(
@@ -2475,7 +2747,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tabasco",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tabasco-1754420_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2484,7 +2757,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tempeh",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/tempeh-4930032_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2493,7 +2767,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Thyme",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/thym.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2502,7 +2777,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "White wine",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/vin blanc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -2511,7 +2787,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rose wine",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/vin-rose.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boissons"
                 )
             )
             ingredientsBox?.put(
@@ -2520,7 +2797,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Vinegar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/vinaigre de cidre.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2529,7 +2807,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Balsamic vinegar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/vinaigre balsamique.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2538,7 +2817,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rice vinegar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/vinaigre de riz.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
             ingredientsBox?.put(
@@ -2547,7 +2827,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sherry vinegar",
                     typeIngredient = "Epicerie",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/vinaigre de xeres.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Assaisonnements & Condiments"
                 )
             )
 
@@ -2559,7 +2840,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Anchovy",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/anchois.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2568,7 +2850,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "bar",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/bar.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2577,7 +2860,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Captain fish",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/capitaine.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2586,7 +2870,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Shrimp",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/crevettes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2595,7 +2880,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Haddock",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/haddock.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2604,7 +2890,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Smoked herring",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/harengs_fumés.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2613,7 +2900,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cancale oysters",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/huitre_cancale.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2622,7 +2910,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Mackerel",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/maquereaux_flickr_3686169843_7fddc8b791_b.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2631,7 +2920,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Moulds",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/moules.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2640,7 +2930,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Fish fillet",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/filet_poisson.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2649,7 +2940,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Breaded fish",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/poisson_pane.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Surgelés"
                 )
             )
 
@@ -2660,7 +2952,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Salted fish",
                     typeIngredient = "Poisson",
                     photoUrl = "",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
 
@@ -2670,7 +2963,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "fish",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/poisson.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2679,7 +2973,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sardines",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/sardines-1489626_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2688,7 +2983,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Salmon",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/salmon-1238248_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2697,7 +2993,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Smoked salmon",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/smoked-salmon-71100_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2706,7 +3003,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Surimi",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/surimi.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2715,7 +3013,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tamara",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/tarama.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2724,7 +3023,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Tuna",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/thon.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
             ingredientsBox?.put(
@@ -2733,7 +3033,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Smoked trout",
                     typeIngredient = "Poisson",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/truite fumée.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Poissonnerie"
                 )
             )
 
@@ -2744,7 +3045,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lamb",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lamb-cutlet-3276080_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2753,7 +3055,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bacon",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/bacon-1323412_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2762,7 +3065,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Beef",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/boeuf.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2771,7 +3075,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "White pudding",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/white-sausage-4733722_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2780,7 +3085,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Black pudding",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/boudin_noir.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2789,7 +3095,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Carpaccio of beef",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/carpaccio-777848_640.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2798,7 +3105,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sausages",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/chipolatas.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2807,7 +3115,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chorizo",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/chorizo-salamanque.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2816,7 +3125,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Duck",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/canard_cru.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2825,7 +3135,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pork ribs",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/cotes_de_porc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
 
@@ -2836,7 +3147,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Pork roll",
                     typeIngredient = "Viande",
                     photoUrl = "",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2845,7 +3157,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Turkey",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/dinde.webp",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2854,7 +3167,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Foie gras",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/foie_gras.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2863,7 +3177,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cooked ham",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/jambon_blanc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2872,7 +3187,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Raw ham",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/jambon_cru.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2881,7 +3197,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Turkey ham",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/jambon_dinde.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2890,7 +3207,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Knuckle of pork",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/jarret_porc.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2899,7 +3217,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Lard",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lard.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2908,7 +3227,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Bacon",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/lardons.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2917,7 +3237,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Breast of duck",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/magret_canard.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2926,7 +3247,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Merguez",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/merguez.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -2935,7 +3257,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Terrine",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/pâté.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -2944,7 +3267,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Whole chicken",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/poulet_entier.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2953,7 +3277,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chicken thighs",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/cuisse-de-poulet.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2962,7 +3287,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Chicken breast",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/filets-de-poulet-plein-air-sous-vide.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Volaille & Gibiers"
                 )
             )
             ingredientsBox?.put(
@@ -2971,7 +3297,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Rillettes",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/rillettes.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -2980,7 +3307,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Strasbourg sausages",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/saucisse-de-strasbourg.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
             ingredientsBox?.put(
@@ -2989,7 +3317,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Sausage",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/saucisson_fume.jpeg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
 
@@ -2999,7 +3328,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Dry sausage",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/saucisson.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Charcuteries"
                 )
             )
 
@@ -3009,7 +3339,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Steak of soya",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/steak_soja.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Surgelés"
                 )
             )
             ingredientsBox?.put(
@@ -3018,7 +3349,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Hamburger",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/steak-hache-viande-bovine.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Surgelés"
                 )
             )
             ingredientsBox?.put(
@@ -3027,7 +3359,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Cooked meat",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/Viande-cuite.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Boucherie"
                 )
             )
             ingredientsBox?.put(
@@ -3036,7 +3369,8 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     nameEnglish = "Beef",
                     typeIngredient = "Viande",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/viande_hachee.jpg",
-                    selectedIngredient = false, grocerySelectedIngredient = false
+                    selectedIngredient = false, grocerySelectedIngredient = false,
+                    supermarketSection = "Surgelés"
                 )
             )
         }

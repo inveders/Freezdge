@@ -19,8 +19,8 @@ import com.inved.freezdge.favourites.model.DaySelectionModel
 import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.ChipsDayType
-import com.inved.freezdge.utils.DayType
+import com.inved.freezdge.utils.enumtype.ChipsDayType
+import com.inved.freezdge.utils.enumtype.DayType
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem

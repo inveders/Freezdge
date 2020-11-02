@@ -1,40 +1,68 @@
 package com.inved.freezdge.ingredientslist.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
-import com.google.android.material.chip.ChipGroup
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMyGroceryListBinding
+import com.inved.freezdge.ingredientslist.adapter.GroceryItem
+import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.ChipUtil
-import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.enumtype.SupermarketSectionType
+import com.inved.freezdge.utils.eventbus.ChipClickEvent
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.GenericItem
+import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MyGroceryListActivity: BaseActivity() {
 
     private lateinit var binding: ActivityMyGroceryListBinding
     private lateinit var ingredientsViewmodel: IngredientsViewModel
-
+    private var supermarketSectionList: MutableList<String>? = mutableListOf()
+    var itemAdapter = GenericItemAdapter()
+    var fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initToolbarBaseActivity(R.string.toolbar_grocery_list)
        initViewModel()
+        setupRecyclerView()
+        setupSupermarketSection()
         setupChips()
+    }
+
+    private fun setupSupermarketSection() {
+        supermarketSectionList?.add(SupermarketSectionType.PAINS_PATISSERIE.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.PAINS_MIE.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.BOUCHERIE.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.VOLAILLE_GIBIERS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.POISSONNERIE.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.FRUITS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.LEGUMES.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.LAITS_OEUFS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.BEURRES_CREMES.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.FROMAGES.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.CHARCUTERIE.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.YAHOURTS_PRODUITS_LAITIERS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.DESSERTS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.BOISSONS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.EPICERIE_SUCREE.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.PATES_RIZ_FECULENTS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.CONSERVES.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.ASSAISONNEMENTS_CONDIMENTS.sectionName)
+        supermarketSectionList?.add(SupermarketSectionType.SURGELES.sectionName)
     }
 
     private fun initViewModel() {
@@ -58,37 +86,32 @@ class MyGroceryListActivity: BaseActivity() {
 
     // configure chip with ingredient name, color
     private fun setupChips() {
+
         ingredientsViewmodel.getIngredientsForGrocery()
             .observe(this, Observer { result ->
                 if (result != null) {
                     if (result.size != 0) {
+                        itemAdapter.clear()
                         not_found.visibility = View.GONE
-                        chipGroup.removeAllViews()
-                        for (myresult in result) {
-                            val chip = Chip(chipGroup.context)
-                            val chipDrawable = ChipDrawable.createFromAttributes(
-                                chipGroup.context,
-                                null,
-                                0,
-                                R.style.Widget_MaterialComponents_Chip_Entry
-                            )
-                            chip.setChipDrawable(chipDrawable)
-                            chip.text = myresult.name
-                            val chipUtil = ChipUtil()
-                            chipUtil.handleChipColor(myresult, chip, App.applicationContext())
-                            chip.closeIcon = applicationContext?.let {
-                                ContextCompat.getDrawable(
-                                    applicationContext as Context,
-                                    R.drawable.ic_clear_grey_24dp
-                                )
+                        val items = mutableListOf<GenericItem>()
+                        supermarketSectionList?.forEach {sectionList->
+                            val ingredientsByType:MutableList<Ingredients>? = mutableListOf()
+                            result.forEach {
+                                if(it.supermarketSection==sectionList){
+                                    ingredientsByType?.add(it)
+                                }
                             }
-                            // Set chip close icon click listener
-                            chip.setOnCloseIconClickListener {
-                                launchAlertDialog(chipGroup,chip)
+                            if(ingredientsByType?.size!=0){
+                                items.add(GroceryItem().apply {
+                                    this.ingredientTypeName = sectionList
+                                    this.ingredientsByType = ingredientsByType
+                                    this.context = this@MyGroceryListActivity
+                                })
                             }
-                            chip.isClickable = true
-                            chipGroup.addView(chip)
+
+
                         }
+                        itemAdapter.add(items)
                     } else {
                         not_found.visibility = View.VISIBLE
                         not_found.text = getString(R.string.no_item_found_grocery)
@@ -97,60 +120,32 @@ class MyGroceryListActivity: BaseActivity() {
             })
     }
 
-    // when we want to delete a ingredient from grocery list, a dialog is launch before delete,and
-    // if yes the ingredient is added in ingredient list and delete from grocery list
-    private fun launchAlertDialog(chipFromGroup: ChipGroup,chip:Chip) {
-        val builder = MaterialAlertDialogBuilder(this)
-        builder.setTitle(getString(R.string.menu_grocery_list))
-        if(chipFromGroup.checkedChipIds.size==0){
-            builder.setMessage(getString(R.string.dialog_question_grocery))
-        }else{
-            builder.setMessage(getString(R.string.dialog_question_grocery_multiple_ingredients))
-        }
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
 
-        val chipgroupText :ArrayList<String> = arrayListOf()
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
+        super.onPause()
+    }
 
-        val ids = chipFromGroup.checkedChipIds
-        for (id in ids) {
-            val chipFromGroup: Chip = chipGroup.findViewById(id)
-            chipgroupText.add(chipFromGroup.text.toString())
-        }
-        var removedIngredients : String?=null
-        removedIngredients = if(chipgroupText.isNullOrEmpty()){
-            chip.text.toString()
-        }else{
-            Domain().retrieveStringFromListString(chipgroupText)
-        }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ChipClickEvent) {
+        ingredientsViewmodel.updateIngredientSelectedByName(event.chipText, true)
+        ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
+            event.chipText,
+            false
+        )
+    }
 
 
-        builder.setPositiveButton(getString(R.string.Yes)) { _, _ ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.grocery_list_removed, removedIngredients), Toast.LENGTH_SHORT
-            ).show()
 
-            chipgroupText.forEach {
-                ingredientsViewmodel.updateIngredientSelectedByName(it, true)
-                ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
-                    it,
-                    false
-                )
-            }
-            TransitionManager.beginDelayedTransition(chipGroup)
-            if(ids.size==0){
-                chipGroup.removeView(chipFromGroup)
-            }else{
-                for (id in ids) {
-                    val chip: Chip = chipGroup.findViewById(id)
-                    chipGroup.removeView(chip)
-                }
-            }
+    private fun setupRecyclerView() {
 
-        }
+        recyclerview?.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recyclerview?.adapter = fastAdapter
 
-        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
-            dialog.dismiss()
-        }
-        builder.show()
     }
 }

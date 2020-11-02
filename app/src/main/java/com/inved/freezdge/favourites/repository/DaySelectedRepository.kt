@@ -2,7 +2,7 @@ package com.inved.freezdge.favourites.repository
 
 import com.inved.freezdge.favourites.database.DaySelected
 import com.inved.freezdge.favourites.database.DaySelected_
-import com.inved.freezdge.utils.eventbus.AddSelectedDay
+import com.inved.freezdge.utils.AddSelectedDay
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
 

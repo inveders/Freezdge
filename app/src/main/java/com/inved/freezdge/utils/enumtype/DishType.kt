@@ -1,4 +1,4 @@
-package com.inved.freezdge.utils
+package com.inved.freezdge.utils.enumtype
 
 enum class DishType(val dishName:String){
     MAIN_COURSE("Main course"),

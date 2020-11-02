@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
+import com.inved.freezdge.ingredientslist.ui.MyGroceryListActivity
 import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
@@ -87,6 +88,10 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     private fun initNavigationView(){
         navigationView = findViewById(id.activity_main_nav_view)
         appVersion.text = getString(R.string.app_version, BuildConfig.VERSION_NAME)
+        navigationView.menu.findItem(id.menu_grocery_list).setOnMenuItemClickListener {
+            startActivity(Intent(this, MyGroceryListActivity::class.java))
+            true
+        }
         navigationView.menu.findItem(id.menu_logout).setOnMenuItemClickListener {
             signOut()
             true

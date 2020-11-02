@@ -15,7 +15,8 @@ data class Ingredients(@Id var id: Long = 0,
                        var typeIngredient: String? = null,
                        var photoUrl: String? = null,
                        var selectedIngredient: Boolean = false,
-                       var grocerySelectedIngredient: Boolean = false): AbstractItem<ViewHolderIngredients>(){
+                       var grocerySelectedIngredient: Boolean = false,
+                       var supermarketSection: String? = null): AbstractItem<ViewHolderIngredients>(){
 
     // defines the type defining this item. must be unique. preferably an id
     override val type: Int

@@ -12,7 +12,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.DaySelected
 import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.ChipsDayType
+import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter

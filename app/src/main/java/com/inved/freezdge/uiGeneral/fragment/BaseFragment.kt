@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
-import com.inved.freezdge.favourites.adapter.SelectDayItem
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.model.DaySelectionModel
@@ -39,6 +38,7 @@ import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
+import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
