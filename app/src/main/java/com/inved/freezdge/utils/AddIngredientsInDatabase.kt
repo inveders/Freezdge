@@ -822,7 +822,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/spinach-2216967_640.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Surgelés"
                 )
             )
             ingredientsBox?.put(
@@ -832,7 +832,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/epinars_hachés.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Surgelés"
                 )
             )
 
@@ -873,7 +873,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingrédients2/saka_saka.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Surgelés"
                 )
             )
             ingredientsBox?.put(
@@ -903,7 +903,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/flageolet1-1280x720.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -943,7 +943,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_beurre.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -953,7 +953,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_blancs.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -963,7 +963,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_rouges.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -973,7 +973,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/haricots_vert.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1014,7 +1014,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lentilles.jpeg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1024,7 +1024,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/lentilles-corail.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1224,7 +1224,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/petits_pois.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1254,7 +1254,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/chickpea-316594_640.jpg",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(
@@ -1364,7 +1364,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
                     typeIngredient = "Fruits & Légumes",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/ratatouille.JPG",
                     selectedIngredient = false, grocerySelectedIngredient = false,
-                    supermarketSection = "Légumes"
+                    supermarketSection = "Conserves & bocaux"
                 )
             )
             ingredientsBox?.put(

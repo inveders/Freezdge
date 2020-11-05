@@ -61,7 +61,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
 
     // get day by recipeId in favourite
     fun getFavouriteRecipeById(recipeId: String): FavouritesRecipes? {
-        return getFavouritesRecipesBox?.query()?.equal(FavouritesRecipes_.recipeId, recipeId)
+        return getFavouritesRecipesBox?.query()?.equal(FavouritesRecipes_.id, recipeId.toLong())
             ?.build()?.findUnique()
     }
 

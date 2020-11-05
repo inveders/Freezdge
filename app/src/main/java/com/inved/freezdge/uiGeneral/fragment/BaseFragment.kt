@@ -480,6 +480,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         val model = ShowedRecipes()
         model.apply {
             model.id = recipes.recipeId?.toLong()
+            model.favouriteId =recipes.id
             model.recipeTitle = recipes.recipeTitle
             model.recipeCalories = recipes.recipeCalories
             model.totalrecipeTime = recipes.recipeTime
@@ -623,7 +624,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                openSelectDateDialog(item.model?.selectedDay, pos, item.model?.id.toString())
+                openSelectDateDialog(item.model?.selectedDay, pos, item.model?.favouriteId.toString())
             }
         }
 
@@ -713,7 +714,14 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
             }
         }
-        getFavouritesRecipes()
+        when {
+            getForegroundFragment() is MyRecipesFragment -> run {
+                getFavouritesRecipes()
+            }
+            getForegroundFragment() is CalendarFragment -> run {
+                getCalendarRecipes()
+            }
+        }
         if (itemPosition != null) {
             recyclerview.scrollToPosition(itemPosition)
         }

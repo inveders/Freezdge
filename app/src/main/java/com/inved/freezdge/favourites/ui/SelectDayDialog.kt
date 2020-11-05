@@ -168,7 +168,7 @@ class SelectDayDialog : DialogFragment() {
         fastAdapter.addClickListener({ vh: SelectDayItem.ViewHolder -> vh.lunchChip }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is SelectDayItem) {
                 val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
-                    this.day = handleSelectedDay(item.day)+1
+                    this.day = handleSelectedDay(item.day)
                     this.lunch = recipeId?.toLong()
                     if(item.isOccuped==true){
                         //todo show dialog and if true
@@ -185,7 +185,7 @@ class SelectDayDialog : DialogFragment() {
         fastAdapter.addClickListener({ vh: SelectDayItem.ViewHolder -> vh.dinnerChip }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is SelectDayItem) {
                 val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
-                    this.day = handleSelectedDay(item.day)+1
+                    this.day = handleSelectedDay(item.day)
                     if(item.isOccuped==true){
                         //todo show dialog and if true
                         this.lunch = item.lunchId
@@ -216,8 +216,9 @@ class SelectDayDialog : DialogFragment() {
             result.forEach { res ->
 
                 if(selectedDayList?.size?.compareTo(7)==-1){
-                    Log.d("debago","result size is ${result.size}")
+
                     selectedDayList?.add(DaySelectionModel().apply {
+                        Log.d("debago","selected day list; day : ${res.id}, lunch : ${res.lunch}, dinner : ${res.dinner}")
                         this.day = res.id
                         this.lunch = res.lunch
                         this.dinner = res.dinner
@@ -315,9 +316,21 @@ class SelectDayDialog : DialogFragment() {
                             this.dinner=clickedDay?.dinner
                         }
                     }else if (it?.lunch!=0L && clickedDay?.lunch!=0L || it?.dinner!=0L && clickedDay?.dinner!=0L){
-                        it.apply {
-                            this?.lunch=clickedDay?.lunch
-                            this?.dinner=clickedDay?.dinner
+                        if(it?.lunch== clickedDay?.lunch){
+                            it.apply {
+                                this?.lunch=0L
+                                this?.dinner=clickedDay?.dinner
+                            }
+                        }else if(it?.dinner==clickedDay?.dinner){
+                            it.apply {
+                                this?.lunch=clickedDay?.lunch
+                                this?.dinner=0L
+                            }
+                        } else{
+                            it.apply {
+                                this?.lunch=clickedDay?.lunch
+                                this?.dinner=clickedDay?.dinner
+                            }
                         }
                     }else {
                         it.apply {

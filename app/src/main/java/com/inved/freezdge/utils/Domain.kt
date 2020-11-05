@@ -369,25 +369,25 @@ class Domain {
 
     fun handleSelectedDay(day: Long?): String? {
         when {
-            day== DayType.MONDAY.day+1 -> {
+            day== DayType.MONDAY.day -> {
                 return DayType.MONDAY.dayName
             }
-            day== DayType.TUESDAY.day+1 -> {
+            day== DayType.TUESDAY.day -> {
                 return DayType.TUESDAY.dayName
             }
-            day== DayType.WEDNESDAY.day+1 -> {
+            day== DayType.WEDNESDAY.day -> {
                 return DayType.WEDNESDAY.dayName
             }
-            day== DayType.THURSDAY.day+1 -> {
+            day== DayType.THURSDAY.day -> {
                 return DayType.THURSDAY.dayName
             }
-            day== DayType.FRIDAY.day+1 -> {
+            day== DayType.FRIDAY.day -> {
                 return DayType.FRIDAY.dayName
             }
-            day== DayType.SATURDAY.day+1 -> {
+            day== DayType.SATURDAY.day -> {
                 return DayType.SATURDAY.dayName
             }
-            day== DayType.SUNDAY.day+1 -> {
+            day== DayType.SUNDAY.day -> {
                 return DayType.SUNDAY.dayName
             }
             else -> return null

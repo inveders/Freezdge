@@ -32,7 +32,7 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
     fun updateSelectedDayValues(id: Long, lunchValue: Long, dinnerValue: Long) {
 
         val daySelected: DaySelected? =
-            getDaySelectedBox?.query()?.equal(DaySelected_.id, id+1)?.build()?.findUnique()
+            getDaySelectedBox?.query()?.equal(DaySelected_.id, id)?.build()?.findUnique()
         daySelected.apply {
             this?.lunch=lunchValue
             this?.dinner=dinnerValue

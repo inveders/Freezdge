@@ -172,19 +172,20 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:maxLength="70"
-            app:layout_constraintEnd_toStartOf="@id/select_date_button"
+            app:layout_constraintEnd_toStartOf="@id/owner_image"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <ImageButton
             android:id="@+id/select_date_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_like_disable"
+            app:srcCompat="@drawable/ic_baseline_calendar_today_24"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:layout_constraintRight_toRightOf="@id/view"
+            app:layout_constraintStart_toStartOf="@id/owner_image"
+            app:layout_constraintEnd_toEndOf="@id/owner_image"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintBottom_toTopOf="@id/view"/>
 

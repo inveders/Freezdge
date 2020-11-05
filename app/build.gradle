@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'io.objectbox' // Apply last.
+
 
 android {
     signingConfigs {
@@ -25,7 +25,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.5"
+        versionName "1.0.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -92,6 +92,8 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.3.1'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "io.objectbox:objectbox-windows:$objectboxVersion"
+    debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
+    releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
 
 
     //Firebase
@@ -147,3 +149,5 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
 }
+
+apply plugin: 'io.objectbox' // Apply last.
