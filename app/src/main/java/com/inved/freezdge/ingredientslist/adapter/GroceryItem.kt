@@ -12,12 +12,17 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.eventbus.ChipClickEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
+import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 
@@ -26,6 +31,7 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
     var ingredientTypeName:String? =null
     var ingredientsByType:MutableList<Ingredients>? = null
     var context : Context? =null
+    var isIngredientType:Boolean?=false
 
     override val layoutRes: Int
         get() = R.layout.item_grocery
@@ -67,10 +73,29 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
                     )
                 }
                 // Set chip close icon click listener
-                chip.setOnCloseIconClickListener {
-                    launchAlertDialog(chipGroup, chip,item)
+                if(item.isIngredientType==true){
+                    // Set chip close icon click listener
+                    chip.setOnCloseIconClickListener {
+
+                        val ids = chipGroup.checkedChipIds
+                        if (ids.size == 0) {
+                            removeChip(chip)
+                        } else {
+                            for (id in ids) {
+                                val chipFromGroup: Chip = chipGroup.findViewById(id)
+                                removeChip(chipFromGroup)
+                            }
+                        }
+                        BaseFragment.setlistDatabase.clear()
+                    }
+                    BaseFragment.setlistDatabase.clear()
+                }else{
+                    chip.setOnCloseIconClickListener {
+                        launchAlertDialog(chipGroup, chip,item)
+                    }
+                    chip.isClickable = true
                 }
-                chip.isClickable = true
+
                 chipGroup.addView(chip)
             }
 
@@ -78,6 +103,11 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
 
         override fun unbindView(item: GroceryItem) {
                 groceryTextView.text = null
+        }
+
+        private fun removeChip(chip: Chip) {
+            EventBus.getDefault().post(ChipClickEvent(chip.text.toString()))
+            chipGroup.removeView(chip)
         }
 
         // when we want to delete a ingredient from grocery list, a dialog is launch before delete,and

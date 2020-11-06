@@ -15,24 +15,35 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentMyIngredientsListBinding
+import com.inved.freezdge.favourites.adapter.CalendarDayNameItem
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
+import com.inved.freezdge.ingredientslist.adapter.GroceryItem
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.uiGeneral.adapter.TitleItem
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.ChipUtil
+import com.inved.freezdge.utils.enumtype.IngredientsType
+import com.inved.freezdge.utils.eventbus.ChipClickEvent
+import com.mikepenz.fastadapter.GenericItem
 import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
 import kotlinx.android.synthetic.main.fragment_my_recipes.floatingActionButton
 import kotlinx.android.synthetic.main.fragment_my_recipes.not_found
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
-class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding, ActivityMainBinding>() {
+class MyIngredientsListFragment :
+    BaseFragment<FragmentMyIngredientsListBinding, ActivityMainBinding>() {
 
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     private lateinit var favouritesRecipesViewmodel: FavouritesRecipesViewModel
+    private var ingredientsTypeList: MutableList<String> = mutableListOf()
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -47,6 +58,7 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
         favouritesRecipesViewmodel =
             ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
+        setupIngredientsTypeList()
         setupChips()
         setHasOptionsMenu(true)
     }
@@ -54,6 +66,20 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
     override fun onResume() {
         super.onResume()
         setupChips()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
+        super.onPause()
+    }
+
+    private fun setupIngredientsTypeList() {
+        ingredientsTypeList.add(IngredientsType.CREAMERY.typeName)
+        ingredientsTypeList.add(IngredientsType.FRUITS_VEGETABLES.typeName)
+        ingredientsTypeList.add(IngredientsType.FISH.typeName)
+        ingredientsTypeList.add(IngredientsType.MEAT.typeName)
+        ingredientsTypeList.add(IngredientsType.EPICERIE.typeName)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -80,7 +106,6 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
         if (result?.size != 0) {
             not_found.visibility = View.GONE
             imageArrowIng.visibility = View.GONE
-            chipGroup.removeAllViews()
             if (result != null) {
                 handleChip(result)
             }
@@ -95,57 +120,33 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
 
     // configure chip with ingredient name, color
     private fun handleChip(result: MutableList<Ingredients>) {
-        for (myresult in result) {
-            val chip = Chip(chipGroup.context)
-            val chipDrawable = ChipDrawable.createFromAttributes(
-                chipGroup.context,
-                null,
-                0,
-                R.style.Widget_MaterialComponents_Chip_Entry
-            )
-            chip.setChipDrawable(chipDrawable)
-            chip.text = myresult.name
-            val chipUtil = ChipUtil()
-            chipUtil.handleChipColor(myresult, chip, App.applicationContext())
-            chip.closeIcon = context?.let {
-                ContextCompat.getDrawable(it, R.drawable.ic_clear_grey_24dp)
-            }
-            // Set chip close icon click listener
-            chip.setOnCloseIconClickListener {
 
-                val ids = chipGroup.checkedChipIds
-                if(ids.size==0){
-                    removeChip(chip)
-                }else{
-                    for (id in ids) {
-                        val chipFromGroup: Chip = chipGroup.findViewById(id)
-                        removeChip(chipFromGroup)
-                    }
-                }
-
-                setlistDatabase.clear()
-            }
-            setlistDatabase.clear()
-            chipGroup.addView(chip)
-        }
-    }
-
-    fun removeChip(chip:Chip){
-        GlobalScope.launch(Dispatchers.IO) {
-            ingredientsViewmodel.updateIngredientSelectedByName(
-                chip.text.toString(),
-                false
-            )
-            chip.text.toString()?.let { it1 ->
-                chip.text.toString()?.let { it2 ->
-                    favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
-                        it1, it2
-                    )
+        itemAdapter.clear()
+        not_found.visibility = View.GONE
+        val items = mutableListOf<GenericItem>()
+        items.add(CalendarDayNameItem().apply {
+            this.dayName = getString(R.string.ingredients_list_page_name)
+        })
+        ingredientsTypeList.forEach { sectionList ->
+            val ingredientsByType: MutableList<Ingredients>? = mutableListOf()
+            result.forEach {
+                if (it.typeIngredient == sectionList) {
+                    ingredientsByType?.add(it)
                 }
             }
+            if (ingredientsByType?.size != 0) {
+                items.add(GroceryItem().apply {
+                    this.ingredientTypeName = sectionList
+                    this.ingredientsByType = ingredientsByType
+                    this.context = getContext()
+                })
+            }
+
+
         }
-        chipGroup.removeView(chip)
+        itemAdapter.add(items)
     }
+
 
     // Open Search Ingredient Activity on floating button click
     private fun openSearchIngredientActivity() {
@@ -180,9 +181,8 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
     }
 
 
-
     //clear all ingredients in the list and put ingredient not selected in the objectbox database
-    private fun unselectAllIngredients(){
+    private fun unselectAllIngredients() {
         chipGroup.removeAllViews()
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
         if (result != null) {
@@ -198,6 +198,23 @@ class MyIngredientsListFragment : BaseFragment<FragmentMyIngredientsListBinding,
                             it1, it2
                         )
                     }
+                }
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ChipClickEvent) {
+        GlobalScope.launch(Dispatchers.IO) {
+            ingredientsViewmodel.updateIngredientSelectedByName(
+                event.chipText,
+                false
+            )
+            event.chipText.let { it1 ->
+                event.chipText.let { it2 ->
+                    favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
+                        it1, it2
+                    )
                 }
             }
         }

@@ -28,6 +28,7 @@ import com.inved.freezdge.favourites.ui.SelectDayDialog
 import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.onboarding.OnboardingActivity
@@ -57,7 +58,8 @@ import kotlinx.coroutines.launch
 enum class FragmentDetected(val number: Int) {
     ALL_RECIPES_FRAGMENT(1),
     FAVOURITE_FRAGMENT(2),
-    CALENDAR_FRAGMENT(3)
+    CALENDAR_FRAGMENT(3),
+    MY_INGREDIENTS_FRAGMENT(4)
 }
 
 abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
@@ -302,6 +304,9 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             getForegroundFragment() is CalendarFragment -> run {
                 setupRecipeRecyclerView(FragmentDetected.CALENDAR_FRAGMENT.number)
                 getCalendarRecipes()
+            }
+            getForegroundFragment() is MyIngredientsListFragment -> run {
+                setupRecipeRecyclerView(FragmentDetected.MY_INGREDIENTS_FRAGMENT.number)
             }
         }
     }

@@ -19,6 +19,7 @@ import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.enumtype.IngredientsType
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -126,19 +127,19 @@ class TypeIngredientsFragment : Fragment() {
     fun getForegroundFragment(value: Int) {
         when (value) {
             0 -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_cream))
+                getAllFoodByType(IngredientsType.CREAMERY.typeName)
             }
             1 -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_fruits_vegetables))
+                getAllFoodByType(IngredientsType.FRUITS_VEGETABLES.typeName)
             }
             2 -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_fish))
+                getAllFoodByType(IngredientsType.FISH.typeName)
             }
             3 -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_meat))
+                getAllFoodByType(IngredientsType.MEAT.typeName)
             }
             4 -> run {
-                getAllFoodByType(getString(R.string.ingredient_type_epicerie))
+                getAllFoodByType(IngredientsType.EPICERIE.typeName)
             }
         }
     }
