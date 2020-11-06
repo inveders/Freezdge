@@ -42,7 +42,7 @@
     <string name="recipe_grocery_list_dialog_all_matching">You have all ingredients to realize this recipe !</string>
     <string name="recipe_list_item_no_time_known">No time indicated</string>
     <string name="recipe_list_item_time_min">%d min</string>
-    <string name="recipe_list_item_day_scheduled" translatable="false">%s\n%s</string>
+    <string name="recipe_list_item_day_scheduled" translatable="false">%s</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
     <string name="recipe_list_item_time_hours">%dh</string>
     <string name="recipe_list_item_preparation_time">Preparation time</string>

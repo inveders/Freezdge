@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
+import com.inved.freezdge.favourites.adapter.CalendarDayNameItem
+import com.inved.freezdge.favourites.adapter.NotYetPlanedItem
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.model.DaySelectionModel
@@ -36,6 +38,7 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.uiGeneral.adapter.TitleItem
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.enumtype.ChipsDayType
@@ -331,42 +334,61 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
     private fun getCalendarRecipes() {
 
-
         daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
             itemAdapter.clear()
             val items = mutableListOf<GenericItem>()
 
             result?.forEach { res ->
 
-                favouriteRecipesViewmodel.getFavouriteRecipeById(res.lunch.toString())?.let {
-                    items.add(ListRecipeItem().apply {
-                        this.model = fillModelListFavouriteRecipes(it)
-                        this.isReducedWidth = true
-                        this.selectedDay = res
-                        this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                items.add(CalendarDayNameItem().apply {
+                    dayName=domain.handleSelectedDay(res.id)
+                })
+                items.add(CalendarDayNameItem().apply {
+                    dayName=""
+                })
+
+                if(res.lunch==0L){
+                    items.add(NotYetPlanedItem().apply {
                     })
+                }else{
+                    favouriteRecipesViewmodel.getFavouriteRecipeById(res.lunch.toString())?.let {
+
+                        items.add(ListRecipeItem().apply {
+                            this.model = fillModelListFavouriteRecipes(it)
+                            this.isReducedWidth = true
+                            this.selectedDay = res
+                            this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                        })
+                    }
                 }
 
-                favouriteRecipesViewmodel.getFavouriteRecipeById(res.dinner.toString())?.let {
-                    items.add(ListRecipeItem().apply {
-                        this.model = fillModelListFavouriteRecipes(it)
-                        this.isReducedWidth = true
-                        this.selectedDay = res
-                        this.selectedPosition = ChipsDayType.DINNER.chipPosition
+
+                if(res.dinner==0L){
+                    items.add(NotYetPlanedItem().apply {
                     })
+                }else{
+                    favouriteRecipesViewmodel.getFavouriteRecipeById(res.dinner.toString())?.let {
+                        items.add(ListRecipeItem().apply {
+                            this.model = fillModelListFavouriteRecipes(it)
+                            this.isReducedWidth = true
+                            this.selectedDay = res
+                            this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                        })
+                    }
                 }
 
             }
 
-            if(items.isNullOrEmpty()){
+            if (items.isNullOrEmpty()) {
                 not_found.visibility = View.VISIBLE
                 not_found.text = getString(R.string.no_item_found_calendar)
-            }else{
+            } else {
                 not_found.visibility = View.GONE
             }
             itemAdapter.add(items)
         })
     }
+
 
     private fun getForegroundFragment(): Fragment? {
         val navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.navHost)
@@ -480,7 +502,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         val model = ShowedRecipes()
         model.apply {
             model.id = recipes.recipeId?.toLong()
-            model.favouriteId =recipes.id
+            model.favouriteId = recipes.id
             model.recipeTitle = recipes.recipeTitle
             model.recipeCalories = recipes.recipeCalories
             model.totalrecipeTime = recipes.recipeTime
@@ -624,7 +646,11 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                openSelectDateDialog(item.model?.selectedDay, pos, item.model?.favouriteId.toString())
+                openSelectDateDialog(
+                    item.model?.selectedDay,
+                    pos,
+                    item.model?.favouriteId.toString()
+                )
             }
         }
 

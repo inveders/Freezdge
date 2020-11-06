@@ -87,7 +87,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
                     }else if (item.selectedPosition == ChipsDayType.DINNER.chipPosition){
                         isDinnerOrLunch = App.appContext.getString(R.string.dinner).decapitalize()
                     }
-                    dateSelectedText.text = App.appContext.getString(R.string.recipe_list_item_day_scheduled,domain.handleSelectedDay(item.selectedDay?.id),isDinnerOrLunch)
+                    dateSelectedText.text = App.appContext.getString(R.string.recipe_list_item_day_scheduled,isDinnerOrLunch)
                 }
 
                /* else{

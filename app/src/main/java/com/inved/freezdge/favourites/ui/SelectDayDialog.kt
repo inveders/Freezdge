@@ -19,6 +19,7 @@ import com.inved.freezdge.favourites.model.DaySelectionModel
 import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.ChipUtil
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
 import com.inved.freezdge.utils.Domain
@@ -177,7 +178,7 @@ class SelectDayDialog : DialogFragment() {
                         this.dinner = 0L
                     }
                 }
-                isUpdateNecesary(clickedDay)
+                isUpdateNecesary(clickedDay,ChipsDayType.LUNCH.chipPosition)
 
             }
         }
@@ -194,7 +195,7 @@ class SelectDayDialog : DialogFragment() {
                     }
                     this.dinner = recipeId?.toLong()
                 }
-                isUpdateNecesary(clickedDay)
+                isUpdateNecesary(clickedDay,ChipsDayType.DINNER.chipPosition)
             }
         }
     }
@@ -299,7 +300,7 @@ class SelectDayDialog : DialogFragment() {
         })
     }
 
-    private fun isUpdateNecesary(clickedDay: DaySelectionModel?){
+    private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner:Int){
         Log.d("debago","selectedday list size is ${selectedDayList?.size}")
         selectedDayList?.forEach {
             if (it == clickedDay) {
@@ -316,12 +317,12 @@ class SelectDayDialog : DialogFragment() {
                             this.dinner=clickedDay?.dinner
                         }
                     }else if (it?.lunch!=0L && clickedDay?.lunch!=0L || it?.dinner!=0L && clickedDay?.dinner!=0L){
-                        if(it?.lunch== clickedDay?.lunch){
+                        if(it?.lunch== clickedDay?.lunch && isLunchOrDinner==ChipsDayType.LUNCH.chipPosition){
                             it.apply {
                                 this?.lunch=0L
                                 this?.dinner=clickedDay?.dinner
                             }
-                        }else if(it?.dinner==clickedDay?.dinner){
+                        }else if(it?.dinner==clickedDay?.dinner && isLunchOrDinner==ChipsDayType.DINNER.chipPosition){
                             it.apply {
                                 this?.lunch=clickedDay?.lunch
                                 this?.dinner=0L
