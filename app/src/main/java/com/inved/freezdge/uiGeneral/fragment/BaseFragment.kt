@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.adapter.CalendarDayNameItem
@@ -28,6 +29,7 @@ import com.inved.freezdge.favourites.ui.SelectDayDialog
 import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
@@ -130,7 +132,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     private lateinit var gridLayoutManager: GridLayoutManager
 
     //Viewmodel
-    private lateinit var recipeViewModel: RecipeViewModel
+    lateinit var recipeViewModel: RecipeViewModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     private lateinit var daySelectedViewModel: DaySelectedViewModel
@@ -180,7 +182,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         if (ingredientsViewmodel.countIngredients()?.toInt() == 0) {
             ingredientsViewmodel.insertIngredients()
         }
-
+        getAllSavedIngredients()
         if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
                 OnboardingActivity.VERSION_APP_NAME,
                 BuildConfig.VERSION_NAME
@@ -191,6 +193,33 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         } else {
             domain.updateSharedPrefVersionName()
         }
+    }
+
+    private fun getAllSavedIngredients() {
+        IngredientListHelper.getAllIngredients(
+            FirebaseAuth.getInstance().currentUser?.uid
+        )?.get()
+            ?.addOnCompleteListener { task ->
+                if (task.result != null) {
+                    if (task.result?.documents?.isNotEmpty() == true) {
+
+                        task.result?.documents.let {
+                            it?.forEach { ingredientList->
+                                val ingredient: Ingredients? =
+                                    ingredientList.toObject(Ingredients::class.java)
+                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedByName(it1.name,it1.selectedIngredient) }
+                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedForGroceryByName(it1.name,it1.grocerySelectedIngredient) }
+                            }
+                        }
+                    }
+                }
+            }?.addOnFailureListener {
+                Log.e(
+                    "firebase",
+                    "Problem during the ingredient search"
+
+                )
+            }
     }
 
     private fun insertRecipes() {

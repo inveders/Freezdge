@@ -46,5 +46,11 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
         return getRecipesBox?.count()
     }
 
+    //get all recipes
+    fun getAllRecipes(): MutableList<Recipes>? {
+        // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
+        return getRecipesBox?.all
+    }
+
 }
 

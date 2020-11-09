@@ -3,21 +3,27 @@ package com.inved.freezdge.recipes.ui
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentAllRecipesBinding
+import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity
 import com.inved.freezdge.recipes.adapter.ListRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.model.ShowedRecipes
+import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchButtonListener
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainBinding>(),SearchButtonListener {
 
@@ -63,45 +69,43 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                handleTextFilter(
-                    newText,
-                    itemAdapter
-                )
+                if (newText.isNotEmpty()) {
+                    itemAdapter.clear()
+                    val search = newText.toLowerCase(Locale.ROOT)
+                    val allrecipes = recipeViewModel.getAllRecipes()
+                    topTextview.visibility=View.GONE
+                    topTextview.height=0
+                    handleList(allrecipes,search)
+                } else {
+                    topTextview.visibility=View.VISIBLE
+                    filterDishType("")
+                }
                 return true
             }
         })
         return super.onPrepareOptionsMenu(menu)
     }
 
-    // handle the text of searchview for recipes from database
-    fun handleTextFilter(
-        newText: String,
-        recipesDatabaseItemAdapter: ItemAdapter<GenericItem>
-    ) {
-
-        recipesDatabaseItemAdapter.filter(newText)
-        recipesDatabaseItemAdapter.itemFilter.filterPredicate =
-            { item: GenericItem, constraint: CharSequence? ->
-                if(item is ListRecipeItem){
-                    item.model?.recipeTitle?.contains(
-                        constraint.toString(),
-                        ignoreCase = true
-                    )==true
-                }else{
-                    false
+    // handle searchview result while typing
+    fun handleList(list:MutableList<Recipes>?, search:String){
+        var count = 0
+        val myList: MutableList<Recipes> = mutableListOf()
+        if (list?.size != 0) {
+            list?.forEach {
+                if (it.recipeTitle?.toLowerCase(Locale.ROOT)?.contains(search)==true) {
+                    myList.add(it)
+                    count = count.plus(1)
                 }
-
-
             }
-
-        if(newText.isNullOrEmpty()){
-            topTextview.visibility=View.VISIBLE
-
-        }else{
-            topTextview.visibility=View.GONE
-            topTextview.height=0
+            if (count == 0) {
+                Toast.makeText(
+                    activity,
+                    getString(R.string.no_recipes_found),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            fillAdapterFilter(myList)
         }
-
     }
 
     // launch dialog to choose dish type and filter recipes

@@ -2,6 +2,7 @@ package com.inved.freezdge.ingredientslist.repository
 
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.database.Ingredients_
+import com.inved.freezdge.ingredientslist.firebase.FirebaseIngredientsUtils
 import com.inved.freezdge.utils.AddIngredientsInDatabase
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
@@ -14,6 +15,12 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
 
         ingredient.selectedIngredient = !ingredient.selectedIngredient
         getIngredientsBox?.put(ingredient)
+        FirebaseIngredientsUtils().getIngredientByName(ingredient.name,
+            isToDelete = false,
+            isInGrocery = ingredient.grocerySelectedIngredient,
+            isSelected = ingredient.selectedIngredient,
+            ingredient = ingredient
+        )
     }
 
     // update ingredient selection according to the name of the ingredient (chip)
@@ -23,8 +30,16 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
             val ingredient:Ingredients? =
                 getIngredientsBox?.query()?.equal(Ingredients_.name,name)?.build()?.findUnique()
             ingredient?.selectedIngredient = bool
-            if(ingredient!=null)
+            if(ingredient!=null){
                 getIngredientsBox?.put(ingredient)
+                FirebaseIngredientsUtils().getIngredientByName(ingredient.name,
+                    isToDelete = false,
+                    isInGrocery = ingredient.grocerySelectedIngredient,
+                    isSelected = ingredient.selectedIngredient,
+                    ingredient = ingredient
+                )
+            }
+
         }
 
     }
@@ -36,8 +51,16 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
             val ingredient:Ingredients? =
                 getIngredientsBox?.query()?.equal(Ingredients_.name,name)?.build()?.findUnique()
             ingredient?.grocerySelectedIngredient = bool
-            if(ingredient!=null)
+            if(ingredient!=null){
                 getIngredientsBox?.put(ingredient)
+                FirebaseIngredientsUtils().getIngredientByName(ingredient.name,
+                    isToDelete = false,
+                    isInGrocery = ingredient.grocerySelectedIngredient,
+                    isSelected = ingredient.selectedIngredient,
+                    ingredient = ingredient
+                )
+            }
+
         }
 
     }
