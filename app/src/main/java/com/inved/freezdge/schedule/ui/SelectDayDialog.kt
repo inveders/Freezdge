@@ -1,4 +1,4 @@
-package com.inved.freezdge.favourites.ui
+package com.inved.freezdge.schedule.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -14,12 +14,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
-import com.inved.freezdge.favourites.adapter.SelectDayItem
-import com.inved.freezdge.favourites.model.DaySelectionModel
-import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
+import com.inved.freezdge.schedule.adapter.SelectDayItem
+import com.inved.freezdge.schedule.model.DaySelectionModel
+import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.ChipUtil
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
 import com.inved.freezdge.utils.Domain
@@ -47,7 +46,7 @@ class SelectDayDialog : DialogFragment() {
         var selectedDayList: MutableList<DaySelectionModel?>? = mutableListOf()
         private var dateSelectedListener: SelectDateListener? = null
         fun setSelectDateListener(callback: SelectDateListener) {
-            this.dateSelectedListener = callback
+            dateSelectedListener = callback
         }
 
         //Viewmodel

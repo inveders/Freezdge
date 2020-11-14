@@ -1,6 +1,6 @@
 package com.inved.freezdge.utils
 
-import com.inved.freezdge.favourites.database.DaySelected
+import com.inved.freezdge.schedule.database.DaySelected
 import io.objectbox.Box
 
 class AddSelectedDay(private var selectedDayBox: Box<DaySelected>?) {

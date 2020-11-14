@@ -1,4 +1,4 @@
-package com.inved.freezdge.favourites.adapter
+package com.inved.freezdge.schedule.adapter
 
 import android.view.View
 import android.widget.TextView

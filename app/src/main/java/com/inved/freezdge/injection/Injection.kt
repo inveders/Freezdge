@@ -1,6 +1,6 @@
 package com.inved.freezdge.injection
 
-import com.inved.freezdge.favourites.repository.DaySelectedRepository
+import com.inved.freezdge.schedule.repository.DaySelectedRepository
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import com.inved.freezdge.recipes.repository.RecipesRepository

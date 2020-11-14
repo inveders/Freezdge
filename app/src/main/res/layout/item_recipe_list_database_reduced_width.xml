@@ -196,8 +196,6 @@
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintBottom_toTopOf="@id/view"/>
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

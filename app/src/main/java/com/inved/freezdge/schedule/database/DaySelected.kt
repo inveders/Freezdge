@@ -1,4 +1,4 @@
-package com.inved.freezdge.favourites.database
+package com.inved.freezdge.schedule.database
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

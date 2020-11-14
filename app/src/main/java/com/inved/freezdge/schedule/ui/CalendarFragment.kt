@@ -1,4 +1,4 @@
-package com.inved.freezdge.favourites.ui
+package com.inved.freezdge.schedule.ui
 
 import android.os.Bundle
 import android.view.*

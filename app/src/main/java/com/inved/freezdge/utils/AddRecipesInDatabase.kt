@@ -258,43 +258,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                 )
             )
 
-
-            /*  recipeBox?.put(
-                  Recipes(
-                      recipeTitle = "Tartine guacamole et sa salade d'épinards",
-                      recipeCalories = "",
-                      totalrecipeTime = "",
-                      preparationTime = "",
-                      cuisineType = "",
-                      dishType = "",
-                      cookedTime = "",
-                      recipePhotoUrl = "gs://freezdge.appspot.com/recipes/salade_epinard_tartine_guacamole.jpeg",
-                      recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
-                      recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
-                      recipeIngredients = "",
-                      numberPersons = 0,
-                      selectedRecipe = false,
-                      numberSteps = 0,
-                      step1 = "",
-                      step2 = "",
-                      step3 = "",
-                      step4 = "",
-                      step5 = "",
-                      step6 = "",
-                      step7 = "",
-                      step8 = "",
-                      step9 = "",
-                      step10 = "",
-                      step11 = "",
-                      step12 = "",
-                      urlVideo = "",
-                      ustensilesList = "",
-                      isForDinner=true
-                  )
-              )*/
-
-            //TRESOR D'AFRIQUE RECIPES
-
             recipeBox?.put(
                 Recipes(
                     recipeTitle = "Poulet yassa",
@@ -1325,6 +1288,40 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     urlVideo = "",
                     ustensilesList = "",
                     isForDinner = false
+                )
+            )*/
+
+            /*  recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Tartine guacamole et sa salade d'épinards",
+                    recipeCalories = "",
+                    totalrecipeTime = "",
+                    preparationTime = "",
+                    cuisineType = "",
+                    dishType = "",
+                    cookedTime = "",
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/salade_epinard_tartine_guacamole.jpeg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                    recipeIngredients = "",
+                    numberPersons = 0,
+                    selectedRecipe = false,
+                    numberSteps = 0,
+                    step1 = "",
+                    step2 = "",
+                    step3 = "",
+                    step4 = "",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner=true
                 )
             )*/
 

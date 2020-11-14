@@ -1,4 +1,4 @@
-package com.inved.freezdge.favourites.adapter
+package com.inved.freezdge.schedule.adapter
 
 import android.content.res.ColorStateList
 import android.view.View

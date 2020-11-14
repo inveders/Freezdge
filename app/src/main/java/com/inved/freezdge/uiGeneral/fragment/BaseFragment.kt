@@ -18,15 +18,15 @@ import androidx.viewbinding.ViewBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
-import com.inved.freezdge.favourites.adapter.CalendarDayNameItem
-import com.inved.freezdge.favourites.adapter.NotYetPlanedItem
+import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
+import com.inved.freezdge.schedule.adapter.NotYetPlanedItem
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
-import com.inved.freezdge.favourites.model.DaySelectionModel
-import com.inved.freezdge.favourites.ui.CalendarFragment
+import com.inved.freezdge.schedule.model.DaySelectionModel
+import com.inved.freezdge.schedule.ui.CalendarFragment
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
-import com.inved.freezdge.favourites.ui.SelectDayDialog
-import com.inved.freezdge.favourites.viewmodel.DaySelectedViewModel
+import com.inved.freezdge.schedule.ui.SelectDayDialog
+import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
@@ -41,7 +41,6 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.uiGeneral.adapter.TitleItem
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.enumtype.ChipsDayType
@@ -385,29 +384,31 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                     items.add(NotYetPlanedItem().apply {
                     })
                 }else{
-                    favouriteRecipesViewmodel.getFavouriteRecipeById(res.lunch.toString())?.let {
-
-                        items.add(ListRecipeItem().apply {
-                            this.model = fillModelListFavouriteRecipes(it)
-                            this.isReducedWidth = true
-                            this.selectedDay = res
-                            this.selectedPosition = ChipsDayType.LUNCH.chipPosition
-                        })
+                    res.lunch?.let {
+                        recipeViewModel.getRecipeLiveDataById(it)?.let {
+                            items.add(ListRecipeItem().apply {
+                                this.model = fillModelListRecipes(it)
+                                this.isReducedWidth = true
+                                this.selectedDay = res
+                                this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                            })
+                        }
                     }
                 }
-
 
                 if(res.dinner==0L){
                     items.add(NotYetPlanedItem().apply {
                     })
                 }else{
-                    favouriteRecipesViewmodel.getFavouriteRecipeById(res.dinner.toString())?.let {
-                        items.add(ListRecipeItem().apply {
-                            this.model = fillModelListFavouriteRecipes(it)
-                            this.isReducedWidth = true
-                            this.selectedDay = res
-                            this.selectedPosition = ChipsDayType.DINNER.chipPosition
-                        })
+                    res.dinner?.let {
+                        recipeViewModel.getRecipeLiveDataById(it)?.let {
+                            items.add(ListRecipeItem().apply {
+                                this.model = fillModelListRecipes(it)
+                                this.isReducedWidth = true
+                                this.selectedDay = res
+                                this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                            })
+                        }
                     }
                 }
 
@@ -443,13 +444,13 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                             not_found.text =
                                 getString(R.string.no_recipes_found)
                             topTextview.visibility = View.GONE
-                            listenerSearch?.hideSearchButton()
+                          //  listenerSearch?.hideSearchButton()
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             not_found.visibility = View.GONE
                             floatingActionButton.show()
-                            listenerSearch?.showSearchButton()
+                          //  listenerSearch?.showSearchButton()
                             fillAdapterDatabase(result2)
                         }
                     })
@@ -457,7 +458,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 not_found.visibility = View.VISIBLE
                 not_found.text =
                     getString(R.string.no_item_found_recipes)
-                listenerSearch?.hideSearchButton()
+              //  listenerSearch?.hideSearchButton()
                 topTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()
@@ -613,8 +614,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                             )
                         }
                     }
-                    item.model?.id?.let { daySelectedViewModel.reinitLunchValues(it) }
-                    item.model?.id?.let { daySelectedViewModel.reinitDinnerValues(it) }
+                 //   item.model?.id?.let { daySelectedViewModel.reinitLunchValues(it) }
+                 //   item.model?.id?.let { daySelectedViewModel.reinitDinnerValues(it) }
                     item.model?.isFavouriteRecipe = false
                 }
 
@@ -629,6 +630,17 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 onClickMatching(item.model?.recipeIngredients)
             }
 
+        }
+
+        fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.selectDateButton }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
+            //react on the click event
+            if (item is ListRecipeItem) {
+                openSelectDateDialog(
+                    item.model?.selectedDay,
+                    pos,
+                    item.model?.id.toString()
+                )
+            }
         }
     }
 
@@ -683,7 +695,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 openSelectDateDialog(
                     item.model?.selectedDay,
                     pos,
-                    item.model?.favouriteId.toString()
+                    item.model?.id.toString()
                 )
             }
         }

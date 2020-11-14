@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
-import com.inved.freezdge.favourites.database.DaySelected
+import com.inved.freezdge.schedule.database.DaySelected
 import com.inved.freezdge.recipes.model.ShowedRecipes
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.enumtype.ChipsDayType
@@ -23,7 +23,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
     var model:ShowedRecipes?=null
     var isReducedWidth: Boolean = false
-    var selectedDay:DaySelected?=null
+    var selectedDay: DaySelected?=null
     var selectedPosition:Int?=0
 
 
@@ -75,11 +75,6 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
             //handle selected day visibility and select date button visibility
             if(item.model?.isFavouriteRecipe==true){
-                if(item.model?.isAllRecipeFragment==true){
-                    selectDateButton.visibility=View.INVISIBLE
-                }else{
-                    selectDateButton.visibility=View.VISIBLE
-                }
                 if(item.selectedDay!=null){
                     var isDinnerOrLunch:String?=""
                     if(item.selectedPosition == ChipsDayType.LUNCH.chipPosition){
@@ -90,14 +85,8 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
                     dateSelectedText.text = App.appContext.getString(R.string.recipe_list_item_day_scheduled,isDinnerOrLunch)
                 }
 
-               /* else{
-                    dateSelectedText.visibility=View.VISIBLE
-                    val listToInsert = domain.retrieveListFromString(item.model?.selectedDay)
-                    dateSelectedText.text=domain.retrieveStringFromListString(ArrayList(listToInsert))
-                }*/
             }else{
                 dateSelectedText.visibility=View.INVISIBLE
-                selectDateButton.visibility=View.INVISIBLE
             }
 
             label.text = item.model?.recipeTitle

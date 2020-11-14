@@ -1,4 +1,4 @@
-package com.inved.freezdge.favourites.model
+package com.inved.freezdge.schedule.model
 
 import android.os.Parcel
 import android.os.Parcelable
