@@ -44,7 +44,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -77,7 +78,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -111,7 +113,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -145,7 +148,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -179,43 +183,10 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
-
-            /* recipeBox?.put(
-                 Recipes(
-                     recipeTitle = "Poulet fumé aux courges (M'bika)",
-                     recipeCalories = "",
-                     totalrecipeTime = "",
-                     preparationTime = "",
-                     cuisineType = "",
-                     dishType = "Main course",
-                     cookedTime = "",
-                     recipePhotoUrl = "gs://freezdge.appspot.com/recipes/no_image.jpg",
-                     recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
-                     recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
-                     recipeIngredients = "1 poulet fumé coupé en morceaux,",
-                     numberPersons = 6,
-                     selectedRecipe = false,
-                     numberSteps = 0,
-                     step1 = "Retirer la peau du poulet, assaisoner selon votre convenance avec du sel et du poivre. Mettre dans un récipient, entourer de papier film; laisser reposer 1h",
-                     step2 = "Pendant",
-                     step3 = "",
-                     step4 = "",
-                     step5 = "",
-                     step6 = "",
-                     step7 = "",
-                     step8 = "",
-                     step9 = "",
-                     step10 = "",
-                     step11 = "",
-                     step12 = "",
-                     urlVideo = "",
- ustensilesList = ""
-                 )
-             )*/
-
 
             recipeBox?.put(
                 Recipes(
@@ -246,7 +217,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -281,7 +253,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Arrosez avec 3 cuillères à soupe de sauce soja. Mélangez délicatement et laissez cuire encore 3 minutes,",
                     step12 = "Servez aussitôt après la cuisson et parsemez avec les amandes grillées,",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -315,7 +288,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                       step11 = "",
                       step12 = "",
                       urlVideo = "",
-  ustensilesList = ""
+                      ustensilesList = "",
+                      isForDinner=true
                   )
               )*/
 
@@ -350,7 +324,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -384,7 +359,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -419,7 +395,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -454,7 +431,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -490,7 +468,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -523,7 +502,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
@@ -556,7 +536,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Insérer également du jus de citron, et un oeuf qu'on casse dans le bocal",
                     step12 = "Les bocaux peuvent être préparés la veille, on met juste de l'eau bouillante dedans qui recouvre le tout, lorsqu'on veut manger, mélanger et c'est prêt en 10 min",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -589,7 +570,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Astuce: On peut les fairee d'avance pour le déjeuner du lendemain",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -622,7 +604,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "Servez c'est prêt !",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = true
                 )
             )
 
@@ -655,9 +638,695 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Gratin de coquilettes au reblochon",
+                    recipeCalories = "",
+                    totalrecipeTime = 40,
+                    preparationTime = 15,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 25,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_gratin_reblochon_coquilette.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "4 tranches de jambon,1 petit reblochon,45 cl de lait entier,60 g de beurre,2 jaunes d'oeufs,450 g de coquillettes,40 g de farine,3 pincées de noix de muscade,Huile d'olive,Sel,Poivre du moulin",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 5,
+                    step1 = "Cuisez les coquillettes avec un filet d’huile d’olive. Égouttez et réservez.",
+                    step2 = "Dans une grande casserole, faites fondre 40 g de beurre, ajoutez la farine d’un seul coup et fouettez vivement pour homogénéiser. Versez alors le lait et la crème peu à peu sans cesser de battre. Salez, poivrez, parsemez de muscade et continuez à tourner sur feu doux jusqu’à ce que la sauce devienne onctueuse. Hors du feu, incorporez les jaunes d’oeufs.",
+                    step3 = "Préchauffez le four à th. 6 – 180 °C. Retirez le plus gros de la croûte du reblochon puis coupez-le en lamelles. Détaillez le jambon en lanières.",
+                    step4 = "Amalgamez les pâtes et la sauce, versez la moitié de cette préparation dans un plat à gratin préalablement graissé avec le reste de beurre, ajoutez la moitié du fromage et couvrez de la préparation restante mélangée au jambon",
+                    step5 = "Répartissezpar-dessus les dernières lamelles de reblochon et enfournez pour 15 minutes environ, jusqu’à ce que le plat soit bien gratiné.",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "", 
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Croque-Monsieur",
+                    recipeCalories = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 0,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/tous_en_cuisine_croque-monsieur.jpeg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/tousencuisine_logo.jpeg",
+                    recipeUrlOwnerLink = "https://www.cuisineaz.com/communaute/tous-en-cuisine-906949.aspx",
+                    recipeIngredients = "",
+                    numberPersons = 0,
+                    selectedRecipe = false,
+                    numberSteps = 0,
+                    step1 = "",
+                    step2 = "",
+                    step3 = "",
+                    step4 = "",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "", 
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Petit flan express au roquefort",
+                    recipeCalories = "",
+                    totalrecipeTime = 30,
+                    preparationTime = 10,
+                    cuisineType = "Européen",
+                    dishType = "Starter",
+                    cookedTime = 20,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_flan_express_roquefort.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "4 oeufs,225 g de roquefort,40 cl de lait,115 g de farine,1 bouquet de ciboulette,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 3,
+                    step1 = "Préchauffez le four à th. 7 – 210 °C. Ciselez la ciboulette.",
+                    step2 = "Versez la farine, le roquefort, les œufs entiers et le lait dans le bol d’un mixer. Mixez quelques secondes à puissance maximale. Ajoutez la ciboulette, salez légèrement et poivrez.",
+                    step3 = "Répartissez la préparation dans 6 ramequins et disposez-les dans un bain-marie. Enfournez pour 20 minutes.",
+                    step4 = "",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "", 
+                    isForDinner = false
+                )
+            )
+
+
+            //todo check the number of person
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Crêpe au jambon et au comté",
+                    recipeCalories = "",
+                    totalrecipeTime = 45,
+                    preparationTime = 15,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 30,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmad_Crêpes-au-jambon-et-au-comté.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "1 oeuf,15 cl de lait écrémé,125 g de farine 15 cl d'eau gazeuse,Sel,1 tranche épaisse de jambon cuit fumé (150g),200 g de comté,20 cl de crème fraiche liquide,10 cl de lait,10 g de beurre,1.5 c.a.s de farine,Muscade,Poivre",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 7,
+                    step1 = "Tamisez la farine avec le sel, ajoutez l’œuf, puis versez le lait et l’eau gazeuse en filet. Laissez reposer 2 heures.",
+                    step2 = "Confectionnez les crêpes. Réservez.",
+                    step3 = "Vous pouvez aussi prendre des crêpes surgelées pour gagner du temps et allez directement à l'étape 4",
+                    step4 = " Faites fondre le beurre dans une casserole, ajoutez le jambon coupé en gros dés, puis la farine. Mélangez bien. Versez la crème et le lait, faites épaissir en remuant.",
+                    step5 = "Incorporez le comté coupé en petits dés et laissez-le fondre. Salez, poivrez et saupoudrez d’une pincée de muscade.",
+                    step6 = " Préchauffez le four à th. 6 – 180 °C.",
+                    step7 = "Fourrez chaque crêpe avec 2 cuillerées à soupe de garniture. Enfournez pour 10 minutes. Servez bien chaud.",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Pizza tomate mozzarella",
+                    recipeCalories = "",
+                    totalrecipeTime = 55,
+                    preparationTime = 20,
+                    cuisineType = "Italien",
+                    dishType = "Main course",
+                    cookedTime = 35,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_pizza_tomate_mooza.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "3 rouleaux de pâte à pizza,3 mozzarellas,200 g de tomates séchées,2 gousses d'ail,1 boite de tomates pelées,3 c.à.s d'huile d'olive,2 c.à.s d'origan,1 pincée de piment en poudre,Sel",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 6,
+                    step1 = "Pelez et hachez finement les gousses d’ail. Mixez les tomates pelées et leur jus jusqu’à obtention d’un coulis épais. Versez le coulis de tomate et l’ail haché dans une casserole. Salez et faites cuire à feu doux en remuant régulièrement pendant 20 minutes. Retirez du feu et laissez refroidir.",
+                    step2 = "Préchauffez le four à th. 6/7 – 200 °C.",
+                    step3 = "Lavez les tomates séchées, séchez-les et coupez-les en deux. Gouttez les mozzarellas et coupez-les en tranches. Mélangez l’huile d’olive et le piment.",
+                    step4 = " Déroulez les rouleaux de pâte sur le plan de travail fariné. Étalez la sauce tomate sur chacune d’elles. Disposez les tranches de mozzarella et les demi-tomates. Arrosez d’huile pimentée et saupoudrez d’origan.",
+                    step5 = "Salez légèrement et faites glisser les pizzas sur une plaque de cuisson recouverte de papier sulfurisé. Enfournez pour 15 minutes. ",
+                    step6 = "Servez dés la sortie du four.",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Taboulet au poulet",
+                    recipeCalories = "",
+                    totalrecipeTime = 35,
+                    preparationTime = 15,
+                    cuisineType = "Européen",
+                    dishType = "Starter",
+                    cookedTime = 20,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_taboule-poulet.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "200 g de boulgour,2 blancs de poulet,3 tomates,2 oignons moyens,1 citron jaune,1 petit bouquet de menthe fraiche,1 petit bouquet de persil plat,2 c.à.s d'huile d'olive,Sel,Poivre du moulin.",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 6,
+                    step1 = "Rincez le boulgour à l’eau froide dans une passoire et faites-le cuire 10 à 12 minutes à l’eau bouillante salée.",
+                    step2 = "Égouttez-le, aérez-le à la fourchette et laissez-le refroidir dans la passoire.",
+                    step3 = "Émincez les blancs de poulet (classique, halal ou cacher) en très -fines lamelles dans le sens de la fibre, salez et poivrez. ",
+                    step4 = " Chauffez 1 cuillerée à soupe d’huile d’olive dans une sauteuse à revêtement antiadhésif et faites-y sauter le poulet 2 ou 3 minutes. Laissez refroidir.",
+                    step5 = " Lavez les tomates, épépinez-les et coupez-les en tout petits dés. Pelez et hachez les oignons, rincez et séchez les herbes, effeuillez-les et ciselez-les finement. Ajoutez-les à la graine de boulgour refroidie avec les lamelles de poulet. Mélangez.",
+                    step6 = " Pressez le citron. Dans un bol, émulsionnez-en le jus avec du sel, du poivre et le reste d’huile d’olive. Versez sur le taboulé et mélangez de nouveau, filmez le saladier et placez au frais jusqu’au moment de servir.",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Tagliatelles à la carbonara",
+                    recipeCalories = "",
+                    totalrecipeTime = 25,
+                    preparationTime = 10,
+                    cuisineType = "Italien",
+                    dishType = "Main course",
+                    cookedTime = 15,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_Tagliatelles-à-la-carbonara.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "500 g de tagliatelles,150 g de lardons,1 jaune d'oeuf,200 g de crème fraiche épaisse,100 g de parmesan râpé,1 c.à.s d'huile,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 4,
+                    step1 = "Plongez les pâtes dans de l’eau bouillante salée et faites-les cuire le temps indiqué sur le paquet.",
+                    step2 = "Pendant ce temps, faites chauffer l’huile dans une sauteuse et faites dorer les lardons.",
+                    step3 = "Quand ils sont bien colorés, ajoutez la crème fraîche et réduisez le feu au minimum. Salez modérément et mélangez. Laissez cuire doucement sans bouillir.",
+                    step4 = "Égouttez les pâtes. Versez-les dans la sauteuse, ajoutez le jaune d’œuf et mélangez vivement. Poivrez. Répartissez les pâtes dans des assiettes chaudes et servez aussitôt avec le parmesan râpé.",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Salade César au lapin",
+                    recipeCalories = "234",
+                    totalrecipeTime = 100,
+                    preparationTime = 30,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 70,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_salade-caesar_lapin.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "2 râbles de lapin,20 cl de vin blanc,5 c.à.s d'huile d'olive,2 feuilles de laurier,Sel,Poivre,1 salade (romaine),6 tomates cerises,1 c.à.s de jus de citron,50 g de copeaux de parmesan,100 g de petits croutons,1 c.à.s de vinaigre de vin",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 8,
+                    step1 = "Faites chauffer l’huile dans une cocotte et faites dorer les râbles de tous les cotés.",
+                    step2 = "Versez le vin blanc, salez, poivrez et ajoutez le laurier. Couvrez et poursuivez la cuisson 1 heure.",
+                    step3 = "Pendant ce temps, lavez, épluchez et essorez la salade. ",
+                    step4 = "Lavez et coupez les tomates cerise en quatre. Déposez la salade dans un grand saladier. Ajoutez les tomates cerise et les croûtons et mélangez.",
+                    step5 = "Sortez les râbles de la cocotte, laissez-les tiédir, puis détachez la chair et coupez-la en petits morceaux. Ajoutez les morceaux de lapin à la salade.",
+                    step6 = "Préparez une vinaigrette en fouettant l’huile, le vinaigre et le jus de citron. Salez et poivrez. ",
+                    step7 = "Versez la sauce dans le saladier et mélangez bien. Répartissez la salade dans les assiettes et parsemez de copeaux de parmesan.",
+                    step8 = "Servez aussitôt.",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Paëlla express",
+                    recipeCalories = "",
+                    totalrecipeTime = 40,
+                    preparationTime = 15,
+                    cuisineType = "Espagnol",
+                    dishType = "Main course",
+                    cookedTime = 25,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_paella_express.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "500 g de riz,500g de calamars en rondelles,2 blancs de poulet,18 crevettes roses décortiquées,1 poivron rouge,2 oignons,2 gousses d'ail,8 cl d'huile d'olive,2 c.à.s de concentré de tomate,1 c.à.c de paprika,1 dose de safran en poudre,Persil plat,Sel",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 6,
+                    step1 = "Coupez les blancs de poulet en cubes.",
+                    step2 = "Pelez et hachez finement les oignons et l’ail. Lavez, épépinez et coupez le poivron en tous petits dés.",
+                    step3 = "Faites chauffer l’huile dans une cocotte. Faites-y revenir le poivron, l’oignon, l’ail, les cubes de poulet et les rondelles de calamar pendant 5 minutes.",
+                    step4 = "Ajoutez le concentré de tomate, versez 2 litres d’eau et portez à ébullition. Laissez cuire 10 minutes.",
+                    step5 = " Ajoutez le riz, les crevettes, le safran et le paprika. Poursuivez la cuisson 10 à 12 minutes. Rectifiez l’assaisonnement.",
+                    step6 = "Servez aussitôt parsemé de feuilles de persil.",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Hachis parmentier diététique",
+                    recipeCalories = "",
+                    totalrecipeTime = 55,
+                    preparationTime = 20,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 35,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_hachis-parmentier-dietetique.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "500 g de viande de boeuf haché,500 g de courgettes,1 oignon,2 gousses d'ail,6 brins de thym,80 g de gruyère allégé râpé,2 c.à.s d'huile d'olive,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 6,
+                    step1 = "Lavez et séchez les courgettes. Coupez-les en morceaux et faites‑les cuire 15 minutes à la vapeur.",
+                    step2 = "Pelez et émincez l’oignon et l’ail. Versez 2 cuillerées à soupe d’huile dans une sauteuse et faites-y revenir l’oignon et l’ail sans coloration.",
+                    step3 = "Ajoutez la viande hachée et faites cuire 5 minutes en remuant. Salez et poivrez.",
+                    step4 = "Préchauffez le four à th. 7 – 210 °C.",
+                    step5 = "Écrasez les courgettes à la fourchette. Huilez un plat à gratin et répartissez-y la viande hachée, puis recouvrez de purée de courgette. Salez légèrement, poivrez et parsemez de gruyère râpé.",
+                    step6 = "Enfournez pour 20 minutes. Lorsque le hachis est bien gratiné, servez directement dans le plat.",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Wrap au thon",
+                    recipeCalories = "",
+                    totalrecipeTime = 5,
+                    preparationTime = 5,
+                    cuisineType = "Européen",
+                    dishType = "Starter",
+                    cookedTime = 0,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_wraps-au-thon.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "6 feuilles de laitue,2 boites de thon entier au naturel de 140 g,6 tortillas souples de blé,3 c.à.s de mayonnaise allégée,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 0,
+                    step1 = " Égouttez le thon et émiettez-le dans un saladier. Ajoutez la mayonnaise, du sel, du poivre et mélangez.",
+                    step2 = "Lavez et essorez les feuilles de laitue.",
+                    step3 = " Étalez les tortillas sur le plan de travail et garnissez-les d’une feuille de laitue, recouvrez de la préparation au thon. Roulez les tortillas pour les fermer comme une crêpe.",
+                    step4 = " Coupez-les en deux en biais. Servez aussitôt, ou réservez au frais emballé dans un film alimentaire.",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Sauté de veau et aubergines vapeur aux champignons",
+                    recipeCalories = "",
+                    totalrecipeTime = 100,
+                    preparationTime = 25,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 75,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_saute_veau_aubegines_vapeur.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "800 g d'épaule de veau,4 aubergines,250 g de champignons de paris,2 gousses d'ail,1 bouquet de ciboule,50 g de beurre,1 c.à.s d'huile d'olive,1 c.à.s de concentré de tomate,20 cl de vin blanc sec,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 5,
+                    step1 = "Détaillez le veau en cubes. Lavez et coupez les aubergines en morceaux. Placez-les dans un saladier d’eau salée et laissez-les ainsi pendant 30 minutes. Épongez-les. Cuisez-les à la vapeur  45 minutes.",
+                    step2 = "Pendant ce temps, faites fondre le beurre avec 1 cuillerée à soupe d’huile d’olive. Mettez-y la viande à revenir.",
+                    step3 = "Ajoutez l’ail pelé et haché ainsi que les champignons. Attendez que l’eau de végétation se soit évaporée puis versez le vin blanc. Salez et poivrez. Poursuivez la cuisson  30 minutes sur feu doux.",
+                    step4 = "Mettez les aubergines et cuisez 15 minutes. Ajoutez le concentré de tomate et prolongez la cuisson de 5 minutes sur feu vif. Parsemez de ciboule émincée.",
+                    step5 = "Mélangez et servez.",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Riz à la sauce tomate et au jambon",
+                    recipeCalories = "",
+                    totalrecipeTime = 25,
+                    preparationTime = 20,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 5,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_riz_sauce_tomate_jambon.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "350 g d'allumettes de jambon,1 branche de romarin,20 g de beurre,300 g de riz,380 g de sauce-tomate en boîte,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 4,
+                    step1 = "Faites cuire le riz le temps indiqué sur le paquet dans une grande quantité d’eau salée.",
+                    step2 = "Pendant ce temps, faites fondre le beurre dans une poêle antiadhésive et faites-y rissoler les allumettes de jambon. Égouttez-les et déposez-les sur du papier absorbant.",
+                    step3 = "Égouttez le riz et reversez-le dans la casserole avec la sauce-tomate. Mélangez. Ajoutez les lardons, salez et poivrez.",
+                    step4 = "Faites réchauffer 5 minutes. Répartissez la préparation dans six assiettes. Décorez d’un brin de romarin et servez aussitôt.",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Croque-Madame",
+                    recipeCalories = "",
+                    totalrecipeTime = 30,
+                    preparationTime = 15,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 15,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_Croque-madame.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "8 tranches de pain de mie,4 tranches de jambon blanc,4 oeufs,4 tranches de fromage type toastinette,50 g de beurre,2 c.à.s d'huile,Sel,Poivre blanc",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 0,
+                    step1 = "Beurrez légèrement les tranches de pain de mie. Coupez les tranches de jambon d’abord en deux, puis à la taille des tranches du pain de mie.",
+                    step2 = "Sur chaque tranche de pain de mie, posez 2 tranches de jambon l’une sur l’autre, 1 tranche de fromage et recouvrez par 1 tranche de pain de mie.",
+                    step3 = " Préchauffez le four à th. 8-240 °C.",
+                    step4 = "Posez les croque-monsieur sur la plaque du four recouverte de papier aluminium. Enfournez pour 10 minutes en les retournant à mi-cuisson.",
+                    step5 = " Cinq minutes avant la fin de la cuisson, chauffez l’huile dans une poêle. Cassez-y les œufs et faites-les cuire 5 minutes.",
+                    step6 = "Mettez les croque-monsieur dans les assiettes, posez 1 œuf au plat dessus, salez et donnez un tour de moulin à poivre. Servez aussitôt.",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Curry express de légumes",
+                    recipeCalories = "",
+                    totalrecipeTime = 40,
+                    preparationTime = 25,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 15,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_curry-chou-fleur.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "1 chou-fleur,8 carottes,1 citron,6 petits oignons blancs,100 g de petits pois écossés,3 c.à.s de feuilles de coriandre hachées,1 boite de lait de coco,1 c.à.s d'huile d'olive,1 c.à.c de curcuma,1 c.à.c de gingembre en poudre,Sel,Poivre blanc",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 8,
+                    step1 = "Détaillez le chou-fleur en bouquets, lavez-le.",
+                    step2 = "Pelez et lavez les carottes, coupez-les en gros cubes.",
+                    step3 = "Épluchez les oignons, coupez-les en quatre. Pressez le citron.",
+                    step4 = "Dans un wok, faites bouillir de l’eau salée et mettez le chou-fleur à cuire 4 minutes.",
+                    step5 = "Ajoutez les carottes et les petits pois, faites cuire 3 minutes de plus. Égouttez et réservez.",
+                    step6 = "Faites revenir les épices avec les oignons et l’huile dans le wok, faites-y sauter tous les légumes 4 minutes en remuant.",
+                    step7 = " Salez et poivrez, ajoutez le jus de citron et le lait de coco.",
+                    step8 = "Portez à ébullition et ajoutez la coriandre. Laissez cuire 2 minutes et servez.",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Riz à l'espagnole",
+                    recipeCalories = "",
+                    totalrecipeTime = 45,
+                    preparationTime = 15,
+                    cuisineType = "Espagnol",
+                    dishType = "Main course",
+                    cookedTime = 30,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/gourmand_riz-espagnol.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/gourmand_logo.JPG",
+                    recipeUrlOwnerLink = "https://gourmand.viepratique.fr/recettes-par-produit",
+                    recipeIngredients = "200 g de riz grain long,150 g de petits pois (frais ou surgelés),2 oignons,1 poivron vert,1 poivron rouge,3 piments en bocal,1 c.à.s d'olives vertes,50 cl de bouillon de volaille,1 c.à.c de safran en poudre,3 c.à.s d'huile d'olive,Sel,Poivre",
+                    numberPersons = 6,
+                    selectedRecipe = false,
+                    numberSteps = 5,
+                    step1 = "Épluchez et émincez les oignons.",
+                    step2 = "Lavez, essuyez et coupez les poivrons en deux, retirez les pépins et émincez-les finement.",
+                    step3 = "Faites cuire les petits pois pendant 5 minutes dans une casserole d’eau bouillante salée. Égouttez-les.",
+                    step4 = "Dans une grande poêle, faites revenir les oignons dans l’huile d’olive pendant 2 minutes, ajoutez les poivrons et laissez cuire 5 minutes. Ajoutez le riz. Lorsqu’il devient transparent, versez le bouillon de volaille, saupoudrez de safran et laissez cuire 15 minutes. Ajoutez les petits pois et remuez en prolongeant la cuisson de 5 minutes. Salez poivrez.",
+                    step5 = "Servez avec les piments égouttés et quelques olives.",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Dorade à la sauce oseille avec ses légumes et son riz",
+                    recipeCalories = "",
+                    totalrecipeTime = 70,
+                    preparationTime = 20,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 50,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/Freezdge_dorade_legumes_riz.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                    recipeIngredients = "500 g de filets de dorade,500 g d'oseille,Riz,6 champignons,500 g de chou-fleur surgelés,1 aubergine,1 poivron rouge,20 cl de crème fraiche semi-épaisse,10 cl de vin blanc,50 g de beurre,4 c.à.s d'huile d'olive,Sel,Poivre,Ail",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 12,
+                    step1 = "Faites cuire le riz (1 verre de riz pour 1 verre d'eau).",
+                    step2 = "Préparation des légumes et du poisson",
+                    step3 = "Dans une casserole d'eau bouillante, versez les chou-fleurs et laisser décongeler/cuire pendant 10 minutes. Pendant ce temps coupez les champignons en lamelles. Coupez-les aubergines avec la peau et les poivrons en dés. Salez les aubergines",
+                    step4 = "Dans poêle wok, versez 2 c.à.s l'huile, et ajoutez les aubergines, le poivron, et les champignons pendant 7 min. Pendant ce temps égouttez les chou-fleurs, puis couper-les en petits morceaux.",
+                    step5 = "Puis ajoutez les aux autres légumes, laissez cuire 5 min en tournant de temps en temps, assaisonez avec du sel, de l'ail et du poivre,du persil",
+                    step6 = "Pendant ce temps, faites chauffer 2 c.à.s d'huile dans une autre poêle. Insérer y la dorade assaisonée de sel et de poivre, côté peau, à feu vif pendant 5 min",
+                    step7 = "Puis tourner la dorade et laisser cuire à feu doux pendant 10 min",
+                    step8 = "Préparation de la sauce oseille",
+                    step9 = "Équeuter les feuilles d'oseille à la main. Laver, sécher puis ciseler finement l'oseille. Éplucher les échalotes et les émincer finement.",
+                    step10 = "Faire fondre le beurre dans une casserole de taille moyenne en veillant à ne pas le brûler. Ajouter les échalotes et les faire cuire durant 2 à 3 minutes. Quand elles prennent la couleur, déglacer avec le vin. Ajouter l'oseille et remuer à feu doux jusqu'à ce que l'oseille soit également fondue. Couvrir et laisser cuire 5 minutes à feu doux.",
+                    step11 = "Ajouter ensuite toute la crème et laisser réduire jusqu'à l'obtention d'une consistance un peu épaisse pendant encore 2 à 3 minutes, saler et poivrer. Mélanger régulièrement avec une cuillère en bois afin que la crème ne brûle pas dans le fond de la casserole.",
+                    step12 = "Suggestion de présentation : servir le riz, en boule sur un quart de l'assiette, les légumes sur un autre quart, et placer le poisson sur la moitié de l'assiette avec la sauce oseille versée dessus.",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Lasagnes bolognaise façon Freezdge",
+                    recipeCalories = "",
+                    totalrecipeTime = 60,
+                    preparationTime = 10,
+                    cuisineType = "Italien",
+                    dishType = "Main course",
+                    cookedTime = 50,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/freezdge_lasagnes-bolognaise.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                    recipeIngredients = "500 g de viande hachée surgelée,2 oignons,1 gousse d'ail,Huile d'olive,1 carotte,Sauce bolognaise toute prête,Sauce Béchamel,Pâtes lasagnes,Emmental râpé,Persil",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 11,
+                    step1 = "Hâcher les oignons et l'ail, puis les faire revenir dans un peu d'huile dans une poêle. Une fois que l'oignon est un peu caramélisée, rajouter la carotte coupée en tout petits cubes, laisser cuire 5 min",
+                    step2 = "Ajouter la viande hachée, avec le persil, l'ail et le poivre, laisser cuire jusqu'à ce que la viande hachée soit bien cuite",
+                    step3 = "Ajouter la sauce bolognaise et un peu d'eau, puis laisser cuire pendant 15 min, saler et poivrer",
+                    step4 = "Préchauffer le four à 180°C",
+                    step5 = "Prendre un plat de four (ou équivalent), y mettre de l'eau tiède et un peu d'huile. Utiliser cela pour ramolir les pâtes de lasagnes avant de les disposer dans le plat qui ira au four",
+                    step6 = "Prendre un plat de four pour les lasagnes, et y étaler avecun pinceau de la sauce béchamel, puis une couche de pâtes, puis de la bolognaise, puis l'emmental",
+                    step7 = "Recommencer encore deux fois (sauce béchamel, pâtes, bolognaise, emmental)",
+                    step8 = "Pour terminer mettre des pâtes sur le dessus, puis de la sauce béchamel et de l'emmental avec un peu de parmesan pour fermer",
+                    step9 = "Introduire le plat au four pendant 25 min",
+                    step10 = "Laisser refroidir un peu et servez. Accompagnez vos lasagnes avec une petite salade",
+                    step11 = "Bon appétit",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Spaghettis bolognaise façon Freezdge",
+                    recipeCalories = "",
+                    totalrecipeTime = 25,
+                    preparationTime = 5,
+                    cuisineType = "Italien",
+                    dishType = "Main course",
+                    cookedTime = 20,
+                    recipePhotoUrl = "gs://freezdge.appspot.com/recipes/freezdge_spaghettis-bolognaise.jpg",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                    recipeIngredients = "500 g de viande hachée surgelée,2 oignons,1 gousse d'ail,Huile d'olive,1 carotte,Sauce bolognaise toute prête,500 g de Spaghettis,Emmental râpé,Persil",
+                    numberPersons = 4,
+                    selectedRecipe = false,
+                    numberSteps = 8,
+                    step1 = "Hâcher les oignons et l'ail, puis les faire revenir dans un peu d'huile dans une poêle. Une fois que l'oignon est un peu caramélisée, rajouter la carotte coupée en tout petits cubes, laisser cuire 5 min",
+                    step2 = "Ajouter la viande hachée, avec le persil, l'ail et le poivre, laisser cuire jusqu'à ce que la viande hachée soit bien cuite",
+                    step3 = "Ajouter la sauce bolognaise et un peu d'eau, puis laisser cuire pendqnt 15 min, saler et poivrer",
+                    step4 = "Pendant ce temps faire cuire les spaghettis dans une casserole d'eau bouillante salée pendant le temps indiqué sur le paquet",
+                    step5 = "Une fois les spaghettis cuits, égoutter dans une passoire et remettre dans la casserole",
+                    step6 = "Y ajouter la bolognaise et mélanger avec les spaghettis",
+                    step7 = "Ajouter l'emmental à votre convenance. Servez et ajoutez du persil frais par dessus",
+                    step8 = "Bon appétit",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )
+
+            //todo lentilles photo à ajouter
+           /* recipeBox?.put(
+                Recipes(
+                    recipeTitle = "Lentilles saucisse de strasbourg et lard",
+                    recipeCalories = "",
+                    totalrecipeTime = 0,
+                    preparationTime = 0,
+                    cuisineType = "Européen",
+                    dishType = "Main course",
+                    cookedTime = 0,
+                    recipePhotoUrl = "",
+                    recipePhotoUrlOwner = "gs://freezdge.appspot.com/Owners_traiteurs/ic_freezdge_launcher-playstore.png",
+                    recipeUrlOwnerLink = "https://github.com/inveders/Freezdge",
+                    recipeIngredients = "",
+                    numberPersons = 0,
+                    selectedRecipe = false,
+                    numberSteps = 0,
+                    step1 = "",
+                    step2 = "",
+                    step3 = "",
+                    step4 = "",
+                    step5 = "",
+                    step6 = "",
+                    step7 = "",
+                    step8 = "",
+                    step9 = "",
+                    step10 = "",
+                    step11 = "",
+                    step12 = "",
+                    urlVideo = "",
+                    ustensilesList = "",
+                    isForDinner = false
+                )
+            )*/
 
             recipeBox?.put(
                 Recipes(
@@ -688,106 +1357,8 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step11 = "",
                     step12 = "",
                     urlVideo = "",
-                    ustensilesList = ""
-                )
-            )
-
-            recipeBox?.put(
-                Recipes(
-                    recipeTitle = "",
-                    recipeCalories = "",
-                    totalrecipeTime = 0,
-                    preparationTime = 0,
-                    cuisineType = "",
-                    dishType = "",
-                    cookedTime = 0,
-                    recipePhotoUrl = "",
-                    recipePhotoUrlOwner = "",
-                    recipeUrlOwnerLink = "",
-                    recipeIngredients = "",
-                    numberPersons = 0,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "",
-                    step2 = "",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = "",
-                    ustensilesList = ""
-                )
-            )
-
-            recipeBox?.put(
-                Recipes(
-                    recipeTitle = "",
-                    recipeCalories = "",
-                    totalrecipeTime = 0,
-                    preparationTime = 0,
-                    cuisineType = "",
-                    dishType = "",
-                    cookedTime = 0,
-                    recipePhotoUrl = "",
-                    recipePhotoUrlOwner = "",
-                    recipeUrlOwnerLink = "",
-                    recipeIngredients = "",
-                    numberPersons = 0,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "",
-                    step2 = "",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = "",
-                    ustensilesList = ""
-                )
-            )
-
-            recipeBox?.put(
-                Recipes(
-                    recipeTitle = "",
-                    recipeCalories = "",
-                    totalrecipeTime = 0,
-                    preparationTime = 0,
-                    cuisineType = "",
-                    dishType = "",
-                    cookedTime = 0,
-                    recipePhotoUrl = "",
-                    recipePhotoUrlOwner = "",
-                    recipeUrlOwnerLink = "",
-                    recipeIngredients = "",
-                    numberPersons = 0,
-                    selectedRecipe = false,
-                    numberSteps = 0,
-                    step1 = "",
-                    step2 = "",
-                    step3 = "",
-                    step4 = "",
-                    step5 = "",
-                    step6 = "",
-                    step7 = "",
-                    step8 = "",
-                    step9 = "",
-                    step10 = "",
-                    step11 = "",
-                    step12 = "",
-                    urlVideo = "",
-                    ustensilesList = ""
+                    ustensilesList = "", 
+                    isForDinner = false
                 )
             )
 
