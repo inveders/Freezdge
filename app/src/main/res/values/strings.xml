@@ -60,7 +60,7 @@
     <string name="recipe_detail_item_detail_cook_time">Cook : %s</string>
     <string name="recipe_detail_item_total_time">Total time : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
-    <string name="recipe_detail_item_number_person">%d\npers.</string>
+    <string name="recipe_detail_item_number_person">%d pers.</string>
     <string name="recipe_detail_item_recipe_view">Recipe</string>
     <string name="toastNoIngredientResultSearch">No ingredient found</string>
     <string name="search_ingredient_searchview_label">Search ingredient here…</string>

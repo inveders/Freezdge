@@ -45,7 +45,7 @@
     <string name="recipe_detail_item_detail_cook_time">Cuisson : %s</string>
     <string name="recipe_detail_item_total_time">Temps total : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
-    <string name="recipe_detail_item_number_person">%d\npers.</string>
+    <string name="recipe_detail_item_number_person">%d pers.</string>
     <string name="recipe_detail_item_recipe_view">Recette</string>
     <string name="toastNoIngredientResultSearch">Aucun ingrédient trouvé</string>
     <string name="search_ingredient_searchview_label">Recherchez un ingrédient ici…</string>
