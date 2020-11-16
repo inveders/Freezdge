@@ -19,12 +19,12 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import kotlin.math.roundToInt
 
-class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
+class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
 
-    var model:ShowedRecipes?=null
+    var model: ShowedRecipes? = null
     var isReducedWidth: Boolean = false
-    var selectedDay: DaySelected?=null
-    var selectedPosition:Int?=0
+    var selectedDay: DaySelected? = null
+    var selectedPosition: Int? = 0
 
 
     // defines the type defining this item. must be unique. preferably an id
@@ -33,7 +33,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
     // defines the layout which will be used for this item in the list
     override val layoutRes: Int
-        get() = if(isReducedWidth) R.layout.item_recipe_list_database_reduced_width else R.layout.item_recipes_list_database
+        get() = if (isReducedWidth) R.layout.item_recipe_list_database_reduced_width else R.layout.item_recipes_list_database
 
     override fun getViewHolder(v: View): ViewHolder {
         return ViewHolder(v)
@@ -49,7 +49,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
             windowManager.defaultDisplay.getMetrics(metrics)
         }
 
-        var domain= Domain()
+        var domain = Domain()
         var label: TextView = view.findViewById(R.id.title)
         var preparationTime: TextView =
             view.findViewById(R.id.fragment_recipes_list_item_preparation_time_text)
@@ -69,44 +69,49 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
 
         override fun bindView(item: ListRecipeItem, payloads: MutableList<Any>) {
 
-            if(item.isReducedWidth){
+            if (item.isReducedWidth) {
                 getDisplayMetrics().also {
-                    view.layoutParams.width =(metrics.widthPixels * 0.4).roundToInt()
+                    view.layoutParams.width = (metrics.widthPixels * 0.4).roundToInt()
                 }
             }
 
             //handle selected day visibility and select date button visibility
-            if(item.model?.isFavouriteRecipe==true){
-                if(item.selectedDay!=null){
-                    var isDinnerOrLunch:String?=""
-                    if(item.selectedPosition == ChipsDayType.LUNCH.chipPosition){
+            if(item.isReducedWidth){
+                if (item.selectedDay != null) {
+                    var isDinnerOrLunch: String? = ""
+                    if (item.selectedPosition == ChipsDayType.LUNCH.chipPosition) {
                         isDinnerOrLunch = App.appContext.getString(R.string.lunch).decapitalize()
-                    }else if (item.selectedPosition == ChipsDayType.DINNER.chipPosition){
+                    } else if (item.selectedPosition == ChipsDayType.DINNER.chipPosition) {
                         isDinnerOrLunch = App.appContext.getString(R.string.dinner).decapitalize()
                     }
-                    dateSelectedText.text = App.appContext.getString(R.string.recipe_list_item_day_scheduled,isDinnerOrLunch)
+                    dateSelectedText.text = App.appContext.getString(
+                        R.string.recipe_list_item_day_scheduled,
+                        isDinnerOrLunch
+                    )
+                    dateSelectedText.visibility = View.VISIBLE
+                } else {
+                    dateSelectedText.visibility = View.INVISIBLE
                 }
-
-            }else{
-                dateSelectedText.visibility=View.INVISIBLE
             }
 
             label.text = item.model?.recipeTitle
 
-            if(item.model?.totalrecipeTime.isNullOrEmpty()){
-                preparationTime.text = App.resource().getString(R.string.recipe_list_item_no_time_known)
-            }else{
+            if (item.model?.totalrecipeTime.isNullOrEmpty()) {
+                preparationTime.text =
+                    App.resource().getString(R.string.recipe_list_item_no_time_known)
+            } else {
                 preparationTime.text = item.model?.totalrecipeTime
             }
 
-            cuisineType.text= item.model?.cuisineType?.capitalize()
-            dishType.text= domain.handleDishType(item.model?.dishType)
+            cuisineType.text = item.model?.cuisineType?.capitalize()
+            dishType.text = domain.handleDishType(item.model?.dishType)
 
             // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
-            val proportionInPercent:Int= domain.ingredientsFavouriteMatchingMethod(item.model?.recipeIngredients)
+            val proportionInPercent: Int =
+                domain.ingredientsFavouriteMatchingMethod(item.model?.recipeIngredients)
 
-            proportionText.text=
-                App.resource().getString(R.string.recipe_matching_percent,proportionInPercent)
+            proportionText.text =
+                App.resource().getString(R.string.recipe_matching_percent, proportionInPercent)
 
             // We attribute different color according to the matching value
             when (item.model?.matchingValue) {
@@ -124,15 +129,16 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
             val storage = FirebaseStorage.getInstance()
             val gsReference = item.model?.recipePhotoUrl?.let { storage.getReferenceFromUrl(it) }
             // we show photo from our firebase storage
-            GlideUtils.loadPhotoWithGlide(gsReference,null,imageItem)
+            GlideUtils.loadPhotoWithGlide(gsReference, null, imageItem)
 
-            val gsReferenceOwner = item.model?.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
-            GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner,imageOwner)
+            val gsReferenceOwner =
+                item.model?.recipePhotoUrlOwner?.let { storage.getReferenceFromUrl(it) }
+            GlideUtils.loadPhotoWithGlideCircleCrop(gsReferenceOwner, imageOwner)
 
             // We detect if the recipe is in our favourite and update UI according to
-            if(item.model?.isFavouriteRecipe==true){
+            if (item.model?.isFavouriteRecipe == true) {
                 imageFavourite.setImageResource(R.drawable.ic_favorite_selected_24dp)
-            }else{
+            } else {
                 imageFavourite.setImageResource(R.drawable.ic_favorite_not_selected_24dp)
             }
         }
