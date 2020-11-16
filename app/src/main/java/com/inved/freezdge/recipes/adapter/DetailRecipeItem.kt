@@ -31,19 +31,22 @@ open class DetailRecipeItem: AbstractItem<DetailRecipeItem.ViewHolder>() {
 
         var recipeOwnerImage : ImageView= view.findViewById(R.id.activity_recipe_detail_photo_owner)
         private var recipeNumberPerson: TextView = view.findViewById(R.id.activity_recipe_detail_number_person_image_text)
-        private var recipeKcal: TextView = view.findViewById(R.id.activity_recipe_detail_kcal_image_text)
         private var recipeDetailPhoto : ImageView= view.findViewById(R.id.activity_recipe_detail_photo)
         var recipeTotalTime : TextView= view.findViewById(R.id.activity_recipe_total_time)
-        private var recipePrepCookTime: TextView = view.findViewById(R.id.activity_recipe_detail_time_image_text)
+        private var recipePrepTime: TextView = view.findViewById(R.id.activity_recipe_detail_time_image_text)
+        private var recipeCookTime: TextView = view.findViewById(R.id.activity_recipe_detail_cook_time_image_text)
         var recipeTitle : TextView= view.findViewById(R.id.activity_recipe_detail_name)
         var domain = Domain()
 
         override fun bindView(item: DetailRecipeItem, payloads: MutableList<Any>) {
 
             recipeTitle.text = item.recipe?.recipeTitle
-            recipePrepCookTime.text = App.applicationContext().getString(
-                R.string.recipe_detail_item_detail_time,
-                domain.preparationTime(item.recipe?.preparationTime),
+            recipePrepTime.text = App.applicationContext().getString(
+                R.string.recipe_detail_item_detail_prep_time,
+                domain.preparationTime(item.recipe?.preparationTime)
+            )
+            recipeCookTime.text = App.applicationContext().getString(
+                R.string.recipe_detail_item_detail_cook_time,
                 domain.preparationTime(item.recipe?.cookedTime)
             )
             recipeTotalTime.text =
@@ -53,7 +56,6 @@ open class DetailRecipeItem: AbstractItem<DetailRecipeItem.ViewHolder>() {
             } else {
                 item.recipe?.recipeCalories
             }
-            recipeKcal.text = App.applicationContext().getString(R.string.recipe_detail_item_kcal, kcal)
             recipeNumberPerson.text =
                 App.applicationContext().getString(R.string.recipe_detail_item_number_person, item.recipe?.numberPersons)
 

@@ -41,7 +41,8 @@
     <string name="recipe_matching_definition">La correspondance en % nous donne la proportion d\'ingrédients dans mon Freezdge par rapport au nombre d\'ingrédients de la recette</string>
     <string name="recipe_grocery_list_dialog_title">Les ingrédients qui vous manquent pour cette recette</string>
     <string name="recipe_grocery_list_dialog_all_matching">Vous avez tous les ingrédients pour faire cette recette !</string>
-    <string name="recipe_detail_item_detail_time">Prép. : %s\nCuisson : %s</string>
+    <string name="recipe_detail_item_detail_prep_time">Prép : %s</string>
+    <string name="recipe_detail_item_detail_cook_time">Cuisson : %s</string>
     <string name="recipe_detail_item_total_time">Temps total : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
     <string name="recipe_detail_item_number_person">%d\npers.</string>

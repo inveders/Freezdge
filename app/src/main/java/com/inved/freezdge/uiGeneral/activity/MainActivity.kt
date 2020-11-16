@@ -17,6 +17,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
@@ -41,7 +44,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoListener {
+class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoListener {
 
     companion object {
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
@@ -55,8 +58,9 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     private lateinit var toolbar: Toolbar
     private var loader: FrameLayout? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     //NavigationDrawer
-    private val drawerLayout by lazy { findViewById<DrawerLayout>(id.activity_main_drawer_layout)}
+    private val drawerLayout by lazy { findViewById<DrawerLayout>(id.activity_main_drawer_layout) }
     private lateinit var navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +71,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
         initNavigationView()
         initProfil()
         initToolbar(navController)
-        loader=findViewById(R.id.loader)
+        loader = findViewById(R.id.loader)
         setUpNavigationBottom(navController, id)
         val drawerListener = CustomDrawer()
         drawerLayout?.addDrawerListener(drawerListener)
@@ -85,7 +89,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     }
 
     //link in the navigation drawer
-    private fun initNavigationView(){
+    private fun initNavigationView() {
         navigationView = findViewById(id.activity_main_nav_view)
         appVersion.text = getString(R.string.app_version, BuildConfig.VERSION_NAME)
         navigationView.menu.findItem(id.menu_grocery_list).setOnMenuItemClickListener {
@@ -123,10 +127,12 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
         UserHelper.getUser(FirebaseAuth.getInstance().currentUser?.uid)?.get()
             ?.addOnCompleteListener { task ->
                 if (task.result != null) {
-                    if (task.result?.documents?.isNotEmpty()==true) {
+                    if (task.result?.documents?.isNotEmpty() == true) {
                         if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
-                            val imageHeader: ImageView = navigationView.getHeaderView(0).findViewById(id.nav_header_profile_image)
-                            val firstnameHeader:TextView = navigationView.getHeaderView(0).findViewById(id.nav_header_FirstName)
+                            val imageHeader: ImageView = navigationView.getHeaderView(0)
+                                .findViewById(id.nav_header_profile_image)
+                            val firstnameHeader: TextView = navigationView.getHeaderView(0)
+                                .findViewById(id.nav_header_FirstName)
                             val user: User? =
                                 task.result!!.documents[0].toObject(User::class.java)
                             firstnameHeader.text = user?.firstname
@@ -180,7 +186,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     }
 
     override fun onBackPressed() {
-        if (drawerLayout?.isDrawerOpen(GravityCompat.START)==true) {
+        if (drawerLayout?.isDrawerOpen(GravityCompat.START) == true) {
             drawerLayout?.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
@@ -192,13 +198,13 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
         navController.currentDestination
         if (id == 1) {
             bottomNavigationView.menu.findItem(R.id.action_to_all_recipes_fragment).isChecked = true
-            if(R.id.action_to_my_recipes_fragment!=0){
+            if (R.id.action_to_my_recipes_fragment != 0) {
                 navController.navigate(R.id.action_to_all_recipes_fragment)
             }
         }
         if (id == 2) {
             bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
-            if(R.id.action_to_my_recipes_fragment!=0){
+            if (R.id.action_to_my_recipes_fragment != 0) {
                 navController.navigate(R.id.action_to_my_recipes_fragment)
             }
         }
@@ -216,7 +222,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-         if(item.itemId== id.menu_logout){
+        if (item.itemId == id.menu_logout) {
             signOut()
         }
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
@@ -225,40 +231,50 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
     // launch alert dialog before the user sign out
     private fun signOut() {
 
-            val builder = MaterialAlertDialogBuilder(this)
-            builder.setTitle(
-                App.resource().getString(R.string.button_logout)
-            )
-            builder.setMessage(
-                App.resource().getString(R.string.button_logout_message_dialog)
-            )
+        val builder = MaterialAlertDialogBuilder(this)
+        builder.setTitle(
+            App.resource().getString(R.string.button_logout)
+        )
+        builder.setMessage(
+            App.resource().getString(R.string.button_logout_message_dialog)
+        )
 
-            builder.setPositiveButton(App.resource().getString(R.string.Yes)) { _, _ ->
-                startActivity(LoginActivity.getLaunchIntent(this))
-                FirebaseAuth.getInstance().signOut()
-            }
+        builder.setPositiveButton(App.resource().getString(R.string.Yes)) { _, _ ->
+            val mGoogleSignInOptions: GoogleSignInOptions =
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+            val mGoogleSignInClient: GoogleSignInClient? =
+                GoogleSignIn.getClient(this, mGoogleSignInOptions)
+            mGoogleSignInClient?.signOut()
+            mGoogleSignInClient?.revokeAccess()
+            startActivity(LoginActivity.getLaunchIntent(this))
+            FirebaseAuth.getInstance().signOut()
+        }
 
-            builder.setNegativeButton(android.R.string.no) { dialog, _ ->
-                dialog.dismiss()
-            }
+        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+            dialog.dismiss()
+        }
 
-            builder.show()
+        builder.show()
 
     }
 
+
     override fun showLoader() {
         loader?.visibility = View.VISIBLE
-        bottomNavigationView.isClickable=false
-        bottomNavigationView.isEnabled=false
+        bottomNavigationView.isClickable = false
+        bottomNavigationView.isEnabled = false
     }
 
     override fun hideLoader() {
         loader?.visibility = View.GONE
-        bottomNavigationView.isClickable=true
-        bottomNavigationView.isEnabled=true
+        bottomNavigationView.isClickable = true
+        bottomNavigationView.isEnabled = true
     }
 
-    inner class CustomDrawer : DrawerLayout.DrawerListener{
+    inner class CustomDrawer : DrawerLayout.DrawerListener {
 
         override fun onDrawerStateChanged(newState: Int) {
         }
@@ -272,7 +288,7 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
         }
 
         override fun onDrawerOpened(drawerView: View) {
-           // refresh profil on drawer open in case of update
+            // refresh profil on drawer open in case of update
             initProfil()
         }
     }
@@ -283,10 +299,10 @@ class MainActivity : BaseActivity(), LoaderListener,ProfileDialog.ChangePhotoLis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: HandleBottomNavVisibilityEvent) {
-        if(event.isBottomNavVisible){
-            bottomNavigationView.visibility=View.VISIBLE
-        }else{
-            bottomNavigationView.visibility=View.GONE
+        if (event.isBottomNavVisible) {
+            bottomNavigationView.visibility = View.VISIBLE
+        } else {
+            bottomNavigationView.visibility = View.GONE
         }
     }
 

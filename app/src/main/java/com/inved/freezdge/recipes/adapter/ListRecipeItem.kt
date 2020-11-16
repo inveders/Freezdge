@@ -64,6 +64,8 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>(){
             view.findViewById(R.id.owner_image)
         var proportionText: TextView =
             view.findViewById(R.id.fragment_recipes_list_item_matching)
+        private var checkScheduleImage: ImageView =
+            view.findViewById(R.id.check_schedule_image)
 
         override fun bindView(item: ListRecipeItem, payloads: MutableList<Any>) {
 

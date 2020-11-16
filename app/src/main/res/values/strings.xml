@@ -56,7 +56,8 @@
 
     <!--Recipe Detail-->
     <string name="recipe_detail_item_label">Recipe title</string>
-    <string name="recipe_detail_item_detail_time">Prep : %s\nCook : %s</string>
+    <string name="recipe_detail_item_detail_prep_time">Prep : %s</string>
+    <string name="recipe_detail_item_detail_cook_time">Cook : %s</string>
     <string name="recipe_detail_item_total_time">Total time : %s</string>
     <string name="recipe_detail_item_kcal">%s\nkcal</string>
     <string name="recipe_detail_item_number_person">%d\npers.</string>
