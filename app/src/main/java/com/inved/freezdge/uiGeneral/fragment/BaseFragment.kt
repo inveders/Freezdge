@@ -526,7 +526,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.id.toString().let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = true
-            model.selectedDay = null
+            model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.id)
             return model
         }
 
@@ -551,7 +551,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.recipeId?.let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = false
-            model.selectedDay = recipes.daySelected
+            model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.recipeId?.toLong()!!)
             return model
         }
 
@@ -636,7 +636,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             //react on the click event
             if (item is ListRecipeItem) {
                 openSelectDateDialog(
-                    item.model?.selectedDay,
                     pos,
                     item.model?.id.toString()
                 )
@@ -693,7 +692,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             //react on the click event
             if (item is ListRecipeItem) {
                 openSelectDateDialog(
-                    item.model?.selectedDay,
                     pos,
                     item.model?.id.toString()
                 )
@@ -704,7 +702,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
 
-    private fun openSelectDateDialog(selectedDay: String?, itemPosition: Int?, recipeId: String?) {
+    private fun openSelectDateDialog(itemPosition: Int?, recipeId: String?) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(SelectDayDialog.TAG)
         if (previous != null) {
@@ -712,7 +710,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         transaction?.addToBackStack(null)
         SelectDayDialog.setSelectDateListener(this)
-        val dialogFragment = SelectDayDialog.newInstance(selectedDay, itemPosition, recipeId)
+        val dialogFragment = SelectDayDialog.newInstance(itemPosition, recipeId)
         if (transaction != null) {
             dialogFragment.show(transaction, SelectDayDialog.TAG)
         }

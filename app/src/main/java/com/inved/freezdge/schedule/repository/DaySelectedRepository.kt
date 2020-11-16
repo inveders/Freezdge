@@ -42,6 +42,18 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
 
     }
 
+    // get recipe if selected in calendar
+    fun isRecipeSelected(recipeId: Long):Boolean {
+        for (i in 1..7){
+            val daySelected: DaySelected? =
+                getDaySelectedBox?.get(i.toLong())
+            if(daySelected?.lunch==recipeId || daySelected?.dinner==recipeId){
+                return true
+            }
+        }
+        return false
+    }
+
     // update daySelected lunch
     fun reinitLunchValue(lunchValue: Long) {
 

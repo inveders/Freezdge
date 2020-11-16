@@ -27,6 +27,10 @@ class DaySelectedViewModel(private val daySelectedRepository: DaySelectedReposit
         return daySelectedRepository.updateSelectedDayValues(id,lunchValue,dinnerValue)
     }
 
+    fun isRecipeSelectedInCalendar(recipeId: Long):Boolean {
+        return daySelectedRepository.isRecipeSelected(recipeId)
+    }
+
     fun reinitLunchValues(lunchValue: Long) {
        daySelectedRepository.reinitLunchValue(lunchValue)
     }

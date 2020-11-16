@@ -69,6 +69,12 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
 
         override fun bindView(item: ListRecipeItem, payloads: MutableList<Any>) {
 
+            if(item.model?.selectedDay==true){
+                checkScheduleImage.visibility = View.VISIBLE
+            }else{
+                checkScheduleImage.visibility = View.INVISIBLE
+            }
+
             if (item.isReducedWidth) {
                 getDisplayMetrics().also {
                     view.layoutParams.width = (metrics.widthPixels * 0.4).roundToInt()
@@ -80,9 +86,9 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
                 if (item.selectedDay != null) {
                     var isDinnerOrLunch: String? = ""
                     if (item.selectedPosition == ChipsDayType.LUNCH.chipPosition) {
-                        isDinnerOrLunch = App.appContext.getString(R.string.lunch).decapitalize()
+                        isDinnerOrLunch = App.appContext.getString(R.string.lunch).capitalize()
                     } else if (item.selectedPosition == ChipsDayType.DINNER.chipPosition) {
-                        isDinnerOrLunch = App.appContext.getString(R.string.dinner).decapitalize()
+                        isDinnerOrLunch = App.appContext.getString(R.string.dinner).capitalize()
                     }
                     dateSelectedText.text = App.appContext.getString(
                         R.string.recipe_list_item_day_scheduled,

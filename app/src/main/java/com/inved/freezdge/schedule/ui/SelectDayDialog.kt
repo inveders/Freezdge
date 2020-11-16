@@ -39,8 +39,6 @@ class SelectDayDialog : DialogFragment() {
 
     companion object {
         const val TAG = "DAY"
-
-        private const val KEY_DAY = "dayParam"
         private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
         private const val KEY_DAY_RECIPE_ID = "recipeId"
         var selectedDayList: MutableList<DaySelectionModel?>? = mutableListOf()
@@ -54,10 +52,9 @@ class SelectDayDialog : DialogFragment() {
 
         //To pass args to our dialog
         @JvmStatic
-        fun newInstance(param1: String?, param2: Int?, param3: String?) =
+        fun newInstance(param2: Int?, param3: String?) =
             SelectDayDialog().apply {
                 arguments = Bundle().apply {
-                    putString(KEY_DAY, param1)
                     if (param2 != null) {
                         putInt(KEY_DAY_POS_RECYCLERVIEW, param2)
                     }
@@ -300,7 +297,7 @@ class SelectDayDialog : DialogFragment() {
     }
 
     private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner:Int){
-        Log.d("debago","selectedday list size is ${selectedDayList?.size}")
+
         selectedDayList?.forEach {
             if (it == clickedDay) {
                 it.apply {

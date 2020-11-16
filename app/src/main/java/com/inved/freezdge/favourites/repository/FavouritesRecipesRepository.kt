@@ -23,7 +23,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         cuisineType: String?,
         dishType: String?,
         recipePhotoUrlOwner: String?,
-        daySelected: String?
+        daySelected: Boolean?
     ) {
 
         if (!recipeId.isNullOrEmpty()) {
@@ -43,8 +43,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
                     recipeIngredients,
                     cuisineType,
                     dishType,
-                    recipePhotoUrlOwner,
-                    daySelected
+                    recipePhotoUrlOwner
                 )
             }
         }
@@ -86,24 +85,6 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
 
     }
 
-    fun updateDaySelected(recipeId: String, daySelected: String?) {
-
-        val favouritesRecipes: FavouritesRecipes? =
-            App.ObjectBox.boxStore.boxFor<FavouritesRecipes>().query()
-                .equal(FavouritesRecipes_.recipeId, recipeId)
-                .build().findUnique()
-        if (daySelected != null) {
-            favouritesRecipes?.daySelected = daySelected
-            if (favouritesRecipes != null)
-                App.ObjectBox.boxStore.boxFor<FavouritesRecipes>().put(favouritesRecipes)
-        } else {
-            favouritesRecipes?.daySelected = null
-            if (favouritesRecipes != null)
-                App.ObjectBox.boxStore.boxFor<FavouritesRecipes>().put(favouritesRecipes)
-        }
-    }
-
-
     // insert recipe in favourite database
     private fun insertFavouriteRecipe(
         recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,
@@ -112,8 +93,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
         recipeIngredients: String?,
         cuisineType: String?,
         dishType: String?,
-        recipePhotoUrlOwner: String?,
-        daySelected: String?
+        recipePhotoUrlOwner: String?
     ) {
         getFavouritesRecipesBox?.put(
             FavouritesRecipes(
@@ -126,8 +106,7 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
                 recipeIngredients = recipeIngredients,
                 cuisineType = cuisineType,
                 dishType = dishType,
-                recipePhotoUrlOwner = recipePhotoUrlOwner,
-                daySelected = daySelected
+                recipePhotoUrlOwner = recipePhotoUrlOwner
             )
         )
     }

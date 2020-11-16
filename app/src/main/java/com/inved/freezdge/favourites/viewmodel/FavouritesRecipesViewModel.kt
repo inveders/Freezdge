@@ -17,7 +17,7 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
                               recipePhotoUrl: String?,
                               recipeIngredients: String?,cuisineType:String?,
                               dishType:String?,recipePhotoUrlOwner:String?,
-                              daySelected:String?) {
+                              daySelected:Boolean?) {
         favouritesRecipesRepository.detectFavouriteRecipe(recipeId,recipeTitle,recipeCalories,recipeTime,recipeUrl,recipePhotoUrl,recipeIngredients,cuisineType,dishType,recipePhotoUrlOwner,daySelected)
     }
 
@@ -30,11 +30,7 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
     }
 
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
-         return favouritesRecipesRepository.getAllFavouritesRecipes()
-    }
-
-    fun updateDaySelected(recipeId: String,daySelected: String?) {
-        return favouritesRecipesRepository.updateDaySelected(recipeId,daySelected)
+        return favouritesRecipesRepository.getAllFavouritesRecipes()
     }
 
     fun getFavouriteRecipeById(recipeId: String): FavouritesRecipes? {

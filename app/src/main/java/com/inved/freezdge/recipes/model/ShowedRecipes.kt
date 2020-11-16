@@ -18,7 +18,7 @@ class ShowedRecipes() :Parcelable {
     var matchingValue: Int = 0
     var isFavouriteRecipe:Boolean?=false
     var isAllRecipeFragment:Boolean?=false
-    var selectedDay: String? = null
+    var selectedDay: Boolean = false
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Long::class.java.classLoader) as? Long
@@ -35,7 +35,7 @@ class ShowedRecipes() :Parcelable {
         matchingValue = parcel.readInt()
         isFavouriteRecipe = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
         isAllRecipeFragment = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
-        selectedDay = parcel.readString()
+        selectedDay = parcel.readValue(Boolean::class.java.classLoader) as Boolean
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -53,7 +53,7 @@ class ShowedRecipes() :Parcelable {
         parcel.writeInt(matchingValue)
         parcel.writeValue(isFavouriteRecipe)
         parcel.writeValue(isAllRecipeFragment)
-        parcel.writeString(selectedDay)
+        parcel.writeValue(selectedDay)
     }
 
     override fun describeContents(): Int {
