@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.ingredientslist.database.Ingredients
 
-class FirebaseIngredientsUtils() {
+class FirebaseIngredientsUtils {
 
     fun getIngredientByName(ingredientName: String?,isToDelete:Boolean,isInGrocery: Boolean,isSelected:Boolean,ingredient: Ingredients?) {
         IngredientListHelper.getIngredientByName(

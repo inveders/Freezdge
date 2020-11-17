@@ -1,7 +1,9 @@
 package com.inved.freezdge.schedule.repository
 
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.schedule.database.DaySelected
 import com.inved.freezdge.schedule.database.DaySelected_
+import com.inved.freezdge.schedule.firebase.CalendarHelper
 import com.inved.freezdge.utils.AddSelectedDay
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
@@ -37,8 +39,13 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
             this?.lunch=lunchValue
             this?.dinner=dinnerValue
         }
+
         if (daySelected != null)
             getDaySelectedBox?.put(daySelected)
+
+        //update values in firebase
+        CalendarHelper.updateLunchValue(FirebaseAuth.getInstance().currentUser?.uid,id.toString(),lunchValue)
+        CalendarHelper.updateDinnerValue(FirebaseAuth.getInstance().currentUser?.uid,id.toString(),dinnerValue)
 
     }
 

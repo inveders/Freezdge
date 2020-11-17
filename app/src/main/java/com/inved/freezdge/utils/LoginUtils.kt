@@ -5,6 +5,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
 import com.inved.freezdge.R
+import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 
 
@@ -16,6 +17,7 @@ class LoginUtils {
         message: String
     ) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show()
+        FirebaseCalendarUtils().getAllScheduledDaySelected()
     }
 
     fun successFacebookSnackBar(coordinatorLayout: CoordinatorLayout) {
