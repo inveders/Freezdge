@@ -176,9 +176,11 @@
     <string name="recipe_list_number">%d recettes trouvées</string>
     <string name="recipe_list_number_one">%d recette trouvée</string>
     <string name="ingredient_list_clear">Liste d\'ingrédient vidée</string>
+    <string name="calendar_list_clear">Recettes planifiées réinitialisées!</string>
     <string name="menu_bottom_calendar">Calendar</string>
     <string name="no_item_found_calendar">Aucune recette planifiée pour l\'instant</string>
     <string name="ingredients_list_page_name">Mes ingrédients présents chez moi</string>
+    <string name="dialog_question_clear_calendar">Voulez-vous réinitialiser la planification des recettes?</string>
 
 
 </resources>

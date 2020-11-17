@@ -31,12 +31,8 @@ class DaySelectedViewModel(private val daySelectedRepository: DaySelectedReposit
         return daySelectedRepository.isRecipeSelected(recipeId)
     }
 
-    fun reinitLunchValues(lunchValue: Long) {
-       daySelectedRepository.reinitLunchValue(lunchValue)
-    }
-
-    fun reinitDinnerValues(dinnerValue: Long) {
-        daySelectedRepository.reinitDinnerValue(dinnerValue)
+    fun reinitCalendarValues() {
+        daySelectedRepository.reinitCalendarValues()
     }
 
 }

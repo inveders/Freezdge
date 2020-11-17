@@ -69,6 +69,7 @@
     <string name="dialog_question_grocery">Have you this ingredient at home now?</string>
     <string name="dialog_question_grocery_multiple_ingredients">Have you theses ingredients at home now?</string>
     <string name="dialog_question_clear_ingredients">Do you want to clear your ingredient list?</string>
+    <string name="dialog_question_clear_calendar">Do you want to clear all schedules recipes?</string>
     <string name="Yes">Yes</string>
 
     <!--Ingredients type -->
@@ -171,6 +172,7 @@
     <string name="internet_connexion">No internet connection</string>
     <string name="grocery_list_removed">%s has been remove from grocery list</string>
     <string name="ingredient_list_clear">Ingredient list cleared !</string>
+    <string name="calendar_list_clear">Schedules recipes are cleared !</string>
     <string name="general_close">Close</string>
 
     <!--Array string -->
