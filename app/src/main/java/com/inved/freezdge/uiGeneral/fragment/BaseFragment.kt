@@ -194,7 +194,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         } else {
             domain.updateSharedPrefVersionName()
         }
-    }si
+    }
 
     private fun insertRecipes() {
 
@@ -779,7 +779,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
             result.forEach {daySelected->
                 val lunchRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
-                val dinnerRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+                val dinnerRecipe= daySelected.dinner?.let { recipeViewModel.getRecipeLiveDataById(it) }
                 updateGroceryToTrue(lunchRecipe)
                 updateGroceryToTrue(dinnerRecipe)
             }
@@ -787,13 +787,23 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
     private fun updateGroceryToTrue(recipe: Recipes?){
-        recipe?.recipeIngredients.let {
-            domain.retrieveListFromString(recipe?.recipeIngredients).forEach { eachIngredient->
-                if(ingredientsViewmodel.isIngredientSelected(eachIngredient)==false){
-                    if(ingredientsViewmodel.isIngredientSelectedInGrocery(eachIngredient)==false){
-                        ingredientsViewmodel.updateIngredientSelectedForGroceryByName(eachIngredient,true)
+        recipe?.recipeIngredients?.let {
+            domain.retrieveListFromString(it).forEach { eachIngredient->
+
+                ingredientsViewmodel.getAllIngredients().observe(viewLifecycleOwner, Observer { ingredientLiist->
+                    ingredientLiist.forEach { ingredientName->
+                        if(eachIngredient.contains(ingredientName.name.toString(),true)){
+                            if(ingredientsViewmodel.isIngredientSelected(ingredientName.name)==false){
+                                if(ingredientsViewmodel.isIngredientSelectedInGrocery(ingredientName.name)==false){
+                                    ingredientsViewmodel.updateIngredientSelectedForGroceryByName(ingredientName.name,true)
+                                }
+                            }
+                        }
                     }
-                }
+
+                })
+
+
             }
         }
 

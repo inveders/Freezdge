@@ -70,6 +70,8 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
                 this?.lunch = 0
                 this?.dinner = 0
             }
+            if (daySelected != null)
+                getDaySelectedBox?.put(daySelected)
         }
     }
 

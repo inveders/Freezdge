@@ -101,6 +101,7 @@ class MyIngredientsListFragment :
     // if there is no ingredient change UI to show text, if there is ingredient, show chips
     private fun setupChips() {
 
+        itemAdapter.clear()
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
 
         if (result?.size != 0) {
@@ -121,7 +122,6 @@ class MyIngredientsListFragment :
     // configure chip with ingredient name, color
     private fun handleChip(result: MutableList<Ingredients>) {
 
-        itemAdapter.clear()
         not_found.visibility = View.GONE
         val items = mutableListOf<GenericItem>()
         items.add(CalendarDayNameItem().apply {
@@ -184,7 +184,6 @@ class MyIngredientsListFragment :
 
     //clear all ingredients in the list and put ingredient not selected in the objectbox database
     private fun unselectAllIngredients() {
-        chipGroup.removeAllViews()
         val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
         if (result != null) {
             for (myresult in result) {
@@ -198,6 +197,7 @@ class MyIngredientsListFragment :
                 }
             }
         }
+        setupChips()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -216,7 +216,7 @@ class MyIngredientsListFragment :
         daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
             result.forEach {daySelected->
                 val lunchRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
-                val dinnerRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+                val dinnerRecipe= daySelected.dinner?.let { recipeViewModel.getRecipeLiveDataById(it) }
                 updateGroceryToTrue(lunchRecipe,ingredientName)
                 updateGroceryToTrue(dinnerRecipe,ingredientName)
             }
@@ -224,11 +224,14 @@ class MyIngredientsListFragment :
     }
 
     private fun updateGroceryToTrue(recipe: Recipes?,ingredientName: String?){
-        domain.retrieveListFromString(recipe?.recipeIngredients).forEach { eachIngredient->
-            if(eachIngredient.equals(ingredientName)){
-                ingredientsViewmodel.updateIngredientSelectedForGroceryByName(eachIngredient,true)
+        recipe?.recipeIngredients?.let {
+            domain.retrieveListFromString(it).forEach { eachIngredient->
+                if(eachIngredient == ingredientName){
+                    ingredientsViewmodel.updateIngredientSelectedForGroceryByName(eachIngredient,true)
+                }
             }
         }
+
     }
 
 }
