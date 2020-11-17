@@ -20,6 +20,7 @@ import com.like.OnLikeListener
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 class LikedPostItem : AbstractItem<LikedPostItem.ViewHolder>() {
 
@@ -187,7 +188,8 @@ class LikedPostItem : AbstractItem<LikedPostItem.ViewHolder>() {
                 FirebaseAuth.getInstance().currentUser?.uid?.let { it2 ->
                     FavoritePostHelper.createUserFavoritePost(
                         it2,
-                        it1
+                        it1,
+                        Calendar.getInstance().time
                     )
                 }
             }

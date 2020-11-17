@@ -20,6 +20,8 @@ import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.like.LikeButton
 import com.like.OnLikeListener
+import java.sql.Date
+import java.util.*
 
 class PostsAdapter(
     options: FirestoreRecyclerOptions<Post>,
@@ -226,7 +228,8 @@ class PostsAdapter(
             FirebaseAuth.getInstance().currentUser?.uid?.let { it2 ->
                 FavoritePostHelper.createUserFavoritePost(
                     it2,
-                    it1
+                    it1,
+                    Calendar.getInstance().time
                 )
             }
         }

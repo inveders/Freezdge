@@ -4,6 +4,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import java.util.*
+
 
 //For future implementation
 class FavoritePostHelper {
@@ -23,11 +25,12 @@ class FavoritePostHelper {
         // --- CREATE ---
         fun createUserFavoritePost(
             uid: String,
-            postId: String
+            postId: String,
+            timestamp: Date
         ): Task<Void?>? {
             // 1 - Create Obj
             val favoritePostToCreate = FavoritePost(
-                postId
+                postId,timestamp
             )
             return getUsersFavoritePostCollection(uid)?.document(postId)?.set(favoritePostToCreate)
         }
@@ -36,7 +39,7 @@ class FavoritePostHelper {
         fun getAllFavoritePost(uid: String): Query? {
             return getUsersFavoritePostCollection(
                 uid
-            )
+            )?.orderBy("timestamp", Query.Direction.DESCENDING)
         }
 
         fun isThisPostIsFavorite(uid: String?,postId: String?): Query? {
