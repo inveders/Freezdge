@@ -245,7 +245,7 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
             val mGoogleSignInClient: GoogleSignInClient? =
                 GoogleSignIn.getClient(this, mGoogleSignInOptions)
             mGoogleSignInClient?.signOut()
-            mGoogleSignInClient?.revokeAccess()
+          //  mGoogleSignInClient?.revokeAccess()
             startActivity(LoginActivity.getLaunchIntent(this))
             FirebaseAuth.getInstance().signOut()
             Domain().updateSharedPrefFirstConnexion(true)

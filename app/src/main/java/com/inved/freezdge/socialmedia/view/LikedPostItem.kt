@@ -13,6 +13,7 @@ import com.inved.freezdge.socialmedia.firebase.*
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
+import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.inved.freezdge.utils.eventbus.SocialLikedPostDeleteEvent
 import com.inved.freezdge.utils.eventbus.SocialLikedPostUpdateEvent
 import com.like.LikeButton
@@ -46,7 +47,7 @@ class LikedPostItem : AbstractItem<LikedPostItem.ViewHolder>() {
         private var profileImage: ImageView = view.findViewById(R.id.photoProfile)
         var postImage: ImageView = view.findViewById(R.id.image)
         var moreButton: ImageButton = view.findViewById(R.id.more_button)
-        private var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)
+        var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
 
         override fun bindView(item: LikedPostItem, payloads: MutableList<Any>) {
@@ -139,6 +140,7 @@ class LikedPostItem : AbstractItem<LikedPostItem.ViewHolder>() {
 
                 override fun unLiked(likeButton: LikeButton) {
                     handlePostLikeNumberDecrease(post)
+                    EventBus.getDefault().post(RefreshEvent())
                 }
             })
 
@@ -219,6 +221,7 @@ class LikedPostItem : AbstractItem<LikedPostItem.ViewHolder>() {
                     )
                 }
             }
+
 
             post.postId?.let { it ->
                 PostHelper.getPost(it)?.get()?.addOnCompleteListener { task ->

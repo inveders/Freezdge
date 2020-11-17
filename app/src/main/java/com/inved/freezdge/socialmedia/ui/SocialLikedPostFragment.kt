@@ -23,6 +23,7 @@ import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.NetworkUtils
 import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
+import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.inved.freezdge.utils.eventbus.SocialLikedPostDeleteEvent
 import com.inved.freezdge.utils.eventbus.SocialLikedPostUpdateEvent
 import com.mikepenz.fastadapter.FastAdapter
@@ -30,7 +31,13 @@ import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
+import kotlinx.android.synthetic.main.fragment_social_liked_post.*
+import kotlinx.android.synthetic.main.fragment_social_liked_post.view.*
 import kotlinx.android.synthetic.main.fragment_social_media.*
+import kotlinx.android.synthetic.main.fragment_social_media.recyclerview
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -85,10 +92,18 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
                             listToSend.add(likedPost.getString("postId"))
                         }
                         displayAllLikedPost(listToSend)
+                    }else{
+                        displayEmptyView()
                     }
                 }
                 ?.addOnFailureListener { }
         }
+    }
+
+    private fun displayEmptyView() {
+        itemAdapter.clear()
+        binding.root.not_found.visibility = View.VISIBLE
+        binding.root.not_found.text = getString(R.string.no_item_found_liked_post)
     }
 
     private fun displayAllLikedPost(listPostId:MutableList<String?>) {
@@ -116,6 +131,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
 
     private fun fillRecyclerView(data: MutableList<GenericItem>) {
         itemAdapter.clear()
+        binding.root.not_found.visibility = View.GONE
         itemAdapter.add(data)
     }
 
@@ -154,6 +170,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
                 onClickImageListener(item.post?.urlPhoto)
             }
         }
+
     }
 
     // click listener on update or delete button inside post item in recycler view
@@ -275,6 +292,14 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
                 1,
                 it1
             )
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: RefreshEvent) {
+        GlobalScope.launch {
+            delay(300)
+            retrieveAllLikedPost()
         }
     }
 
