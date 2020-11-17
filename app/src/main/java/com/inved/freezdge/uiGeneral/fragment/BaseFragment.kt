@@ -41,6 +41,8 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.schedule.database.DaySelected
+import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.enumtype.ChipsDayType
@@ -181,7 +183,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         if (ingredientsViewmodel.countIngredients()?.toInt() == 0) {
             ingredientsViewmodel.insertIngredients()
         }
-        getAllSavedIngredients()
+
         if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
                 OnboardingActivity.VERSION_APP_NAME,
                 BuildConfig.VERSION_NAME
@@ -192,34 +194,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         } else {
             domain.updateSharedPrefVersionName()
         }
-    }
-
-    private fun getAllSavedIngredients() {
-        IngredientListHelper.getAllIngredients(
-            FirebaseAuth.getInstance().currentUser?.uid
-        )?.get()
-            ?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result?.documents?.isNotEmpty() == true) {
-
-                        task.result?.documents.let {
-                            it?.forEach { ingredientList->
-                                val ingredient: Ingredients? =
-                                    ingredientList.toObject(Ingredients::class.java)
-                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedByName(it1.name,it1.selectedIngredient) }
-                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedForGroceryByName(it1.name,it1.grocerySelectedIngredient) }
-                            }
-                        }
-                    }
-                }
-            }?.addOnFailureListener {
-                Log.e(
-                    "firebase",
-                    "Problem during the ingredient search"
-
-                )
-            }
-    }
+    }si
 
     private fun insertRecipes() {
 
@@ -770,12 +745,12 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         if (recipeId != null) {
             selectedDayList?.forEach { s ->
                 if (s != null) {
-                    s.day?.let {
-                        s.lunch?.let { it1 ->
-                            s.dinner?.let { it2 ->
+                    s.day?.let {dayValue->
+                        s.lunch?.let { lunchValue ->
+                            s.dinner?.let { dinnerValue ->
                                 daySelectedViewModel.updateSelectedDayValues(
-                                    it,
-                                    it1, it2
+                                    dayValue,
+                                    lunchValue, dinnerValue
                                 )
                             }
                         }
@@ -783,6 +758,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 }
 
             }
+            updateGroceryList()
         }
         when {
             getForegroundFragment() is MyRecipesFragment -> run {
@@ -794,6 +770,31 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         if (itemPosition != null) {
             recyclerview.scrollToPosition(itemPosition)
+        }
+
+    }
+
+    private fun updateGroceryList(){
+        ingredientsViewmodel.resetGroceryList()
+        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
+            result.forEach {daySelected->
+                val lunchRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+                val dinnerRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+                updateGroceryToTrue(lunchRecipe)
+                updateGroceryToTrue(dinnerRecipe)
+            }
+        })
+    }
+
+    private fun updateGroceryToTrue(recipe: Recipes?){
+        recipe?.recipeIngredients.let {
+            domain.retrieveListFromString(recipe?.recipeIngredients).forEach { eachIngredient->
+                if(ingredientsViewmodel.isIngredientSelected(eachIngredient)==false){
+                    if(ingredientsViewmodel.isIngredientSelectedInGrocery(eachIngredient)==false){
+                        ingredientsViewmodel.updateIngredientSelectedForGroceryByName(eachIngredient,true)
+                    }
+                }
+            }
         }
 
     }

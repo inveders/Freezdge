@@ -17,7 +17,6 @@ class LoginUtils {
         message: String
     ) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show()
-        FirebaseCalendarUtils().getAllScheduledDaySelected()
     }
 
     fun successFacebookSnackBar(coordinatorLayout: CoordinatorLayout) {

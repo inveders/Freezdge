@@ -13,7 +13,6 @@ import com.inved.freezdge.R
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : BaseActivity() {
@@ -28,10 +27,13 @@ class OnboardingActivity : BaseActivity() {
         private var PRIVATE_MODE = 0
         const val PREF_NAME = "ONBOARDING"
         const val VERSION_APP_NAME = "VERSION_APP_NAME"
+        const val FIRST_CONNEXION = "FIRST_CONNEXION"
         val sharedPrefVersionName: SharedPreferences =
             App.applicationContext().getSharedPreferences(VERSION_APP_NAME, PRIVATE_MODE)
         val sharedPref: SharedPreferences =
             App.applicationContext().getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        val sharedPrefFirstConnexion: SharedPreferences =
+            App.applicationContext().getSharedPreferences(FIRST_CONNEXION, PRIVATE_MODE)
     }
 
 
@@ -41,6 +43,7 @@ class OnboardingActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setupOnaboardingItems()
         onboardingViewpager.adapter = onboardingAdapter
         setupOnboardingIndicator()
@@ -63,6 +66,10 @@ class OnboardingActivity : BaseActivity() {
                 }
         }
     }
+
+
+
+
 
     // setup onboarding text and images for the four pages
     private fun setupOnaboardingItems() {

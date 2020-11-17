@@ -64,27 +64,6 @@ class FavouritesRecipesRepository(private val getFavouritesRecipesBox: Box<Favou
             ?.build()?.findUnique()
     }
 
-    // for each recipes in favourite database, check if the given ingredient is contained in, if yes add it in the grocery list
-    fun isIngredientPresentInFavoriteRecipeUpdateGrocery(
-        ingredientNameFrench: String,
-        ingredientNameEnglish: String
-    ) {
-
-        for (i in getFavouritesRecipesBox?.query()?.order(FavouritesRecipes_.id)?.build()
-            ?.find()!!) {
-            if (i.recipeIngredients?.contains(ingredientNameFrench, true) == true) {
-
-                domain.updateItemForGroceryList(ingredientNameFrench, true, ingredientNameEnglish)
-            }
-
-            if (i.recipeIngredients?.contains(ingredientNameEnglish, true) == true) {
-
-                domain.updateItemForGroceryList(ingredientNameFrench, true, ingredientNameEnglish)
-            }
-        }
-
-    }
-
     // insert recipe in favourite database
     private fun insertFavouriteRecipe(
         recipeId: String?, recipeTitle: String?, recipeCalories: String?, recipeTime: String?,

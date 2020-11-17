@@ -41,6 +41,12 @@ class Domain {
         editor.apply()
     }
 
+    fun updateSharedPrefFirstConnexion(bool:Boolean){
+        val editor = OnboardingActivity.sharedPrefFirstConnexion.edit()
+        editor.putBoolean(OnboardingActivity.FIRST_CONNEXION, bool)
+        editor.apply()
+    }
+
     fun createRandomString(): String {
         val charLower = "abcdefghijklmnopqrstuvwxyz"
         val charUpper = charLower.toUpperCase(Locale.getDefault())

@@ -33,10 +33,7 @@ import com.inved.freezdge.socialmedia.firebase.User
 import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.ui.ProfileDialog
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
-import com.inved.freezdge.utils.App
-import com.inved.freezdge.utils.GlideUtils
-import com.inved.freezdge.utils.LoaderListener
-import com.inved.freezdge.utils.NetworkUtils
+import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -251,6 +248,7 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
             mGoogleSignInClient?.revokeAccess()
             startActivity(LoginActivity.getLaunchIntent(this))
             FirebaseAuth.getInstance().signOut()
+            Domain().updateSharedPrefFirstConnexion(true)
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, _ ->

@@ -25,10 +25,6 @@ class FavouritesRecipesViewModel(private val favouritesRecipesRepository: Favour
         return favouritesRecipesRepository.isRecipeIdIsPresent(recipeId)
     }
 
-    fun isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench: String,ingredientNameEnglish: String){
-        favouritesRecipesRepository.isIngredientPresentInFavoriteRecipeUpdateGrocery(ingredientNameFrench,ingredientNameEnglish)
-    }
-
     fun getAllFavouritesRecipes(): ObjectBoxLiveData<FavouritesRecipes> {
         return favouritesRecipesRepository.getAllFavouritesRecipes()
     }

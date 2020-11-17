@@ -89,6 +89,21 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
         return false
     }
 
+    fun resetGroceryList(){
+        getIngredientsBox?.all?.forEach {ingredient->
+            ingredient?.grocerySelectedIngredient = false
+            if(ingredient!=null){
+                getIngredientsBox.put(ingredient)
+                FirebaseIngredientsUtils().getIngredientByName(ingredient.name,
+                    isToDelete = false,
+                    isInGrocery = ingredient.grocerySelectedIngredient,
+                    isSelected = ingredient.selectedIngredient,
+                    ingredient = ingredient
+                )
+            }
+        }
+    }
+
     // insert all ingredients from my own file in the database
     fun insertIngredients() {
         AddIngredientsInDatabase(getIngredientsBox)

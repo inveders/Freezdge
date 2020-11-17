@@ -57,4 +57,8 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
         return ingredientsRepository.isIngredientSelectedInGrocery(name)
     }
 
+    fun resetGroceryList() {
+        return ingredientsRepository.resetGroceryList()
+    }
+
 }

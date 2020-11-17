@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
@@ -17,6 +18,8 @@ import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.adapter.GroceryItem
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.enumtype.IngredientsType
 import com.inved.freezdge.utils.eventbus.ChipClickEvent
@@ -36,6 +39,7 @@ class MyIngredientsListFragment :
     BaseFragment<FragmentMyIngredientsListBinding, ActivityMainBinding>() {
 
     private lateinit var ingredientsViewmodel: IngredientsViewModel
+    private lateinit var daySelectedViewModel: DaySelectedViewModel
     private lateinit var favouritesRecipesViewmodel: FavouritesRecipesViewModel
     private var ingredientsTypeList: MutableList<String> = mutableListOf()
     override fun setBinding(
@@ -50,6 +54,8 @@ class MyIngredientsListFragment :
         floatingActionButton.setOnClickListener { openSearchIngredientActivity() }
         ingredientsViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+        daySelectedViewModel =
+            ViewModelProviders.of(this).get(DaySelectedViewModel::class.java)
         favouritesRecipesViewmodel =
             ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
         setupIngredientsTypeList()
@@ -132,6 +138,7 @@ class MyIngredientsListFragment :
                 items.add(GroceryItem().apply {
                     this.ingredientTypeName = sectionList
                     this.ingredientsByType = ingredientsByType
+                    this.isIngredientType = true
                     this.context = getContext()
                 })
             }
@@ -187,11 +194,7 @@ class MyIngredientsListFragment :
                     false
                 )
                 myresult.name?.let { it1 ->
-                    myresult.nameEnglish?.let { it2 ->
-                        favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
-                            it1, it2
-                        )
-                    }
+                    updateGroceryListIfNecessary(it1)
                 }
             }
         }
@@ -204,12 +207,26 @@ class MyIngredientsListFragment :
                 event.chipText,
                 false
             )
-            event.chipText.let { it1 ->
-                event.chipText.let { it2 ->
-                    favouritesRecipesViewmodel.isIngredientPresentInFavoriteRecipeUpdateGrocery(
-                        it1, it2
-                    )
-                }
+        }
+        updateGroceryListIfNecessary(event.chipText)
+    }
+
+
+    private fun updateGroceryListIfNecessary(ingredientName:String?){
+        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
+            result.forEach {daySelected->
+                val lunchRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+                val dinnerRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+                updateGroceryToTrue(lunchRecipe,ingredientName)
+                updateGroceryToTrue(dinnerRecipe,ingredientName)
+            }
+        })
+    }
+
+    private fun updateGroceryToTrue(recipe: Recipes?,ingredientName: String?){
+        domain.retrieveListFromString(recipe?.recipeIngredients).forEach { eachIngredient->
+            if(eachIngredient.equals(ingredientName)){
+                ingredientsViewmodel.updateIngredientSelectedForGroceryByName(eachIngredient,true)
             }
         }
     }

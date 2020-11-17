@@ -19,10 +19,6 @@ import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.eventbus.ChipClickEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
-import kotlinx.android.synthetic.main.fragment_my_ingredients_list.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 
