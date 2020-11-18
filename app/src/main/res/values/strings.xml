@@ -214,5 +214,6 @@
     <string name="facebook_app_id" translatable="false">605347353660093</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb605347353660093</string>
     <string name="tiret" translatable="false">-</string>
+    <string name="chooseButton">CHOOSE</string>
 
 </resources>

@@ -36,7 +36,11 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
         return ingredientsRepository.getAllIngredientBySelectedForGrocery()
     }
 
-    fun getAllIngredients(): ObjectBoxLiveData<Ingredients> {
+    fun getAllIngredientsLiveData(): ObjectBoxLiveData<Ingredients> {
+        return ingredientsRepository.getAllIngredientsByIdLiveData()
+    }
+
+    fun getAllIngredients(): MutableList<Ingredients>? {
         return ingredientsRepository.getAllIngredientsById()
     }
 

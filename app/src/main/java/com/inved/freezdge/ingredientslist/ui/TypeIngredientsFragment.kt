@@ -89,7 +89,7 @@ class TypeIngredientsFragment : Fragment() {
 
                         foodSearchItemAdapter.clear()
                         val search = newText.toLowerCase(Locale.ROOT)
-                        ingredientViewmodel.getAllIngredients()
+                        ingredientViewmodel.getAllIngredientsLiveData()
                             .observe({ lifecycle }, { list ->
                                 handleList(list,search)
                             })

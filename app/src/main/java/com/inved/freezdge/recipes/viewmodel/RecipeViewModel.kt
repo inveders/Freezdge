@@ -30,6 +30,10 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.getRecipeIfContainIngredient(ingredientName)
     }
 
+    private fun getRecipeIfContainIngredientSuggestion(ingredientName: String): MutableList<Recipes>? {
+        return recipesRepository.getRecipeIfContainIngredientSuggestion(ingredientName)
+    }
+
     fun insertRecipesInDatabase() {
         return recipesRepository.insertRecipesInDatabase()
     }
@@ -38,11 +42,11 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.deleteAllRecipesInBox()
     }
 
-    fun countAllRecipesInDatabase():Long? {
+    fun countAllRecipesInDatabase(): Long? {
         return recipesRepository.countRecipesInBox()
     }
 
-    fun getAllRecipes():MutableList<Recipes>? {
+    fun getAllRecipes(): MutableList<Recipes>? {
         return recipesRepository.getAllRecipes()
     }
 
@@ -51,31 +55,50 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
 
         val setListDatabaseViewModel: MutableLiveData<MutableList<Recipes>>? =
             MutableLiveData()
-        val setDatabaseSetListRecipes:MutableSet<Recipes>? = mutableSetOf()
+        val setDatabaseSetListRecipes: MutableSet<Recipes>? = mutableSetOf()
 
-                BaseFragment.listener?.showLoader()
-                if (ingredientsList != null) {
-                    for (myIngredient in ingredientsList) {
-                        myIngredient.name?.let { it ->
-                            getRecipeIfContainIngredient(it)
-                                .observeForever {
-                                    if(it.size==0){
-                                        setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
-                                    }else{
-                                        for(i in it.indices){
-                                            setDatabaseSetListRecipes?.add(it[i])
-                                             setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
-                                           // setListDatabaseViewModel?.value=setDatabaseSetListRecipes?.toMutableList()
-                                        }
-                                    }
-
-
+        BaseFragment.listener?.showLoader()
+        if (ingredientsList != null) {
+            for (myIngredient in ingredientsList) {
+                myIngredient.name?.let { it ->
+                    getRecipeIfContainIngredient(it)
+                        .observeForever {
+                            if (it.size == 0) {
+                                setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
+                            } else {
+                                for (i in it.indices) {
+                                    setDatabaseSetListRecipes?.add(it[i])
+                                    setListDatabaseViewModel?.postValue(setDatabaseSetListRecipes?.toMutableList())
+                                    // setListDatabaseViewModel?.value=setDatabaseSetListRecipes?.toMutableList()
                                 }
+                            }
                         }
+                }
 
+            }
+        }
+        return setListDatabaseViewModel
+    }
+
+    fun getSuggestionsRecipes(ingredientsList: MutableList<Ingredients>?): MutableSet<Recipes>? {
+
+        val setDatabaseSetListRecipes: MutableSet<Recipes>? = mutableSetOf()
+
+        if (ingredientsList != null) {
+            for (myIngredient in ingredientsList) {
+                myIngredient.name?.let { it ->
+                    getRecipeIfContainIngredientSuggestion(it)?.forEach {
+                        if(it.isForDinner) {
+                            setDatabaseSetListRecipes?.add(it)
+                        }
                     }
                 }
-                return setListDatabaseViewModel
+
+            }
+        }
+        return setDatabaseSetListRecipes
     }
+
+
 
 }

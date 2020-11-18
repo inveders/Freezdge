@@ -19,7 +19,7 @@ class DaySelectedViewModel(private val daySelectedRepository: DaySelectedReposit
         return daySelectedRepository.countDay()
     }
 
-    fun getSelectedDay(): ObjectBoxLiveData<DaySelected> {
+    fun getSelectedDay(): MutableList<DaySelected>? {
         return daySelectedRepository.getSelectedDays()
     }
 

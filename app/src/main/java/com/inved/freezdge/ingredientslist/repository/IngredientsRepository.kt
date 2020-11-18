@@ -127,8 +127,13 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
     }
 
     // get all ingredients of my database and show them by id
-    fun getAllIngredientsById(): ObjectBoxLiveData<Ingredients> {
+    fun getAllIngredientsByIdLiveData(): ObjectBoxLiveData<Ingredients> {
         return ObjectBoxLiveData(getIngredientsBox?.query()?.order(Ingredients_.id)?.build())
+    }
+
+    // get all ingredients of my database and show them by id
+    fun getAllIngredientsById(): MutableList<Ingredients>? {
+        return getIngredientsBox?.query()?.order(Ingredients_.id)?.build()?.find()
     }
 
     // get all ingredients by type (creamery, fruits & vegetables, epicerie, fish, or meat)

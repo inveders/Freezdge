@@ -61,10 +61,6 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding, ActivityMainBindin
         }
 
         builder?.setNegativeButton(android.R.string.no) { dialog, _ ->
-            Toast.makeText(
-                activity,
-                getString(R.string.dialog_cancel_action), Toast.LENGTH_SHORT
-            ).show()
             dialog.dismiss()
         }
         builder?.show()

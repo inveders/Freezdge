@@ -15,10 +15,9 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
         AddSelectedDay(getDaySelectedBox)
     }
 
-    fun getSelectedDays(): ObjectBoxLiveData<DaySelected> {
-        return ObjectBoxLiveData(
-            getDaySelectedBox?.query()?.order(DaySelected_.id)?.build()
-        )
+    fun getSelectedDays(): MutableList<DaySelected>? {
+        return getDaySelectedBox?.query()?.order(DaySelected_.id)?.build()?.find()
+
     }
 
     fun deleteAllDayInBox() {

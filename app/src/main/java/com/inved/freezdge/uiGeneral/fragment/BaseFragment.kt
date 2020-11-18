@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
@@ -30,7 +29,6 @@ import com.inved.freezdge.schedule.ui.SelectDayDialog
 import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
@@ -42,9 +40,6 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.schedule.adapter.SelectDayItem
-import com.inved.freezdge.schedule.database.DaySelected
-import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.enumtype.ChipsDayType
@@ -267,7 +262,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             handleFavouriteFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
         }
 
-        if(wichFragment == FragmentDetected.CALENDAR_FRAGMENT.number){
+        if (wichFragment == FragmentDetected.CALENDAR_FRAGMENT.number) {
             //handle click on notYetPlaned
             handleCalendarFastAdapterClick()
         }
@@ -279,15 +274,15 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             if (item is NotYetPlanedItem) {
                 val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
                     this.day = item.day
-                    if(item.isLunchOrDinner==ChipsDayType.LUNCH.chipPosition){
-                        this.lunch=1
-                        this.dinner=0L
-                    }else if(item.isLunchOrDinner==ChipsDayType.DINNER.chipPosition){
-                        this.lunch=0L
-                        this.dinner=1
+                    if (item.isLunchOrDinner == ChipsDayType.LUNCH.chipPosition) {
+                        this.lunch = 1
+                        this.dinner = 0L
+                    } else if (item.isLunchOrDinner == ChipsDayType.DINNER.chipPosition) {
+                        this.lunch = 0L
+                        this.dinner = 1
                     }
                 }
-                openSelectDateDialog(clickedDay,pos,null)
+                openSelectDateDialog(clickedDay, pos, null)
 
             }
         }
@@ -367,66 +362,63 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
 
     private fun getCalendarRecipes() {
+        itemAdapter.clear()
+        val items = mutableListOf<GenericItem>()
+        daySelectedViewModel.getSelectedDay()?.forEach { res ->
 
-        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
-            itemAdapter.clear()
-            val items = mutableListOf<GenericItem>()
+            items.add(CalendarDayNameItem().apply {
+                dayName = domain.handleSelectedDay(res.id)
+            })
+            items.add(CalendarDayNameItem().apply {
+                dayName = ""
+            })
 
-            result?.forEach { res ->
-
-                items.add(CalendarDayNameItem().apply {
-                    dayName=domain.handleSelectedDay(res.id)
+            if (res.lunch == 0L) {
+                items.add(NotYetPlanedItem().apply {
+                    this.day = res.id
+                    this.isLunchOrDinner = ChipsDayType.LUNCH.chipPosition
                 })
-                items.add(CalendarDayNameItem().apply {
-                    dayName=""
-                })
-
-                if(res.lunch==0L){
-                    items.add(NotYetPlanedItem().apply {
-                        this.day=res.id
-                        this.isLunchOrDinner=ChipsDayType.LUNCH.chipPosition
-                    })
-                }else{
-                    res.lunch?.let {
-                        recipeViewModel.getRecipeLiveDataById(it)?.let {
-                            items.add(ListRecipeItem().apply {
-                                this.model = fillModelListRecipes(it)
-                                this.isReducedWidth = true
-                                this.selectedDay = res
-                                this.selectedPosition = ChipsDayType.LUNCH.chipPosition
-                            })
-                        }
-                    }
-                }
-
-                if(res.dinner==0L){
-                    items.add(NotYetPlanedItem().apply {
-                        this.day=res.id
-                        this.isLunchOrDinner=ChipsDayType.DINNER.chipPosition
-                    })
-                }else{
-                    res.dinner?.let {
-                        recipeViewModel.getRecipeLiveDataById(it)?.let {
-                            items.add(ListRecipeItem().apply {
-                                this.model = fillModelListRecipes(it)
-                                this.isReducedWidth = true
-                                this.selectedDay = res
-                                this.selectedPosition = ChipsDayType.DINNER.chipPosition
-                            })
-                        }
-                    }
-                }
-
-            }
-
-            if (items.isNullOrEmpty()) {
-                not_found.visibility = View.VISIBLE
-                not_found.text = getString(R.string.no_item_found_calendar)
             } else {
-                not_found.visibility = View.GONE
+                res.lunch?.let {
+                    recipeViewModel.getRecipeLiveDataById(it)?.let {
+                        items.add(ListRecipeItem().apply {
+                            this.model = fillModelListRecipes(it)
+                            this.isReducedWidth = true
+                            this.selectedDay = res
+                            this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                        })
+                    }
+                }
             }
-            itemAdapter.add(items)
-        })
+
+            if (res.dinner == 0L) {
+                items.add(NotYetPlanedItem().apply {
+                    this.day = res.id
+                    this.isLunchOrDinner = ChipsDayType.DINNER.chipPosition
+                })
+            } else {
+                res.dinner?.let {
+                    recipeViewModel.getRecipeLiveDataById(it)?.let {
+                        items.add(ListRecipeItem().apply {
+                            this.model = fillModelListRecipes(it)
+                            this.isReducedWidth = true
+                            this.selectedDay = res
+                            this.selectedPosition = ChipsDayType.DINNER.chipPosition
+                        })
+                    }
+                }
+            }
+
+        }
+
+        if (items.isNullOrEmpty()) {
+            not_found.visibility = View.VISIBLE
+            not_found.text = getString(R.string.no_item_found_calendar)
+        } else {
+            not_found.visibility = View.GONE
+        }
+        itemAdapter.add(items)
+
     }
 
 
@@ -449,13 +441,13 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                             not_found.text =
                                 getString(R.string.no_recipes_found)
                             topTextview.visibility = View.GONE
-                          //  listenerSearch?.hideSearchButton()
+                            //  listenerSearch?.hideSearchButton()
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             not_found.visibility = View.GONE
                             floatingActionButton.show()
-                          //  listenerSearch?.showSearchButton()
+                            //  listenerSearch?.showSearchButton()
                             fillAdapterDatabase(result2)
                         }
                     })
@@ -463,7 +455,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 not_found.visibility = View.VISIBLE
                 not_found.text =
                     getString(R.string.no_item_found_recipes)
-              //  listenerSearch?.hideSearchButton()
+                //  listenerSearch?.hideSearchButton()
                 topTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()
@@ -556,7 +548,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
             model.isFavouriteRecipe = recipes.recipeId?.let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = false
-            model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.recipeId?.toLong()!!)
+            model.selectedDay =
+                daySelectedViewModel.isRecipeSelectedInCalendar(recipes.recipeId?.toLong()!!)
             return model
         }
 
@@ -619,8 +612,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                             )
                         }
                     }
-                 //   item.model?.id?.let { daySelectedViewModel.reinitLunchValues(it) }
-                 //   item.model?.id?.let { daySelectedViewModel.reinitDinnerValues(it) }
+                    //   item.model?.id?.let { daySelectedViewModel.reinitLunchValues(it) }
+                    //   item.model?.id?.let { daySelectedViewModel.reinitDinnerValues(it) }
                     item.model?.isFavouriteRecipe = false
                 }
 
@@ -709,7 +702,11 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
 
-    private fun openSelectDateDialog(clickedDay:DaySelectionModel?,itemPosition: Int?, recipeId: String?) {
+    private fun openSelectDateDialog(
+        clickedDay: DaySelectionModel?,
+        itemPosition: Int?,
+        recipeId: String?
+    ) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(SelectDayDialog.TAG)
         if (previous != null) {
@@ -717,10 +714,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         transaction?.addToBackStack(null)
         SelectDayDialog.setSelectDateListener(this)
-        val dialogFragment:DialogFragment? = if(clickedDay==null){
-            SelectDayDialog.newInstance(null,itemPosition, recipeId)
-        }else{
-            SelectDayDialog.newInstance(clickedDay,itemPosition, recipeId)
+        val dialogFragment: DialogFragment? = if (clickedDay == null) {
+            SelectDayDialog.newInstance(null, itemPosition, recipeId)
+        } else {
+            SelectDayDialog.newInstance(clickedDay, itemPosition, recipeId)
         }
         if (transaction != null) {
             dialogFragment?.show(transaction, SelectDayDialog.TAG)
@@ -781,7 +778,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         if (recipeId != null) {
             selectedDayList?.forEach { s ->
                 if (s != null) {
-                    s.day?.let {dayValue->
+                    s.day?.let { dayValue ->
                         s.lunch?.let { lunchValue ->
                             s.dinner?.let { dinnerValue ->
                                 daySelectedViewModel.updateSelectedDayValues(
@@ -802,6 +799,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             }
             getForegroundFragment() is CalendarFragment -> run {
                 getCalendarRecipes()
+
             }
         }
         if (itemPosition != null) {
@@ -810,34 +808,38 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
     }
 
-    private fun updateGroceryList(){
+    private fun updateGroceryList() {
         ingredientsViewmodel.resetGroceryList()
-        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
-            result.forEach {daySelected->
-                val lunchRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
-                val dinnerRecipe= daySelected.dinner?.let { recipeViewModel.getRecipeLiveDataById(it) }
-                updateGroceryToTrue(lunchRecipe)
-                updateGroceryToTrue(dinnerRecipe)
-            }
-        })
+        daySelectedViewModel.getSelectedDay()?.forEach { daySelected ->
+            val lunchRecipe =
+                daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+            val dinnerRecipe =
+                daySelected.dinner?.let { recipeViewModel.getRecipeLiveDataById(it) }
+            updateGroceryToTrue(lunchRecipe)
+            updateGroceryToTrue(dinnerRecipe)
+        }
+
     }
 
-    private fun updateGroceryToTrue(recipe: Recipes?){
+    private fun updateGroceryToTrue(recipe: Recipes?) {
         recipe?.recipeIngredients?.let {
-            domain.retrieveListFromString(it).forEach { eachIngredient->
+            domain.retrieveListFromString(it).forEach { eachIngredient ->
 
-                ingredientsViewmodel.getAllIngredients().observe(viewLifecycleOwner, Observer { ingredientLiist->
-                    ingredientLiist.forEach { ingredientName->
-                        if(eachIngredient.contains(ingredientName.name.toString(),true)){
-                            if(ingredientsViewmodel.isIngredientSelected(ingredientName.name)==false){
-                                if(ingredientsViewmodel.isIngredientSelectedInGrocery(ingredientName.name)==false){
-                                    ingredientsViewmodel.updateIngredientSelectedForGroceryByName(ingredientName.name,true)
-                                }
+                ingredientsViewmodel.getAllIngredients()?.forEach { ingredientName ->
+                    if (eachIngredient.contains(ingredientName.name.toString(), true)) {
+                        if (ingredientsViewmodel.isIngredientSelected(ingredientName.name) == false) {
+                            if (ingredientsViewmodel.isIngredientSelectedInGrocery(
+                                    ingredientName.name
+                                ) == false
+                            ) {
+                                ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
+                                    ingredientName.name,
+                                    true
+                                )
                             }
                         }
                     }
-
-                })
+                }
 
 
             }

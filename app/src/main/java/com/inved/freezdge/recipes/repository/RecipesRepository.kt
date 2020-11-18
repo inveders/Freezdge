@@ -30,6 +30,11 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
             getRecipesBox?.query()?.contains(Recipes_.recipeIngredients,ingredientName)?.build())
     }
 
+    // in database, get recipes wich contains  given ingredient name
+    fun getRecipeIfContainIngredientSuggestion(ingredientName: String): MutableList<Recipes>? {
+        return getRecipesBox?.query()?.contains(Recipes_.recipeIngredients,ingredientName)?.build()?.find()
+    }
+
     // insert in database all recipes of mine
     fun insertRecipesInDatabase() {
         AddRecipesInDatabase(getRecipesBox)

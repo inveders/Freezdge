@@ -14,11 +14,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.schedule.adapter.SelectDayItem
 import com.inved.freezdge.schedule.model.DaySelectionModel
 import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.schedule.adapter.SuggestionRecipeItem
 import com.inved.freezdge.schedule.database.DaySelected
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
@@ -53,23 +58,25 @@ class SelectDayDialog : DialogFragment() {
 
         //Viewmodel
         private lateinit var daySelectedViewModel: DaySelectedViewModel
-        private var isSuggestion:Boolean?=false
+        private lateinit var recipeViewModel: RecipeViewModel
+        private lateinit var ingredientsViewModel: IngredientsViewModel
+        private var isSuggestion: Boolean? = false
 
         //To pass args to our dialog
         @JvmStatic
-        fun newInstance(param1:DaySelectionModel?,param2: Int?, param3: String?) =
+        fun newInstance(param1: DaySelectionModel?, param2: Int?, param3: String?) =
             SelectDayDialog().apply {
                 arguments = Bundle().apply {
-                    if(param1!=null){
-                        if(param1.day!=0L){
-                            putBoolean(KEY_SUGGESTION,true)
+                    if (param1 != null) {
+                        if (param1.day != 0L) {
+                            putBoolean(KEY_SUGGESTION, true)
                             param1.day?.let { putLong(KEY_DAY_SUGGESTION, it) }
                         }
-                        if(param1.lunch!=0L){
-                            putInt(KEY_LUNCH_OR_DINNER_SUGGESTION,ChipsDayType.LUNCH.chipPosition)
+                        if (param1.lunch != 0L) {
+                            putInt(KEY_LUNCH_OR_DINNER_SUGGESTION, ChipsDayType.LUNCH.chipPosition)
                         }
-                        if(param1.dinner!=0L){
-                            putInt(KEY_LUNCH_OR_DINNER_SUGGESTION,ChipsDayType.DINNER.chipPosition)
+                        if (param1.dinner != 0L) {
+                            putInt(KEY_LUNCH_OR_DINNER_SUGGESTION, ChipsDayType.DINNER.chipPosition)
                         }
                     }
                     if (param2 != null) {
@@ -106,6 +113,14 @@ class SelectDayDialog : DialogFragment() {
             this,
             viewModelFactory
         ).get(DaySelectedViewModel::class.java)
+        ingredientsViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsViewModel::class.java)
+        recipeViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(RecipeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -127,11 +142,14 @@ class SelectDayDialog : DialogFragment() {
         isSuggestion = arguments?.getBoolean(KEY_SUGGESTION)
         setupRecyclerView()
 
-        if(isSuggestion==true){
+        if (isSuggestion == true) {
             dialogTitle.let {
                 it?.text = getString(R.string.recipe_suggestion_dialog)
             }
-        }else{
+            validateButton.let {
+                it?.visibility = View.INVISIBLE
+            }
+        } else {
             dialogTitle.let {
                 it?.text = getString(R.string.day_dialog)
             }
@@ -195,14 +213,14 @@ class SelectDayDialog : DialogFragment() {
                 val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
                     this.day = handleSelectedDay(item.day)
                     this.lunch = recipeId?.toLong()
-                    if(item.isOccuped==true){
+                    if (item.isOccuped == true) {
                         //todo show dialog and if true
                         this.dinner = item.dinnerId
-                    }else{
+                    } else {
                         this.dinner = 0L
                     }
                 }
-                isUpdateNecesary(clickedDay,ChipsDayType.LUNCH.chipPosition)
+                isUpdateNecesary(clickedDay, ChipsDayType.LUNCH.chipPosition)
 
             }
         }
@@ -211,27 +229,60 @@ class SelectDayDialog : DialogFragment() {
             if (item is SelectDayItem) {
                 val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
                     this.day = handleSelectedDay(item.day)
-                    if(item.isOccuped==true){
+                    if (item.isOccuped == true) {
                         //todo show dialog and if true
                         this.lunch = item.lunchId
-                    }else{
+                    } else {
                         this.lunch = 0L
                     }
                     this.dinner = recipeId?.toLong()
                 }
-                isUpdateNecesary(clickedDay,ChipsDayType.DINNER.chipPosition)
+                isUpdateNecesary(clickedDay, ChipsDayType.DINNER.chipPosition)
+            }
+        }
+
+        fastAdapter.addClickListener({ vh: SuggestionRecipeItem.ViewHolder -> vh.chooseButton }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
+            if (item is SuggestionRecipeItem) {
+
+                val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
+                    this.day = arguments?.getLong(KEY_DAY_SUGGESTION)
+                    if (arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION) == ChipsDayType.LUNCH.chipPosition) {
+                        this.lunch = item.model?.id
+                        this.dinner =
+                            day?.toInt()?.minus(1)?.let { selectedDayList?.get(it)?.dinner }
+                    } else {
+                        this.lunch = day?.toInt()?.minus(1)?.let { selectedDayList?.get(it)?.lunch }
+                        this.dinner = item.model?.id
+                    }
+                }
+                arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION)?.let {
+                    isUpdateNecesary(
+                        clickedDay,
+                        it
+                    )
+                }
+                dateSelectedListener?.onDateSelected(
+                    selectedDayList,
+                    itemPositionInRecyclerView,
+                    item.model?.id.toString()
+                )
+                dialog?.dismiss()
+
             }
         }
     }
 
-    private fun fillSelectedDayList(result: MutableList<DaySelected>) {
+    private fun fillSelectedDayList(result: MutableList<DaySelected>?) {
         //fill selectedDayList with
-        result.forEach { res ->
+        result?.forEach { res ->
 
-            if(selectedDayList?.size?.compareTo(7)==-1){
+            if (selectedDayList?.size?.compareTo(7) == -1) {
 
                 selectedDayList?.add(DaySelectionModel().apply {
-                    Log.d("debago","selected day list; day : ${res.id}, lunch : ${res.lunch}, dinner : ${res.dinner}")
+                    Log.d(
+                        "debago",
+                        "selected day list; day : ${res.id}, lunch : ${res.lunch}, dinner : ${res.dinner}"
+                    )
                     this.day = res.id
                     this.lunch = res.lunch
                     this.dinner = res.dinner
@@ -242,17 +293,16 @@ class SelectDayDialog : DialogFragment() {
     }
 
     private fun fillDialog() {
-        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
-            fillSelectedDayList(result)
-            if(isSuggestion==true){
-               fillSuggestionRecyclerView()
-            }else{
-                fillChipEachDay()
-            }
-        })
+        fillSelectedDayList(daySelectedViewModel.getSelectedDay())
+        if (isSuggestion == true) {
+            fillSuggestionRecyclerView()
+        } else {
+            fillChipEachDay()
+        }
     }
 
-    private fun fillChipEachDay(){
+
+    private fun fillChipEachDay() {
         val daysOfWeek: ArrayList<String> = arrayListOf(
             App.appContext.getString(R.string.monday),
             App.appContext.getString(R.string.tuesday),
@@ -265,8 +315,8 @@ class SelectDayDialog : DialogFragment() {
         val items = mutableListOf<GenericItem>()
         daysOfWeek.forEachIndexed { index, it ->
 
-            if(recipeId?.toLong() == selectedDayList?.get(index)?.lunch){
-                if(selectedDayList?.get(index)?.dinner != 0L){
+            if (recipeId?.toLong() == selectedDayList?.get(index)?.lunch) {
+                if (selectedDayList?.get(index)?.dinner != 0L) {
                     items.add(SelectDayItem().apply {
                         this.day = it
                         this.isChecked = true
@@ -275,7 +325,7 @@ class SelectDayDialog : DialogFragment() {
                         this.dinnerId = selectedDayList?.get(index)?.dinner
                         this.selectedPosition = ChipsDayType.LUNCH.chipPosition
                     })
-                }else{
+                } else {
                     items.add(SelectDayItem().apply {
                         this.day = it
                         this.isChecked = true
@@ -284,8 +334,8 @@ class SelectDayDialog : DialogFragment() {
                         this.selectedPosition = ChipsDayType.LUNCH.chipPosition
                     })
                 }
-            }else if(recipeId?.toLong() == selectedDayList?.get(index)?.dinner){
-                if(selectedDayList?.get(index)?.lunch != 0L){
+            } else if (recipeId?.toLong() == selectedDayList?.get(index)?.dinner) {
+                if (selectedDayList?.get(index)?.lunch != 0L) {
                     items.add(SelectDayItem().apply {
                         this.day = it
                         this.isChecked = true
@@ -294,7 +344,7 @@ class SelectDayDialog : DialogFragment() {
                         this.dinnerId = selectedDayList?.get(index)?.dinner
                         this.selectedPosition = ChipsDayType.DINNER.chipPosition
                     })
-                }else{
+                } else {
                     items.add(SelectDayItem().apply {
                         this.day = it
                         this.isChecked = true
@@ -303,7 +353,7 @@ class SelectDayDialog : DialogFragment() {
                         this.selectedPosition = ChipsDayType.DINNER.chipPosition
                     })
                 }
-            }else if(selectedDayList?.get(index)?.lunch != 0L){
+            } else if (selectedDayList?.get(index)?.lunch != 0L) {
                 items.add(SelectDayItem().apply {
                     this.day = it
                     this.isChecked = false
@@ -312,7 +362,7 @@ class SelectDayDialog : DialogFragment() {
                     this.dinnerId = selectedDayList?.get(index)?.dinner
                     this.selectedPosition = ChipsDayType.LUNCH.chipPosition
                 })
-            }else if(selectedDayList?.get(index)?.dinner != 0L){
+            } else if (selectedDayList?.get(index)?.dinner != 0L) {
                 items.add(SelectDayItem().apply {
                     this.day = it
                     this.isChecked = false
@@ -321,7 +371,7 @@ class SelectDayDialog : DialogFragment() {
                     this.dinnerId = selectedDayList?.get(index)?.dinner
                     this.selectedPosition = ChipsDayType.DINNER.chipPosition
                 })
-            }else{
+            } else {
                 items.add(SelectDayItem().apply {
                     this.day = it
                     this.isChecked = false
@@ -334,49 +384,73 @@ class SelectDayDialog : DialogFragment() {
         itemAdapter.add(items)
     }
 
-    private fun fillSuggestionRecyclerView(){
+    private fun fillSuggestionRecyclerView() {
+
+        itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
-        //todo
+        val recipesList: MutableList<Recipes>? = mutableListOf()
+        recipeViewModel.getSuggestionsRecipes(ingredientsViewModel.getIngredientsForFreezdgeList())
+            ?.forEach {
+                recipesList?.add(it)
+            }
+        recipesList?.shuffle()
+        var max: Int? = 0
+        recipesList?.let {
+            max = if (it.size - 1 < 6) {
+                it.size - 1
+            } else {
+                6
+            }
+        }
+        max?.let {
+            for (i in 0..it) {
+                if (recipesList?.get(i) != null) {
+                    items.add(SuggestionRecipeItem().apply {
+                        this.model = recipesList[i]
+                    })
+                }
+            }
+        }
         itemAdapter.add(items)
     }
 
-    private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner:Int){
+    private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner: Int) {
 
         selectedDayList?.forEach {
             if (it == clickedDay) {
                 it.apply {
-                    this?.day=0
-                    this?.lunch=0L
-                    this?.dinner=0L
+                    this?.day = 0
+                    this?.lunch = 0L
+                    this?.dinner = 0L
                 }
             } else {
-                if(it?.day==clickedDay?.day){
-                    if(it?.lunch==0L && it.dinner==0L){
+                if (it?.day == clickedDay?.day) {
+                    if (it?.lunch == 0L && it.dinner == 0L) {
                         it.apply {
-                            this.lunch=clickedDay?.lunch
-                            this.dinner=clickedDay?.dinner
+                            this.lunch = clickedDay?.lunch
+                            this.dinner = clickedDay?.dinner
                         }
-                    }else if (it?.lunch!=0L && clickedDay?.lunch!=0L || it?.dinner!=0L && clickedDay?.dinner!=0L){
-                        if(it?.lunch== clickedDay?.lunch && isLunchOrDinner==ChipsDayType.LUNCH.chipPosition){
+                    } else if (it?.lunch != 0L && clickedDay?.lunch != 0L || it?.dinner != 0L && clickedDay?.dinner != 0L) {
+                        if (it?.lunch == clickedDay?.lunch && isLunchOrDinner == ChipsDayType.LUNCH.chipPosition) {
                             it.apply {
-                                this?.lunch=0L
-                                this?.dinner=clickedDay?.dinner
+                                this?.lunch = 0L
+                                this?.dinner = clickedDay?.dinner
                             }
-                        }else if(it?.dinner==clickedDay?.dinner && isLunchOrDinner==ChipsDayType.DINNER.chipPosition){
+                        } else if (it?.dinner == clickedDay?.dinner && isLunchOrDinner == ChipsDayType.DINNER.chipPosition) {
                             it.apply {
-                                this?.lunch=clickedDay?.lunch
-                                this?.dinner=0L
+                                this?.lunch = clickedDay?.lunch
+                                this?.dinner = 0L
                             }
-                        } else{
+                        } else {
                             it.apply {
-                                this?.lunch=clickedDay?.lunch
-                                this?.dinner=clickedDay?.dinner
+                                this?.lunch = clickedDay?.lunch
+                                this?.dinner = clickedDay?.dinner
                             }
                         }
-                    }else {
+                    } else {
                         it.apply {
-                            this?.lunch=clickedDay?.lunch
-                            this?.dinner=clickedDay?.dinner
+                            this?.lunch = clickedDay?.lunch
+                            this?.dinner = clickedDay?.dinner
                         }
                     }
                 }

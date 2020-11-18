@@ -212,26 +212,28 @@ class MyIngredientsListFragment :
     }
 
 
-    private fun updateGroceryListIfNecessary(ingredientName:String?){
-        daySelectedViewModel.getSelectedDay().observe(viewLifecycleOwner, Observer { result ->
-            result.forEach {daySelected->
-                val lunchRecipe= daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
-                val dinnerRecipe= daySelected.dinner?.let { recipeViewModel.getRecipeLiveDataById(it) }
-                updateGroceryToTrue(lunchRecipe,ingredientName)
-                updateGroceryToTrue(dinnerRecipe,ingredientName)
-            }
-        })
+    private fun updateGroceryListIfNecessary(ingredientName: String?) {
+        daySelectedViewModel.getSelectedDay()?.forEach { daySelected ->
+            val lunchRecipe = daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
+            val dinnerRecipe = daySelected.dinner?.let { recipeViewModel.getRecipeLiveDataById(it) }
+            updateGroceryToTrue(lunchRecipe, ingredientName)
+            updateGroceryToTrue(dinnerRecipe, ingredientName)
+        }
     }
 
-    private fun updateGroceryToTrue(recipe: Recipes?,ingredientName: String?){
+
+    private fun updateGroceryToTrue(recipe: Recipes?, ingredientName: String?) {
         recipe?.recipeIngredients?.let {
-            domain.retrieveListFromString(it).forEach { eachIngredient->
-                if(eachIngredient == ingredientName){
-                    ingredientsViewmodel.updateIngredientSelectedForGroceryByName(eachIngredient,true)
+            domain.retrieveListFromString(it).forEach { eachIngredient ->
+                if (eachIngredient == ingredientName) {
+                    ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
+                        eachIngredient,
+                        true
+                    )
                 }
             }
         }
-
     }
+
 
 }
