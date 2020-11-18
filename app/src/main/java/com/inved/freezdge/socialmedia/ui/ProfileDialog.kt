@@ -60,7 +60,7 @@ class ProfileDialog : DialogFragment() {
     //Photo
     private var urlPicture: String? = null
     private var cameraFilePath: String? = null
-    private var imageCameraOrGallery: ImageCameraOrGallery? = null
+    private var fileUtils: FileUtils? = null
 
     //UI
     private var profilPhoto: ImageView? = null
@@ -87,7 +87,7 @@ class ProfileDialog : DialogFragment() {
             inflater.inflate(R.layout.dialog_update_profile, container, false)
         mContext = App.applicationContext()
         uid = FirebaseAuth.getInstance().currentUser?.uid
-        imageCameraOrGallery = ImageCameraOrGallery()
+        fileUtils = FileUtils(mContext)
         profilPhoto = view.findViewById(R.id.profil_photo)
         changePhotoText =
             view.findViewById(R.id.change_profil_photo_text)
@@ -219,8 +219,8 @@ class ProfileDialog : DialogFragment() {
             // Create the File where the photo should go
             var photoFile: File? = null
             try {
-                photoFile = imageCameraOrGallery?.createImageFile()
-                cameraFilePath = photoFile?.let { imageCameraOrGallery?.getCameraFilePath(it) }
+                photoFile = fileUtils?.createImageFile()
+                cameraFilePath = photoFile?.let { fileUtils?.getCameraFilePath(it) }
             } catch (ex: IOException) {
                 ex.printStackTrace()
                 // Error occurred while creating the File
@@ -264,20 +264,22 @@ class ProfileDialog : DialogFragment() {
                     //data.getData returns the content URI for the selected Image
                     val selectedImage = data?.data
                     try {
-                        imageCameraOrGallery?.getRealPathFromUri(selectedImage).let {
-                            if (!it.isNullOrEmpty()) {
-                                mPhotoFile = FileCompressor.compressToFile(
-                                    File(
-                                        it
+                        if (selectedImage != null) {
+                            fileUtils?.getPath(selectedImage).let {
+                                if (!it.isNullOrEmpty()) {
+                                    mPhotoFile = FileCompressor.compressToFile(
+                                        File(
+                                            it
+                                        )
                                     )
-                                )
+                                }
                             }
                         }
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                     if (selectedImage != null) {
-                        urlPicture = imageCameraOrGallery?.getRealPathFromUri(selectedImage)
+                        urlPicture = fileUtils?.getPath(selectedImage)
                         showImageInCircle(urlPicture)
                     }
                 }

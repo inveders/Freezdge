@@ -47,7 +47,7 @@ class PhotoDialog : DialogFragment() {
     var domain = Domain()
     private var urlPicture: String? = null
     private var cameraFilePath: String? = null
-    private var imageCameraOrGallery: ImageCameraOrGallery? = null
+    private var fileUtils: FileUtils? = null
 
     //UI
     private var photoPreview: ImageView? = null
@@ -72,7 +72,7 @@ class PhotoDialog : DialogFragment() {
         val view: View =
             inflater.inflate(R.layout.dialog_fullscreen_add_photo, container, false)
         mContext = App.applicationContext()
-        imageCameraOrGallery = ImageCameraOrGallery()
+        fileUtils = FileUtils(mContext)
         photoPreview = view.findViewById(R.id.photo_preview)
         dialogTitle = view.findViewById(R.id.dialogTitle)
         photoTitle = view.findViewById(R.id.titleEdittext)
@@ -226,8 +226,8 @@ class PhotoDialog : DialogFragment() {
             // Create the File where the photo should go
             var photoFile: File? = null
             try {
-                photoFile = imageCameraOrGallery?.createImageFile()
-                cameraFilePath = photoFile?.let { imageCameraOrGallery?.getCameraFilePath(it) }
+                photoFile = fileUtils?.createImageFile()
+                cameraFilePath = photoFile?.let { fileUtils?.getCameraFilePath(it) }
             } catch (ex: IOException) {
                 ex.printStackTrace()
                 // Error occurred while creating the File
@@ -269,13 +269,15 @@ class PhotoDialog : DialogFragment() {
                     //data.getData returns the content URI for the selected Image
                     val selectedImage = data?.data
                     try {
-                        imageCameraOrGallery?.getRealPathFromUri(selectedImage).let {
-                            if (!it.isNullOrEmpty()) {
-                                mPhotoFile = FileCompressor.compressToFile(
-                                    File(
-                                        it
+                        if (selectedImage != null) {
+                            fileUtils?.getPath(selectedImage).let {
+                                if (!it.isNullOrEmpty()) {
+                                    mPhotoFile = FileCompressor.compressToFile(
+                                        File(
+                                            it
+                                        )
                                     )
-                                )
+                                }
                             }
                         }
 
@@ -283,7 +285,7 @@ class PhotoDialog : DialogFragment() {
                         e.printStackTrace()
                     }
                     if (selectedImage != null) {
-                        urlPicture = imageCameraOrGallery?.getRealPathFromUri(selectedImage)
+                        urlPicture = fileUtils?.getPath(selectedImage)
                         showImage(urlPicture)
                     }
                 }

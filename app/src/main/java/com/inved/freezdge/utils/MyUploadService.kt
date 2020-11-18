@@ -50,11 +50,10 @@ class MyUploadService : Service() {
             val photoRef: StorageReference? = type?.let { mStorageRef?.child(it)?.child("$documentId.jpg") }
 
             //File from external
-            val imageCameraOrGallery = ImageCameraOrGallery()
             val localFile =
                 Uri.fromFile(File(fileUri.toString()))
-            val fileExternal = imageCameraOrGallery.getFile(
-                App.applicationContext(), localFile
+            val fileExternal = FileUtils(App.appContext).getFile(
+                localFile
             ) //file external
 
             //File from internal
@@ -101,8 +100,7 @@ class MyUploadService : Service() {
 
                 //10 sec before deleting files
                 Handler().postDelayed({
-                    val imageCameraOrGalery = ImageCameraOrGallery()
-                    imageCameraOrGalery.deleteFile(App.appContext,internalFile)
+                   FileUtils(App.appContext).deleteFile(internalFile)
                 },10000)
             }
             .addOnFailureListener { }

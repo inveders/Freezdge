@@ -20,7 +20,6 @@ import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.like.LikeButton
 import com.like.OnLikeListener
-import java.sql.Date
 import java.util.*
 
 class PostsAdapter(

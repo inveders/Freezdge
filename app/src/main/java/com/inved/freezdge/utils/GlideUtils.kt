@@ -46,6 +46,10 @@ class GlideUtils {
                         isFirstResource: Boolean
                     ): Boolean {
                         Log.e("glide", "Exception is : $e")
+                        if(shimmer!=null){
+                            shimmer.stopShimmer()
+                            shimmer.hideShimmer()
+                        }
                         return false
                     }
 
@@ -86,6 +90,10 @@ class GlideUtils {
                         isFirstResource: Boolean
                     ): Boolean {
                         Log.e("glide", "Exception is : $e")
+                        if(shimmer!=null){
+                            shimmer.stopShimmer()
+                            shimmer.hideShimmer()
+                        }
                         return false
                     }
 
