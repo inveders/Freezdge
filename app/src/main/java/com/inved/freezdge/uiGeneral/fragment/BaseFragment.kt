@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -41,6 +42,7 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.schedule.adapter.SelectDayItem
 import com.inved.freezdge.schedule.database.DaySelected
 import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
@@ -265,6 +267,30 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             handleFavouriteFastAdapterClick(fastAdapter, favouriteRecipesViewmodel)
         }
 
+        if(wichFragment == FragmentDetected.CALENDAR_FRAGMENT.number){
+            //handle click on notYetPlaned
+            handleCalendarFastAdapterClick()
+        }
+
+    }
+
+    private fun handleCalendarFastAdapterClick() {
+        fastAdapter.addClickListener({ vh: NotYetPlanedItem.ViewHolder -> vh.imageItem }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
+            if (item is NotYetPlanedItem) {
+                val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
+                    this.day = item.day
+                    if(item.isLunchOrDinner==ChipsDayType.LUNCH.chipPosition){
+                        this.lunch=1
+                        this.dinner=0L
+                    }else if(item.isLunchOrDinner==ChipsDayType.DINNER.chipPosition){
+                        this.lunch=0L
+                        this.dinner=1
+                    }
+                }
+                openSelectDateDialog(clickedDay,pos,null)
+
+            }
+        }
     }
 
     private fun openWebViewActivity(url: String?) {
@@ -357,6 +383,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
                 if(res.lunch==0L){
                     items.add(NotYetPlanedItem().apply {
+                        this.day=res.id
+                        this.isLunchOrDinner=ChipsDayType.LUNCH.chipPosition
                     })
                 }else{
                     res.lunch?.let {
@@ -373,6 +401,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
                 if(res.dinner==0L){
                     items.add(NotYetPlanedItem().apply {
+                        this.day=res.id
+                        this.isLunchOrDinner=ChipsDayType.DINNER.chipPosition
                     })
                 }else{
                     res.dinner?.let {
@@ -611,6 +641,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             //react on the click event
             if (item is ListRecipeItem) {
                 openSelectDateDialog(
+                    null,
                     pos,
                     item.model?.id.toString()
                 )
@@ -667,6 +698,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             //react on the click event
             if (item is ListRecipeItem) {
                 openSelectDateDialog(
+                    null,
                     pos,
                     item.model?.id.toString()
                 )
@@ -677,7 +709,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
 
-    private fun openSelectDateDialog(itemPosition: Int?, recipeId: String?) {
+    private fun openSelectDateDialog(clickedDay:DaySelectionModel?,itemPosition: Int?, recipeId: String?) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(SelectDayDialog.TAG)
         if (previous != null) {
@@ -685,9 +717,13 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         transaction?.addToBackStack(null)
         SelectDayDialog.setSelectDateListener(this)
-        val dialogFragment = SelectDayDialog.newInstance(itemPosition, recipeId)
+        val dialogFragment:DialogFragment? = if(clickedDay==null){
+            SelectDayDialog.newInstance(null,itemPosition, recipeId)
+        }else{
+            SelectDayDialog.newInstance(clickedDay,itemPosition, recipeId)
+        }
         if (transaction != null) {
-            dialogFragment.show(transaction, SelectDayDialog.TAG)
+            dialogFragment?.show(transaction, SelectDayDialog.TAG)
         }
     }
 

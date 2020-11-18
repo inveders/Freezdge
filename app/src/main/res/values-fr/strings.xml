@@ -182,6 +182,7 @@
     <string name="ingredients_list_page_name">Mes ingrédients présents chez moi</string>
     <string name="dialog_question_clear_calendar">Voulez-vous réinitialiser la planification des recettes?</string>
     <string name="no_item_found_liked_post">Aucun post liké pour l\'instant</string>
+    <string name="recipe_suggestion_dialog">SUGGESTIONS DE RECETTES</string>
 
 
 </resources>

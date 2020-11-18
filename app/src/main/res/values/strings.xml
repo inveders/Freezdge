@@ -98,6 +98,7 @@
     <string name="dinner">Dinner</string>
     <string name="snack">Snack</string>
     <string name="day_dialog">SELECT A DAY</string>
+    <string name="recipe_suggestion_dialog">RECIPE SUGGESTION</string>
     <string name="day_ok_dialog">OK</string>
 
     <!-- LOGIN ACTIVITY -->

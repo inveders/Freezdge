@@ -14,6 +14,9 @@ import kotlin.math.roundToInt
 
 class NotYetPlanedItem : AbstractItem<NotYetPlanedItem.ViewHolder>(){
 
+    var day:Long?=0L
+    var isLunchOrDinner:Int?=0
+
     // defines the type defining this item. must be unique. preferably an id
     override val type: Int
         get() = R.id.item_not_yet_planed
@@ -37,7 +40,7 @@ class NotYetPlanedItem : AbstractItem<NotYetPlanedItem.ViewHolder>(){
         }
 
         var domain= Domain()
-        private var imageItem: ImageView = view.findViewById(R.id.image)
+        var imageItem: ImageView = view.findViewById(R.id.image)
 
 
         override fun bindView(item: NotYetPlanedItem, payloads: MutableList<Any>) {
