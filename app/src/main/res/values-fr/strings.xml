@@ -17,7 +17,7 @@
 
     <!--No item found-->
     <string name="no_item_found_favourite">Aucun favori pour le moment</string>
-    <string name="no_item_found_recipes">Choisissez au moins un ingrédient pour chercher des recettes</string>
+    <string name="no_item_found_recipes">Choisissez au moins un ingrédient pour afficher des recettes\n\nCependant vous pouvez faire une recherche sur l\'ensemble de notre base de données de recettes grâce à la loupe en haut à droite</string>
     <string name="no_recipes_found">Aucune recette trouvée</string>
     <string name="no_item_found_ingredients">Choisissez votre premier ingrédient</string>
     <string name="no_item_found_grocery">Liste de courses vide</string>

@@ -35,6 +35,15 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
         return getRecipesBox?.query()?.contains(Recipes_.recipeIngredients,ingredientName)?.build()?.find()
     }
 
+    // in database, get recipes wich contains  given ingredient name
+    fun getDinnerSuggestionRecipe(): MutableList<Recipes>? {
+        return getRecipesBox?.query()?.equal(Recipes_.isForDinner, true)?.build()?.find()
+    }
+
+    fun getLunchSuggestionRecipe(): MutableList<Recipes>? {
+        return getRecipesBox?.query()?.equal(Recipes_.dishType, "Main course")?.build()?.find()
+    }
+
     // insert in database all recipes of mine
     fun insertRecipesInDatabase() {
         AddRecipesInDatabase(getRecipesBox)

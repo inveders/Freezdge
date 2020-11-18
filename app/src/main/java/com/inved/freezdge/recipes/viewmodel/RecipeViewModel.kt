@@ -34,6 +34,14 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return recipesRepository.getRecipeIfContainIngredientSuggestion(ingredientName)
     }
 
+    private fun getDinnerSuggestionsRecipes(): MutableList<Recipes>? {
+        return recipesRepository.getDinnerSuggestionRecipe()
+    }
+
+    private fun getLunchSuggestionsRecipes(): MutableList<Recipes>? {
+        return recipesRepository.getLunchSuggestionRecipe()
+    }
+
     fun insertRecipesInDatabase() {
         return recipesRepository.insertRecipesInDatabase()
     }
@@ -80,20 +88,51 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
         return setListDatabaseViewModel
     }
 
-    fun getSuggestionsRecipes(ingredientsList: MutableList<Ingredients>?): MutableSet<Recipes>? {
+    fun getDinnerSuggestionsRecipes(ingredientsList: MutableList<Ingredients>?): MutableSet<Recipes>? {
 
         val setDatabaseSetListRecipes: MutableSet<Recipes>? = mutableSetOf()
 
-        if (ingredientsList != null) {
-            for (myIngredient in ingredientsList) {
-                myIngredient.name?.let { it ->
-                    getRecipeIfContainIngredientSuggestion(it)?.forEach {
-                        if(it.isForDinner) {
-                            setDatabaseSetListRecipes?.add(it)
+        if (ingredientsList?.size!=0) {
+            if (ingredientsList != null) {
+                for (myIngredient in ingredientsList) {
+                    myIngredient.name?.let { it ->
+                        getRecipeIfContainIngredientSuggestion(it)?.forEach {
+                            if(it.isForDinner==true) {
+                                setDatabaseSetListRecipes?.add(it)
+                            }
                         }
                     }
-                }
 
+                }
+            }
+        }else{
+            getDinnerSuggestionsRecipes()?.forEach {
+                setDatabaseSetListRecipes?.add(it)
+            }
+        }
+        return setDatabaseSetListRecipes
+    }
+
+    fun getLunchSuggestionsRecipes(ingredientsList: MutableList<Ingredients>?): MutableSet<Recipes>? {
+
+        val setDatabaseSetListRecipes: MutableSet<Recipes>? = mutableSetOf()
+
+        if (ingredientsList?.size!=0) {
+            if (ingredientsList != null) {
+                for (myIngredient in ingredientsList) {
+                    myIngredient.name?.let { it ->
+                        getRecipeIfContainIngredientSuggestion(it)?.forEach {
+                            if(it.isForDinner==false) {
+                                setDatabaseSetListRecipes?.add(it)
+                            }
+                        }
+                    }
+
+                }
+            }
+        }else{
+            getLunchSuggestionsRecipes()?.forEach {
+                setDatabaseSetListRecipes?.add(it)
             }
         }
         return setDatabaseSetListRecipes

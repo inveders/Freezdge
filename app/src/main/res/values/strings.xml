@@ -21,7 +21,7 @@
 
     <!--No item found-->
     <string name="no_item_found_favourite">No favourite recipes for the moment</string>
-    <string name="no_item_found_recipes">Choose at least one ingredient to see recipes</string>
+    <string name="no_item_found_recipes">Choose at least one ingredient to see recipes\n\nHowever, you can search our entire recipe database using the search button (top right).</string>
     <string name="no_item_found_calendar">No recipe Scheduled for the moment</string>
     <string name="no_item_found_liked_post">No liked post for the moment</string>
     <string name="no_recipes_found">No recipes found</string>

@@ -2,6 +2,7 @@ package com.inved.freezdge.socialmedia.ui
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -120,9 +121,19 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
                                 this.post = post
                             })
                             fillRecyclerView(items)
+                        }else{
+                            FirebaseAuth.getInstance().currentUser?.uid?.let { it1 ->
+                                FavoritePostHelper.deleteFavoritePost(
+                                    it1,postId)
+                            }
                         }
                     }
-                }?.addOnFailureListener {}
+                }?.addOnFailureListener {it1->
+                    Log.e(
+                        "firebase",
+                        "post not found ${it1.message}"
+                    )
+                }
             }
         }
 

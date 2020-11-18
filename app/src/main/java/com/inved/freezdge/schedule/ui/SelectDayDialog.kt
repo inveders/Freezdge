@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +22,6 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.schedule.adapter.SuggestionRecipeItem
 import com.inved.freezdge.schedule.database.DaySelected
-import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
@@ -385,25 +383,23 @@ class SelectDayDialog : DialogFragment() {
     }
 
     private fun fillSuggestionRecyclerView() {
-
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         val recipesList: MutableList<Recipes>? = mutableListOf()
-        recipeViewModel.getSuggestionsRecipes(ingredientsViewModel.getIngredientsForFreezdgeList())
-            ?.forEach {
-                recipesList?.add(it)
-            }
-        recipesList?.shuffle()
-        var max: Int? = 0
-        recipesList?.let {
-            max = if (it.size - 1 < 6) {
-                it.size - 1
-            } else {
-                6
-            }
+        if(arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION)==ChipsDayType.LUNCH.chipPosition){
+            recipeViewModel.getLunchSuggestionsRecipes(ingredientsViewModel.getIngredientsForFreezdgeList())
+                ?.forEach {
+                    recipesList?.add(it)
+                }
+        }else{
+            recipeViewModel.getDinnerSuggestionsRecipes(ingredientsViewModel.getIngredientsForFreezdgeList())
+                ?.forEach {
+                    recipesList?.add(it)
+                }
         }
-        max?.let {
-            for (i in 0..it) {
+        recipesList?.shuffle()
+        defineMaxIteration(recipesList)?.let {max->
+            for (i in 0..max) {
                 if (recipesList?.get(i) != null) {
                     items.add(SuggestionRecipeItem().apply {
                         this.model = recipesList[i]
@@ -412,6 +408,18 @@ class SelectDayDialog : DialogFragment() {
             }
         }
         itemAdapter.add(items)
+    }
+
+    private fun defineMaxIteration(recipesList: MutableList<Recipes>?):Int?{
+        var max: Int? = 0
+        recipesList?.let {
+            max = if (it.size - 1 < 6) {
+                it.size - 1
+            } else {
+                6
+            }
+        }
+        return max
     }
 
     private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner: Int) {

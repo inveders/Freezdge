@@ -670,7 +670,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "Saladier,Couteau éminceur,Poêle,Mixeur ou blendeur,Planche,spatule",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -704,7 +704,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "", 
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -740,7 +740,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -774,7 +774,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -808,7 +808,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -842,7 +842,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -876,7 +876,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -910,7 +910,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -944,7 +944,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -978,7 +978,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1012,7 +1012,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1046,7 +1046,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1080,7 +1080,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1114,7 +1114,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1148,7 +1148,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1183,7 +1183,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "Suggestion de présentation : servir le riz, en boule sur un quart de l'assiette, les légumes sur un autre quart, et placer le poisson sur la moitié de l'assiette avec la sauce oseille versée dessus.",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1218,7 +1218,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
@@ -1252,7 +1252,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
                     step12 = "",
                     urlVideo = "",
                     ustensilesList = "",
-                    isForDinner = false
+                    isForDinner = true
                 )
             )
 
