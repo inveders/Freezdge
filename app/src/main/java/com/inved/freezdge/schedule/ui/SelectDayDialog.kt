@@ -1,6 +1,7 @@
 package com.inved.freezdge.schedule.ui
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,10 +28,12 @@ import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
 import com.inved.freezdge.utils.Domain
+import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
+import org.greenrobot.eventbus.EventBus
 
 class SelectDayDialog : DialogFragment() {
 
@@ -56,6 +59,7 @@ class SelectDayDialog : DialogFragment() {
         }
 
         //Viewmodel
+        private var isNeedRefresh:Boolean=false
         private lateinit var daySelectedViewModel: DaySelectedViewModel
         private lateinit var recipeViewModel: RecipeViewModel
         private lateinit var ingredientsViewModel: IngredientsViewModel
@@ -426,7 +430,7 @@ class SelectDayDialog : DialogFragment() {
     }
 
     private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner: Int) {
-
+        isNeedRefresh  = true
         selectedDayList?.forEach {
             if (it == clickedDay) {
                 it.apply {
@@ -469,5 +473,9 @@ class SelectDayDialog : DialogFragment() {
         }
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if(isNeedRefresh) EventBus.getDefault().post(RefreshEvent())
+    }
 
 }

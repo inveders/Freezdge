@@ -2,7 +2,6 @@ package com.inved.freezdge.uiGeneral.dialog
 
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.DialogGroceryListBinding
-import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
-import com.inved.freezdge.schedule.ui.SelectDayDialog
 import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
 import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.uiGeneral.adapter.TitleItem
-import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
-import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.android.synthetic.main.dialog_grocery_list.*
