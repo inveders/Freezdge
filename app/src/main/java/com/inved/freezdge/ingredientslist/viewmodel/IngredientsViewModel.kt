@@ -44,6 +44,10 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
         return ingredientsRepository.getAllIngredientsById()
     }
 
+    fun getIngredientByName(name:String?):Ingredients? {
+        return ingredientsRepository.getIngredientByName(name)
+    }
+
     fun deleteAllIngredients() {
         return ingredientsRepository.deleteAllIngredientsInBox()
     }

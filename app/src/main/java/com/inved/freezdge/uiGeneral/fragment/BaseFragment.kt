@@ -43,6 +43,7 @@ import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.enumtype.ChipsDayType
+import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.IAdapter
@@ -54,6 +55,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 enum class FragmentDetected(val number: Int) {
     ALL_RECIPES_FRAGMENT(1),
@@ -96,6 +100,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         insertDays()
         detectWichFragmentIsOpen()
     }
+
 
     var domain = Domain()
 
@@ -845,6 +850,22 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             }
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: RefreshEvent) {
+        setlistDatabase.clear()
+        detectWichFragmentIsOpen()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
+        super.onPause()
     }
 
 }

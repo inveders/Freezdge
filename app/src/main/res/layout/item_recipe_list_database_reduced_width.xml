@@ -112,6 +112,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:layout_marginTop="10dp"
+            android:elevation="2dp"
             app:layout_constraintRight_toRightOf="@id/fragment_recipes_list_item_matching"
             app:layout_constraintLeft_toLeftOf="@id/fragment_recipes_list_item_matching"
             app:layout_constraintTop_toTopOf="@id/view"

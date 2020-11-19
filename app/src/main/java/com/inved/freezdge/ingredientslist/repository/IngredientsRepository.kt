@@ -44,6 +44,15 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
 
     }
 
+    // update ingredient selection according to the name of the ingredient (chip)
+    fun getIngredientByName(name: String?):Ingredients? {
+
+        if(name!=null){
+            return getIngredientsBox?.query()?.equal(Ingredients_.name,name)?.build()?.findUnique()
+        }
+        return null
+    }
+
     // to add or remove ingredient from grocery list
     fun updateIngredientSelectedForGroceryByName(name: String?,bool:Boolean) {
 

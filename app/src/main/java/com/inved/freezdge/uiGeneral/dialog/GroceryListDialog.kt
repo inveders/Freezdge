@@ -1,25 +1,38 @@
 package com.inved.freezdge.uiGeneral.dialog
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.DialogGroceryListBinding
+import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.schedule.ui.SelectDayDialog
 import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
 import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.uiGeneral.adapter.TitleItem
+import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
+import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.listeners.addClickListener
 import kotlinx.android.synthetic.main.dialog_grocery_list.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 
 class GroceryListDialog : DialogFragment() {
 
@@ -39,10 +52,12 @@ class GroceryListDialog : DialogFragment() {
     }
 
     //UI
+    private var isNeedRefresh:Boolean=false
     private lateinit var mContext: Context
     private lateinit var binding : DialogGroceryListBinding
     private val itemAdapter = GenericItemAdapter()
     private var fastAdapter = FastAdapter.with(itemAdapter)
+    private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
@@ -52,8 +67,11 @@ class GroceryListDialog : DialogFragment() {
         if (!::binding.isInitialized) {
             binding = DialogGroceryListBinding.inflate(inflater, container, false)
         }
-
-      //  dialog?.window?.setBackgroundDrawable(ColorDrawable(0))
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore)
+        ingredientsViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsViewModel::class.java)
 
         return binding.root
     }
@@ -77,10 +95,13 @@ class GroceryListDialog : DialogFragment() {
         }else{
             items.add(TitleItem().apply {
             })
-            ingredientsList?.forEach {
-                items.add(IngredientsListItem().apply {
-                    this.ingredientText = it
-                })
+            ingredientsList.forEach {
+                ingredientsViewModel.getIngredientByName(it)?.let {ingredient->
+                    items.add(IngredientsListItem().apply {
+                        this.ingredients = ingredient
+                    })
+                }
+
             }
         }
         items.add(CloseButtonItem().apply {
@@ -103,9 +124,38 @@ class GroceryListDialog : DialogFragment() {
         fastAdapter.addClickListener({ vh: CloseButtonItem.ViewHolder -> vh.closeButton }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is CloseButtonItem) {
                 dialog?.dismiss()
+
+           }
+        }
+
+
+        fastAdapter.addClickListener({ vh:IngredientsListItem.ViewHolder -> vh.imageSelection }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
+            if (item is IngredientsListItem) {
+                isNeedRefresh=true
+                val bool: Boolean? = ingredientsViewModel.isIngredientSelected(item.ingredients?.name)
+                if (bool==true) {
+                    item.getViewHolder(v).imageSelection?.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
+                } else {
+                    item.getViewHolder(v).imageSelection?.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
+                }
+                GlobalScope.launch(Dispatchers.IO) {
+                    item.ingredients?.let { ingredientsViewModel.updateIngredient(it) }
+                    if (ingredientsViewModel.isIngredientSelectedInGrocery(item.ingredients?.name)==true) {
+                        ingredientsViewModel.updateIngredientSelectedForGroceryByName(
+                            item.ingredients?.name,
+                            false
+                        )
+                    }
+                }
+                fastAdapter.notifyAdapterItemChanged(pos)
             }
         }
 
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if(isNeedRefresh) EventBus.getDefault().post(RefreshEvent())
     }
 
 }

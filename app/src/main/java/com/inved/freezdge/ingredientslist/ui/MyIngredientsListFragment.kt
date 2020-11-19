@@ -63,17 +63,6 @@ class MyIngredientsListFragment :
         setHasOptionsMenu(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupChips()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onPause() {
-        EventBus.getDefault().unregister(this)
-        super.onPause()
-    }
-
     private fun setupIngredientsTypeList() {
         ingredientsTypeList.add(IngredientsType.CREAMERY.typeName)
         ingredientsTypeList.add(IngredientsType.FRUITS_VEGETABLES.typeName)

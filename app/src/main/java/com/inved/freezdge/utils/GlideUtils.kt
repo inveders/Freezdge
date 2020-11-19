@@ -34,40 +34,42 @@ class GlideUtils {
                 .into(image)
         }
 
-        fun loadPhotoWithGlideUrl(url:String?, shimmer: ShimmerFrameLayout?, image:ImageView){
-            GlideApp.with(App.applicationContext())
-                .load(url)
-                .centerCrop()
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.e("glide", "Exception is : $e")
-                        if(shimmer!=null){
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
+        fun loadPhotoWithGlideUrl(url:String?, shimmer: ShimmerFrameLayout?, image:ImageView?){
+            image?.let {
+                GlideApp.with(App.applicationContext())
+                    .load(url)
+                    .centerCrop()
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable?>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.e("glide", "Exception is : $e")
+                            if(shimmer!=null){
+                                shimmer.stopShimmer()
+                                shimmer.hideShimmer()
+                            }
+                            return false
                         }
-                        return false
-                    }
 
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        if(shimmer!=null){
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable?>,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            if(shimmer!=null){
+                                shimmer.stopShimmer()
+                                shimmer.hideShimmer()
+                            }
+                            return false
                         }
-                        return false
-                    }
-                })
-                .into(image)
+                    })
+                    .into(it)
+            }
         }
 
         fun loadPhotoWithGlideCircleCrop(gsReference: StorageReference?, image:ImageView){
@@ -78,40 +80,42 @@ class GlideUtils {
         }
 
 
-        fun loadPhotoWithGlide(gsReference:StorageReference?,shimmer:ShimmerFrameLayout?,image:ImageView){
-            GlideApp.with(App.applicationContext())
-                .load(gsReference)
-                .centerCrop()
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.e("glide", "Exception is : $e")
-                        if(shimmer!=null){
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
+        fun loadPhotoWithGlide(gsReference:StorageReference?,shimmer:ShimmerFrameLayout?,image:ImageView?){
+            image?.let {
+                GlideApp.with(App.applicationContext())
+                    .load(gsReference)
+                    .centerCrop()
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable?>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            Log.e("glide", "Exception is : $e")
+                            if(shimmer!=null){
+                                shimmer.stopShimmer()
+                                shimmer.hideShimmer()
+                            }
+                            return false
                         }
-                        return false
-                    }
 
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any,
-                        target: Target<Drawable?>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        if(shimmer!=null){
-                            shimmer.stopShimmer()
-                            shimmer.hideShimmer()
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable?>,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            if(shimmer!=null){
+                                shimmer.stopShimmer()
+                                shimmer.hideShimmer()
+                            }
+                            return false
                         }
-                        return false
-                    }
-                })
-                .into(image)
+                    })
+                    .into(it)
+            }
         }
 
     }
