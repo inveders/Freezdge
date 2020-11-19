@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -90,7 +91,7 @@ class SelectDayDialog : DialogFragment() {
     var recipeId: String? = null
 
     //UI
-    private var validateButton: TextView? = null
+    private var validateButton: AppCompatButton? = null
     private var dialogTitle: TextView? = null
     private var cancelButton: ImageButton? = null
     private lateinit var mContext: Context
@@ -165,6 +166,7 @@ class SelectDayDialog : DialogFragment() {
                 recipeId
             )
             dialog?.dismiss()
+
         }
 
         return view
@@ -271,6 +273,7 @@ class SelectDayDialog : DialogFragment() {
     }
 
     private fun fillSelectedDayList(result: MutableList<DaySelected>?) {
+        selectedDayList?.clear()
         //fill selectedDayList with
         result?.forEach { res ->
 

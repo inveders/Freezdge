@@ -361,7 +361,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
 
-    private fun getCalendarRecipes() {
+    fun getCalendarRecipes() {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         daySelectedViewModel.getSelectedDay()?.forEach { res ->

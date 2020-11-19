@@ -122,6 +122,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
                             })
                             fillRecyclerView(items)
                         }else{
+
                             FirebaseAuth.getInstance().currentUser?.uid?.let { it1 ->
                                 FavoritePostHelper.deleteFavoritePost(
                                     it1,postId)
