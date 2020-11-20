@@ -14,6 +14,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.databinding.DialogGroceryListBinding
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.schedule.ui.SelectDayDialog
 import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
 import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.uiGeneral.adapter.TitleItem
@@ -35,18 +36,20 @@ class GroceryListDialog : DialogFragment() {
         //final values
         const val TAG = "INGREDIENT_LIST"
         private const val KEY_INGREDIENT_LIST = "key_ingredient_list"
-
+        private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
         // to pass image url in tis dialog
         @JvmStatic
-        fun newInstance(param1: ArrayList<String>) =
+        fun newInstance(param1: ArrayList<String>,param2:Int) =
             GroceryListDialog().apply {
                 arguments = Bundle().apply {
                     putStringArrayList(KEY_INGREDIENT_LIST, param1)
+                    putInt(KEY_DAY_POS_RECYCLERVIEW, param2)
                 }
             }
     }
 
     //UI
+    private var itemPositionInRecyclerView: Int? = 0
     private var isNeedRefresh:Boolean=false
     private lateinit var mContext: Context
     private lateinit var binding : DialogGroceryListBinding
@@ -75,7 +78,7 @@ class GroceryListDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         mContext = App.applicationContext()
         val ingredientArrayList = arguments?.getStringArrayList(KEY_INGREDIENT_LIST)
-
+        itemPositionInRecyclerView = arguments?.getInt(KEY_DAY_POS_RECYCLERVIEW)
         fillDialog(ingredientArrayList)
     }
 
@@ -150,7 +153,11 @@ class GroceryListDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if(isNeedRefresh) EventBus.getDefault().post(RefreshEvent())
+        if(isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
+            RefreshEvent(
+                it
+            )
+        })
     }
 
 }

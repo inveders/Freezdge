@@ -98,7 +98,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         insertFood()
         insertRecipes()
         insertDays()
-        detectWichFragmentIsOpen()
+        detectWichFragmentIsOpen(0)
     }
 
 
@@ -310,13 +310,13 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
     }
 
-    private fun detectWichFragmentIsOpen() {
+    private fun detectWichFragmentIsOpen(pos: Int) {
         when {
             getForegroundFragment() is AllRecipesFragment -> run {
                 setupRecipeRecyclerView(FragmentDetected.ALL_RECIPES_FRAGMENT.number)
                 if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                     lifecycleScope.launch {
-                        getAllRecipes()
+                        getAllRecipes(pos)
                     }
 
                 } else {
@@ -328,11 +328,11 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             }
             getForegroundFragment() is MyRecipesFragment -> run {
                 setupRecipeRecyclerView(FragmentDetected.FAVOURITE_FRAGMENT.number)
-                getFavouritesRecipes()
+                getFavouritesRecipes(pos)
             }
             getForegroundFragment() is CalendarFragment -> run {
                 setupRecipeRecyclerView(FragmentDetected.CALENDAR_FRAGMENT.number)
-                getCalendarRecipes()
+                getCalendarRecipes(pos)
             }
             getForegroundFragment() is MyIngredientsListFragment -> run {
                 setupRecipeRecyclerView(FragmentDetected.MY_INGREDIENTS_FRAGMENT.number)
@@ -340,7 +340,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
     }
 
-    private fun getFavouritesRecipes() {
+    private fun getFavouritesRecipes(pos: Int) {
         itemAdapter.clear()
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
             .observe(viewLifecycleOwner, Observer { result ->
@@ -352,7 +352,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                         imageArrow.visibility = View.INVISIBLE
                         floatingActionButton.show()
                         listenerSearchFavourite?.showSearchButton()
-                        fillFavouriteAdapterDatabase(result)
+                        fillFavouriteAdapterDatabase(result,pos)
                     } else {
                         not_found.visibility = View.VISIBLE
                         imageArrow.visibility = View.VISIBLE
@@ -366,7 +366,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
 
-    fun getCalendarRecipes() {
+    fun getCalendarRecipes(pos: Int) {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         daySelectedViewModel.getSelectedDay()?.forEach { res ->
@@ -415,7 +415,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             }
 
         }
-
         if (items.isNullOrEmpty()) {
             not_found.visibility = View.VISIBLE
             not_found.text = getString(R.string.no_item_found_calendar)
@@ -423,7 +422,12 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             not_found.visibility = View.GONE
         }
         itemAdapter.add(items)
+        scrollToGoodPosition(pos)
 
+    }
+
+    private fun scrollToGoodPosition(pos: Int) {
+        recyclerview.scrollToPosition(pos)
     }
 
 
@@ -433,7 +437,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
     //DATA
-    private fun getAllRecipes() {
+    private fun getAllRecipes(pos: Int) {
 
         if (setlistDatabase.isNullOrEmpty()) {
             val nbIngredients: MutableList<Ingredients>? =
@@ -453,7 +457,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                             not_found.visibility = View.GONE
                             floatingActionButton.show()
                             //  listenerSearch?.showSearchButton()
-                            fillAdapterDatabase(result2)
+                            fillAdapterDatabase(result2,pos)
                         }
                     })
             } else {
@@ -466,13 +470,13 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 listener?.hideLoader()
             }
         } else {
-            fillAdapterDatabase(setlistDatabase)
+            fillAdapterDatabase(setlistDatabase,pos)
         }
 
 
     }
 
-    private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>) {
+    private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>,pos: Int) {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         val myList: MutableList<ShowedRecipes>? = mutableListOf()
@@ -490,9 +494,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         BaseFragment.setlistDatabase = setlistDatabase
         recipesNumber()
         listener?.hideLoader()
+        scrollToGoodPosition(pos)
     }
 
-    private fun fillFavouriteAdapterDatabase(setlistDatabase: MutableList<FavouritesRecipes>) {
+    private fun fillFavouriteAdapterDatabase(setlistDatabase: MutableList<FavouritesRecipes>,pos: Int) {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         val myList: MutableList<ShowedRecipes>? = mutableListOf()
@@ -509,6 +514,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         itemAdapter.add(items)
         setFavouriteList = setlistDatabase
         favouritesRecipesNumber()
+        scrollToGoodPosition(pos)
     }
 
     fun fillModelListRecipes(recipes: Recipes): ShowedRecipes? {
@@ -627,10 +633,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
         }
 
-        fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, _, i: FastAdapter<GenericItem>, item: GenericItem ->
+        fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.recipeIngredients)
+                onClickMatching(item.model?.recipeIngredients,pos)
             }
 
         }
@@ -685,10 +691,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
         }
 
-        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, _, i: FastAdapter<GenericItem>, item: GenericItem ->
+        favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.recipeIngredients)
+                onClickMatching(item.model?.recipeIngredients,pos)
             }
         }
 
@@ -731,7 +737,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
 
     // click on post image to open preview dialog
-    private fun onClickMatching(ingredients: String?) {
+    private fun onClickMatching(ingredients: String?,pos: Int) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(GroceryListDialog.TAG)
         if (previous != null) {
@@ -741,7 +747,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
         val ingredientsList: ArrayList<String> = domain.missingIngredients(ingredients)
 
-        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it) }
+        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it,pos) }
         if (transaction != null) {
             dialogFragment?.show(transaction, GroceryListDialog.TAG)
         }
@@ -800,15 +806,12 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         when {
             getForegroundFragment() is MyRecipesFragment -> run {
-                getFavouritesRecipes()
+                itemPosition?.let { getFavouritesRecipes(it) }
             }
             getForegroundFragment() is CalendarFragment -> run {
-                getCalendarRecipes()
+                itemPosition?.let { getCalendarRecipes(it) }
 
             }
-        }
-        if (itemPosition != null) {
-            recyclerview.scrollToPosition(itemPosition)
         }
 
     }
@@ -855,7 +858,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: RefreshEvent) {
         setlistDatabase.clear()
-        detectWichFragmentIsOpen()
+        detectWichFragmentIsOpen(event.itemPosition)
     }
 
     override fun onResume() {

@@ -58,7 +58,7 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding, ActivityMainBindin
                 getString(R.string.calendar_list_clear), Toast.LENGTH_SHORT
             ).show()
             daySelectedViewModel.reinitCalendarValues()
-            getCalendarRecipes()
+            getCalendarRecipes(0)
 
 
         }

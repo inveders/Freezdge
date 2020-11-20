@@ -1,3 +1,3 @@
 package com.inved.freezdge.utils.eventbus
 
-class RefreshEvent ()
+class RefreshEvent (var itemPosition:Int=0)

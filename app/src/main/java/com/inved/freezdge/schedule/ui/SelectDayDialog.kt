@@ -475,7 +475,11 @@ class SelectDayDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if(isNeedRefresh) EventBus.getDefault().post(RefreshEvent())
+        if(isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
+            RefreshEvent(
+                it
+            )
+        })
     }
 
 }
