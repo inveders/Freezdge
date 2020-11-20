@@ -816,7 +816,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
     }
 
-    private fun updateGroceryList() {
+    fun updateGroceryList() {
         ingredientsViewmodel.resetGroceryList()
         daySelectedViewModel.getSelectedDay()?.forEach { daySelected ->
             val lunchRecipe =

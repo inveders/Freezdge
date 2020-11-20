@@ -60,6 +60,9 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
             val ingredient:Ingredients? =
                 getIngredientsBox?.query()?.equal(Ingredients_.name,name)?.build()?.findUnique()
             ingredient?.grocerySelectedIngredient = bool
+            if(bool){
+                ingredient?.selectedIngredient=false
+            }
             if(ingredient!=null){
                 getIngredientsBox?.put(ingredient)
                 FirebaseIngredientsUtils().getIngredientByName(ingredient.name,

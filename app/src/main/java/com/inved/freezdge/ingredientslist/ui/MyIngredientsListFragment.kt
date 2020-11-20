@@ -214,9 +214,9 @@ class MyIngredientsListFragment :
     private fun updateGroceryToTrue(recipe: Recipes?, ingredientName: String?) {
         recipe?.recipeIngredients?.let {
             domain.retrieveListFromString(it).forEach { eachIngredient ->
-                if (eachIngredient == ingredientName) {
+                if (eachIngredient.contains(ingredientName.toString(),true)) {
                     ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
-                        eachIngredient,
+                        ingredientName,
                         true
                     )
                 }

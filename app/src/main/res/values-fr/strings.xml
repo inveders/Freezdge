@@ -184,6 +184,7 @@
     <string name="no_item_found_liked_post">Aucun post liké pour l\'instant</string>
     <string name="recipe_suggestion_dialog">SUGGESTIONS DE RECETTES</string>
     <string name="chooseButton">CHOISIR</string>
+    <string name="nav_header_firstname">Salut %s</string>
 
 
 </resources>

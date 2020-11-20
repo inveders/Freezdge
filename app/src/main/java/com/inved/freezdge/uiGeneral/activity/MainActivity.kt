@@ -132,8 +132,9 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
                                 .findViewById(id.nav_header_FirstName)
                             val user: User? =
                                 task.result!!.documents[0].toObject(User::class.java)
-                            firstnameHeader.text = user?.firstname
-                            //to show a photo from Firebase storage
+                            firstnameHeader.text = getString(R.string.nav_header_firstname,user?.firstname)
+                            //to show a photo from Firebase s
+                            // ...storage
                             imageHeader.setOnClickListener {
                                 onClickUpdateProfil()
                             }

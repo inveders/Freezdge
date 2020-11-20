@@ -111,6 +111,7 @@
 
 
     <!--Change profil -->
+    <string name="nav_header_firstname">Hello %s</string>
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
     <string name="change_photo_profil">Change your profil photo</string>
