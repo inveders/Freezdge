@@ -2,10 +2,9 @@ package com.inved.freezdge.uiGeneral.dialog
 
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Point
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import com.inved.freezdge.R
 import com.inved.freezdge.databinding.DialogGroceryListBinding
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
-import com.inved.freezdge.schedule.ui.SelectDayDialog
 import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
 import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.uiGeneral.adapter.TitleItem
@@ -30,6 +28,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
+
 class GroceryListDialog : DialogFragment() {
 
     companion object {
@@ -39,13 +38,27 @@ class GroceryListDialog : DialogFragment() {
         private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
         // to pass image url in tis dialog
         @JvmStatic
-        fun newInstance(param1: ArrayList<String>,param2:Int) =
+        fun newInstance(param1: ArrayList<String>, param2: Int) =
             GroceryListDialog().apply {
                 arguments = Bundle().apply {
                     putStringArrayList(KEY_INGREDIENT_LIST, param1)
                     putInt(KEY_DAY_POS_RECYCLERVIEW, param2)
                 }
             }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val window: Window? = dialog?.window
+        val size = Point()
+
+        val display: Display? = window?.windowManager?.defaultDisplay
+        display?.getSize(size)
+
+        val width: Int = size.x
+
+        window?.setLayout((width * 0.9).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setGravity(Gravity.CENTER)
     }
 
     //UI
@@ -84,17 +97,18 @@ class GroceryListDialog : DialogFragment() {
 
 
     // fill the dialog with the image we click on
-    private fun fillDialog(ingredientsList:ArrayList<String>?) {
+    private fun fillDialog(ingredientsList: ArrayList<String>?) {
         val items = mutableListOf<GenericItem>()
         if(ingredientsList.isNullOrEmpty()){
             items.add(IngredientsListItem().apply {
-                this.ingredientText = App.appContext.resources.getString(R.string.recipe_grocery_list_dialog_all_matching)
+                this.ingredientText =
+                    App.appContext.resources.getString(R.string.recipe_grocery_list_dialog_all_matching)
             })
         }else{
             items.add(TitleItem().apply {
             })
             ingredientsList.forEach {
-                ingredientsViewModel.getIngredientByName(it)?.let {ingredient->
+                ingredientsViewModel.getIngredientByName(it)?.let { ingredient->
                     items.add(IngredientsListItem().apply {
                         this.ingredients = ingredient
                     })
@@ -127,7 +141,7 @@ class GroceryListDialog : DialogFragment() {
         }
 
 
-        fastAdapter.addClickListener({ vh:IngredientsListItem.ViewHolder -> vh.imageSelection }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
+        fastAdapter.addClickListener({ vh: IngredientsListItem.ViewHolder -> vh.imageSelection }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is IngredientsListItem) {
                 isNeedRefresh=true
                 val bool: Boolean? = ingredientsViewModel.isIngredientSelected(item.ingredients?.name)
