@@ -100,34 +100,31 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
     // init click listener on different button and text of page (tip, camera, gallery, profile)
     private fun initButtons() {
         addPhotoCamera.setOnClickListener {
-            addPhotoCamera.startAnimation(domain.animation())
-            addPhotoCameraText.startAnimation(domain.animation())
-            onClickAddPhotoWithPermissionCheck(1, "")
+            launchCamera()
         }
         addPhotoCameraText.setOnClickListener {
-            addPhotoCamera.startAnimation(domain.animation())
-            addPhotoCameraText.startAnimation(domain.animation())
-            onClickAddPhotoWithPermissionCheck(1, "")
+            launchCamera()
+        }
+        sub_constraint_1.setOnClickListener {
+            launchCamera()
         }
         addPhotoGallery.setOnClickListener {
-            addPhotoGallery.startAnimation(domain.animation())
-            addPhotoGalleryText.startAnimation(domain.animation())
-            onClickAddPhotoGalleryWithPermissionCheck()
+            launchGallery()
         }
         addPhotoGalleryText.setOnClickListener {
-            addPhotoGallery.startAnimation(domain.animation())
-            addPhotoGalleryText.startAnimation(domain.animation())
-            onClickAddPhotoGalleryWithPermissionCheck()
+            launchGallery()
+        }
+        sub_constraint_2.setOnClickListener {
+            launchGallery()
         }
         addTipImage.setOnClickListener {
-            addTipImage.startAnimation(domain.animation())
-            addTipText.startAnimation(domain.animation())
-            onClickAddTips(0, "")
+            launchTip()
         }
         addTipText.setOnClickListener {
-            addTipImage.startAnimation(domain.animation())
-            addTipText.startAnimation(domain.animation())
-            onClickAddTips(0, "")
+            launchTip()
+        }
+        sub_constraint_3.setOnClickListener {
+           launchTip()
         }
         photoProfile.setOnClickListener { onClickUpdateProfil() }
         mSwipeRefreshLayout?.setOnRefreshListener {
@@ -139,6 +136,24 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
                 mSwipeRefreshLayout?.isRefreshing = false
             }, 1000)
         }
+    }
+
+    private fun launchCamera(){
+        addPhotoCamera.startAnimation(domain.animation())
+        addPhotoCameraText.startAnimation(domain.animation())
+        onClickAddPhotoWithPermissionCheck(1, "")
+    }
+
+    private fun launchGallery(){
+        addPhotoGallery.startAnimation(domain.animation())
+        addPhotoGalleryText.startAnimation(domain.animation())
+        onClickAddPhotoGalleryWithPermissionCheck()
+    }
+
+    private fun launchTip(){
+        addTipImage.startAnimation(domain.animation())
+        addTipText.startAnimation(domain.animation())
+        onClickAddTips(0, "")
     }
 
 
