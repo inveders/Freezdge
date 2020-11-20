@@ -43,12 +43,12 @@ class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
                     if(item.isChecked==true && item.isOccuped==true){
                         lunchChip.isChecked=true
                         dinnerChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorPrimaryLight))
+                            App.appContext, R.color.colorDarkGrey))
                     }else if(item.isChecked==true){
                         lunchChip.isChecked=true
                     } else if (item.isOccuped==true){
                         lunchChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorPrimaryLight))
+                            App.appContext, R.color.colorDarkGrey))
                     }
 
 
@@ -58,12 +58,12 @@ class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
                     if(item.isChecked==true && item.isOccuped==true){
                         dinnerChip.isChecked=true
                         lunchChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorPrimaryLight))
+                            App.appContext, R.color.colorDarkGrey))
                     }else if(item.isChecked==true){
                         dinnerChip.isChecked=true
                     }else if(item.isOccuped==true){
                         dinnerChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorPrimaryLight))
+                            App.appContext, R.color.colorDarkGrey))
                     }
 
                 }

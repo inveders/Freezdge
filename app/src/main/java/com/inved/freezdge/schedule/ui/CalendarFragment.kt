@@ -10,6 +10,9 @@ import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentCalendarBinding
 import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CalendarFragment: BaseFragment<FragmentCalendarBinding, ActivityMainBinding>() {
     override fun setBinding(
@@ -58,7 +61,7 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding, ActivityMainBindin
                 getString(R.string.calendar_list_clear), Toast.LENGTH_SHORT
             ).show()
             daySelectedViewModel.reinitCalendarValues()
-            updateGroceryList()
+            GlobalScope.launch(Dispatchers.Main) { updateGroceryList() }
             getCalendarRecipes(0)
 
 

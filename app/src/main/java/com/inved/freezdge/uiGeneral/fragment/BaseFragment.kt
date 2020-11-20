@@ -802,7 +802,8 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 }
 
             }
-            updateGroceryList()
+            GlobalScope.launch(Dispatchers.Main) { updateGroceryList() }
+
         }
         when {
             getForegroundFragment() is MyRecipesFragment -> run {

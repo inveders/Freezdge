@@ -58,7 +58,7 @@ open class RecipeDetailActivity : BaseActivity() {
         //   fastAdapter?.onClickListener = this
         itemAdapter = GenericItemAdapter()
         fastAdapter= FastAdapter.with(itemAdapter)
-        fastAdapter.getExpandableExtension().isOnlyOneExpandedItem =true
+        fastAdapter.getExpandableExtension().isOnlyOneExpandedItem =false
         recyclerView.adapter = fastAdapter
 
         fastAdapter.addClickListener({ vh: DetailRecipeItem.ViewHolder -> vh.recipeOwnerImage }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->

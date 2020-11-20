@@ -182,7 +182,7 @@ class MyIngredientsListFragment :
                     false
                 )
                 myresult.name?.let { it1 ->
-                    updateGroceryListIfNecessary(it1)
+                    GlobalScope.launch(Dispatchers.Main) { updateGroceryListIfNecessary(it1) }
                 }
             }
         }
@@ -197,7 +197,7 @@ class MyIngredientsListFragment :
                 false
             )
         }
-        updateGroceryListIfNecessary(event.chipText)
+        GlobalScope.launch(Dispatchers.Main) { updateGroceryListIfNecessary(event.chipText) }
     }
 
 

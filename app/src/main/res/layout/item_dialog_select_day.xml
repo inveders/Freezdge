@@ -40,11 +40,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:checkable="true"
+            android:clickable="true"
             android:drawable="@drawable/chip_day_selector"
             android:text="@string/lunch"
+            android:textColor="@drawable/chip_occuped"
             android:textAlignment="center"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:focusable="true" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/dinner_chips"
@@ -52,11 +55,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:drawable="@drawable/chip_day_selector"
+            android:textColor="@drawable/chip_occuped"
             android:checkable="true"
+            android:clickable="true"
             android:text="@string/dinner"
             android:textAlignment="center"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:focusable="true" />
 
     </com.google.android.material.chip.ChipGroup>
 

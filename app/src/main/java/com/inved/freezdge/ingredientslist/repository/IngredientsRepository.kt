@@ -33,7 +33,7 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
             if(ingredient!=null){
                 getIngredientsBox?.put(ingredient)
                 FirebaseIngredientsUtils().getIngredientByName(ingredient.name,
-                    isToDelete = false,
+                    isToDelete = !bool,
                     isInGrocery = ingredient.grocerySelectedIngredient,
                     isSelected = ingredient.selectedIngredient,
                     ingredient = ingredient

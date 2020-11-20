@@ -1,11 +1,8 @@
 package com.inved.freezdge.recipes.view
 
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.inved.freezdge.R
-import com.inved.freezdge.utils.App
 import com.mikepenz.fastadapter.*
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 
@@ -24,15 +21,9 @@ class DetailSummaryExpandableItem :
             if (item.subItems.isNotEmpty()) {
                 v?.findViewById<View>(R.id.plusImageView)?.let {
                     if (item.isExpanded) {
-                        it.background=ContextCompat.getDrawable(
-                            App.appContext,
-                            R.drawable.ic_remove_ingredient_not_selected_24dp
-                        )
+                        it.setBackgroundResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
                     } else {
-                        it.background=ContextCompat.getDrawable(
-                            App.appContext,
-                            R.drawable.ic_add_ingredient_selected_24dp
-                        )
+                        it.setBackgroundResource(R.drawable.ic_add_ingredient_selected_24dp)
                     }
                 }
 
@@ -69,17 +60,10 @@ class DetailSummaryExpandableItem :
         override fun bindView(item: DetailSummaryExpandableItem, payloads: MutableList<Any>) {
             this.item = item
 
-            if(item.isExpanded){
-                          imageView.background=ContextCompat.getDrawable(
-                              App.appContext,
-                              R.drawable.ic_remove_ingredient_not_selected_24dp
-                          )
-            }else{
-                imageView.background=ContextCompat.getDrawable(
-                    App.appContext,
-                    R.drawable.ic_add_ingredient_selected_24dp
-                )
-
+            if (item.isExpanded) {
+                imageView.setBackgroundResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
+            } else {
+                imageView.setBackgroundResource(R.drawable.ic_add_ingredient_selected_24dp)
             }
             item.title.let {
                 this.titleTextView.text = it

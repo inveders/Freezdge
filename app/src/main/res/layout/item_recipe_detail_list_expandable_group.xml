@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
-        app:srcCompat="@drawable/ic_add_ingredient_selected_24dp"
+        android:background="@drawable/ic_add_ingredient_selected_24dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
