@@ -12,8 +12,6 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
     private fun addRecipes() {
 
-        //FREEZDGE RECIPES
-
         if (recipeBox?.isEmpty == true) {
             recipeBox?.put(
                 Recipes(
