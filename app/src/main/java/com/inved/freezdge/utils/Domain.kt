@@ -171,6 +171,9 @@ class Domain {
             if (input.contains("water") || input.contains("eau")) {
                 nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
             }
+            if (input.contains("salt") || input.contains("sel")) {
+                nbIngredientInRecipe = nbIngredientInRecipe.minus(1)
+            }
         }
 
         nbIngredientInFridge = 0.0
@@ -214,7 +217,6 @@ class Domain {
 
         }
         return missingIngredientsList
-
     }
 
 
