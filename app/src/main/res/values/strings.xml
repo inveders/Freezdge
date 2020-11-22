@@ -152,6 +152,7 @@
     <string name="social_media_post_delete_message_dialog">Are you sure to delete this post</string>
     <string name="social_media_post_delete_confirmation_dialog">Post deleted</string>
     <string name="social_media_community">A community opens up to you</string>
+    <string name="social_media_liked_post">We are looking for your liked post</string>
     <string name="popup_menu_update">Update</string>
     <string name="popup_menu_delete">Delete</string>
 

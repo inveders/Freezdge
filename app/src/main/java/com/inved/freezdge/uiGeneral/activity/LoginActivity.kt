@@ -151,7 +151,6 @@ class LoginActivity : BaseActivity() {
     // --------------------
     private fun startFacebookSignInActivity() {
         Domain().updateSharedPrefFirstConnexion(true)
-        setupSyncFirebase()
         LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile"))
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
@@ -183,6 +182,7 @@ class LoginActivity : BaseActivity() {
                             getCurrentUser()
                         )
                     }
+                    setupSyncFirebase()
                     handleStartActivityOrOnboarding()
                     loginUtils.showSnackBar(
                         this.coordinatorLayout,
@@ -205,7 +205,6 @@ class LoginActivity : BaseActivity() {
 
     private fun startGoogleSignInActivity() {
         Domain().updateSharedPrefFirstConnexion(true)
-        setupSyncFirebase()
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
 
@@ -267,6 +266,7 @@ class LoginActivity : BaseActivity() {
                         getCurrentUser()
                     )
                 }
+                setupSyncFirebase()
                 handleStartActivityOrOnboarding()
             } else {
                 loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))

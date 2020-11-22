@@ -185,6 +185,7 @@
     <string name="recipe_suggestion_dialog">SUGGESTIONS DE RECETTES</string>
     <string name="chooseButton">CHOISIR</string>
     <string name="nav_header_firstname">Salut %s</string>
+    <string name="social_media_liked_post">Nous recherchons vos posts préférés</string>
 
 
 </resources>

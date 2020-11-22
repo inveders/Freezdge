@@ -22,6 +22,7 @@ import com.inved.freezdge.socialmedia.firebase.PostHelper
 import com.inved.freezdge.socialmedia.view.LikedPostItem
 import com.inved.freezdge.socialmedia.view.PostsAdapter
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.LoaderListener
 import com.inved.freezdge.utils.NetworkUtils
 import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import com.inved.freezdge.utils.eventbus.RefreshEvent
@@ -46,7 +47,7 @@ import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
-class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
+class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener, LoaderListener {
 
     private lateinit var binding: FragmentSocialLikedPostBinding
     private lateinit var itemAdapter: ItemAdapter<GenericItem>
@@ -66,6 +67,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
         EventBus.getDefault().post(HandleBottomNavVisibilityEvent(false))
         setHasOptionsMenu(true)
         initRecyclerView()
+        showLoader()
         retrieveAllLikedPost()
     }
 
@@ -102,6 +104,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
     }
 
     private fun displayEmptyView() {
+        hideLoader()
         itemAdapter.clear()
         binding.root.not_found.visibility = View.VISIBLE
         binding.root.not_found.text = getString(R.string.no_item_found_liked_post)
@@ -142,6 +145,7 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
     }
 
     private fun fillRecyclerView(data: MutableList<GenericItem>) {
+        hideLoader()
         itemAdapter.clear()
         binding.root.not_found.visibility = View.GONE
         itemAdapter.add(data)
@@ -337,6 +341,16 @@ class SocialLikedPostFragment : Fragment(), PostsAdapter.ClickListener {
         results: IntArray
     ) {
         this.onRequestPermissionsResult(rc, results)
+    }
+
+    override fun showLoader() {
+        loaderLikedPost?.visibility = View.VISIBLE
+        recyclerview.visibility = View.GONE
+    }
+
+    override fun hideLoader() {
+        loaderLikedPost?.visibility = View.GONE
+        recyclerview.visibility = View.VISIBLE
     }
 
 }
