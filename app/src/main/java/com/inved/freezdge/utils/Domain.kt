@@ -10,6 +10,7 @@ import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.database.IngredientsList
 import com.inved.freezdge.ingredientslist.database.Ingredients_
 import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.utils.enumtype.DayType
@@ -199,23 +200,18 @@ class Domain {
     }
 
     // find wich ingredients are in recipes and not in my fridge and add them to the grocery list
-    fun missingIngredients(input: String?): ArrayList<String>{
+    fun missingIngredients(ingredientsList: MutableList<IngredientsList>): ArrayList<String>?{
 
         val missingIngredientsList:ArrayList<String> = arrayListOf()
-        for (i in getAllIngredientNotSelected()) {
-            var count = 0
-            if (i.name?.let { input?.contains(it, true) }==true) {
-                i.name?.let { missingIngredientsList.add(it)}
-                count = count.plus(1)
-            }
-
-            if (count == 0) {
-                if (i.nameEnglish?.let { input?.contains(it, true) }==true) {
-                    i.nameEnglish?.let { missingIngredientsList.add(it)}
+        ingredientsList.forEach {
+            val ingredients = it.ingredientsId?.let { it1 -> getIngredient(it1) }
+            ingredients?.let { myIngredient->
+                if(!myIngredient.selectedIngredient){
+                    myIngredient.name?.let { it1 -> missingIngredientsList.add(it1) }
                 }
             }
-
         }
+
         return missingIngredientsList
     }
 
@@ -321,6 +317,13 @@ class Domain {
         return getIngredientsBox()
             .query().equal(Ingredients_.selectedIngredient, true).order(Ingredients_.name)
             .build().find()
+    }
+
+    private fun getIngredient(ingredientId:Long): Ingredients? {
+        return getIngredientsBox()
+                .query().equal(Ingredients_.id, ingredientId)
+                .build().findUnique()
+
     }
 
 

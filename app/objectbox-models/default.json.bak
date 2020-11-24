@@ -279,7 +279,7 @@
           "id": "33:7799191127638944854",
           "name": "isForDinner",
           "type": 1,
-          "flags": 2
+          "flags": 4
         }
       ],
       "relations": []

@@ -2,6 +2,7 @@ package com.inved.freezdge.injection
 
 import com.inved.freezdge.schedule.repository.DaySelectedRepository
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
+import com.inved.freezdge.ingredientslist.repository.IngredientsListRepository
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import com.inved.freezdge.recipes.repository.RecipesRepository
 import io.objectbox.BoxStore
@@ -15,7 +16,8 @@ class Injection {
             val recipesRepository = RecipesRepository(boxStore.boxFor())
             val favouritesRecipesRepository = FavouritesRecipesRepository(boxStore.boxFor())
             val daySelectedRepository = DaySelectedRepository(boxStore.boxFor())
-            return ViewModelFactory(ingredientsRepository, favouritesRecipesRepository, recipesRepository,daySelectedRepository)
+            val ingredientsListRepository = IngredientsListRepository(boxStore.boxFor())
+            return ViewModelFactory(ingredientsRepository, favouritesRecipesRepository, recipesRepository,daySelectedRepository,ingredientsListRepository)
         }
     }
 }

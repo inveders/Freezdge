@@ -6,7 +6,9 @@ import com.inved.freezdge.schedule.repository.DaySelectedRepository
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
+import com.inved.freezdge.ingredientslist.repository.IngredientsListRepository
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsListViewModel
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.recipes.repository.RecipesRepository
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
@@ -15,7 +17,8 @@ class ViewModelFactory(
     private val ingredientsRepository: IngredientsRepository,
     private val favouritesRecipesRepository: FavouritesRecipesRepository,
     private val recipesRepository: RecipesRepository,
-    private val daySelectedRepository: DaySelectedRepository
+    private val daySelectedRepository: DaySelectedRepository,
+    private val ingredientsListRepository: IngredientsListRepository
 ) : ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when{
@@ -23,6 +26,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(FavouritesRecipesViewModel::class.java) -> FavouritesRecipesViewModel(favouritesRecipesRepository) as T
             modelClass.isAssignableFrom(RecipeViewModel::class.java) -> RecipeViewModel(recipesRepository) as T
             modelClass.isAssignableFrom(DaySelectedViewModel::class.java) -> DaySelectedViewModel(daySelectedRepository) as T
+            modelClass.isAssignableFrom(IngredientsListViewModel::class.java) -> IngredientsListViewModel(ingredientsListRepository) as T
             else -> throw Exception("Unknown ViewModel class")
         }
     }

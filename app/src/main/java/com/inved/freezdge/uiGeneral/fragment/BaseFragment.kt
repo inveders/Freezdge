@@ -30,6 +30,7 @@ import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsListViewModel
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.onboarding.OnboardingActivity
@@ -138,6 +139,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     lateinit var recipeViewModel: RecipeViewModel
     private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     private lateinit var ingredientsViewmodel: IngredientsViewModel
+    private lateinit var ingredientsListViewModel: IngredientsListViewModel
     private lateinit var daySelectedViewModel: DaySelectedViewModel
 
     //INITIALIZATION
@@ -159,6 +161,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             this,
             viewModelFactory
         ).get(DaySelectedViewModel::class.java)
+        ingredientsListViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsListViewModel::class.java)
     }
 
     private fun insertDays() {
@@ -184,6 +190,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
         if (ingredientsViewmodel.countIngredients()?.toInt() == 0) {
             ingredientsViewmodel.insertIngredients()
+            ingredientsListViewModel.insertIngredientsList()
         }
 
         if (BuildConfig.VERSION_NAME != OnboardingActivity.sharedPrefVersionName.getString(
@@ -192,6 +199,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             )
         ) {
             ingredientsViewmodel.deleteAllIngredients()
+            ingredientsListViewModel.deleteAllIngredientsList()
             domain.updateSharedPrefVersionName()
         } else {
             domain.updateSharedPrefVersionName()
@@ -636,7 +644,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.recipeIngredients,pos)
+                onClickMatching(item.model?.id,pos)
             }
 
         }
@@ -694,7 +702,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.recipeIngredients,pos)
+                onClickMatching(item.model?.id,pos)
             }
         }
 
@@ -737,7 +745,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
 
     // click on post image to open preview dialog
-    private fun onClickMatching(ingredients: String?,pos: Int) {
+    private fun onClickMatching(recipeId: Long?,pos: Int) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(GroceryListDialog.TAG)
         if (previous != null) {
@@ -745,7 +753,14 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         transaction?.addToBackStack(null)
 
-        val ingredientsList: ArrayList<String> = domain.missingIngredients(ingredients)
+        val ingredientsList: ArrayList<String>? =
+            recipeId?.let { it1 ->
+                ingredientsListViewModel.getIngredientListByRecipe(it1)?.let {
+                    domain.missingIngredients(
+                        it
+                    )
+                }
+            }
 
         val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it,pos) }
         if (transaction != null) {

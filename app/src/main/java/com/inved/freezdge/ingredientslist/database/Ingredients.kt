@@ -16,6 +16,7 @@ data class Ingredients(@Id var id: Long = 0,
                        var photoUrl: String? = null,
                        var selectedIngredient: Boolean = false,
                        var grocerySelectedIngredient: Boolean = false,
+                       var fixedId :Long = 0,
                        var supermarketSection: String? = null): AbstractItem<ViewHolderIngredients>(){
 
     // defines the type defining this item. must be unique. preferably an id

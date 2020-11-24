@@ -309,9 +309,63 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "5:8603431902447323631",
+      "lastPropertyId": "8:20324738451480588",
+      "name": "IngredientsList",
+      "properties": [
+        {
+          "id": "1:3201285530633324557",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7587549035622477979",
+          "name": "recipeId",
+          "type": 6,
+          "flags": 2
+        },
+        {
+          "id": "3:2048864740968430390",
+          "name": "ingredientsId",
+          "type": 6,
+          "flags": 2
+        },
+        {
+          "id": "4:6073783875553474450",
+          "name": "ingredientsName",
+          "type": 9
+        },
+        {
+          "id": "5:1432105386767739257",
+          "name": "ingredientsReplacementId",
+          "type": 6,
+          "flags": 2
+        },
+        {
+          "id": "6:3040309746009988406",
+          "name": "quantity",
+          "type": 8,
+          "flags": 2
+        },
+        {
+          "id": "7:6498757955496176835",
+          "name": "unit",
+          "type": 9
+        },
+        {
+          "id": "8:20324738451480588",
+          "name": "recipeMirror",
+          "type": 6,
+          "flags": 2
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "4:2490886889589467898",
+  "lastEntityId": "5:8603431902447323631",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
