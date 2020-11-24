@@ -96,7 +96,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
                     )
                     dateSelectedText.visibility = View.VISIBLE
                 } else {
-                    dateSelectedText.visibility = View.INVISIBLE
+                    dateSelectedText.visibility = View.GONE
                 }
             }
 
