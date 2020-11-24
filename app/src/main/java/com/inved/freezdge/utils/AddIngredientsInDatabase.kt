@@ -115,7 +115,7 @@ class AddIngredientsInDatabase(private var ingredientsBox: Box<Ingredients>?) {
             )
             ingredientsBox?.put(
                 Ingredients(
-                    name = "Crème liquide",
+                    name = "Crème fraiche liquide",
                     nameEnglish = "Cream",
                     typeIngredient = "Crèmerie",
                     photoUrl = "gs://freezdge.appspot.com/ingredients/crème_liquide.jpg",
