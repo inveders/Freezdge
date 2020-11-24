@@ -321,7 +321,7 @@ class Domain {
 
     private fun getIngredient(ingredientId:Long): Ingredients? {
         return getIngredientsBox()
-                .query().equal(Ingredients_.id, ingredientId)
+                .query().equal(Ingredients_.fixedId, ingredientId)
                 .build().findUnique()
 
     }

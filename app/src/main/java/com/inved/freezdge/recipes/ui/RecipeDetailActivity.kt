@@ -6,9 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsListViewModel
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.recipes.adapter.DetailRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.view.DetailRecipeExpandableSubItem
@@ -16,6 +20,8 @@ import com.inved.freezdge.recipes.view.DetailSummaryExpandableItem
 import com.inved.freezdge.recipes.view.DetailSummaryExpandableSubItem
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
+import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
+import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -23,6 +29,9 @@ import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.expandable.getExpandableExtension
 import com.mikepenz.fastadapter.listeners.addClickListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 open class RecipeDetailActivity : BaseActivity() {
@@ -34,6 +43,8 @@ open class RecipeDetailActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var itemAdapter: ItemAdapter<GenericItem>
     private lateinit var fastAdapter: FastAdapter<GenericItem>
+    private lateinit var ingredientsViewModel: IngredientsViewModel
+    private lateinit var ingredientsListViewModel: IngredientsListViewModel
 
     override fun getLayoutContentViewID(): Int {
         return R.layout.activity_recipe_detail
@@ -43,11 +54,23 @@ open class RecipeDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         recyclerView = findViewById(R.id.recyclerview)
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
-
+        initViewModel()
         val id: Long = intent.getLongExtra("RECIPE_ID", 0)
         val backpressValueBis: Int = intent.getIntExtra("BACKPRESS_VALUE", 1)
         backpressValue = backpressValueBis
         getRecipeById(id)
+    }
+
+    private fun initViewModel(){
+        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore)
+        ingredientsViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsViewModel::class.java)
+        ingredientsListViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsListViewModel::class.java)
     }
 
     private fun setupRecyclerView() {
@@ -78,11 +101,30 @@ open class RecipeDetailActivity : BaseActivity() {
                 }
             }
         }
+        fastAdapter.addClickListener({ vh: DetailSummaryExpandableSubItem.ViewHolder -> vh.imageSelection }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
+            if (item is DetailSummaryExpandableSubItem) {
+                val bool: Boolean? = ingredientsViewModel.isIngredientSelected(item.ingredients?.name)
+                if (bool==true) {
+                    item.getViewHolder(v).imageSelection?.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
+                } else {
+                    item.getViewHolder(v).imageSelection?.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
+                }
+                GlobalScope.launch(Dispatchers.IO) {
+                    item.ingredients?.let { ingredientsViewModel.updateIngredient(it) }
+                    if (ingredientsViewModel.isIngredientSelectedInGrocery(item.ingredients?.name)==true) {
+                        ingredientsViewModel.updateIngredientSelectedForGroceryByName(
+                            item.ingredients?.name,
+                            false
+                        )
+                    }
+                }
+                fastAdapter.notifyAdapterItemChanged(pos)
+            }
+        }
 
     }
 
     private fun fetchData(
-        recipeIngredientsList: List<String>,
         recipeStepList: MutableList<String>,
         recipe: Recipes
     ){
@@ -98,11 +140,20 @@ open class RecipeDetailActivity : BaseActivity() {
                 R.string.menu_bottom_ingredient_at_home
             )
         }
-        recipeIngredientsList.forEach {
-            ingredientsList.subItems.add(DetailSummaryExpandableSubItem().apply {
-                this.ingredient = it
-            })
+
+        recipe.id.let { recipeId ->
+            ingredientsListViewModel.getIngredientListByRecipe(recipeId)?.let {
+                it.forEach {ingredientList->
+                    ingredientsViewModel.getIngredientByName(ingredientList.ingredientsName)?.let { ingredient->
+                        ingredientsList.subItems.add(DetailSummaryExpandableSubItem().apply {
+                            this.ingredients = ingredient
+                        })
+                    }
+                }
+            }
         }
+
+
         items.add(ingredientsList)
 
 
@@ -134,7 +185,7 @@ open class RecipeDetailActivity : BaseActivity() {
         val recipe: Recipes? = recipeViewModel.getRecipeLiveDataById(id)
         if (recipe != null) {
             fetchData(
-                domain.retrieveListFromString(recipe.recipeIngredients), fillRecipeSteps(
+                fillRecipeSteps(
                     recipe
                 ), recipe
             )
