@@ -72,7 +72,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:contentDescription="@string/recipe_list_item_image"
-            app:layout_constraintTop_toTopOf="@id/favorite_image"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintTop_toTopOf="@id/view"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:srcCompat="@drawable/ic_timer_black_24dp" />
 
