@@ -182,7 +182,8 @@ class LoginActivity : BaseActivity() {
                             getCurrentUser()
                         )
                     }
-                    setupSyncFirebase()
+                    //todo
+                    //setupSyncFirebase()
                     handleStartActivityOrOnboarding()
                     loginUtils.showSnackBar(
                         this.coordinatorLayout,
@@ -210,45 +211,6 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    private fun setupSyncFirebase() {
-        val viewModelFactory = Injection.providesViewModelFactory(App.ObjectBox.boxStore)
-        ingredientsViewmodel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        ).get(IngredientsViewModel::class.java)
-        getAllSavedIngredients()
-        FirebaseCalendarUtils().getAllScheduledDaySelected()
-        Log.d("debago","in setupSyncFirebase")
-        Domain().updateSharedPrefFirstConnexion(false)
-    }
-
-    private fun getAllSavedIngredients() {
-        IngredientListHelper.getAllIngredients(
-            FirebaseAuth.getInstance().currentUser?.uid
-        )?.get()
-            ?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result?.documents?.isNotEmpty() == true) {
-
-                        task.result?.documents.let {
-                            it?.forEach { ingredientList->
-                                val ingredient: Ingredients? =
-                                    ingredientList.toObject(Ingredients::class.java)
-                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedByName(it1.name,it1.selectedIngredient) }
-                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedForGroceryByName(it1.name,it1.grocerySelectedIngredient) }
-                            }
-                        }
-                    }
-                }
-            }?.addOnFailureListener {
-                Log.e(
-                    "firebase",
-                    "Problem during the ingredient search"
-
-                )
-            }
-    }
-
     private fun configureGoogleSignIn() {
         mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -267,7 +229,7 @@ class LoginActivity : BaseActivity() {
                         getCurrentUser()
                     )
                 }
-                setupSyncFirebase()
+                //setupSyncFirebase()
                 handleStartActivityOrOnboarding()
             } else {
                 loginUtils.showSnackBar(this.coordinatorLayout, getString(R.string.google_sign_in))

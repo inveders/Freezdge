@@ -17,9 +17,9 @@ class FirebaseCalendarUtils {
             )?.get()
                 ?.addOnCompleteListener { task ->
                     if (task.result != null) {
-                        if (task.result?.documents?.size == 0) {
+                        if (task.result?.documents?.isEmpty() == true) {
                             createCalendarInFirebase()
-                        }else if (task.result?.documents?.isNotEmpty() == true) {
+                        }else {
                             val scheduleDay: DaySelected? =
                                 task.result!!.documents[0].toObject(DaySelected::class.java)
 

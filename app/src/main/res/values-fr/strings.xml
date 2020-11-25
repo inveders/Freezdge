@@ -55,7 +55,7 @@
     <string name="Yes">Oui</string>
 
     <!--Ingredients type -->
-    <string name="we_research_recipes_for_you">Nous recherchons des recettes pour vous</string>
+    <string name="we_research_recipes_for_you">Veuillez patienter</string>
     <string name="dialog_question_clear_ingredients">Etes-vous sûr(e) de vouloir vider votre liste d\'ingrédients?</string>
 
     <!--Login -->

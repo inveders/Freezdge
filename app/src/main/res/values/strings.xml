@@ -79,7 +79,7 @@
     <string name="ingredient_type_epicerie" translatable="false">Epicerie</string>
     <string name="ingredient_type_fish" translatable="false">Poisson</string>
     <string name="ingredient_type_meat" translatable="false">Viande</string>
-    <string name="we_research_recipes_for_you">We research recipes for you</string>
+    <string name="we_research_recipes_for_you">Please wait</string>
 
     <!--Login -->
     <string name="loginFacebook">Sign in with Facebook</string>

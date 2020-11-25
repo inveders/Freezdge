@@ -2,25 +2,30 @@ package com.inved.freezdge.ingredientslist.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentMyIngredientsListBinding
-import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.adapter.GroceryItem
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
+import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
+import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
 import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.enumtype.IngredientsType
 import com.inved.freezdge.utils.eventbus.ChipClickEvent
 import com.mikepenz.fastadapter.GenericItem
@@ -30,7 +35,6 @@ import kotlinx.android.synthetic.main.fragment_my_recipes.not_found
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -51,6 +55,7 @@ class MyIngredientsListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        floatingActionButton.hide()
         floatingActionButton.setOnClickListener { openSearchIngredientActivity() }
         ingredientsViewmodel =
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
@@ -59,8 +64,54 @@ class MyIngredientsListFragment :
         favouritesRecipesViewmodel =
             ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
         setupIngredientsTypeList()
-        setupChips()
+        setupSyncFirebase()
         setHasOptionsMenu(true)
+    }
+
+    private fun setupSyncFirebase() {
+        if (OnboardingActivity.sharedPrefFirstConnexion.getBoolean(OnboardingActivity.FIRST_CONNEXION,true)){
+            FirebaseCalendarUtils().getAllScheduledDaySelected()
+            getAllSavedIngredients()
+            Log.d("debago","in setupSyncFirebase")
+            Domain().updateSharedPrefFirstConnexion(false)
+        }else{
+            setupChips()
+        }
+    }
+
+    private fun getAllSavedIngredients() {
+        listener?.showLoader()
+        IngredientListHelper.getAllIngredients(
+            FirebaseAuth.getInstance().currentUser?.uid
+        )?.get()
+            ?.addOnCompleteListener { task ->
+                if (task.result != null) {
+                    if (task.result?.documents?.isNotEmpty() == true) {
+
+                        task.result?.documents?.let {
+                            it.forEach { ingredientList->
+                                val ingredient: Ingredients? =
+                                    ingredientList.toObject(Ingredients::class.java)
+                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedByName(it1.name,it1.selectedIngredient) }
+                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedForGroceryByName(it1.name,it1.grocerySelectedIngredient) }
+                            }
+                            setupChips()
+
+                        }?: kotlin.run{
+                            setupChips()
+                        }
+                    }else{
+                        setupChips()
+                    }
+                }
+            }?.addOnFailureListener {
+                Log.e(
+                    "firebase",
+                    "Problem during the ingredient search"
+
+                )
+                setupChips()
+            }
     }
 
     private fun setupIngredientsTypeList() {
@@ -96,14 +147,20 @@ class MyIngredientsListFragment :
         if (result?.size != 0) {
             not_found.visibility = View.GONE
             imageArrowIng.visibility = View.GONE
+            floatingActionButton.visibility = View.VISIBLE
+            floatingActionButton.show()
             if (result != null) {
                 handleChip(result)
+            }else{
+                listener?.hideLoader()
             }
-
         } else {
             not_found.visibility = View.VISIBLE
             imageArrowIng.visibility = View.VISIBLE
             not_found.text = getString(R.string.no_item_found_ingredients)
+            floatingActionButton.visibility = View.VISIBLE
+            floatingActionButton.show()
+            listener?.hideLoader()
         }
 
     }
@@ -135,6 +192,7 @@ class MyIngredientsListFragment :
 
         }
         itemAdapter.add(items)
+        listener?.hideLoader()
     }
 
 
