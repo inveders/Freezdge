@@ -21,14 +21,16 @@ class UserHelper {
             uid: String,
             firstname: String?,
             lastname: String?,
-            photoUrl: String?
+            photoUrl: String?,
+            email:String?
         ): Task<Void?>? {
             // 1 - Create Obj
             val userToCreate = User(
                 uid,
                 firstname,
                 lastname,
-                photoUrl
+                photoUrl,
+                email
             )
 
             return getUsersCollection()?.document(uid)?.set(userToCreate)
@@ -53,6 +55,13 @@ class UserHelper {
             uid: String?
         ): Task<Void?>? {
             return uid?.let { getUsersCollection()?.document(it)?.update("lastname", lastname) }
+        }
+
+        fun updateEmail(
+            email: String?,
+            uid: String?
+        ): Task<Void?>? {
+            return uid?.let { getUsersCollection()?.document(it)?.update("email", email) }
         }
 
         fun updatePhotoUrl(

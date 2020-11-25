@@ -47,8 +47,15 @@ class LoginUtils {
                                     it,
                                     currentUser.displayName,
                                     "",
-                                    currentUser.photoUrl.toString()
+                                    currentUser.photoUrl.toString(),
+                                    currentUser.email
                                 )
+                            }
+                        }else{
+                            if(task.result?.documents?.get(0)?.getString("email") ==null){
+                                currentUser?.uid?.let {
+                                    UserHelper.updateEmail(currentUser.email,it)
+                                }
                             }
                         }
                     }

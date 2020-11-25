@@ -218,6 +218,7 @@ class LoginActivity : BaseActivity() {
         ).get(IngredientsViewModel::class.java)
         getAllSavedIngredients()
         FirebaseCalendarUtils().getAllScheduledDaySelected()
+        Log.d("debago","in setupSyncFirebase")
         Domain().updateSharedPrefFirstConnexion(false)
     }
 
