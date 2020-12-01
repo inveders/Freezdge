@@ -112,12 +112,8 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
             cuisineType.text = item.model?.cuisineType?.capitalize()
             dishType.text = domain.handleDishType(item.model?.dishType)
 
-            // we calcul the proportion of ingredients matching between our selected ingredients and the ingredients in the recipe.
-            val proportionInPercent: Int =
-                domain.ingredientsFavouriteMatchingMethod(item.model?.recipeIngredients)
-
             proportionText.text =
-                App.resource().getString(R.string.recipe_matching_percent, proportionInPercent)
+                App.resource().getString(R.string.recipe_matching_percent, item.model?.matchingValue)
 
             // We attribute different color according to the matching value
             when (item.model?.matchingValue) {

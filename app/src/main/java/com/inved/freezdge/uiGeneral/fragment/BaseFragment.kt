@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -547,7 +546,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             model.recipeUrlOwnerLink = recipes.recipeUrlOwnerLink
             model.recipeIngredients = recipes.recipeIngredients
             model.matchingValue =
-                domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
+                domain.getMatchingValue(ingredientsViewmodel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
             model.isFavouriteRecipe = recipes.id.toString().let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = true
             model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.id)
@@ -572,7 +571,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             model.recipeUrlOwnerLink = recipes.recipeUrl
             model.recipeIngredients = recipes.recipeIngredients
             model.matchingValue =
-                domain.ingredientsFavouriteMatchingMethod(recipes.recipeIngredients)
+                domain.getMatchingValue(ingredientsViewmodel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
             model.isFavouriteRecipe = recipes.recipeId?.let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = false
             model.selectedDay =
