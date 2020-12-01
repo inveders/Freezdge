@@ -39,9 +39,10 @@ class GroceryListDialog : DialogFragment() {
         private const val KEY_RECIPE_ID = "key_recipe_id"
         private const val KEY_INGREDIENT_LIST = "key_ingredient_list"
         private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
+
         // to pass image url in tis dialog
         @JvmStatic
-        fun newInstance(param1: ArrayList<String>, param2: Int,param3:Long?) =
+        fun newInstance(param1: ArrayList<String>, param2: Int, param3: Long?) =
             GroceryListDialog().apply {
                 arguments = Bundle().apply {
                     putStringArrayList(KEY_INGREDIENT_LIST, param1)
@@ -69,15 +70,15 @@ class GroceryListDialog : DialogFragment() {
 
     //UI
     private var itemPositionInRecyclerView: Int? = 0
-    private var isNeedRefresh:Boolean=false
+    private var isNeedRefresh: Boolean = false
     private lateinit var mContext: Context
-    private lateinit var binding : DialogGroceryListBinding
+    private lateinit var binding: DialogGroceryListBinding
     private val itemAdapter = GenericItemAdapter()
     private var fastAdapter = FastAdapter.with(itemAdapter)
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var ingredientsListViewModel: IngredientsListViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var recipeId:Long?=null
+    private var recipeId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,7 +92,10 @@ class GroceryListDialog : DialogFragment() {
             this,
             viewModelFactory
         ).get(IngredientsViewModel::class.java)
-
+        ingredientsListViewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        ).get(IngredientsListViewModel::class.java)
         return binding.root
     }
 
@@ -101,35 +105,54 @@ class GroceryListDialog : DialogFragment() {
         val ingredientArrayList = arguments?.getStringArrayList(KEY_INGREDIENT_LIST)
         itemPositionInRecyclerView = arguments?.getInt(KEY_DAY_POS_RECYCLERVIEW)
         recipeId = arguments?.getLong(KEY_RECIPE_ID)
-        fillDialog(ingredientArrayList,recipeId)
+        fillDialog(recipeId)
     }
 
 
     // fill the dialog with the image we click on
-    private fun fillDialog(ingredientsList: ArrayList<String>?,recipeId:Long?) {
+    private fun fillDialog(recipeId: Long?) {
         val items = mutableListOf<GenericItem>()
-        if(ingredientsList.isNullOrEmpty()){
+        var count =0
+        recipeId?.let { id ->
+            ingredientsListViewModel.getIngredientListByRecipe(id)?.let {
+                it.forEach { ingredientList ->
+                    ingredientsViewModel.getIngredientById(ingredientList.ingredientsId)
+                        ?.let { ingredient ->
+                            if(!ingredient.selectedIngredient){
+                                count =+ 1
+                            }
+                        }
+                }
+            }
+        }
+
+        if(count==0){
             items.add(IngredientsListItem().apply {
                 this.ingredientText =
                     App.appContext.resources.getString(R.string.recipe_grocery_list_dialog_all_matching)
             })
-        }else{
-            items.add(TitleItem().apply {
-            })
 
+        }else{
             recipeId?.let { id ->
+                items.add(TitleItem().apply {
+                })
                 ingredientsListViewModel.getIngredientListByRecipe(id)?.let {
-                    it.forEach {ingredientList->
-                        ingredientsViewModel.getIngredientById(ingredientList.ingredientsId)?.let { ingredient->
-                            items.add(IngredientsListItem().apply {
-                                this.ingredients = ingredient
-                            })
-                        }
+                    it.forEach { ingredientList ->
+                        ingredientsViewModel.getIngredientById(ingredientList.ingredientsId)
+                            ?.let { ingredient ->
+                                if(!ingredient.selectedIngredient){
+                                    items.add(IngredientsListItem().apply {
+                                        this.ingredients = ingredient
+                                    })
+                                    count =+ 1
+                                }
+
+                            }
                     }
                 }
             }
-
         }
+
         items.add(CloseButtonItem().apply {
         })
         setupRecyclerView(items)
@@ -151,22 +174,23 @@ class GroceryListDialog : DialogFragment() {
             if (item is CloseButtonItem) {
                 dialog?.dismiss()
 
-           }
+            }
         }
 
 
         fastAdapter.addClickListener({ vh: IngredientsListItem.ViewHolder -> vh.imageSelection }) { v: View, pos: Int, _: FastAdapter<GenericItem>, item: GenericItem ->
             if (item is IngredientsListItem) {
-                isNeedRefresh=true
-                val bool: Boolean? = ingredientsViewModel.isIngredientSelected(item.ingredients?.name)
-                if (bool==true) {
+                isNeedRefresh = true
+                val bool: Boolean? =
+                    ingredientsViewModel.isIngredientSelected(item.ingredients?.name)
+                if (bool == true) {
                     item.getViewHolder(v).imageSelection?.setImageResource(R.drawable.ic_add_ingredient_selected_24dp)
                 } else {
                     item.getViewHolder(v).imageSelection?.setImageResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
                 }
                 GlobalScope.launch(Dispatchers.IO) {
                     item.ingredients?.let { ingredientsViewModel.updateIngredient(it) }
-                    if (ingredientsViewModel.isIngredientSelectedInGrocery(item.ingredients?.name)==true) {
+                    if (ingredientsViewModel.isIngredientSelectedInGrocery(item.ingredients?.name) == true) {
                         ingredientsViewModel.updateIngredientSelectedForGroceryByName(
                             item.ingredients?.name,
                             false
@@ -181,7 +205,7 @@ class GroceryListDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if(isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
+        if (isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
             RefreshEvent(
                 it
             )

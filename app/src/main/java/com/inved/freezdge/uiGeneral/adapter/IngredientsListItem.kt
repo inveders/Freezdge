@@ -30,7 +30,7 @@ class IngredientsListItem : AbstractItem<IngredientsListItem.ViewHolder>() {
         return ViewHolder(v)
     }
 
-    class ViewHolder(val view: View) : FastAdapter.ViewHolder<IngredientsListItem >(view) {
+    class ViewHolder(val view: View) : FastAdapter.ViewHolder<IngredientsListItem>(view) {
 
         private lateinit var text: TextView
         private lateinit var label: TextView
@@ -54,10 +54,12 @@ class IngredientsListItem : AbstractItem<IngredientsListItem.ViewHolder>() {
                 if (NetworkUtils.isNetworkAvailable(App.applicationContext())) {
                     val storage = FirebaseStorage.getInstance()
                     // Create a reference to a file from a Google Cloud Storage URI
-                    val gsReference = item.ingredients?.photoUrl?.let { storage.getReferenceFromUrl(it) }
+                    val gsReference = item.ingredients?.photoUrl?.let { storage.getReferenceFromUrl(
+                        it
+                    ) }
                     // we show an image from our own database in firebase storage
                     imageFood?.let {
-                        GlideUtils.loadPhotoWithGlide(gsReference,shimmer,it)
+                        GlideUtils.loadPhotoWithGlide(gsReference, shimmer, it)
                     }?:run{
                         shimmer.stopShimmer()
                     }
