@@ -2,6 +2,7 @@ package com.inved.freezdge.schedule.ui
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.schedule.adapter.SuggestionRecipeItem
 import com.inved.freezdge.schedule.database.DaySelected
+import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
@@ -50,6 +52,7 @@ class SelectDayDialog : DialogFragment() {
         private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
         private const val KEY_DAY_RECIPE_ID = "recipeId"
         private const val KEY_SUGGESTION = "isSuggestion"
+        private const val KEY_FROM_SEARCH_FILTER = "isFromSearchFilter"
         private const val KEY_DAY_SUGGESTION = "day_Suggestion"
         private const val KEY_LUNCH_OR_DINNER_SUGGESTION = "lunchOrDinner_Suggestion"
         var selectedDayList: MutableList<DaySelectionModel?>? = mutableListOf()
@@ -64,10 +67,11 @@ class SelectDayDialog : DialogFragment() {
         private lateinit var recipeViewModel: RecipeViewModel
         private lateinit var ingredientsViewModel: IngredientsViewModel
         private var isSuggestion: Boolean? = false
+        private var isFromSearchFilter:Boolean?=null
 
         //To pass args to our dialog
         @JvmStatic
-        fun newInstance(param1: DaySelectionModel?, param2: Int?, param3: String?) =
+        fun newInstance(param1: DaySelectionModel?, param2: Int?, param3: String?,param4:Boolean?) =
             SelectDayDialog().apply {
                 arguments = Bundle().apply {
                     if (param1 != null) {
@@ -84,6 +88,9 @@ class SelectDayDialog : DialogFragment() {
                     }
                     if (param2 != null) {
                         putInt(KEY_DAY_POS_RECYCLERVIEW, param2)
+                    }
+                    if (param4 != null) {
+                        putBoolean(KEY_FROM_SEARCH_FILTER, param4)
                     }
                     putString(KEY_DAY_RECIPE_ID, param3)
                 }
@@ -143,6 +150,7 @@ class SelectDayDialog : DialogFragment() {
 
         recipeId = arguments?.getString(KEY_DAY_RECIPE_ID)
         isSuggestion = arguments?.getBoolean(KEY_SUGGESTION)
+        isFromSearchFilter = arguments?.getBoolean(KEY_FROM_SEARCH_FILTER)
         setupRecyclerView()
 
         if (isSuggestion == true) {
@@ -164,6 +172,7 @@ class SelectDayDialog : DialogFragment() {
         }
 
         validateButton?.setOnClickListener {
+
             dateSelectedListener?.onDateSelected(
                 selectedDayList,
                 itemPositionInRecyclerView,
@@ -477,7 +486,7 @@ class SelectDayDialog : DialogFragment() {
         super.onDismiss(dialog)
         if(isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
             RefreshEvent(
-                it
+                it,isFromSearchFilter
             )
         })
     }

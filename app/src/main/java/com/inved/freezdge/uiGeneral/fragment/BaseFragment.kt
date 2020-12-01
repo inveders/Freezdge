@@ -1,5 +1,6 @@
 package com.inved.freezdge.uiGeneral.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,21 +19,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
-import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
-import com.inved.freezdge.schedule.adapter.NotYetPlanedItem
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.database.FavouritesRecipes_
-import com.inved.freezdge.schedule.model.DaySelectionModel
-import com.inved.freezdge.schedule.ui.CalendarFragment
 import com.inved.freezdge.favourites.ui.MyRecipesFragment
-import com.inved.freezdge.schedule.ui.SelectDayDialog
-import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
 import com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsListViewModel
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
@@ -43,10 +38,16 @@ import com.inved.freezdge.recipes.ui.AllRecipesFragment
 import com.inved.freezdge.recipes.ui.RecipeDetailActivity
 import com.inved.freezdge.recipes.ui.WebviewActivity
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
-import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
+import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
+import com.inved.freezdge.schedule.adapter.NotYetPlanedItem
+import com.inved.freezdge.schedule.model.DaySelectionModel
+import com.inved.freezdge.schedule.ui.CalendarFragment
+import com.inved.freezdge.schedule.ui.SelectDayDialog
+import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.uiGeneral.dialog.GroceryListDialog
 import com.inved.freezdge.utils.*
 import com.inved.freezdge.utils.enumtype.ChipsDayType
+import com.inved.freezdge.utils.eventbus.BottomNavChangementEvent
 import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem
@@ -130,6 +131,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         var recipesNumberSize: Int? = 0
         var recipesFavouritesNumberSize: Int? = 0
         val setlistDatabaseFilter: MutableList<Recipes> = mutableListOf()
+        var isInSearchFilter:Boolean?=null
     }
 
     var itemAdapter = GenericItemAdapter()
@@ -363,7 +365,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                         imageArrow.visibility = View.INVISIBLE
                         floatingActionButton.show()
                         listenerSearchFavourite?.showSearchButton()
-                        fillFavouriteAdapterDatabase(result,pos)
+                        fillFavouriteAdapterDatabase(result, pos)
                     } else {
                         not_found.visibility = View.VISIBLE
                         imageArrow.visibility = View.VISIBLE
@@ -468,7 +470,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                             not_found.visibility = View.GONE
                             floatingActionButton.show()
                             //  listenerSearch?.showSearchButton()
-                            fillAdapterDatabase(result2,pos)
+                            fillAdapterDatabase(result2, pos)
                         }
                     })
             } else {
@@ -481,13 +483,13 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 listener?.hideLoader()
             }
         } else {
-            fillAdapterDatabase(setlistDatabase,pos)
+            fillAdapterDatabase(setlistDatabase, pos)
         }
 
 
     }
 
-    private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>,pos: Int) {
+    private fun fillAdapterDatabase(setlistDatabase: MutableList<Recipes>, pos: Int) {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         val myList: MutableList<ShowedRecipes>? = mutableListOf()
@@ -508,7 +510,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         scrollToGoodPosition(pos)
     }
 
-    private fun fillFavouriteAdapterDatabase(setlistDatabase: MutableList<FavouritesRecipes>,pos: Int) {
+    private fun fillFavouriteAdapterDatabase(
+        setlistDatabase: MutableList<FavouritesRecipes>,
+        pos: Int
+    ) {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         val myList: MutableList<ShowedRecipes>? = mutableListOf()
@@ -647,7 +652,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         fastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.id,pos)
+                onClickMatching(item.model?.id, pos)
             }
 
         }
@@ -705,7 +710,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         favouritesFastAdapter.addClickListener({ vh: ListRecipeItem.ViewHolder -> vh.proportionText }) { _, pos: Int, i: FastAdapter<GenericItem>, item: GenericItem ->
             //react on the click event
             if (item is ListRecipeItem) {
-                onClickMatching(item.model?.id,pos)
+                onClickMatching(item.model?.id, pos)
             }
         }
 
@@ -737,9 +742,9 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         transaction?.addToBackStack(null)
         SelectDayDialog.setSelectDateListener(this)
         val dialogFragment: DialogFragment? = if (clickedDay == null) {
-            SelectDayDialog.newInstance(null, itemPosition, recipeId)
+            SelectDayDialog.newInstance(null, itemPosition, recipeId, isInSearchFilter)
         } else {
-            SelectDayDialog.newInstance(clickedDay, itemPosition, recipeId)
+            SelectDayDialog.newInstance(clickedDay, itemPosition, recipeId, isInSearchFilter)
         }
         if (transaction != null) {
             dialogFragment?.show(transaction, SelectDayDialog.TAG)
@@ -748,7 +753,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
 
     // click on post image to open preview dialog
-    private fun onClickMatching(recipeId: Long?,pos: Int) {
+    private fun onClickMatching(recipeId: Long?, pos: Int) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         val previous = activity?.supportFragmentManager?.findFragmentByTag(GroceryListDialog.TAG)
         if (previous != null) {
@@ -765,7 +770,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 }
             }
 
-        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it,pos) }
+        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it, pos) }
         if (transaction != null) {
             dialogFragment?.show(transaction, GroceryListDialog.TAG)
         }
@@ -877,7 +882,17 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: RefreshEvent) {
         setlistDatabase.clear()
-        detectWichFragmentIsOpen(event.itemPosition)
+        event.isBottomChangement?.let {
+            EventBus.getDefault().post(BottomNavChangementEvent(2))
+        }?: kotlin.run{
+            detectWichFragmentIsOpen(event.itemPosition)
+        }
+
+    }
+
+    protected open fun hideKeyboard() {
+        val inputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     override fun onResume() {

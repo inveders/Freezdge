@@ -76,9 +76,11 @@ class AllRecipesFragment : BaseFragment<FragmentAllRecipesBinding, ActivityMainB
                     topTextview.visibility=View.GONE
                     topTextview.height=0
                     handleList(allrecipes,search)
+                    isInSearchFilter=true
                 } else {
                     topTextview.visibility=View.VISIBLE
                     filterDishType("")
+                    isInSearchFilter=null
                 }
                 return true
             }

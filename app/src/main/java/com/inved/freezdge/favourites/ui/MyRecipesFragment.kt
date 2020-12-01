@@ -76,6 +76,7 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
                         }
                     }
                 if(itemAdapter.adapterItems.size==0){
+                    isInSearchFilter=true
                     if(newText.isNullOrEmpty()){
                         topTextview.text = getString(R.string.recipe_list_number, 0)
                     }else{
@@ -86,8 +87,10 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
                         }
                     }
                 }else if(itemAdapter.adapterItems.size!=1){
+                    isInSearchFilter=true
                     topTextview.text = getString(R.string.recipe_list_number, itemAdapter.adapterItems.size)
                 }else{
+                    isInSearchFilter=null
                     topTextview.text = getString(R.string.recipe_list_number_one, itemAdapter.adapterItems.size)
                 }
                 return true

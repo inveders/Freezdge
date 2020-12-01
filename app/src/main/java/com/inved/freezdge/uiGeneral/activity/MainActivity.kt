@@ -1,5 +1,6 @@
 package com.inved.freezdge.uiGeneral.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.crashlytics.internal.common.CommonUtils.hideKeyboard
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
@@ -34,6 +37,7 @@ import com.inved.freezdge.socialmedia.firebase.UserHelper
 import com.inved.freezdge.socialmedia.ui.ProfileDialog
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.*
+import com.inved.freezdge.utils.eventbus.BottomNavChangementEvent
 import com.inved.freezdge.utils.eventbus.HandleBottomNavVisibilityEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -201,9 +205,9 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
             }
         }
         if (id == 2) {
-            bottomNavigationView.menu.findItem(R.id.action_to_my_recipes_fragment).isChecked = true
-            if (R.id.action_to_my_recipes_fragment != 0) {
-                navController.navigate(R.id.action_to_my_recipes_fragment)
+            bottomNavigationView.menu.findItem(R.id.action_to_calendar_fragment).isChecked = true
+            if (R.id.action_to_calendar_fragment != 0) {
+                navController.navigate(R.id.action_to_calendar_fragment)
             }
         }
 
@@ -304,5 +308,9 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: BottomNavChangementEvent) {
+        setUpNavigationBottom(navController,event.newId)
+    }
 
 }

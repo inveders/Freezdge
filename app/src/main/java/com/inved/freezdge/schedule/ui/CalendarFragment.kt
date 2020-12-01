@@ -1,7 +1,11 @@
 package com.inved.freezdge.schedule.ui
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,6 +36,18 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding, ActivityMainBindin
         daySelectedViewModel =
             ViewModelProviders.of(this).get(DaySelectedViewModel::class.java)
         setHasOptionsMenu(true)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val imm: InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isAcceptingText) {
+            Log.d("debago","Software Keyboard was shown")
+            hideKeyboard()
+        } else {
+            Log.d("debago","Software Keyboard was not shown")
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

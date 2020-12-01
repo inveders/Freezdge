@@ -37,7 +37,6 @@ import kotlinx.coroutines.launch
 open class RecipeDetailActivity : BaseActivity() {
 
     var domain = Domain()
-    private var backpressValue = 1
     lateinit var recipeTitle: TextView
 
     private lateinit var recyclerView: RecyclerView
@@ -56,8 +55,6 @@ open class RecipeDetailActivity : BaseActivity() {
         initToolbarBaseActivity(R.string.toolbar_recipe_detail)
         initViewModel()
         val id: Long = intent.getLongExtra("RECIPE_ID", 0)
-        val backpressValueBis: Int = intent.getIntExtra("BACKPRESS_VALUE", 1)
-        backpressValue = backpressValueBis
         getRecipeById(id)
     }
 
@@ -261,7 +258,6 @@ open class RecipeDetailActivity : BaseActivity() {
 
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("BACKPRESS", backpressValue)
         startActivity(intent)
     }
 
