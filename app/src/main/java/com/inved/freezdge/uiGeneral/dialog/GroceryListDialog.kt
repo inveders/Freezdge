@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.DialogGroceryListBinding
+import com.inved.freezdge.ingredientslist.viewmodel.IngredientsListViewModel
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.injection.Injection
+import com.inved.freezdge.recipes.view.DetailSummaryExpandableSubItem
 import com.inved.freezdge.uiGeneral.adapter.CloseButtonItem
 import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.uiGeneral.adapter.TitleItem
@@ -34,15 +36,19 @@ class GroceryListDialog : DialogFragment() {
     companion object {
         //final values
         const val TAG = "INGREDIENT_LIST"
+        private const val KEY_RECIPE_ID = "key_recipe_id"
         private const val KEY_INGREDIENT_LIST = "key_ingredient_list"
         private const val KEY_DAY_POS_RECYCLERVIEW = "positionRecyclerView"
         // to pass image url in tis dialog
         @JvmStatic
-        fun newInstance(param1: ArrayList<String>, param2: Int) =
+        fun newInstance(param1: ArrayList<String>, param2: Int,param3:Long?) =
             GroceryListDialog().apply {
                 arguments = Bundle().apply {
                     putStringArrayList(KEY_INGREDIENT_LIST, param1)
                     putInt(KEY_DAY_POS_RECYCLERVIEW, param2)
+                    if (param3 != null) {
+                        putLong(KEY_RECIPE_ID, param3)
+                    }
                 }
             }
     }
@@ -69,7 +75,9 @@ class GroceryListDialog : DialogFragment() {
     private val itemAdapter = GenericItemAdapter()
     private var fastAdapter = FastAdapter.with(itemAdapter)
     private lateinit var ingredientsViewModel: IngredientsViewModel
+    private lateinit var ingredientsListViewModel: IngredientsListViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private var recipeId:Long?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,12 +100,13 @@ class GroceryListDialog : DialogFragment() {
         mContext = App.applicationContext()
         val ingredientArrayList = arguments?.getStringArrayList(KEY_INGREDIENT_LIST)
         itemPositionInRecyclerView = arguments?.getInt(KEY_DAY_POS_RECYCLERVIEW)
-        fillDialog(ingredientArrayList)
+        recipeId = arguments?.getLong(KEY_RECIPE_ID)
+        fillDialog(ingredientArrayList,recipeId)
     }
 
 
     // fill the dialog with the image we click on
-    private fun fillDialog(ingredientsList: ArrayList<String>?) {
+    private fun fillDialog(ingredientsList: ArrayList<String>?,recipeId:Long?) {
         val items = mutableListOf<GenericItem>()
         if(ingredientsList.isNullOrEmpty()){
             items.add(IngredientsListItem().apply {
@@ -107,14 +116,19 @@ class GroceryListDialog : DialogFragment() {
         }else{
             items.add(TitleItem().apply {
             })
-            ingredientsList.forEach {
-                ingredientsViewModel.getIngredientByName(it)?.let { ingredient->
-                    items.add(IngredientsListItem().apply {
-                        this.ingredients = ingredient
-                    })
-                }
 
+            recipeId?.let { id ->
+                ingredientsListViewModel.getIngredientListByRecipe(id)?.let {
+                    it.forEach {ingredientList->
+                        ingredientsViewModel.getIngredientById(ingredientList.ingredientsId)?.let { ingredient->
+                            items.add(IngredientsListItem().apply {
+                                this.ingredients = ingredient
+                            })
+                        }
+                    }
+                }
             }
+
         }
         items.add(CloseButtonItem().apply {
         })

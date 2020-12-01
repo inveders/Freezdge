@@ -44,11 +44,10 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
 
     }
 
-    // update ingredient selection according to the name of the ingredient (chip)
-    fun getIngredientByName(name: String?):Ingredients? {
+    fun getIngredientById(ingredientId:Long?):Ingredients? {
 
-        if(name!=null){
-            return getIngredientsBox?.query()?.equal(Ingredients_.name,name)?.build()?.findUnique()
+        if(ingredientId!=null){
+            return getIngredientsBox?.query()?.equal(Ingredients_.fixedId,ingredientId)?.build()?.findUnique()
         }
         return null
     }

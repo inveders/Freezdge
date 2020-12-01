@@ -141,7 +141,7 @@ open class RecipeDetailActivity : BaseActivity() {
         recipe.id.let { recipeId ->
             ingredientsListViewModel.getIngredientListByRecipe(recipeId)?.let {
                 it.forEach {ingredientList->
-                    ingredientsViewModel.getIngredientByName(ingredientList.ingredientsName)?.let { ingredient->
+                    ingredientsViewModel.getIngredientById(ingredientList.ingredientsId)?.let { ingredient->
                         ingredientsList.subItems.add(DetailSummaryExpandableSubItem().apply {
                             this.ingredients = ingredient
                         })

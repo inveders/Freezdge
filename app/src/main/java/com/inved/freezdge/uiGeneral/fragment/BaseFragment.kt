@@ -770,7 +770,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 }
             }
 
-        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it, pos) }
+        val dialogFragment = ingredientsList?.let { GroceryListDialog.newInstance(it, pos,recipeId) }
         if (transaction != null) {
             dialogFragment?.show(transaction, GroceryListDialog.TAG)
         }

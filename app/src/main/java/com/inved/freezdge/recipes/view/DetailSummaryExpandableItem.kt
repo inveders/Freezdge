@@ -21,9 +21,9 @@ class DetailSummaryExpandableItem :
             if (item.subItems.isNotEmpty()) {
                 v?.findViewById<View>(R.id.plusImageView)?.let {
                     if (item.isExpanded) {
-                        it.setBackgroundResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
+                        it.setBackgroundResource(R.drawable.ic_arrow_bottom)
                     } else {
-                        it.setBackgroundResource(R.drawable.ic_add_ingredient_selected_24dp)
+                        it.setBackgroundResource(R.drawable.ic_arrow_top)
                     }
                 }
 
@@ -61,9 +61,9 @@ class DetailSummaryExpandableItem :
             this.item = item
 
             if (item.isExpanded) {
-                imageView.setBackgroundResource(R.drawable.ic_remove_ingredient_not_selected_24dp)
+                imageView.setBackgroundResource(R.drawable.ic_arrow_bottom)
             } else {
-                imageView.setBackgroundResource(R.drawable.ic_add_ingredient_selected_24dp)
+                imageView.setBackgroundResource(R.drawable.ic_arrow_top)
             }
             item.title.let {
                 this.titleTextView.text = it
