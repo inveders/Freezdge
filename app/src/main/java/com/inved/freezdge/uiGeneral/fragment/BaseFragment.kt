@@ -385,7 +385,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         daySelectedViewModel.getSelectedDay()?.forEach { res ->
 
             items.add(CalendarDayNameItem().apply {
-                dayName = domain.handleSelectedDay(res.id)
+                dayName = domain.handleSelectedDay(res.fixedId)
             })
             items.add(CalendarDayNameItem().apply {
                 dayName = ""
@@ -393,7 +393,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
             if (res.lunch == 0L) {
                 items.add(NotYetPlanedItem().apply {
-                    this.day = res.id
+                    this.day = res.fixedId
                     this.isLunchOrDinner = ChipsDayType.LUNCH.chipPosition
                 })
             } else {
@@ -411,7 +411,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
             if (res.dinner == 0L) {
                 items.add(NotYetPlanedItem().apply {
-                    this.day = res.id
+                    this.day = res.fixedId
                     this.isLunchOrDinner = ChipsDayType.DINNER.chipPosition
                 })
             } else {

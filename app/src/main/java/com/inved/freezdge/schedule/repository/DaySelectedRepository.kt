@@ -6,7 +6,6 @@ import com.inved.freezdge.schedule.database.DaySelected_
 import com.inved.freezdge.schedule.firebase.CalendarHelper
 import com.inved.freezdge.utils.AddSelectedDay
 import io.objectbox.Box
-import io.objectbox.android.ObjectBoxLiveData
 
 class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
 
@@ -16,7 +15,7 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
     }
 
     fun getSelectedDays(): MutableList<DaySelected>? {
-        return getDaySelectedBox?.query()?.order(DaySelected_.id)?.build()?.find()
+        return getDaySelectedBox?.query()?.order(DaySelected_.fixedId)?.build()?.find()
 
     }
 
@@ -33,7 +32,7 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
     fun updateSelectedDayValues(id: Long, lunchValue: Long, dinnerValue: Long) {
 
         val daySelected: DaySelected? =
-            getDaySelectedBox?.query()?.equal(DaySelected_.id, id)?.build()?.findUnique()
+            getDaySelectedBox?.query()?.equal(DaySelected_.fixedId, id)?.build()?.findUnique()
         daySelected.apply {
             this?.lunch=lunchValue
             this?.dinner=dinnerValue
@@ -52,7 +51,7 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
     fun isRecipeSelected(recipeId: Long):Boolean {
         for (i in 1..7){
             val daySelected: DaySelected? =
-                getDaySelectedBox?.get(i.toLong())
+                getDaySelectedBox?.query()?.equal(DaySelected_.fixedId, i.toLong())?.build()?.findUnique()
             if(daySelected?.lunch==recipeId || daySelected?.dinner==recipeId){
                 return true
             }

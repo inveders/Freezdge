@@ -298,7 +298,7 @@
     },
     {
       "id": "4:2490886889589467898",
-      "lastPropertyId": "17:7318515158797404259",
+      "lastPropertyId": "18:711193209158268200",
       "name": "DaySelected",
       "properties": [
         {
@@ -318,6 +318,12 @@
           "name": "dinner",
           "type": 6,
           "flags": 2
+        },
+        {
+          "id": "18:711193209158268200",
+          "name": "fixedId",
+          "type": 6,
+          "flags": 4
         }
       ],
       "relations": []

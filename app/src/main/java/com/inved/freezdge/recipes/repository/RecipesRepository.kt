@@ -21,7 +21,7 @@ class RecipesRepository(private val getRecipesBox: Box<Recipes>?) {
     // get one specific recipe from our database
     fun getRecipeLiveDataById(id:Long): Recipes? {
         // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
-        return getRecipesBox?.query()?.equal(Recipes_.id,id)?.build()?.findUnique()
+        return getRecipesBox?.query()?.equal(Recipes_.fixedId,id)?.build()?.findUnique()
     }
 
     // in database, get recipes wich contains  given ingredient name

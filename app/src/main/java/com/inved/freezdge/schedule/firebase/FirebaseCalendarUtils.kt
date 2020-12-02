@@ -4,37 +4,39 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.schedule.database.DaySelected
 import com.inved.freezdge.schedule.database.DaySelected_
+import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.utils.App
 import io.objectbox.kotlin.boxFor
 
 
 class FirebaseCalendarUtils {
 
-    fun getAllScheduledDaySelected() {
+    fun getAllScheduledDaySelected(daySelectedViewModel: DaySelectedViewModel) {
         for (i in 1..7) {
             CalendarHelper.getDayScheduled(
                 FirebaseAuth.getInstance().currentUser?.uid,
-                i.toString()
+                i.toLong()
             )?.get()?.addOnCompleteListener { task ->
 
                 if (task.result != null) {
+                    Log.d("debago","1")
                     if (task.result?.documents?.size != 0) {
+                        Log.d("debago","2")
                         val scheduleDay: DaySelected? =
                             task.result!!.documents[0].toObject(DaySelected::class.java)
 
-                        val daySelected: DaySelected? =
-                            scheduleDay?.id?.let {
-                                App.ObjectBox.boxStore.boxFor<DaySelected>().query()?.equal(
-                                    DaySelected_.id,
-                                    it
-                                )?.build()?.findUnique()
+                        scheduleDay?.let {
+                            it.lunch?.let { it1 ->
+                                scheduleDay.dinner?.let { it2 ->
+                                    daySelectedViewModel.updateSelectedDayValues(i.toLong(),
+                                        it1, it2
+                                    )
+                                }
                             }
-                        daySelected.apply {
-                            this?.lunch = scheduleDay?.lunch
-                            this?.dinner = scheduleDay?.dinner
                         }
-                        if (daySelected != null)
-                            App.ObjectBox.boxStore.boxFor<DaySelected>().put(daySelected)
+
+                    }else{
+                        createCalendarInFirebase()
                     }
                 }
             }?.addOnFailureListener {
@@ -53,7 +55,7 @@ class FirebaseCalendarUtils {
                     it,
                     i.toString(),
                     DaySelected().apply {
-                        this.id = i.toLong()
+                        this.fixedId = i.toLong()
                         this.lunch = 0
                         this.dinner = 0
                     }

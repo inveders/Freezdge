@@ -31,7 +31,7 @@ class CalendarHelper {
         }
 
         // --- GET ---
-        fun getDayScheduled(uid: String?,documentId: String): Query? {
+        fun getDayScheduled(uid: String?,documentId: Long): Query? {
             return uid?.let {
                 getUsersScheduledRecipesCollection(
                     it

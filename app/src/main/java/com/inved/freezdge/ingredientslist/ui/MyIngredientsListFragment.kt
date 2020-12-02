@@ -81,7 +81,7 @@ class MyIngredientsListFragment :
                 true
             )
         ) {
-            FirebaseCalendarUtils().getAllScheduledDaySelected()
+            FirebaseCalendarUtils().getAllScheduledDaySelected(daySelectedViewModel)
             getAllSavedIngredients()
             Domain().updateSharedPrefFirstConnexion(false)
         } else {

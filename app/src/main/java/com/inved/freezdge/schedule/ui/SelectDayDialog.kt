@@ -260,12 +260,12 @@ class SelectDayDialog : DialogFragment() {
                 val clickedDay: DaySelectionModel? = DaySelectionModel().apply {
                     this.day = arguments?.getLong(KEY_DAY_SUGGESTION)
                     if (arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION) == ChipsDayType.LUNCH.chipPosition) {
-                        this.lunch = item.model?.id
+                        this.lunch = item.model?.fixedId
                         this.dinner =
                             day?.toInt()?.minus(1)?.let { selectedDayList?.get(it)?.dinner }
                     } else {
                         this.lunch = day?.toInt()?.minus(1)?.let { selectedDayList?.get(it)?.lunch }
-                        this.dinner = item.model?.id
+                        this.dinner = item.model?.fixedId
                     }
                 }
                 arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION)?.let {
@@ -277,7 +277,7 @@ class SelectDayDialog : DialogFragment() {
                 dateSelectedListener?.onDateSelected(
                     selectedDayList,
                     itemPositionInRecyclerView,
-                    item.model?.id.toString()
+                    item.model?.fixedId.toString()
                 )
                 dialog?.dismiss()
 
@@ -295,9 +295,9 @@ class SelectDayDialog : DialogFragment() {
                 selectedDayList?.add(DaySelectionModel().apply {
                     Log.d(
                         "debago",
-                        "selected day list; day : ${res.id}, lunch : ${res.lunch}, dinner : ${res.dinner}"
+                        "selected day list; day : ${res.fixedId}, lunch : ${res.lunch}, dinner : ${res.dinner}"
                     )
-                    this.day = res.id
+                    this.day = res.fixedId
                     this.lunch = res.lunch
                     this.dinner = res.dinner
                 })
