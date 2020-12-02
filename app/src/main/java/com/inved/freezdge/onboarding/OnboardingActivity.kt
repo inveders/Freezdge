@@ -9,10 +9,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : BaseActivity() {
@@ -61,6 +63,7 @@ class OnboardingActivity : BaseActivity() {
                 if (onboardingViewpager.currentItem + 1 < onboardingAdapter.itemCount) {
                     onboardingViewpager.currentItem = onboardingViewpager.currentItem + 1
                 } else {
+                    FirebaseAuth.getInstance().currentUser?.uid?.let { Domain().updateUid(it) }
                     startActivity(Intent(this, MainActivity::class.java))
                     val editor = sharedPref.edit()
                     editor.putBoolean(PREF_NAME, true)

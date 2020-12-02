@@ -1,6 +1,7 @@
 package com.inved.freezdge.utils
 
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
@@ -44,7 +45,7 @@ class Domain {
     }
 
     fun updateUid(uid:String){
-        val editor = OnboardingActivity.sharedPrefVersionName.edit()
+        val editor = OnboardingActivity.sharedPrefFirebaseUid.edit()
         editor.putString(uid,null)
         editor.apply()
     }

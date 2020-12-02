@@ -29,7 +29,6 @@ class CalendarFragment: BaseFragment<FragmentCalendarBinding, ActivityMainBindin
     companion object{
         var isFavouriteSearchButtonShowed:Boolean=false
     }
-    private lateinit var daySelectedViewModel: DaySelectedViewModel
     private var searchItem: MenuItem?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

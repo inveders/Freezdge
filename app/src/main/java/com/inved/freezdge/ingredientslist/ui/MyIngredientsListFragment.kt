@@ -8,22 +8,18 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentMyIngredientsListBinding
-import com.inved.freezdge.favourites.viewmodel.FavouritesRecipesViewModel
 import com.inved.freezdge.ingredientslist.adapter.GroceryItem
 import com.inved.freezdge.ingredientslist.database.Ingredients
 import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
-import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
 import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.schedule.adapter.CalendarDayNameItem
 import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
-import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.enumtype.IngredientsType
@@ -42,9 +38,6 @@ import org.greenrobot.eventbus.ThreadMode
 class MyIngredientsListFragment :
     BaseFragment<FragmentMyIngredientsListBinding, ActivityMainBinding>() {
 
-    private lateinit var ingredientsViewmodel: IngredientsViewModel
-    private lateinit var daySelectedViewModel: DaySelectedViewModel
-    private lateinit var favouritesRecipesViewmodel: FavouritesRecipesViewModel
     private var ingredientsTypeList: MutableList<String> = mutableListOf()
     override fun setBinding(
         inflater: LayoutInflater,
@@ -55,63 +48,48 @@ class MyIngredientsListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        detectUid()
         floatingActionButton.hide()
         floatingActionButton.setOnClickListener { openSearchIngredientActivity() }
-        ingredientsViewmodel =
-            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
-        daySelectedViewModel =
-            ViewModelProviders.of(this).get(DaySelectedViewModel::class.java)
-        favouritesRecipesViewmodel =
-            ViewModelProviders.of(this).get(FavouritesRecipesViewModel::class.java)
         setupIngredientsTypeList()
-        setupSyncFirebase()
         setHasOptionsMenu(true)
     }
 
+    private fun detectUid() {
+        FirebaseAuth.getInstance().currentUser?.uid?.let {
+            if (FirebaseAuth.getInstance().currentUser?.uid != OnboardingActivity.sharedPrefFirebaseUid.getString(
+                    OnboardingActivity.FIREBASE_UID,
+                    ""
+                )
+            ) {
+                FirebaseAuth.getInstance().currentUser?.uid?.let { Domain().updateUid(it) }
+                ingredientsViewModel.deleteAllIngredients()
+                ingredientsListViewModel.deleteAllIngredientsList()
+                recipeViewModel.deleteAllRecipesInDatabase()
+                daySelectedViewModel.deleteAllDays()
+                Domain().updateSharedPrefFirstConnexion(true)
+                setupSyncFirebase()
+
+            } else {
+                setupSyncFirebase()
+            }
+        }
+    }
+
     private fun setupSyncFirebase() {
-        if (OnboardingActivity.sharedPrefFirstConnexion.getBoolean(OnboardingActivity.FIRST_CONNEXION,true)){
+        if (OnboardingActivity.sharedPrefFirstConnexion.getBoolean(
+                OnboardingActivity.FIRST_CONNEXION,
+                true
+            )
+        ) {
             FirebaseCalendarUtils().getAllScheduledDaySelected()
             getAllSavedIngredients()
             Domain().updateSharedPrefFirstConnexion(false)
-        }else{
+        } else {
             setupChips()
         }
     }
 
-    private fun getAllSavedIngredients() {
-        listener?.showLoader()
-        IngredientListHelper.getAllIngredients(
-            FirebaseAuth.getInstance().currentUser?.uid
-        )?.get()
-            ?.addOnCompleteListener { task ->
-                if (task.result != null) {
-                    if (task.result?.documents?.isNotEmpty() == true) {
-
-                        task.result?.documents?.let {
-                            it.forEach { ingredientList->
-                                val ingredient: Ingredients? =
-                                    ingredientList.toObject(Ingredients::class.java)
-                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedByName(it1.name,it1.selectedIngredient) }
-                                ingredient?.let { it1 -> ingredientsViewmodel.updateIngredientSelectedForGroceryByName(it1.name,it1.grocerySelectedIngredient) }
-                            }
-                            setupChips()
-
-                        }?: kotlin.run{
-                            setupChips()
-                        }
-                    }else{
-                        setupChips()
-                    }
-                }
-            }?.addOnFailureListener {
-                Log.e(
-                    "firebase",
-                    "Problem during the ingredient search"
-
-                )
-                setupChips()
-            }
-    }
 
     private fun setupIngredientsTypeList() {
         ingredientsTypeList.add(IngredientsType.CREAMERY.typeName)
@@ -127,7 +105,7 @@ class MyIngredientsListFragment :
         val clearIngredientItem = menu.findItem(R.id.clearIngredientItem)
         val likeItem = menu.findItem(R.id.likeItem)
         likeItem.isVisible = false
-        val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
+        val result: MutableList<Ingredients>? = ingredientsViewModel.getIngredientsForFreezdgeList()
         clearIngredientItem.isVisible = result?.size != 0
 
         clearIngredientItem.setOnMenuItemClickListener {
@@ -141,7 +119,7 @@ class MyIngredientsListFragment :
     private fun setupChips() {
 
         itemAdapter.clear()
-        val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
+        val result: MutableList<Ingredients>? = ingredientsViewModel.getIngredientsForFreezdgeList()
 
         if (result?.size != 0) {
             not_found.visibility = View.GONE
@@ -150,7 +128,7 @@ class MyIngredientsListFragment :
             floatingActionButton.show()
             if (result != null) {
                 handleChip(result)
-            }else{
+            } else {
                 listener?.hideLoader()
             }
         } else {
@@ -162,6 +140,51 @@ class MyIngredientsListFragment :
             listener?.hideLoader()
         }
 
+    }
+
+    private fun getAllSavedIngredients() {
+        listener?.showLoader()
+        IngredientListHelper.getAllIngredients(
+            FirebaseAuth.getInstance().currentUser?.uid
+        )?.get()
+            ?.addOnCompleteListener { task ->
+                if (task.result != null) {
+                    if (task.result?.documents?.isNotEmpty() == true) {
+
+                        task.result?.documents?.let {
+                            it.forEach { ingredientList ->
+                                val ingredient: Ingredients? =
+                                    ingredientList.toObject(Ingredients::class.java)
+                                ingredient?.let { it1 ->
+                                    ingredientsViewModel.updateIngredientSelectedByName(
+                                        it1.name,
+                                        it1.selectedIngredient
+                                    )
+                                }
+                                ingredient?.let { it1 ->
+                                    ingredientsViewModel.updateIngredientSelectedForGroceryByName(
+                                        it1.name,
+                                        it1.grocerySelectedIngredient
+                                    )
+                                }
+                            }
+                            setupChips()
+
+                        } ?: kotlin.run {
+                            setupChips()
+                        }
+                    } else {
+                        setupChips()
+                    }
+                }
+            }?.addOnFailureListener {
+                Log.e(
+                    "firebase",
+                    "Problem during the ingredient search"
+
+                )
+                setupChips()
+            }
     }
 
     // configure chip with ingredient name, color
@@ -230,11 +253,11 @@ class MyIngredientsListFragment :
 
     //clear all ingredients in the list and put ingredient not selected in the objectbox database
     private fun unselectAllIngredients() {
-        val result: MutableList<Ingredients>? = ingredientsViewmodel.getIngredientsForFreezdgeList()
+        val result: MutableList<Ingredients>? = ingredientsViewModel.getIngredientsForFreezdgeList()
         if (result != null) {
             for (myresult in result) {
                 // Set chip close icon click listener
-                ingredientsViewmodel.updateIngredientSelectedByName(
+                ingredientsViewModel.updateIngredientSelectedByName(
                     myresult.name,
                     false
                 )
@@ -249,7 +272,7 @@ class MyIngredientsListFragment :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ChipClickEvent) {
         GlobalScope.launch(Dispatchers.IO) {
-            ingredientsViewmodel.updateIngredientSelectedByName(
+            ingredientsViewModel.updateIngredientSelectedByName(
                 event.chipText,
                 false
             )
@@ -271,8 +294,8 @@ class MyIngredientsListFragment :
     private fun updateGroceryToTrue(recipe: Recipes?, ingredientName: String?) {
         recipe?.recipeIngredients?.let {
             domain.retrieveListFromString(it).forEach { eachIngredient ->
-                if (eachIngredient.contains(ingredientName.toString(),true)) {
-                    ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
+                if (eachIngredient.contains(ingredientName.toString(), true)) {
+                    ingredientsViewModel.updateIngredientSelectedForGroceryByName(
                         ingredientName,
                         true
                     )

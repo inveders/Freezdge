@@ -97,7 +97,7 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
                 for (myIngredient in ingredientsList) {
                     myIngredient.name?.let { it ->
                         getRecipeIfContainIngredientSuggestion(it)?.forEach {
-                            if(it.isForDinner==true) {
+                            if(it.isForDinner) {
                                 setDatabaseSetListRecipes?.add(it)
                             }
                         }

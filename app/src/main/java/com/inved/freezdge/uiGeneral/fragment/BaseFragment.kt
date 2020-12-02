@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
@@ -100,7 +99,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        detectUid()
         insertFood()
         insertRecipes()
         insertDays()
@@ -143,10 +141,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
     //Viewmodel
     lateinit var recipeViewModel: RecipeViewModel
-    private lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
-    private lateinit var ingredientsViewmodel: IngredientsViewModel
-    private lateinit var ingredientsListViewModel: IngredientsListViewModel
-    private lateinit var daySelectedViewModel: DaySelectedViewModel
+    lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
+    lateinit var ingredientsViewModel: IngredientsViewModel
+    lateinit var ingredientsListViewModel: IngredientsListViewModel
+    lateinit var daySelectedViewModel: DaySelectedViewModel
 
     //INITIALIZATION
     private fun initViewModel() {
@@ -159,7 +157,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             this,
             viewModelFactory
         ).get(FavouritesRecipesViewModel::class.java)
-        ingredientsViewmodel = ViewModelProviders.of(
+        ingredientsViewModel = ViewModelProviders.of(
             this,
             viewModelFactory
         ).get(IngredientsViewModel::class.java)
@@ -193,22 +191,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
 
-    private fun detectUid(){
-        FirebaseAuth.getInstance().currentUser?.uid?.let {
-            if (FirebaseAuth.getInstance().currentUser?.uid != OnboardingActivity.sharedPrefFirebaseUid.getString(OnboardingActivity.FIREBASE_UID, FirebaseAuth.getInstance().currentUser?.uid)) {
-                FirebaseAuth.getInstance().currentUser?.uid?.let { Domain().updateUid(it) }
-                ingredientsViewmodel.deleteAllIngredients()
-                ingredientsListViewModel.deleteAllIngredientsList()
-                recipeViewModel.deleteAllRecipesInDatabase()
-                daySelectedViewModel.deleteAllDays()
-                }
-        }
-    }
-
     private fun insertFood() {
 
-        if (ingredientsViewmodel.countIngredients()?.toInt() == 0) {
-            ingredientsViewmodel.insertIngredients()
+        if (ingredientsViewModel.countIngredients()?.toInt() == 0) {
+            ingredientsViewModel.insertIngredients()
             ingredientsListViewModel.insertIngredientsList()
         }
 
@@ -217,7 +203,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 BuildConfig.VERSION_NAME
             )
         ) {
-            ingredientsViewmodel.deleteAllIngredients()
+            ingredientsViewModel.deleteAllIngredients()
             ingredientsListViewModel.deleteAllIngredientsList()
             domain.updateSharedPrefVersionName()
         } else {
@@ -468,7 +454,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
         if (setlistDatabase.isNullOrEmpty()) {
             val nbIngredients: MutableList<Ingredients>? =
-                ingredientsViewmodel.getIngredientsForFreezdgeList()
+                ingredientsViewModel.getIngredientsForFreezdgeList()
             if (nbIngredients?.size != 0) {
                 recipeViewModel.getDatabaseRecipes(nbIngredients)
                     ?.observe(viewLifecycleOwner, Observer { result2 ->
@@ -561,7 +547,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             model.recipeUrlOwnerLink = recipes.recipeUrlOwnerLink
             model.recipeIngredients = recipes.recipeIngredients
             model.matchingValue =
-                domain.getMatchingValue(ingredientsViewmodel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
+                domain.getMatchingValue(ingredientsViewModel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
             model.isFavouriteRecipe = recipes.id.toString().let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = true
             model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.id)
@@ -586,7 +572,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             model.recipeUrlOwnerLink = recipes.recipeUrl
             model.recipeIngredients = recipes.recipeIngredients
             model.matchingValue =
-                domain.getMatchingValue(ingredientsViewmodel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
+                domain.getMatchingValue(ingredientsViewModel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
             model.isFavouriteRecipe = recipes.recipeId?.let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = false
             model.selectedDay =
@@ -855,7 +841,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
     fun updateGroceryList() {
-        ingredientsViewmodel.resetGroceryList()
+        ingredientsViewModel.resetGroceryList()
         daySelectedViewModel.getSelectedDay()?.forEach { daySelected ->
             val lunchRecipe =
                 daySelected.lunch?.let { recipeViewModel.getRecipeLiveDataById(it) }
@@ -871,14 +857,14 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         recipe?.recipeIngredients?.let {
             domain.retrieveListFromString(it).forEach { eachIngredient ->
 
-                ingredientsViewmodel.getAllIngredients()?.forEach { ingredientName ->
+                ingredientsViewModel.getAllIngredients()?.forEach { ingredientName ->
                     if (eachIngredient.contains(ingredientName.name.toString(), true)) {
-                        if (ingredientsViewmodel.isIngredientSelected(ingredientName.name) == false) {
-                            if (ingredientsViewmodel.isIngredientSelectedInGrocery(
+                        if (ingredientsViewModel.isIngredientSelected(ingredientName.name) == false) {
+                            if (ingredientsViewModel.isIngredientSelectedInGrocery(
                                     ingredientName.name
                                 ) == false
                             ) {
-                                ingredientsViewmodel.updateIngredientSelectedForGroceryByName(
+                                ingredientsViewModel.updateIngredientSelectedForGroceryByName(
                                     ingredientName.name,
                                     true
                                 )
