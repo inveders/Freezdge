@@ -20,7 +20,6 @@ import com.inved.freezdge.recipes.view.DetailSummaryExpandableItem
 import com.inved.freezdge.recipes.view.DetailSummaryExpandableSubItem
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
-import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.mikepenz.fastadapter.FastAdapter
@@ -138,7 +137,7 @@ open class RecipeDetailActivity : BaseActivity() {
             )
         }
 
-        recipe.id.let { recipeId ->
+        recipe.fixedId.let { recipeId ->
             ingredientsListViewModel.getIngredientListByRecipe(recipeId)?.let {
                 it.forEach {ingredientList->
                     ingredientsViewModel.getIngredientById(ingredientList.ingredientsId)?.let { ingredient->

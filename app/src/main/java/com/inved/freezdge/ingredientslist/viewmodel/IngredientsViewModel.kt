@@ -28,8 +28,12 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
         return ingredientsRepository.updateIngredientSelectedByName(name,bool)
     }
 
-    fun updateIngredientSelectedForGroceryByName(name:String?,bool:Boolean) {
+    fun updateIngredientSelectedForGroceryByName(name: String?, bool:Boolean) {
         return ingredientsRepository.updateIngredientSelectedForGroceryByName(name,bool)
+    }
+
+    fun updateIngredientSelectedForGroceryById(ingredientId: Long?, bool:Boolean) {
+        return ingredientsRepository.updateIngredientSelectedForGroceryById(ingredientId,bool)
     }
 
     fun getIngredientsForGrocery(): ObjectBoxLiveData<Ingredients> {
@@ -63,6 +67,10 @@ class IngredientsViewModel(private val ingredientsRepository: IngredientsReposit
 
     fun isIngredientSelectedInGrocery(name: String?): Boolean? {
         return ingredientsRepository.isIngredientSelectedInGrocery(name)
+    }
+
+    fun isIngredientSelectedInGroceryById(ingredientId: Long?): Boolean? {
+        return ingredientsRepository.isIngredientSelectedInGroceryById(ingredientId)
     }
 
     fun resetGroceryList() {

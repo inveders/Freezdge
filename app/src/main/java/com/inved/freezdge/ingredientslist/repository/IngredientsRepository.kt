@@ -73,7 +73,29 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
             }
 
         }
+    }
 
+    fun updateIngredientSelectedForGroceryById(ingredientId: Long?,bool:Boolean) {
+
+        if(ingredientId!=null){
+            val ingredient:Ingredients? =
+                getIngredientsBox?.query()?.equal(Ingredients_.fixedId,ingredientId)?.build()?.findUnique()
+            if(ingredient?.selectedIngredient==false && bool){
+                ingredient.grocerySelectedIngredient = bool
+                ingredient.selectedIngredient=false
+            }
+
+            if(ingredient!=null){
+                getIngredientsBox?.put(ingredient)
+                FirebaseIngredientsUtils().getIngredientByName(ingredient.name,
+                    isToDelete = false,
+                    isInGrocery = ingredient.grocerySelectedIngredient,
+                    isSelected = ingredient.selectedIngredient,
+                    ingredient = ingredient
+                )
+            }
+
+        }
     }
 
     // check if ingredient is selected
@@ -94,6 +116,17 @@ class IngredientsRepository(private val getIngredientsBox: Box<Ingredients>?) {
         if(name!=null){
             val ingredient:Ingredients? =
                 getIngredientsBox?.query()?.equal(Ingredients_.name,name)?.build()?.findUnique()
+
+            return ingredient?.grocerySelectedIngredient
+        }
+        return false
+    }
+
+    fun isIngredientSelectedInGroceryById(ingredientId: Long?):Boolean? {
+
+        if(ingredientId!=null){
+            val ingredient:Ingredients? =
+                getIngredientsBox?.query()?.equal(Ingredients_.fixedId,ingredientId)?.build()?.findUnique()
 
             return ingredient?.grocerySelectedIngredient
         }

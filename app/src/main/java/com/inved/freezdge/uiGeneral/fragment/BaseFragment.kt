@@ -380,6 +380,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
 
 
     fun getCalendarRecipes(pos: Int) {
+
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         daySelectedViewModel.getSelectedDay()?.forEach { res ->
@@ -436,6 +437,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         }
         itemAdapter.add(items)
         scrollToGoodPosition(pos)
+        listener?.hideLoader()
 
     }
 
@@ -808,7 +810,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
         itemPosition: Int?,
         recipeId: String?
     ) {
-
+        listener?.showLoader()
         if (recipeId != null) {
             selectedDayList?.forEach { s ->
                 if (s != null) {
@@ -854,29 +856,19 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
     private fun updateGroceryToTrue(recipe: Recipes?) {
-        recipe?.recipeIngredients?.let {
-            domain.retrieveListFromString(it).forEach { eachIngredient ->
-
-                ingredientsViewModel.getAllIngredients()?.forEach { ingredientName ->
-                    if (eachIngredient.contains(ingredientName.name.toString(), true)) {
-                        if (ingredientsViewModel.isIngredientSelected(ingredientName.name) == false) {
-                            if (ingredientsViewModel.isIngredientSelectedInGrocery(
-                                    ingredientName.name
-                                ) == false
-                            ) {
-                                ingredientsViewModel.updateIngredientSelectedForGroceryByName(
-                                    ingredientName.name,
-                                    true
-                                )
-                            }
-                        }
-                    }
+        recipe?.fixedId?.let {
+            ingredientsListViewModel.getIngredientListByRecipe(it)?.forEach { eachIngredient ->
+                if (ingredientsViewModel.isIngredientSelectedInGroceryById(
+                        eachIngredient.ingredientsId
+                    ) == false
+                ) {
+                    ingredientsViewModel.updateIngredientSelectedForGroceryById(
+                        eachIngredient.ingredientsId,
+                        true
+                    )
                 }
-
-
             }
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
