@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9131969218458961082",
-      "lastPropertyId": "10:8187058815342966519",
+      "lastPropertyId": "11:6554611851599768421",
       "name": "Ingredients",
       "properties": [
         {
@@ -50,6 +50,12 @@
           "id": "10:8187058815342966519",
           "name": "supermarketSection",
           "type": 9
+        },
+        {
+          "id": "11:6554611851599768421",
+          "name": "fixedId",
+          "type": 6,
+          "flags": 4
         }
       ],
       "relations": []

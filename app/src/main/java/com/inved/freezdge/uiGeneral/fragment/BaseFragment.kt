@@ -536,7 +536,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     fun fillModelListRecipes(recipes: Recipes): ShowedRecipes? {
         val model = ShowedRecipes()
         model.apply {
-            model.id = recipes.id
+            model.id = recipes.fixedId
             model.recipeTitle = recipes.recipeTitle
             model.recipeCalories = recipes.recipeCalories
             model.totalrecipeTime = domain.preparationTime(recipes.totalrecipeTime)
@@ -547,10 +547,10 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             model.recipeUrlOwnerLink = recipes.recipeUrlOwnerLink
             model.recipeIngredients = recipes.recipeIngredients
             model.matchingValue =
-                domain.getMatchingValue(ingredientsViewModel,ingredientsListViewModel.getIngredientListByRecipe(recipes.id))
-            model.isFavouriteRecipe = recipes.id.toString().let { isRecipeIdIsPresent(it) }
+                domain.getMatchingValue(ingredientsViewModel,ingredientsListViewModel.getIngredientListByRecipe(recipes.fixedId))
+            model.isFavouriteRecipe = recipes.fixedId.toString().let { isRecipeIdIsPresent(it) }
             model.isAllRecipeFragment = true
-            model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.id)
+            model.selectedDay = daySelectedViewModel.isRecipeSelectedInCalendar(recipes.fixedId)
             return model
         }
 

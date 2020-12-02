@@ -7,6 +7,7 @@ import io.objectbox.annotation.Id
 data class Recipes (
     @Id
     var id: Long = 0,
+    var fixedId:Long=0,
     var recipeTitle: String? = null,
     var recipeCalories: String? = null,
     var totalrecipeTime: Int? = 0,
@@ -36,4 +37,5 @@ data class Recipes (
     var urlVideo: String? = null,
     var ustensilesList: String? = null,
     var isForDinner:Boolean = false
+
 )

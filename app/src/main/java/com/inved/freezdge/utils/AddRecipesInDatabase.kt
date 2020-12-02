@@ -15,6 +15,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
         if (recipeBox?.isEmpty == true) {
             recipeBox?.put(
                 Recipes(
+                    fixedId = 1,
                     recipeTitle = "Burger et frites de patate douce",
                     recipeCalories = "",
                     totalrecipeTime = 45,
@@ -49,6 +50,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 2,
                     recipeTitle = "Saka saka (Brazaville)",
                     recipeCalories = "",
                     totalrecipeTime = 150,
@@ -84,6 +86,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 3,
                     recipeTitle = "Poisson salé",
                     recipeCalories = "",
                     totalrecipeTime = 25,
@@ -119,6 +122,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 4,
                     recipeTitle = "Bouillon de porc aux plantains (Ngoulou Mu Mako)",
                     recipeCalories = "",
                     totalrecipeTime = 75,
@@ -154,6 +158,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 5,
                     recipeTitle = "Haricots blancs au poisson salé",
                     recipeCalories = "",
                     totalrecipeTime = 35,
@@ -188,6 +193,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 6,
                     recipeTitle = "Tartine avocat saumon",
                     recipeCalories = "",
                     totalrecipeTime = 10,
@@ -224,6 +230,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 7,
                     recipeTitle = "Wok saumon sauté au brocolis et au quinoa",
                     recipeCalories = "",
                     totalrecipeTime = 75,
@@ -258,6 +265,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 8,
                     recipeTitle = "Poulet yassa",
                     recipeCalories = "",
                     totalrecipeTime = 100,
@@ -293,6 +301,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 9,
                     recipeTitle = "Bar à l’africaine",
                     recipeCalories = "",
                     totalrecipeTime = 35,
@@ -329,6 +338,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 10,
                     recipeTitle = "Pâtes fusilli façon bolognaise",
                     recipeCalories = "",
                     totalrecipeTime = 30,
@@ -365,6 +375,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 11,
                     recipeTitle = "Quiche brocolis épinards feta tomates séchées",
                     recipeCalories = "",
                     totalrecipeTime = 55,
@@ -402,6 +413,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 12,
                     recipeTitle = "Churros au Milk-Shake à la fraise",
                     recipeCalories = "",
                     totalrecipeTime = 15,
@@ -436,6 +448,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 13,
                     recipeTitle = "Cookie aux pépites de chocolat à la poêle",
                     recipeCalories = "",
                     totalrecipeTime = 30,
@@ -470,6 +483,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 14,
                     recipeTitle = "Nouilles instantanées maison",
                     recipeCalories = "",
                     totalrecipeTime = 16,
@@ -504,6 +518,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 15,
                     recipeTitle = "Roulés aux oeufs et aux champignons",
                     recipeCalories = "",
                     totalrecipeTime = 5,
@@ -538,6 +553,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 16,
                     recipeTitle = "Cabillaud pané à la marmelade",
                     recipeCalories = "",
                     totalrecipeTime = 25,
@@ -572,6 +588,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 17,
                     recipeTitle = "Pâte d'épices pour 2 mois au frigo",
                     recipeCalories = "",
                     totalrecipeTime = 30,
@@ -606,6 +623,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 18,
                     recipeTitle = "Gratin de coquilettes au reblochon",
                     recipeCalories = "",
                     totalrecipeTime = 40,
@@ -640,6 +658,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 19,
                     recipeTitle = "Croque-Monsieur",
                     recipeCalories = "",
                     totalrecipeTime = 18,
@@ -674,6 +693,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 20,
                     recipeTitle = "Petit flan express au roquefort",
                     recipeCalories = "",
                     totalrecipeTime = 30,
@@ -710,6 +730,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
             //todo check the number of person
             recipeBox?.put(
                 Recipes(
+                    fixedId = 21,
                     recipeTitle = "Crêpe au jambon et au comté",
                     recipeCalories = "",
                     totalrecipeTime = 45,
@@ -744,6 +765,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 22,
                     recipeTitle = "Pizza tomate mozzarella",
                     recipeCalories = "",
                     totalrecipeTime = 55,
@@ -778,6 +800,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 23,
                     recipeTitle = "Taboulet au poulet",
                     recipeCalories = "",
                     totalrecipeTime = 35,
@@ -812,6 +835,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 24,
                     recipeTitle = "Tagliatelles à la carbonara",
                     recipeCalories = "",
                     totalrecipeTime = 25,
@@ -846,6 +870,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 25,
                     recipeTitle = "Salade César au lapin",
                     recipeCalories = "234",
                     totalrecipeTime = 100,
@@ -880,6 +905,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 26,
                     recipeTitle = "Paëlla express",
                     recipeCalories = "",
                     totalrecipeTime = 40,
@@ -914,6 +940,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 27,
                     recipeTitle = "Hachis parmentier diététique",
                     recipeCalories = "",
                     totalrecipeTime = 55,
@@ -948,6 +975,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 28,
                     recipeTitle = "Wrap au thon",
                     recipeCalories = "",
                     totalrecipeTime = 5,
@@ -982,6 +1010,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 29,
                     recipeTitle = "Sauté de veau et aubergines vapeur aux champignons",
                     recipeCalories = "",
                     totalrecipeTime = 100,
@@ -1016,6 +1045,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 30,
                     recipeTitle = "Riz à la sauce tomate et au jambon",
                     recipeCalories = "",
                     totalrecipeTime = 25,
@@ -1050,6 +1080,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 31,
                     recipeTitle = "Croque-Madame",
                     recipeCalories = "",
                     totalrecipeTime = 30,
@@ -1084,6 +1115,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 32,
                     recipeTitle = "Curry express de légumes",
                     recipeCalories = "",
                     totalrecipeTime = 40,
@@ -1118,6 +1150,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 33,
                     recipeTitle = "Riz à l'espagnole",
                     recipeCalories = "",
                     totalrecipeTime = 45,
@@ -1153,6 +1186,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 34,
                     recipeTitle = "Dorade à la sauce oseille avec ses légumes et son riz",
                     recipeCalories = "",
                     totalrecipeTime = 70,
@@ -1188,6 +1222,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 35,
                     recipeTitle = "Lasagnes bolognaise façon Freezdge",
                     recipeCalories = "",
                     totalrecipeTime = 60,
@@ -1222,6 +1257,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 36,
                     recipeTitle = "Spaghettis bolognaise façon Freezdge",
                     recipeCalories = "",
                     totalrecipeTime = 25,
@@ -1257,6 +1293,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
             //todo lentilles photo à ajouter
            /* recipeBox?.put(
                 Recipes(
+                    fixedId = 37,
                     recipeTitle = "Lentilles saucisse de strasbourg et lard",
                     recipeCalories = "",
                     totalrecipeTime = 0,
@@ -1291,6 +1328,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             /*  recipeBox?.put(
                 Recipes(
+                    fixedId = 38,
                     recipeTitle = "Tartine guacamole et sa salade d'épinards",
                     recipeCalories = "",
                     totalrecipeTime = "",
@@ -1325,6 +1363,7 @@ class AddRecipesInDatabase(private var recipeBox: Box<Recipes>?) {
 
             recipeBox?.put(
                 Recipes(
+                    fixedId = 0,
                     recipeTitle = "",
                     recipeCalories = "",
                     totalrecipeTime = 0,
