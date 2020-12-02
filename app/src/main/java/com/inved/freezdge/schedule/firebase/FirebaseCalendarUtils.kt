@@ -7,48 +7,48 @@ import com.inved.freezdge.schedule.database.DaySelected_
 import com.inved.freezdge.utils.App
 import io.objectbox.kotlin.boxFor
 
+
 class FirebaseCalendarUtils {
 
     fun getAllScheduledDaySelected() {
-        for (i in 1..7){
+        for (i in 1..7) {
             CalendarHelper.getDayScheduled(
                 FirebaseAuth.getInstance().currentUser?.uid,
                 i.toString()
-            )?.get()
-                ?.addOnCompleteListener { task ->
-                    if (task.result != null) {
-                        if (task.result?.documents?.isEmpty() == true) {
-                            createCalendarInFirebase()
-                        }else {
-                            val scheduleDay: DaySelected? =
-                                task.result!!.documents[0].toObject(DaySelected::class.java)
+            )?.get()?.addOnCompleteListener { task ->
 
-                            val daySelected: DaySelected? =
-                                scheduleDay?.id?.let {
-                                    App.ObjectBox.boxStore.boxFor<DaySelected>().query()?.equal(DaySelected_.id,
-                                        it
-                                    )?.build()?.findUnique()
-                                }
-                            daySelected.apply {
-                                this?.lunch=scheduleDay?.lunch
-                                this?.dinner=scheduleDay?.dinner
+                if (task.result != null) {
+                    if (task.result?.documents?.size != 0) {
+                        val scheduleDay: DaySelected? =
+                            task.result!!.documents[0].toObject(DaySelected::class.java)
+
+                        val daySelected: DaySelected? =
+                            scheduleDay?.id?.let {
+                                App.ObjectBox.boxStore.boxFor<DaySelected>().query()?.equal(
+                                    DaySelected_.id,
+                                    it
+                                )?.build()?.findUnique()
                             }
-                            if (daySelected != null)
-                                App.ObjectBox.boxStore.boxFor<DaySelected>().put(daySelected)
+                        daySelected.apply {
+                            this?.lunch = scheduleDay?.lunch
+                            this?.dinner = scheduleDay?.dinner
                         }
+                        if (daySelected != null)
+                            App.ObjectBox.boxStore.boxFor<DaySelected>().put(daySelected)
                     }
-                }?.addOnFailureListener {
-                    Log.e(
-                        "firebase",
-                        "Problem during the day selected update"
-                    )
                 }
+            }?.addOnFailureListener {
+                Log.e(
+                    "firebase",
+                    "Problem during the day selected update"
+                )
+            }
         }
     }
 
-    private fun createCalendarInFirebase(){
+    fun createCalendarInFirebase() {
         FirebaseAuth.getInstance().currentUser?.uid?.let {
-            for (i in 1..7){
+            for (i in 1..7) {
                 CalendarHelper.createScheduleRecipes(
                     it,
                     i.toString(),

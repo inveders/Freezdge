@@ -72,7 +72,6 @@ class MyIngredientsListFragment :
         if (OnboardingActivity.sharedPrefFirstConnexion.getBoolean(OnboardingActivity.FIRST_CONNEXION,true)){
             FirebaseCalendarUtils().getAllScheduledDaySelected()
             getAllSavedIngredients()
-            Log.d("debago","in setupSyncFirebase")
             Domain().updateSharedPrefFirstConnexion(false)
         }else{
             setupChips()

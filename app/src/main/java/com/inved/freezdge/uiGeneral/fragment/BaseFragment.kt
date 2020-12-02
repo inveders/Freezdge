@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.favourites.database.FavouritesRecipes
@@ -99,6 +100,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        detectUid()
         insertFood()
         insertRecipes()
         insertDays()
@@ -187,6 +189,19 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             domain.updateSharedPrefVersionName()
         } else {
             domain.updateSharedPrefVersionName()
+        }
+    }
+
+
+    private fun detectUid(){
+        FirebaseAuth.getInstance().currentUser?.uid?.let {
+            if (FirebaseAuth.getInstance().currentUser?.uid != OnboardingActivity.sharedPrefFirebaseUid.getString(OnboardingActivity.FIREBASE_UID, FirebaseAuth.getInstance().currentUser?.uid)) {
+                FirebaseAuth.getInstance().currentUser?.uid?.let { Domain().updateUid(it) }
+                ingredientsViewmodel.deleteAllIngredients()
+                ingredientsListViewModel.deleteAllIngredientsList()
+                recipeViewModel.deleteAllRecipesInDatabase()
+                daySelectedViewModel.deleteAllDays()
+                }
         }
     }
 

@@ -107,6 +107,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun handleStartActivityOrOnboarding() {
+
         if (sharedPref.getBoolean(PREF_NAME, false)) {
             startActivity(MainActivity.getLaunchIntent(this))
         } else {
@@ -182,8 +183,7 @@ class LoginActivity : BaseActivity() {
                             getCurrentUser()
                         )
                     }
-                    //todo
-                    //setupSyncFirebase()
+
                     handleStartActivityOrOnboarding()
                     loginUtils.showSnackBar(
                         this.coordinatorLayout,

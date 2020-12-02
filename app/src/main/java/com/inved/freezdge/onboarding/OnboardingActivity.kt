@@ -28,12 +28,15 @@ class OnboardingActivity : BaseActivity() {
         const val PREF_NAME = "ONBOARDING"
         const val VERSION_APP_NAME = "VERSION_APP_NAME"
         const val FIRST_CONNEXION = "FIRST_CONNEXION"
+        const val FIREBASE_UID = "FIREBASE_UID"
         val sharedPrefVersionName: SharedPreferences =
             App.applicationContext().getSharedPreferences(VERSION_APP_NAME, PRIVATE_MODE)
         val sharedPref: SharedPreferences =
             App.applicationContext().getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         val sharedPrefFirstConnexion: SharedPreferences =
             App.applicationContext().getSharedPreferences(FIRST_CONNEXION, PRIVATE_MODE)
+        val sharedPrefFirebaseUid: SharedPreferences =
+            App.applicationContext().getSharedPreferences(FIREBASE_UID, PRIVATE_MODE)
     }
 
 

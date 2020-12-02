@@ -51,6 +51,7 @@ class LoginUtils {
                                     currentUser.email
                                 )
                             }
+                            FirebaseCalendarUtils().createCalendarInFirebase()
                         }else{
                             if(task.result?.documents?.get(0)?.getString("email") ==null){
                                 currentUser?.uid?.let {

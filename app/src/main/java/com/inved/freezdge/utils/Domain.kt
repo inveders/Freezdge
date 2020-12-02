@@ -43,6 +43,12 @@ class Domain {
         editor.apply()
     }
 
+    fun updateUid(uid:String){
+        val editor = OnboardingActivity.sharedPrefVersionName.edit()
+        editor.putString(uid,null)
+        editor.apply()
+    }
+
     fun createRandomString(): String {
         val charLower = "abcdefghijklmnopqrstuvwxyz"
         val charUpper = charLower.toUpperCase(Locale.getDefault())
