@@ -1,7 +1,6 @@
 package com.inved.freezdge.utils
 
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.animation.AlphaAnimation
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R

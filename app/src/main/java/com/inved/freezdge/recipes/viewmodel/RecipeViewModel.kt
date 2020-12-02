@@ -9,6 +9,7 @@ import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.model.Results
 import com.inved.freezdge.recipes.repository.RecipesRepository
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
+import com.inved.freezdge.utils.enumtype.DishType
 import io.objectbox.android.ObjectBoxLiveData
 import kotlinx.coroutines.Dispatchers
 
@@ -122,7 +123,7 @@ class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewMo
                 for (myIngredient in ingredientsList) {
                     myIngredient.name?.let { it ->
                         getRecipeIfContainIngredientSuggestion(it)?.forEach {
-                            if(it.isForDinner==false) {
+                            if(!it.isForDinner && it.dishType== DishType.MAIN_COURSE.dishName) {
                                 setDatabaseSetListRecipes?.add(it)
                             }
                         }

@@ -3,10 +3,7 @@ package com.inved.freezdge.schedule.firebase
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.inved.freezdge.schedule.database.DaySelected
-import com.inved.freezdge.schedule.database.DaySelected_
 import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
-import com.inved.freezdge.utils.App
-import io.objectbox.kotlin.boxFor
 
 
 class FirebaseCalendarUtils {
@@ -19,9 +16,7 @@ class FirebaseCalendarUtils {
             )?.get()?.addOnCompleteListener { task ->
 
                 if (task.result != null) {
-                    Log.d("debago","1")
                     if (task.result?.documents?.size != 0) {
-                        Log.d("debago","2")
                         val scheduleDay: DaySelected? =
                             task.result!!.documents[0].toObject(DaySelected::class.java)
 
