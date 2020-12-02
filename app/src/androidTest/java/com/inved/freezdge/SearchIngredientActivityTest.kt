@@ -37,7 +37,7 @@ class SearchIngredientActivityTest {
                     Matchers.allOf(
                         ViewMatchers.withId(R.id.search_bar),
                         childAtPosition(
-                            ViewMatchers.withId(R.id.search_menu),
+                            ViewMatchers.withId(R.id.searchItem),
                             0
                         )
                     ),

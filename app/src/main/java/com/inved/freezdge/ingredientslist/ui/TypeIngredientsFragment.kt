@@ -148,7 +148,7 @@ class TypeIngredientsFragment : Fragment() {
     private fun getAllFoodByType(typeIngredient: String) {
         foodSearchItemAdapter.clear()
         ingredientViewmodel.getAllIngredientsByType(typeIngredient)
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            .observe(viewLifecycleOwner, {
                 foodSearchItemAdapter.add(it)
             })
     }

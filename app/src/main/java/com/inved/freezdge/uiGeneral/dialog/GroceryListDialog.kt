@@ -76,7 +76,6 @@ class GroceryListDialog : DialogFragment() {
     private var fastAdapter = FastAdapter.with(itemAdapter)
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var ingredientsListViewModel: IngredientsListViewModel
-    private lateinit var linearLayoutManager: LinearLayoutManager
     private var recipeId: Long? = null
 
     override fun onCreateView(

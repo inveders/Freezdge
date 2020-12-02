@@ -47,7 +47,7 @@ class LikedPostItem : AbstractItem<LikedPostItem.ViewHolder>() {
         private var profileImage: ImageView = view.findViewById(R.id.photoProfile)
         var postImage: ImageView = view.findViewById(R.id.image)
         var moreButton: ImageButton = view.findViewById(R.id.more_button)
-        var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)
+        private var likeButton: LikeButton = view.findViewById(R.id.like_number_image2)
         private var shimmer: ShimmerFrameLayout = view.findViewById(R.id.shimmer_view_container)
 
         override fun bindView(item: LikedPostItem, payloads: MutableList<Any>) {

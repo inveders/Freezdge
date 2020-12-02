@@ -31,8 +31,8 @@ class MyGroceryListActivity: BaseActivity() {
     private lateinit var binding: ActivityMyGroceryListBinding
     private lateinit var ingredientsViewmodel: IngredientsViewModel
     private var supermarketSectionList: MutableList<String>? = mutableListOf()
-    var itemAdapter = GenericItemAdapter()
-    var fastAdapter = FastAdapter.with(itemAdapter)
+    private var itemAdapter = GenericItemAdapter()
+    private var fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +88,7 @@ class MyGroceryListActivity: BaseActivity() {
     private fun setupChips() {
 
         ingredientsViewmodel.getIngredientsForGrocery()
-            .observe(this, Observer { result ->
+            .observe(this, { result ->
                 if (result != null) {
                     if (result.size != 0) {
                         itemAdapter.clear()

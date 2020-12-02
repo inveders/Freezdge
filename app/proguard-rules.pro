@@ -20,4 +20,3 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class shishirtstudio.com.proguardtest.data.network.apiResponse.** { *; }

@@ -21,7 +21,7 @@ class CalendarDayNameItem : AbstractItem<CalendarDayNameItem.ViewHolder>() {
 
     class ViewHolder(val view: View) : FastAdapter.ViewHolder<CalendarDayNameItem>(view) {
 
-        var dayNameText : TextView = view.findViewById(R.id.day_name)
+        private var dayNameText : TextView = view.findViewById(R.id.day_name)
         override fun bindView(item: CalendarDayNameItem, payloads: MutableList<Any>) {
               dayNameText.text=item.dayName
         }

@@ -88,7 +88,7 @@ open class RecipeDetailActivity : BaseActivity() {
                     if (it.contains("facebook",ignoreCase = true) && isFbAppInstalled()) {
                         val uri:String = it
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                        startActivity(intent);
+                        startActivity(intent)
                     }else{
                         openWebViewActivity(
                             it
@@ -171,8 +171,8 @@ open class RecipeDetailActivity : BaseActivity() {
     }
 
     private fun fillRecyclerView(data: MutableList<GenericItem>) {
-        itemAdapter?.clear()
-        itemAdapter?.add(data)
+        itemAdapter.clear()
+        itemAdapter.add(data)
 
     }
 

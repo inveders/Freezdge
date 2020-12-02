@@ -18,10 +18,8 @@ import java.io.IOException
 import java.io.InputStream
 
 
-class FileUtils(context: Context) {
+class FileUtils(var context: Context) {
 
-
-    var context: Context = context
 
     /**
      * Create file with JPEG_ name
@@ -29,13 +27,11 @@ class FileUtils(context: Context) {
     @Throws(IOException::class)
     fun createImageFile(): File? {
         // Create an image file name
-        if (context != null) {
-            val mFileName = "JPEG_"
-            val storageDir =
-                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            // Save a file: path for using again
-            return File.createTempFile(mFileName, ".jpg", storageDir)
-        }
+        val mFileName = "JPEG_"
+        val storageDir =
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        // Save a file: path for using again
+        return File.createTempFile(mFileName, ".jpg", storageDir)
         return null
     }
 
@@ -92,8 +88,8 @@ class FileUtils(context: Context) {
         val nameIndex: Int? = returnCursor?.getColumnIndex(OpenableColumns.DISPLAY_NAME)
         val sizeIndex: Int? = returnCursor?.getColumnIndex(OpenableColumns.SIZE)
         returnCursor?.moveToFirst()
-        val name: String? = nameIndex?.let { returnCursor?.getString(it) }
-        val size = sizeIndex?.let { returnCursor.getLong(it) }?.let { it.toString() }
+        val name: String? = nameIndex?.let { returnCursor.getString(it) }
+        sizeIndex?.let { returnCursor.getLong(it) }?.toString()
         val file = File(context.cacheDir, name)
         try {
             val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
@@ -103,7 +99,7 @@ class FileUtils(context: Context) {
             val bytesAvailable: Int? = inputStream?.available()
 
             //int bufferSize = 1024;
-            val bufferSize = bytesAvailable?.let { it.coerceAtMost(maxBufferSize) }
+            val bufferSize = bytesAvailable?.coerceAtMost(maxBufferSize)
             val buffers = bufferSize?.let { ByteArray(it) }
             while (inputStream?.read(buffers).also {
                     if (it != null) {
@@ -147,16 +143,16 @@ class FileUtils(context: Context) {
         val sizeIndex: Int? = returnCursor?.getColumnIndex(OpenableColumns.SIZE)
         returnCursor?.moveToFirst()
         val name: String? = nameIndex?.let { returnCursor.getString(it) }
-        val size = sizeIndex?.let { it -> returnCursor.getLong(it).let { it.toString() } }
+        val size = sizeIndex?.let { it -> returnCursor.getLong(it).toString() }
         val output: File
-        if (newDirName != "") {
+        output = if (newDirName != "") {
             val dir = File(context.filesDir.toString() + "/" + newDirName)
             if (!dir.exists()) {
                 dir.mkdir()
             }
-            output = File(context.filesDir.toString() + "/" + newDirName + "/" + name)
+            File(context.filesDir.toString() + "/" + newDirName + "/" + name)
         } else {
-            output = File(context.filesDir.toString() + "/" + name)
+            File(context.filesDir.toString() + "/" + name)
         }
         try {
             val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
@@ -176,7 +172,7 @@ class FileUtils(context: Context) {
         } catch (e: Exception) {
             e.message?.let { Log.e("Exception", it) }
         }
-        return output.getPath()
+        return output.path
     }
 
     private fun getFilePathForWhatsApp(uri: Uri): String {
@@ -237,7 +233,7 @@ class FileUtils(context: Context) {
         return "com.google.android.apps.photos.content" == uri.authority
     }
 
-    fun isWhatsAppFile(uri: Uri): Boolean {
+    private fun isWhatsAppFile(uri: Uri): Boolean {
         return "com.whatsapp.provider.media" == uri.authority
     }
 
@@ -264,7 +260,7 @@ class FileUtils(context: Context) {
             }else if (isExternalStorageDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":").toTypedArray()
-                val type = split[0]
+                split[0]
                 val fullPath: String = getPathFromExtSD(split)
                 return if (fullPath !== "") {
                     fullPath
@@ -287,14 +283,13 @@ class FileUtils(context: Context) {
                         if (cursor != null && cursor.moveToFirst()) {
                             val fileName: String = cursor.getString(0)
                             val path: String =
-                                Environment.getExternalStorageDirectory().toString()
-                                    .toString() + "/Download/" + fileName
+                                Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName
                             if (!TextUtils.isEmpty(path)) {
                                 return path
                             }
                         }
                     } finally {
-                        if (cursor != null) cursor.close()
+                        cursor?.close()
                     }
                     val id: String = DocumentsContract.getDocumentId(uri)
                     if (!TextUtils.isEmpty(id)) {
@@ -344,12 +339,16 @@ class FileUtils(context: Context) {
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                if ("image" == type) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                when (type) {
+                    "image" -> {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "video" -> {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "audio" -> {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
                 }
                 selection = "_id=?"
                 selectionArgs = arrayOf(split[1])
@@ -367,9 +366,9 @@ class FileUtils(context: Context) {
             if (isWhatsAppFile(uri)) {
                 return getFilePathForWhatsApp(uri)
             }
-            if ("content".equals(uri.getScheme(), ignoreCase = true)) {
+            if ("content".equals(uri.scheme, ignoreCase = true)) {
                 if (isGooglePhotosUri(uri)) {
-                    return uri.getLastPathSegment()
+                    return uri.lastPathSegment
                 }
                 if (isGoogleDriveUri(uri)) {
                     return getDriveFilePath(uri)
@@ -398,10 +397,10 @@ class FileUtils(context: Context) {
                 try {
                     cursor = context.contentResolver
                         .query(uri, projection, selection, selectionArgs, null)
-                    val column_index: Int? =
+                    val columnIndex: Int? =
                         cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                     if (cursor?.moveToFirst() == true) {
-                        return column_index?.let { cursor.getString(it) }
+                        return columnIndex?.let { cursor.getString(it) }
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

@@ -114,7 +114,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
             this.listener = callback
         }
 
-        internal var listenerSearch: SearchButtonListener? = null
+        private var listenerSearch: SearchButtonListener? = null
         fun setSearchButtonListener(callback: SearchButtonListener) {
             this.listenerSearch = callback
         }
@@ -134,14 +134,14 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     }
 
     var itemAdapter = GenericItemAdapter()
-    var fastAdapter = FastAdapter.with(itemAdapter)
+    private var fastAdapter = FastAdapter.with(itemAdapter)
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
 
     //Viewmodel
     lateinit var recipeViewModel: RecipeViewModel
-    lateinit var favouriteRecipesViewmodel: FavouritesRecipesViewModel
+    lateinit private var favouriteRecipesViewmodel: FavouritesRecipesViewModel
     lateinit var ingredientsViewModel: IngredientsViewModel
     lateinit var ingredientsListViewModel: IngredientsListViewModel
     lateinit var daySelectedViewModel: DaySelectedViewModel
@@ -356,7 +356,7 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
     private fun getFavouritesRecipes(pos: Int) {
         itemAdapter.clear()
         favouriteRecipesViewmodel.getAllFavouritesRecipes()
-            .observe(viewLifecycleOwner, Observer { result ->
+            .observe(viewLifecycleOwner, { result ->
                 itemAdapter.clear()
                 if (result != null) {
                     if (result.size != 0) {
@@ -459,19 +459,17 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 ingredientsViewModel.getIngredientsForFreezdgeList()
             if (nbIngredients?.size != 0) {
                 recipeViewModel.getDatabaseRecipes(nbIngredients)
-                    ?.observe(viewLifecycleOwner, Observer { result2 ->
+                    ?.observe(viewLifecycleOwner, { result2 ->
                         if (result2.isNullOrEmpty()) {
                             not_found.visibility = View.VISIBLE
                             not_found.text =
                                 getString(R.string.no_recipes_found)
                             topTextview.visibility = View.GONE
-                            //  listenerSearch?.hideSearchButton()
                             floatingActionButton.hide()
                             listener?.hideLoader()
                         } else {
                             not_found.visibility = View.GONE
                             floatingActionButton.show()
-                            //  listenerSearch?.showSearchButton()
                             fillAdapterDatabase(result2, pos)
                         }
                     })
@@ -479,7 +477,6 @@ abstract class BaseFragment<T : ViewBinding, A : Any> : Fragment(),
                 not_found.visibility = View.VISIBLE
                 not_found.text =
                     getString(R.string.no_item_found_recipes)
-                //  listenerSearch?.hideSearchButton()
                 topTextview.visibility = View.GONE
                 floatingActionButton.hide()
                 listener?.hideLoader()

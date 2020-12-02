@@ -2,6 +2,8 @@ package com.inved.freezdge
 
 import android.os.Build
 import com.inved.freezdge.recipes.database.Recipes
+import com.inved.freezdge.recipes.model.ShowedRecipes
+import com.inved.freezdge.utils.Domain
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -58,24 +60,47 @@ class ObjectboxTest:AbstractObjectBoxTest() {
     @Test
     fun shouldGetOneFavouritesRecipes() {
 
-        val myrecipe: Recipes? = recipesRepository.getRecipeLiveDataById(1)
+     /*   val recipes: Recipes? = recipesRepository.getRecipeLiveDataById(1)
+        val domain=Domain()
+        val model = ShowedRecipes()
+        model.apply {
+            model.id = recipes?.fixedId
+            model.recipeTitle = recipes?.recipeTitle
+            model.recipeCalories = recipes?.recipeCalories
+            model.totalrecipeTime = domain.preparationTime(recipes.totalrecipeTime)
+            model.cuisineType = recipes?.cuisineType
+            model.dishType = recipes?.dishType
+            model.recipePhotoUrl = recipes?.recipePhotoUrl
+            model.recipePhotoUrlOwner = recipes?.recipePhotoUrlOwner
+            model.recipeUrlOwnerLink = recipes?.recipeUrlOwnerLink
+            model.recipeIngredients = recipes?.recipeIngredients
+            model.matchingValue =
+                domain.getMatchingValue(,
+                    recipes?.fixedId?.let { ingredientsListRepository.getIngredientListByRecipe(it) })
+            model.isFavouriteRecipe = recipes?.fixedId.let { favouritesRecipesRepository.isRecipeIdIsPresent(it.toString()) }
+            model.isAllRecipeFragment = true
+            model.selectedDay = recipes?.fixedId?.let { daySelectedRepository.isRecipeSelected(it) }!!
+        }
+
+
         favouritesRecipesRepository.detectFavouriteRecipe(
-            myrecipe?.id.toString(),
-            myrecipe?.recipeTitle,
-            myrecipe?.recipeCalories,
-            myrecipe?.totalrecipeTime,
-            myrecipe?.recipeUrlOwnerLink,
-            myrecipe?.recipePhotoUrl,
-            myrecipe?.recipeIngredients,
-            myrecipe?.cuisineType,
-            myrecipe?.dishType,
-            myrecipe?.recipePhotoUrlOwner
+            model.id.toString(),
+            model.recipeTitle,
+            model.recipeCalories,
+            model.totalrecipeTime,
+            model.recipeUrlOwnerLink,
+            model.recipePhotoUrl,
+            model.recipeIngredients,
+            model.cuisineType,
+            model.dishType,
+            model.recipePhotoUrlOwner,
+            model.selectedDay
         )
         favouritesRecipesRepository.isRecipeIdIsPresent(myrecipe?.id.toString())?.let {
             assertTrue(
                 it
             )
-        }
+        }*/
     }
 
 }

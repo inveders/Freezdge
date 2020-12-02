@@ -3,7 +3,6 @@ package com.inved.freezdge.schedule.viewmodel
 import androidx.lifecycle.ViewModel
 import com.inved.freezdge.schedule.database.DaySelected
 import com.inved.freezdge.schedule.repository.DaySelectedRepository
-import io.objectbox.android.ObjectBoxLiveData
 
 class DaySelectedViewModel(private val daySelectedRepository: DaySelectedRepository): ViewModel() {
 

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_ingredient_list_rootview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/fragment_ingredient_list_rootview"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.inved.freezdge.ingredientslist.ui.MyIngredientsListFragment">
 
-    <TextView
-        android:id="@+id/topTextview"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimaryLight"
-        android:gravity="center"
-        android:padding="15dp"
-        tools:text="TBL: Number of recipes"
-        android:visibility="gone"
-        />
+<TextView
+    android:id="@+id/topTextview"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorPrimaryLight"
+    android:gravity="center"
+    android:padding="15dp"
+    tools:text="TBL: Number of recipes"
+    android:visibility="gone"
+    />
 
     <TextView
         android:id="@+id/not_found"
@@ -43,51 +44,25 @@
         app:srcCompat="@drawable/ic_turn"
         android:contentDescription="@string/description_image" />
 
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible" />
 
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-            </com.google.android.material.chip.ChipGroup>
-
-
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
-
-    <!-- DECLARING FLOATING ACTION BUTTON -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:layout_anchor="@id/recyclerview"
-        app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/ic_add_ingredient_selected_24dp" />
+<!-- DECLARING FLOATING ACTION BUTTON -->
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/floatingActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:backgroundTint="@color/colorPrimary"
+    app:fabSize="normal"
+    android:visibility="gone"
+    app:layout_anchor="@id/recyclerview"
+    app:layout_anchorGravity="bottom|right|end"
+    app:srcCompat="@drawable/ic_add_ingredient_selected_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

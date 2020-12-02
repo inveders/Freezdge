@@ -17,6 +17,7 @@ import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.GlideUtils
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
+import java.util.*
 import kotlin.math.roundToInt
 
 class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
@@ -86,9 +87,9 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
                 if (item.selectedDay != null) {
                     var isDinnerOrLunch: String? = ""
                     if (item.selectedPosition == ChipsDayType.LUNCH.chipPosition) {
-                        isDinnerOrLunch = App.appContext.getString(R.string.lunch).capitalize()
+                        isDinnerOrLunch = App.appContext.getString(R.string.lunch).capitalize(Locale.ROOT)
                     } else if (item.selectedPosition == ChipsDayType.DINNER.chipPosition) {
-                        isDinnerOrLunch = App.appContext.getString(R.string.dinner).capitalize()
+                        isDinnerOrLunch = App.appContext.getString(R.string.dinner).capitalize(Locale.ROOT)
                     }
                     dateSelectedText.text = App.appContext.getString(
                         R.string.recipe_list_item_day_scheduled,
@@ -109,7 +110,7 @@ class ListRecipeItem : AbstractItem<ListRecipeItem.ViewHolder>() {
                 preparationTime.text = item.model?.totalrecipeTime
             }
 
-            cuisineType.text = item.model?.cuisineType?.capitalize()
+            cuisineType.text = item.model?.cuisineType?.capitalize(Locale.ROOT)
             dishType.text = domain.handleDishType(item.model?.dishType)
 
             proportionText.text =

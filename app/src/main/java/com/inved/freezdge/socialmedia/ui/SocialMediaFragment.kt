@@ -281,7 +281,7 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
             ).show()
         }
 
-        builder?.setNegativeButton(android.R.string.no) { dialog, _ ->
+        builder?.setNegativeButton(android.R.string.cancel) { dialog, _ ->
             dialog.dismiss()
         }
 
@@ -312,8 +312,8 @@ class SocialMediaFragment : Fragment(), PostsAdapter.ClickListener, LoaderListen
         clearIngredientItem.isVisible = false
         likeItem.setOnMenuItemClickListener {
             val direction:NavDirections = SocialMediaFragmentDirections.socialLikedPostFragment()
-            direction?.let { direction ->
-                findNavController().navigate(direction)
+            direction.let { dir ->
+                findNavController().navigate(dir)
             }
             //Todo debago
             true

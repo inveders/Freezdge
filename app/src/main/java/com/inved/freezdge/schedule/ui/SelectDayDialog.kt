@@ -2,7 +2,6 @@ package com.inved.freezdge.schedule.ui
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,19 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
-import com.inved.freezdge.schedule.adapter.SelectDayItem
-import com.inved.freezdge.schedule.model.DaySelectionModel
-import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
+import com.inved.freezdge.schedule.adapter.SelectDayItem
 import com.inved.freezdge.schedule.adapter.SuggestionRecipeItem
 import com.inved.freezdge.schedule.database.DaySelected
-import com.inved.freezdge.uiGeneral.activity.MainActivity
+import com.inved.freezdge.schedule.model.DaySelectionModel
+import com.inved.freezdge.schedule.viewmodel.DaySelectedViewModel
 import com.inved.freezdge.utils.App
+import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.enumtype.ChipsDayType
 import com.inved.freezdge.utils.enumtype.DayType
-import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.eventbus.RefreshEvent
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericItem

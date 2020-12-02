@@ -2,12 +2,8 @@ package com.inved.freezdge.favourites.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.inved.freezdge.favourites.database.FavouritesRecipes
-import com.inved.freezdge.favourites.database.FavouritesRecipes_
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
-import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.utils.App
 import io.objectbox.android.ObjectBoxLiveData
-import io.objectbox.kotlin.boxFor
 
 class FavouritesRecipesViewModel(private val favouritesRecipesRepository: FavouritesRecipesRepository):ViewModel() {
 

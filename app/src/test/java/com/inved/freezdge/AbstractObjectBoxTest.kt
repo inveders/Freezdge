@@ -4,9 +4,13 @@ import android.os.Build
 import com.inved.freezdge.favourites.database.FavouritesRecipes
 import com.inved.freezdge.favourites.repository.FavouritesRecipesRepository
 import com.inved.freezdge.ingredientslist.database.Ingredients
+import com.inved.freezdge.ingredientslist.database.IngredientsList
+import com.inved.freezdge.ingredientslist.repository.IngredientsListRepository
 import com.inved.freezdge.ingredientslist.repository.IngredientsRepository
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.repository.RecipesRepository
+import com.inved.freezdge.schedule.database.DaySelected
+import com.inved.freezdge.schedule.repository.DaySelectedRepository
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.DebugFlags
@@ -25,10 +29,14 @@ abstract class AbstractObjectBoxTest {
     private var store: BoxStore?=null
     var ingredientsBox: Box<Ingredients>?=null
     lateinit var ingredientsRepository: IngredientsRepository
+    var ingredientsListBox: Box<IngredientsList>?=null
+    lateinit var ingredientsListRepository: IngredientsListRepository
     private var recipesBox: Box<Recipes>?=null
     lateinit var recipesRepository: RecipesRepository
     private var favouritesRecipesBox: Box<FavouritesRecipes>?=null
     lateinit var favouritesRecipesRepository: FavouritesRecipesRepository
+    private var daySelectedBox: Box<DaySelected>?=null
+    lateinit var daySelectedRepository: DaySelectedRepository
 
     @Before
     fun setUp() {

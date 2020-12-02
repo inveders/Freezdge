@@ -3,9 +3,7 @@ package com.inved.freezdge.uiGeneral.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -19,17 +17,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.inved.freezdge.R
-import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.firebase.IngredientListHelper
 import com.inved.freezdge.ingredientslist.viewmodel.IngredientsViewModel
-import com.inved.freezdge.injection.Injection
 import com.inved.freezdge.onboarding.OnboardingActivity
 import com.inved.freezdge.onboarding.OnboardingActivity.Companion.PREF_NAME
 import com.inved.freezdge.onboarding.OnboardingActivity.Companion.sharedPref
-import com.inved.freezdge.schedule.firebase.FirebaseCalendarUtils
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.Domain
 import com.inved.freezdge.utils.LoginUtils
@@ -47,7 +40,6 @@ class LoginActivity : BaseActivity() {
     }
 
     //FOR DATA
-    private lateinit var ingredientsViewmodel: IngredientsViewModel
     var domain = Domain()
     val loginUtils = LoginUtils()
     private lateinit var mGoogleSignInClient: GoogleSignInClient

@@ -2,7 +2,6 @@ package com.inved.freezdge.ingredientslist.repository
 
 import com.inved.freezdge.ingredientslist.database.IngredientsList
 import com.inved.freezdge.ingredientslist.database.IngredientsList_
-import com.inved.freezdge.utils.AddIngredientsInDatabase
 import com.inved.freezdge.utils.AddIngredientsListDatabase
 import io.objectbox.Box
 

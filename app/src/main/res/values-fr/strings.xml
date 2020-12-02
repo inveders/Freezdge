@@ -23,28 +23,21 @@
     <string name="no_item_found_grocery">Liste de courses vide</string>
 
     <!--Recipe List item-->
-    <string name="recipe_list_item_matching">100%</string>
     <string name="recipe_list_item_no_time_known">Non indiqué</string>
     <string name="recipe_list_item_time_min">%d min</string>
     <string name="recipe_list_item_time_min_hours">%dh%d</string>
     <string name="recipe_list_item_time_hours">%dh</string>
     <string name="recipe_list_item_preparation_time">Temps de préparation</string>
-    <string name="recipe_list_item_kcal">kcal</string>
     <string name="recipe_list_item_kcal_notknow">N.C</string>
     <string name="description_image">Description image</string>
     <string name="recipe_list_item_label">Titre de la recette</string>
     <!--Recipe Detail-->
     <string name="recipe_detail_item_label">Titre de la recette</string>
-    <string name="recipe_green_matching">Entre 80 et 100%</string>
-    <string name="recipe_orange_matching">Entre 50 et 79%</string>
-    <string name="recipe_red_matching">Entre 0 et 49%</string>
-    <string name="recipe_matching_definition">La correspondance en % nous donne la proportion d\'ingrédients dans mon Freezdge par rapport au nombre d\'ingrédients de la recette</string>
     <string name="recipe_grocery_list_dialog_title">Les ingrédients qui vous manquent pour cette recette</string>
     <string name="recipe_grocery_list_dialog_all_matching">Vous avez tous les ingrédients pour faire cette recette !</string>
     <string name="recipe_detail_item_detail_prep_time">Prép : %s</string>
     <string name="recipe_detail_item_detail_cook_time">Cuisson : %s</string>
     <string name="recipe_detail_item_total_time">Temps total : %s</string>
-    <string name="recipe_detail_item_kcal">%s\nkcal</string>
     <string name="recipe_detail_item_number_person">%d pers.</string>
     <string name="recipe_detail_item_recipe_view">Recette</string>
     <string name="toastNoIngredientResultSearch">Aucun ingrédient trouvé</string>
@@ -73,13 +66,11 @@
     <string name="sunday">Dimanche</string>
     <string name="lunch">Déjeuner</string>
     <string name="dinner">Diner</string>
-    <string name="snack">Snack</string>
     <string name="day_dialog">CHOISIS UN JOUR</string>
     <string name="day_ok_dialog">OK</string>
     <!-- LOGIN ACTIVITY -->
     <string name="error_authentication_canceled">Authentification annulée&#8230;</string>
     <string name="error_no_internet">Aucune connexion internet !</string>
-    <string name="error_unknown_error">Une erreur inconnue s\'est produite&#8230;</string>
     <string name="connection_succeed">Authentification réussie!</string>
     <string name="button_logout">Déconnection</string>
     <string name="button_logout_message_dialog">Voulez-vous vous déconnecter?</string>
@@ -150,12 +141,10 @@
     <string name="array_filter_plat">Plat principal</string>
     <string name="array_filter_cocktail">Cocktail</string>
     <string name="array_filter_other">Autre</string>
-    <string name="array_filter_all">Tous</string>
     <string name="array_filter_dessert_title">Dessert (%d)</string>
     <string name="array_filter_entry_title">Entrée (%d)</string>
     <string name="array_filter_plat_title">Plat principal (%d)</string>
     <string name="array_filter_cocktail_title">Cocktail (%d)</string>
-    <string name="array_filter_other_title">Autre (%d)</string>
     <string name="array_filter_all_title">Tous (%d)</string>
     <string name="array_dialog_title">Filtre</string>
     <string name="grocery_list_removed">%s a été supprimé de la liste de course</string>

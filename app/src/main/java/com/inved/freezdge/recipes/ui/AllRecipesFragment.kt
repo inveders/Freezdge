@@ -10,17 +10,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.inved.freezdge.R
 import com.inved.freezdge.databinding.ActivityMainBinding
 import com.inved.freezdge.databinding.FragmentAllRecipesBinding
-import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.ingredientslist.ui.SearchIngredientsActivity
 import com.inved.freezdge.recipes.adapter.ListRecipeItem
 import com.inved.freezdge.recipes.database.Recipes
 import com.inved.freezdge.recipes.model.ShowedRecipes
-import com.inved.freezdge.recipes.viewmodel.RecipeViewModel
 import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.SearchButtonListener
 import com.mikepenz.fastadapter.GenericItem
-import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 import java.util.*
 import kotlin.collections.ArrayList

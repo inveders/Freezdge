@@ -1,7 +1,6 @@
 package com.inved.freezdge.ingredientslist.ui
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import androidx.core.content.ContextCompat
@@ -12,7 +11,6 @@ import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.view.MyViewPageStateAdapter
 import com.inved.freezdge.uiGeneral.activity.BaseActivity
 import com.inved.freezdge.uiGeneral.activity.MainActivity
-import com.inved.freezdge.uiGeneral.fragment.BaseFragment
 
 class SearchIngredientsActivity : BaseActivity() {
 
@@ -74,12 +72,7 @@ class SearchIngredientsActivity : BaseActivity() {
     // init tablayout with icons
     private fun initTabLayout() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                tab.icon = getDrawable(tabIcons[position])
-            } else {
-                tab.icon =
-                    ContextCompat.getDrawable(this, tabIcons[position])
-            }
+            tab.icon = ContextCompat.getDrawable(this, tabIcons[position])
         }.attach()
     }
 }

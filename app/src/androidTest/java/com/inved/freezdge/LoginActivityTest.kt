@@ -33,7 +33,7 @@ class LoginActivityTest {
                 withText(R.string.loginGoogle),
                 childAtPosition(
                     childAtPosition(
-                        ViewMatchers.withClassName(Matchers.`is`("android.widget.LinearLayout")),
+                        withClassName(Matchers.`is`("android.widget.LinearLayout")),
                         3
                     ),
                     1

@@ -33,7 +33,7 @@ class FirebaseIngredientsUtils {
             }
     }
 
-    fun createIngredientInFirebase(ingredient:Ingredients?){
+    private fun createIngredientInFirebase(ingredient:Ingredients?){
         FirebaseAuth.getInstance().currentUser?.uid?.let {
             IngredientListHelper.createIngredient(
                 it,

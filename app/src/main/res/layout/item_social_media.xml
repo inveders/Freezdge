@@ -109,7 +109,6 @@
             app:srcCompat="@drawable/ic_open_menu"
             android:tint="@color/black_three"
             android:background="?android:selectableItemBackground"
-            android:onClick="showPopup"
             />
 
         <TextView

@@ -41,9 +41,9 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
 
     class ViewHolder(val view: View) : FastAdapter.ViewHolder<GroceryItem>(view) {
 
-        var groceryTextView : TextView = view.findViewById(R.id.title)
-        var chipGroup : ChipGroup = view.findViewById(R.id.chipGroup)
-        val chipUtil = ChipUtil()
+        private var groceryTextView : TextView = view.findViewById(R.id.title)
+        private var chipGroup : ChipGroup = view.findViewById(R.id.chipGroup)
+        private val chipUtil = ChipUtil()
 
         override fun bindView(item: GroceryItem, payloads: MutableList<Any>) {
 
@@ -64,7 +64,7 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
                 chipUtil.handleChipColor(myresult, chip, App.applicationContext())
                 chip.closeIcon = App.appContext.let {
                     ContextCompat.getDrawable(
-                        App.appContext as Context,
+                        App.appContext,
                         R.drawable.ic_clear_grey_24dp
                     )
                 }
@@ -125,7 +125,7 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
                 val myChip: Chip = chipGroup.findViewById(id)
                 chipgroupText.add(myChip.text.toString())
             }
-            var removedIngredients : String?=null
+            var removedIngredients: String?
             removedIngredients = if(chipgroupText.isNullOrEmpty()){
                 chip.text.toString()
             }else{
@@ -156,7 +156,7 @@ class GroceryItem : AbstractItem<GroceryItem.ViewHolder>() {
 
             }
 
-            builder?.setNegativeButton(android.R.string.no) { dialog, _ ->
+            builder?.setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
             }
             builder?.show()

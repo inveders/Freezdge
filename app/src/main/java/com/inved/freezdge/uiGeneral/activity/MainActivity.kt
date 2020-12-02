@@ -1,6 +1,5 @@
 package com.inved.freezdge.uiGeneral.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -26,7 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.crashlytics.internal.common.CommonUtils.hideKeyboard
 import com.inved.freezdge.BuildConfig
 import com.inved.freezdge.R
 import com.inved.freezdge.R.id
@@ -109,18 +106,16 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
 
     // click on photo profil to launch update profile dialog
     private fun onClickUpdateProfil() {
-        val transaction = supportFragmentManager?.beginTransaction()
-        val previous = supportFragmentManager?.findFragmentByTag(ProfileDialog.TAG)
+        val transaction = supportFragmentManager.beginTransaction()
+        val previous = supportFragmentManager.findFragmentByTag(ProfileDialog.TAG)
         if (previous != null) {
-            transaction?.remove(previous)
+            transaction.remove(previous)
         }
-        transaction?.addToBackStack(null)
+        transaction.addToBackStack(null)
 
         val dialogFragment = ProfileDialog.newInstance("profil")
         ProfileDialog.setChangePhotoListener(this)
-        if (transaction != null) {
-            dialogFragment.show(transaction, ProfileDialog.TAG)
-        }
+        dialogFragment.show(transaction, ProfileDialog.TAG)
     }
 
     // retrieve user information to show in the navigation drawer
@@ -255,7 +250,7 @@ class MainActivity : BaseActivity(), LoaderListener, ProfileDialog.ChangePhotoLi
             Domain().updateSharedPrefFirstConnexion(true)
         }
 
-        builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+        builder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
             dialog.dismiss()
         }
 

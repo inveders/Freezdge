@@ -77,7 +77,7 @@ class MyRecipesFragment : BaseFragment<FragmentMyRecipesBinding,ActivityMainBind
                     }
                 if(itemAdapter.adapterItems.size==0){
                     isInSearchFilter=true
-                    if(newText.isNullOrEmpty()){
+                    if(newText.isEmpty()){
                         topTextview.text = getString(R.string.recipe_list_number, 0)
                     }else{
                         if(setFavouriteList.size!=1){

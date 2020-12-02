@@ -32,7 +32,7 @@ open class DetailRecipeItem: AbstractItem<DetailRecipeItem.ViewHolder>() {
         var recipeOwnerImage : ImageView= view.findViewById(R.id.activity_recipe_detail_photo_owner)
         private var recipeNumberPerson: TextView = view.findViewById(R.id.activity_recipe_detail_number_person_image_text)
         private var recipeDetailPhoto : ImageView= view.findViewById(R.id.activity_recipe_detail_photo)
-        var recipeTotalTime : TextView= view.findViewById(R.id.activity_recipe_total_time)
+        private var recipeTotalTime : TextView= view.findViewById(R.id.activity_recipe_total_time)
         private var recipePrepTime: TextView = view.findViewById(R.id.activity_recipe_detail_time_image_text)
         private var recipeCookTime: TextView = view.findViewById(R.id.activity_recipe_detail_cook_time_image_text)
         var recipeTitle : TextView= view.findViewById(R.id.activity_recipe_detail_name)

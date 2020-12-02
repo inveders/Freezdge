@@ -251,7 +251,7 @@ class Domain {
     }
 
     //add ingredients in my grocery list
-    fun updateItemForGroceryList(name: String, bool: Boolean, nameEnglish: String) {
+    private fun updateItemForGroceryList(name: String, bool: Boolean, nameEnglish: String) {
         // query all notes, sorted a-z by their text (http://greenrobot.org/objectbox/documentation/queries/)
         updateIngredientSelectedForGroceryByName(name, bool)
         if (!bool) {
@@ -295,26 +295,26 @@ class Domain {
     }
 
     fun handleSelectedDay(day: Long?): String? {
-        when {
-            day== DayType.MONDAY.day -> {
+        when (day) {
+            DayType.MONDAY.day -> {
                 return DayType.MONDAY.dayName
             }
-            day== DayType.TUESDAY.day -> {
+            DayType.TUESDAY.day -> {
                 return DayType.TUESDAY.dayName
             }
-            day== DayType.WEDNESDAY.day -> {
+            DayType.WEDNESDAY.day -> {
                 return DayType.WEDNESDAY.dayName
             }
-            day== DayType.THURSDAY.day -> {
+            DayType.THURSDAY.day -> {
                 return DayType.THURSDAY.dayName
             }
-            day== DayType.FRIDAY.day -> {
+            DayType.FRIDAY.day -> {
                 return DayType.FRIDAY.dayName
             }
-            day== DayType.SATURDAY.day -> {
+            DayType.SATURDAY.day -> {
                 return DayType.SATURDAY.dayName
             }
-            day== DayType.SUNDAY.day -> {
+            DayType.SUNDAY.day -> {
                 return DayType.SUNDAY.dayName
             }
             else -> return null

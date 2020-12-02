@@ -7,7 +7,6 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.storage.FirebaseStorage
 import com.inved.freezdge.R
 import com.inved.freezdge.ingredientslist.database.Ingredients
-import com.inved.freezdge.uiGeneral.adapter.IngredientsListItem
 import com.inved.freezdge.utils.App
 import com.inved.freezdge.utils.GlideUtils
 import com.inved.freezdge.utils.NetworkUtils
