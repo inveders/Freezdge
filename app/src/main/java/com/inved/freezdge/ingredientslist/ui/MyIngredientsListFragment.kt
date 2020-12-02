@@ -48,18 +48,17 @@ class MyIngredientsListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        detectUid()
         floatingActionButton.hide()
         floatingActionButton.setOnClickListener { openSearchIngredientActivity() }
         setupIngredientsTypeList()
+        detectUid()
         setHasOptionsMenu(true)
     }
 
     private fun detectUid() {
         FirebaseAuth.getInstance().currentUser?.uid?.let {
             if (FirebaseAuth.getInstance().currentUser?.uid != OnboardingActivity.sharedPrefFirebaseUid.getString(
-                    OnboardingActivity.FIREBASE_UID,
-                    ""
+                    OnboardingActivity.FIREBASE_UID, ""
                 )
             ) {
                 FirebaseAuth.getInstance().currentUser?.uid?.let { Domain().updateUid(it) }
@@ -278,6 +277,7 @@ class MyIngredientsListFragment :
             )
         }
         GlobalScope.launch(Dispatchers.Main) { updateGroceryListIfNecessary(event.chipText) }
+        setlistDatabase.clear()
     }
 
 

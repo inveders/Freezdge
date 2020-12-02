@@ -46,7 +46,7 @@ class Domain {
 
     fun updateUid(uid:String){
         val editor = OnboardingActivity.sharedPrefFirebaseUid.edit()
-        editor.putString(uid,null)
+        editor.putString(OnboardingActivity.FIREBASE_UID,uid)
         editor.apply()
     }
 
