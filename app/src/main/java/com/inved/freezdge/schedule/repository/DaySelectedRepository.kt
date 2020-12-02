@@ -62,14 +62,7 @@ class DaySelectedRepository(private val getDaySelectedBox: Box<DaySelected>?) {
     // reinit Calendar Values
     fun reinitCalendarValues() {
         for (i in 1..7){
-            val daySelected: DaySelected? =
-                getDaySelectedBox?.get(i.toLong())
-            daySelected.apply {
-                this?.lunch = 0
-                this?.dinner = 0
-            }
-            if (daySelected != null)
-                getDaySelectedBox?.put(daySelected)
+            updateSelectedDayValues(i.toLong(),0,0)
         }
     }
 

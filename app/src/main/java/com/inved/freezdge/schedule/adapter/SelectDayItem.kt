@@ -12,12 +12,13 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
 class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
-    var day: String?=null
-    var isChecked:Boolean?=false
-    var isOccuped:Boolean?=false
-    var lunchId:Long?=0
-    var dinnerId:Long?=0
-    var selectedPosition:Int?=0
+    var day: String? = null
+    var isChecked: Boolean? = false
+    var isOccuped: Boolean? = false
+    var lunchId: Long? = 0
+    var dinnerId: Long? = 0
+    var selectedPosition: Int? = 0
+    var secondSelectedPosition: Int? = 0
 
     override val layoutRes: Int
         get() = R.layout.item_dialog_select_day
@@ -31,41 +32,66 @@ class SelectDayItem : AbstractItem<SelectDayItem.ViewHolder>() {
 
     class ViewHolder(val view: View) : FastAdapter.ViewHolder<SelectDayItem>(view) {
 
-        private var textDay : TextView = view.findViewById(R.id.titleChipDate)
+        private var textDay: TextView = view.findViewById(R.id.titleChipDate)
         var lunchChip: Chip = view.findViewById(R.id.lunch_chips)
         var dinnerChip: Chip = view.findViewById(R.id.dinner_chips)
         override fun bindView(item: SelectDayItem, payloads: MutableList<Any>) {
-            textDay.text=item.day
+            textDay.text = item.day
 
-            when (item.selectedPosition) {
-                ChipsDayType.LUNCH.chipPosition -> {
+            if (item.secondSelectedPosition != 0) {
+                lunchChip.chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        App.appContext, R.color.colorDarkGrey
+                    )
+                )
+                dinnerChip.chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        App.appContext, R.color.colorDarkGrey
+                    )
+                )
+            } else {
+                when (item.selectedPosition) {
+                    ChipsDayType.LUNCH.chipPosition -> {
 
-                    if(item.isChecked==true && item.isOccuped==true){
-                        lunchChip.isChecked=true
-                        dinnerChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorDarkGrey))
-                    }else if(item.isChecked==true){
-                        lunchChip.isChecked=true
-                    } else if (item.isOccuped==true){
-                        lunchChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorDarkGrey))
+                        if (item.isChecked == true && item.isOccuped == true) {
+                            lunchChip.isChecked = true
+                            dinnerChip.chipBackgroundColor = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    App.appContext, R.color.colorDarkGrey
+                                )
+                            )
+                        } else if (item.isChecked == true) {
+                            lunchChip.isChecked = true
+                        } else if (item.isOccuped == true) {
+                            lunchChip.chipBackgroundColor = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    App.appContext, R.color.colorDarkGrey
+                                )
+                            )
+                        }
+
+
                     }
+                    ChipsDayType.DINNER.chipPosition -> {
 
+                        if (item.isChecked == true && item.isOccuped == true) {
+                            dinnerChip.isChecked = true
+                            lunchChip.chipBackgroundColor = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    App.appContext, R.color.colorDarkGrey
+                                )
+                            )
+                        } else if (item.isChecked == true) {
+                            dinnerChip.isChecked = true
+                        } else if (item.isOccuped == true) {
+                            dinnerChip.chipBackgroundColor = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    App.appContext, R.color.colorDarkGrey
+                                )
+                            )
+                        }
 
-                }
-                ChipsDayType.DINNER.chipPosition -> {
-
-                    if(item.isChecked==true && item.isOccuped==true){
-                        dinnerChip.isChecked=true
-                        lunchChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorDarkGrey))
-                    }else if(item.isChecked==true){
-                        dinnerChip.isChecked=true
-                    }else if(item.isOccuped==true){
-                        dinnerChip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(
-                            App.appContext, R.color.colorDarkGrey))
                     }
-
                 }
             }
 

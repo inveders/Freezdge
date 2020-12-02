@@ -62,16 +62,21 @@ class SelectDayDialog : DialogFragment() {
         }
 
         //Viewmodel
-        private var isNeedRefresh:Boolean=false
+        private var isNeedRefresh: Boolean = false
         private lateinit var daySelectedViewModel: DaySelectedViewModel
         private lateinit var recipeViewModel: RecipeViewModel
         private lateinit var ingredientsViewModel: IngredientsViewModel
         private var isSuggestion: Boolean? = false
-        private var isFromSearchFilter:Boolean?=null
+        private var isFromSearchFilter: Boolean? = null
 
         //To pass args to our dialog
         @JvmStatic
-        fun newInstance(param1: DaySelectionModel?, param2: Int?, param3: String?,param4:Boolean?) =
+        fun newInstance(
+            param1: DaySelectionModel?,
+            param2: Int?,
+            param3: String?,
+            param4: Boolean?
+        ) =
             SelectDayDialog().apply {
                 arguments = Bundle().apply {
                     if (param1 != null) {
@@ -367,6 +372,16 @@ class SelectDayDialog : DialogFragment() {
                         this.selectedPosition = ChipsDayType.DINNER.chipPosition
                     })
                 }
+            } else if (selectedDayList?.get(index)?.lunch != 0L && selectedDayList?.get(index)?.dinner != 0L) {
+                items.add(SelectDayItem().apply {
+                    this.day = it
+                    this.isChecked = false
+                    this.isOccuped = true
+                    this.lunchId = selectedDayList?.get(index)?.lunch
+                    this.dinnerId = selectedDayList?.get(index)?.dinner
+                    this.selectedPosition = ChipsDayType.LUNCH.chipPosition
+                    this.secondSelectedPosition = ChipsDayType.DINNER.chipPosition
+                })
             } else if (selectedDayList?.get(index)?.lunch != 0L) {
                 items.add(SelectDayItem().apply {
                     this.day = it
@@ -402,19 +417,19 @@ class SelectDayDialog : DialogFragment() {
         itemAdapter.clear()
         val items = mutableListOf<GenericItem>()
         val recipesList: MutableList<Recipes>? = mutableListOf()
-        if(arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION)==ChipsDayType.LUNCH.chipPosition){
+        if (arguments?.getInt(KEY_LUNCH_OR_DINNER_SUGGESTION) == ChipsDayType.LUNCH.chipPosition) {
             recipeViewModel.getLunchSuggestionsRecipes(ingredientsViewModel.getIngredientsForFreezdgeList())
                 ?.forEach {
                     recipesList?.add(it)
                 }
-        }else{
+        } else {
             recipeViewModel.getDinnerSuggestionsRecipes(ingredientsViewModel.getIngredientsForFreezdgeList())
                 ?.forEach {
                     recipesList?.add(it)
                 }
         }
         recipesList?.shuffle()
-        defineMaxIteration(recipesList)?.let {max->
+        defineMaxIteration(recipesList)?.let { max ->
             for (i in 0..max) {
                 if (recipesList?.get(i) != null) {
                     items.add(SuggestionRecipeItem().apply {
@@ -426,7 +441,7 @@ class SelectDayDialog : DialogFragment() {
         itemAdapter.add(items)
     }
 
-    private fun defineMaxIteration(recipesList: MutableList<Recipes>?):Int?{
+    private fun defineMaxIteration(recipesList: MutableList<Recipes>?): Int? {
         var max: Int? = 0
         recipesList?.let {
             max = if (it.size - 1 < 6) {
@@ -439,7 +454,7 @@ class SelectDayDialog : DialogFragment() {
     }
 
     private fun isUpdateNecesary(clickedDay: DaySelectionModel?, isLunchOrDinner: Int) {
-        isNeedRefresh  = true
+        isNeedRefresh = true
         selectedDayList?.forEach {
             if (it == clickedDay) {
                 it.apply {
@@ -484,9 +499,9 @@ class SelectDayDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if(isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
+        if (isNeedRefresh) EventBus.getDefault().post(itemPositionInRecyclerView?.let {
             RefreshEvent(
-                it,isFromSearchFilter
+                it, isFromSearchFilter
             )
         })
     }
