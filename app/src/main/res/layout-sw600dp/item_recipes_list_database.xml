@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_margin"
             android:padding="10dp"
-            android:text="@string/recipe_list_item_matching"
+            tools:text="100%"
             android:textStyle="bold"
             android:gravity="center"
             android:background="@drawable/border_green"
